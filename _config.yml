@@ -1,9 +1,8 @@
-title: Hacker-Blog
-description: "A Jekyll Blog Theme For Hackers"
+title: SATCOM UHF
+description: "Everything about SATCOM"
 author:
-  name: "SomeHacker"
-  email: "someone@somewebsite.somedomain"
-  url: "https://ashishchaudhary.in/hacker-blog"
+  name: "SATCOM Pirates"
+  url: "https://t.me/Satcom_UHF"
 
 baseurl: /
 
@@ -29,5 +28,5 @@ plugins:
   - jekyll-redirect-from
 
 # Custom variables
-owner : "SomeHacker"
+owner : "Satcom Pirates"
 year : "2020"
