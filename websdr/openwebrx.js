@@ -1037,11 +1037,9 @@ function getQueryVariable(variable)
        return(false);
 }
 function open_websocket() {
-    var protocol = window.location.protocol.match(/https/) ? 'wss' : 'ws';
+    /*var protocol = window.location.protocol.match(/https/) ? 'wss' : 'ws';
 
-    //var href = window.location.href;
-    var href = "https://websdr.satcom-uhf.keenetic.pro";
-    
+    var href = window.location.href;
     var index = href.lastIndexOf('/');
     if (index > 0) {
         href = href.substr(0, index + 1);
@@ -1052,8 +1050,8 @@ function open_websocket() {
         href += '/';
     }
     var hash=getQueryVariable("hash")
-    var ws_url = href + "ws/?hash="+hash;
-
+    var ws_url = href + "ws/?hash="+hash;*/
+    var ws_url="wss://websdr.satcom-uhf.keenetic.pro/ws/";
     if (!("WebSocket" in window))
         divlog("Your browser does not support WebSocket, which is required for WebRX to run. Please upgrade to a HTML5 compatible browser.");
     ws = new WebSocket(ws_url);
