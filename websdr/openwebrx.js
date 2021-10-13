@@ -1039,7 +1039,9 @@ function getQueryVariable(variable)
 function open_websocket() {
     var protocol = window.location.protocol.match(/https/) ? 'wss' : 'ws';
 
-    var href = window.location.href;
+    //var href = window.location.href;
+    var href = "https://websdr.satcom-uhf.keenetic.pro";
+    
     var index = href.lastIndexOf('/');
     if (index > 0) {
         href = href.substr(0, index + 1);
