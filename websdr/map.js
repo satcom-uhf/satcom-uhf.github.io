@@ -26,7 +26,7 @@ $(function(){
         href += '/';
     }
     var ws_url = href + "ws/";
-
+    console.warn({ws_url});
     var map;
     var markers = {};
     var rectangles = {};
