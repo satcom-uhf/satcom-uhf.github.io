@@ -956,13 +956,14 @@ function on_ws_opened() {
         networkSpeedMeasurement.reset();
     }
     reconnect_timeout = false;
-    ws.send(JSON.stringify({
+    var json=JSON.stringify({
         "type": "connectionproperties",
         "params": {
             "output_rate": audioEngine.getOutputRate(),
             "hd_output_rate": audioEngine.getHdOutputRate()
         }
-    }));
+    });
+    ws.send(json);
 }
 
 var was_error = 0;
