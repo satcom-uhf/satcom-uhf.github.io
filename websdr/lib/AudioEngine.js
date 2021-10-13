@@ -96,7 +96,7 @@ AudioEngine.prototype._start = function() {
     me.gainNode.connect(me.audioContext.destination);
 
     if (useAudioWorklets && me.audioContext.audioWorklet) {
-        me.audioContext.audioWorklet.addModule('static/lib/AudioProcessor.js').then(function(){
+        me.audioContext.audioWorklet.addModule('lib/AudioProcessor.js').then(function(){
             me.audioNode = new AudioWorkletNode(me.audioContext, 'openwebrx-audio-processor', {
                 numberOfInputs: 0,
                 numberOfOutputs: 1,
