@@ -946,7 +946,7 @@ function waterfall_measure_minmax_do(what) {
 function on_ws_opened() {
     $('#openwebrx-error-overlay').hide();
     ws.send("SERVER DE CLIENT client=openwebrx.js type=receiver");
-    divlog("WebSocket opened to " + ws.url);
+    divlog("Connection established");
     if (!networkSpeedMeasurement) {
         networkSpeedMeasurement = new Measurement();
         networkSpeedMeasurement.report(60000, 1000, function(rate){
