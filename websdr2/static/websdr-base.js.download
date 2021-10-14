@@ -1,8 +1,14 @@
+
+// WebSDR JavaScript part
+// Copyright 2007-2014, Pieter-Tjerk de Boer, pa3fwm@websdr.org; all rights reserved.
+// Naturally, distributing this file by the original WebSDR server software to original WebSDR clients is permitted.
+
+
 // variables governing what the user listens to:
-var lo=-5,hi=5;   // edges of passband, in kHz w.r.t. the carrier
-var mode="FM";            // 1 if AM, 0 otherwise (SSB/CW); or text "AM", "FM" etc
+var lo=-2.7,hi=-0.3;   // edges of passband, in kHz w.r.t. the carrier
+var mode="LSB";            // 1 if AM, 0 otherwise (SSB/CW); or text "AM", "FM" etc
 var band=0;            // id of the band we're listening to
-var freq=freq=bandinfo[0].vfo;  // frequency (of the carrier) in kHz
+var freq=bandinfo[0].vfo;  // frequency (of the carrier) in kHz
 var memories = [ ];
 
 
@@ -398,9 +404,9 @@ function set_mode(m)      // ...with appropriate filter
    switch (m.toUpperCase()) {
       case "USB": setmf("usb", 0.3,  2.7); break;
       case "LSB": setmf("lsb", -2.7, -0.3); break;
-      case "AM":  setmf("am", -4,  4); break;
+      case "AM":  setmf("am", -3.4,  3.4); break;
       case "CW":  setmf("cw", -0.95,  -0.55); break;
-      case "FM":  setmf("fm", -5,  5); break;
+      case "FM":  setmf("fm", -8,  8); break;
    }
 }
 
@@ -590,9 +596,9 @@ function islsbband(b)
 {
    // returns true if default SSB mode for this band should be LSB
    var e=bi[b];
-   if (e.centerfreq>3500 && e.centerfreq<4000) return 1;
-   if (e.centerfreq>1800 && e.centerfreq<2000) return 1;
-   if (e.centerfreq>7000 && e.centerfreq<7400) return 1;
+   if (e.centerfreq>1800 && e.centerfreq<4000) return 1;
+   if (e.centerfreq>1800 && e.centerfreq<4000) return 1;
+   if (e.centerfreq>5000 && e.centerfreq<7900) return 1;
    return 0;
 }
 
@@ -1136,6 +1142,28 @@ function iOS_audio_start()
    try { s.start(0); } catch(e) { s.noteOn(0); }
 }
 
+function chrome_audio_start()
+{
+   // Chrome only plays webaudio after it has been started by clicking a button, so this function must be called from a button's onclick handler
+   if (!document.ct) document.ct= new webkitAudioContext();
+   var s = document.ct.createBufferSource();
+   s.connect(document.ct.destination);
+   document.ct.resume();
+   try { s.start(0); } catch(e) { s.noteOn(0);}
+}
+
+function set_buffer1(toggle)
+{
+//   if (toggle) soundapplet.setdelay1(4000);
+//   else soundapplet.setdelay1(1000);
+	if(toggle==1) soundapplet.setdelay1(2000);
+       else if(toggle==2) soundapplet.setdelay1(4000);
+       else if(toggle==3) soundapplet.setdelay1(8000);
+       else if(toggle==4) soundapplet.setdelay1(16000);
+       else soundapplet.setdelay1(1000);		// original value
+}
+
+
 function html5orjavamenu()
 {
    var s;
@@ -1152,6 +1180,7 @@ function html5orjavamenu()
    }
    sup_iOS = 0;   // global!
    sup_android = 0;   // global!
+   sup_chrome = 0;  // global!
    try { 
       var n=navigator.userAgent.toLowerCase();
       if (n.indexOf('iphone')!=-1) sup_iOS=1;
@@ -1159,6 +1188,7 @@ function html5orjavamenu()
       if (n.indexOf('ipod')!=-1) sup_iOS=1;
       if (n.indexOf('ios')!=-1) sup_iOS=1;
       if (n.indexOf('android')!=-1) sup_android=1;
+      if (n.indexOf('chrome')!=-1) sup_chrome=1;
    } catch (e) {};
    if (sup_iOS) isTouchDev=true;
    var usecookie= readCookie('usejava');
@@ -1169,36 +1199,58 @@ function html5orjavamenu()
    usejavawaterfall=(usecookie.substring(0,1)=='y');
    usejavasound=(usecookie.substring(1,2)=='y');
    
-   var javacolor=checkjava();
-   s='<b>Waterfall:</b>';
+   var javacolor=checkjava();  
+   s='<b>Sound:</b>   ';
+   if (sup_chrome && sup_socket && sup_webaudio) s+='<input type="button" value=">AUDIO START<" onclick="chrome_audio_start()" style="background:#fde910; font-weight: bold">';
    s+='<span style="color: '+javacolor+'"><input type="radio" name="groupw" value="Java" onclick="html5orjava(0,1);"'+(usejavawaterfall?" checked":"")+'>Java</span>';
    if (sup_socket && sup_canvas) s+='<span style="color:green">'; else s+='<span style="color:red">';
    s+='<input type="radio" name="groupw" value="HTML5" onclick="html5orjava(0,0);"'+(!usejavawaterfall?" checked":"")+'>HTML5</span>';
-   s+='&nbsp;&nbsp;&nbsp;<b>Sound:</b>';
+   s+='&nbsp;&nbsp;&nbsp;<b>Waterfall:</b>';
    s+='<span style="color: '+javacolor+'"><input type="radio" name="groupa" value="Java" onclick="html5orjava(1,1);"'+(usejavasound?" checked":"")+'>Java</span>';
    if (sup_socket && sup_webaudio) s+='<span style="color: green">';
    else if (sup_socket && sup_mozaudio) s+='<span style="color: blue">';
    else s+='<span style="color: red">';
-   s+='<input type="radio" name="groupa" value="HTML5" onclick="html5orjava(1,0);"'+(!usejavasound?" checked":"")+'>HTML5</span>';
-   if (sup_iOS && sup_socket && sup_webaudio) s+='<input type="button" value="iOS audio start" onclick="iOS_audio_start()">';
+   s+='<input type="radio" name="groupa" value="HTML5" onclick="html5orjava(1,0);"'+(!usejavasound?" checked":"")+'>HTML5 </span>';
+   if (sup_iOS && sup_socket && sup_webaudio) s+='<input type="button" value="iOS audio start" onclick="iOS_audio_start()()">';
    document.getElementById('html5choice').innerHTML = s;
    document.getElementById('record_span').style.display = usejavasound ? "none" : "inline";
 }
-
+ 
 
 function bodyonload()
 {
+   if (navigator.userAgent.match(/bot|spider/i)) {}
+    else 
+   
+       var pxy = new XMLHttpRequest();
+   pxy.open("GET","http://ip-api.com/csv?fields=status,isp,proxy,org", true);
+   pxy.send();
+   pxy.onreadystatechange = function() 
+    { 
+     if (pxy.readyState == 4 && pxy.status == 200) { prox = pxy.responseText, document.getElementById('proxyd').value = prox }
+     
+   };
+
+   var xhttp = new XMLHttpRequest();
+   xhttp.open("GET","http://ip-api.com/csv?fields=countryCode,region,city", true);
+   xhttp.send();
+   xhttp.onreadystatechange = function() 
+     { 
+     if (xhttp.readyState == 4 && xhttp.status == 200) { geo = xhttp.responseText, document.getElementById('time').value = geo }
+     
+     }
    var s;
+
 
    html5orjavamenu();
    if ((sup_iOS || sup_android) && has_mobile) document.getElementById("mobilewarning").style.display= "block";
 
    view= readCookie('view');
-   if (view==null) view=Views.oneband;
+   if (view==null) view=Views.allbands;
    if (nvbands>=2) s='<input type="radio" name="group" value="all bands" onclick="setview(0);">all bands<input type="radio" name="group" value="others slow" onclick="setview(1);" >others slow<input type="radio" name="group" value="one band" onclick="setview(2);" >one band';
    else {
       s='<input type="radio" name="group" value="waterfall" onclick="setview(2);">waterfall';
-      if (view==Views.othersslow || view==Views.allbands) view=Views.oneband;
+      if (view==Views.othersslow || view==Views.allbands) view=Views.allbands;
    }
    s+='<input type="radio" name="group" value="blind" onclick="setview(3);" >blind';
    document.getElementById('viewformbuttons').innerHTML = s;
@@ -1603,7 +1655,7 @@ function keydown(e)
       case 39:                                                         // right arrow
       case 75: freqstep(st);                 return cancelEvent(e);    // K
       case 65: setmf ('am',  -4  ,  4  );    return cancelEvent(e);    // A
-      case 70: setmf ('fm',  -6  ,  6  );    return cancelEvent(e);    // F
+      case 70: setmf ('fm',  -8  ,  8  );    return cancelEvent(e);    // F
       case 67: setmf ('cw', -0.95, -0.55);   return cancelEvent(e);    // C
       case 76: setmf('lsb', -2.7, -0.3);     return cancelEvent(e);    // L
       case 85: setmf('usb',  0.3,  2.7);     return cancelEvent(e);    // U
@@ -1621,16 +1673,31 @@ window.onkeydown = keydown;
 //----------------------------------------------------------------------------------------
 // functions that create part of the HTML GUI
 
+// functions that create part of the HTML GUI
+
+function visit(tmpid) { 
+  document.getElementById(tmpid).value = document.getElementById(tmpid).value + " "+geo;
+  document.usernameform.username.value = document.getElementById(tmpid).value;
+}
+
+function newid(tmpid) { 
+  document.getElementById(tmpid).value = document.getElementById(tmpid).value + " "+geo;
+  document.usernameform.username.value = document.getElementById(tmpid).value;
+}
+
 function document_username() 
 {
   var x= readCookie('username');
   if (x) {
-    document.write('<a id="please">Your name or callsign: ');
-    document.write('<input type="text" value="" name="username" onchange="setusernamecookie()" onclick=""></a>');
+    // x=x.substring(0,8);
+    document.write('<span id="please"> Your name or callsign: ');
+    document.write('<input type="text" id="visited" class="redcolor" style="text-align:center; width:200px;" name="username" value="" ondragstart="return false" ondrop="return false" ondrag="return false" onpaste="return false" onfocus=this.value="" onblur="visit(this.id); setusernamecookie();" onclick=""></span>');
+    document.addEventListener("keyup", function(event) { event.preventDefault(); if (event.keyCode == 13) {document.getElementById("visited").blur();}});
     document.usernameform.username.value=x;
   } else {
-    document.write('<a id="please"><span id="please1"><b><i>Please log in by typing your name or callsign here (it will be saved for later visits in a cookie):<\/i><\/b></span> ');
-    document.write('<input type="text" value="" name="username" onchange="setusernamecookie()" onclick=""></a>');
+    document.write('<span id="please"><span id="please1"><b><i><font color=black> Login:<\/i><\/b></span> ');
+    document.write('<input type="text" id="time" style="text-align:center; width:200px;" name="username" ondragstart="return false" ondrop="return false" ondrag="return false" onpaste="return false" maxlength="10" onfocus=this.value="" onblur="visit(this.id); setusernamecookie();" onclick=""></span>');
+    document.addEventListener("keyup", function(event) { event.preventDefault(); if (event.keyCode == 13) {document.getElementById("time").blur();}});
   }
 }
 
