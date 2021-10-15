@@ -55,7 +55,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="theme-color" content="#222" />
     </head>
-    <body onload="openwebrx_init();">
+    <body>
 <div id="webrx-page-container">
     <div class="webrx-top-container">
         <div class="webrx-top-bar">
@@ -257,10 +257,7 @@
                <script async src="https://telegram.org/js/telegram-widget.js?15" data-telegram-login="SatcomPiratesBot" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
             </div>
             <script type="text/javascript">
-              function onTelegramAuth(user) {
-                $('#openwebrx-login-overlay').hide();
-                      console.warn('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
-              }
+              
             </script>
         </div>
     </div>
