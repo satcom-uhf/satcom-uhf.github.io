@@ -1043,7 +1043,7 @@ function onTelegramAuth(user) {
     //console.warn('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
   }
 function open_websocket() {    
-    if (!tguser){
+    if (!window['tguser']){
         divlog("Please login");
         return;
     }
