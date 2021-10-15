@@ -772,7 +772,7 @@ img.openwebrx-mirror-img
 	transition: opacity 0.3s linear;
 }
 
-#login-button{
+.login-button{
     margin: auto;
 }
 
