@@ -268,7 +268,8 @@ input[type=range]:disabled {
 	background-image: url('../gfx/muos.jpg');
 	background-repeat: no-repeat;
 	background-color: #1e5f7f;
-	background-size: cover;
+	background-size: auto;
+    background-position: center;
 	display: flex;
 	flex-direction: column;
 }
