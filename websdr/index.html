@@ -253,7 +253,9 @@
             </div>
         </div>
         <div id="openwebrx-login-overlay" class="openwebrx-overlay">
-            <script async src="https://telegram.org/js/telegram-widget.js?15" data-telegram-login="SatcomPiratesBot" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+            <div class="overlay-content">
+               <script async src="https://telegram.org/js/telegram-widget.js?15" data-telegram-login="SatcomPiratesBot" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+            </div>
             <script type="text/javascript">
               function onTelegramAuth(user) {
                 $('#openwebrx-login-overlay').hide();
