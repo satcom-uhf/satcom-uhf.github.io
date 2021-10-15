@@ -789,6 +789,11 @@ img.openwebrx-mirror-img
     padding: 50px;
     border-radius: 20px;
 }
+#openwebrx-login-overlay .overlay-content {
+    background-color: #000;
+    padding: 50px;
+    border-radius: 20px;
+}
 
 #openwebrx-digimode-canvas-container
 {
