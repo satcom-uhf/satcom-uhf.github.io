@@ -134,6 +134,7 @@
 
 
 .openwebrx-main-buttons {
+    visibility: collapse;
     padding: 5px 15px;
     display: flex;
     list-style: none;
