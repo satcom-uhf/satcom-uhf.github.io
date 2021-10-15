@@ -1045,7 +1045,7 @@ function onTelegramAuth(user) {
 function open_websocket() {    
     if (!tguser){
         divlog("Please login");
-        return
+        return;
     }
     var ws_url=`wss://websdr.satcom-uhf.keenetic.pro/ws/?first_name=${tguser.first_name}&last_name=${tguser.last_name}&userid=${tguser.id}&username=${tguser.username}`;
     if (!("WebSocket" in window))
