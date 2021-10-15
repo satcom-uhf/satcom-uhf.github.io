@@ -1048,7 +1048,7 @@ function open_websocket() {
         divlog("Please login");
         return;
     }
-    var ws_url=`wss://websdr.satcom-uhf.keenetic.pro/ws/?first_name=${tguser.first_name}&last_name=${tguser.last_name}&userid=${tguser.id}&username=${tguser.username}`;
+    var ws_url=`wss://websdr.satcom-uhf.keenetic.pro/ws/?${new URLSearchParams(tguser).toString()}`;
     if (!("WebSocket" in window))
         divlog("Your browser does not support WebSocket, which is required for WebRX to run. Please upgrade to a HTML5 compatible browser.");
     ws = new WebSocket(ws_url);
