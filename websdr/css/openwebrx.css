@@ -265,7 +265,7 @@ input[type=range]:disabled {
 
 #webrx-canvas-background {
     flex-grow: 1;
-	background-image: url('../gfx/openwebrx-background-cool-blue.png');
+	background-image: url('../gfx/muos.jpg');
 	background-repeat: no-repeat;
 	background-color: #1e5f7f;
 	background-size: cover;
@@ -273,7 +273,7 @@ input[type=range]:disabled {
 	flex-direction: column;
 }
 
-@supports(background-image: -webkit-image-set(url('../gfx/openwebrx-background-cool-blue.webp') 1x)) {
+/* @supports(background-image: -webkit-image-set(url('../gfx/openwebrx-background-cool-blue.webp') 1x)) {
     #webrx-canvas-background {
         background-image: -webkit-image-set(url('../gfx/openwebrx-background-cool-blue.webp') 1x);
     }
@@ -283,7 +283,7 @@ input[type=range]:disabled {
     #webrx-canvas-background {
         background-image: image-set(url('../gfx/openwebrx-background-cool-blue.webp') 1x);
     }
-}
+} */
 
 #webrx-canvas-container
 {
