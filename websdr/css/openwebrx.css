@@ -772,6 +772,10 @@ img.openwebrx-mirror-img
 	transition: opacity 0.3s linear;
 }
 
+#login-button{
+    margin: auto;
+}
+
 #openwebrx-autoplay-overlay svg {
 	width: 150px;
 }

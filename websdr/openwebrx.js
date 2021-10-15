@@ -1038,7 +1038,7 @@ function getQueryVariable(variable)
        return(false);
 }
 function onTelegramAuth(user) {
-    $('#buttons').show();
+    $('#buttons').css('visibility', 'visible');
     window['tguser']=user;
     openwebrx_init();
     //console.warn('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
