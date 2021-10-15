@@ -15,7 +15,7 @@ function Header(el) {
 
 Header.prototype.setDetails = function(details) {
     //this.el.find('.webrx-rx-title').html(details['receiver_name']);
-    this.el.find('.webrx-rx-desc').html(`Добро пожаловать, ${tguser.first_name}`);
+    this.el.find('.webrx-rx-desc').html(`Добро пожаловать, ${tguser.first_name}!`);
     //this.el.find('.webrx-rx-photo-title').html(details['photo_title']);
     //this.el.find('.webrx-rx-photo-desc').html(details['photo_desc']);
 };
