@@ -1039,24 +1039,14 @@ function getQueryVariable(variable)
 }
 function onTelegramAuth(user) {
     $('#openwebrx-login-overlay').hide();
-    window.tguser=user;
+    window['tguser']=user;
     //console.warn('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
   }
-function open_websocket() {
-    /*var protocol = window.location.protocol.match(/https/) ? 'wss' : 'ws';
-
-    var href = window.location.href;
-    var index = href.lastIndexOf('/');
-    if (index > 0) {
-        href = href.substr(0, index + 1);
+function open_websocket() {    
+    if (!tguser){
+        divlog("Please login");
+        return
     }
-    href = href.split("://")[1];
-    href = protocol + "://" + href;
-    if (!href.endsWith('/')) {
-        href += '/';
-    }
-    var hash=getQueryVariable("hash")
-    var ws_url = href + "ws/?hash="+hash;*/
     var ws_url=`wss://websdr.satcom-uhf.keenetic.pro/ws/?first_name=${tguser.first_name}&last_name=${tguser.last_name}&userid=${tguser.id}&username=${tguser.username}`;
     if (!("WebSocket" in window))
         divlog("Your browser does not support WebSocket, which is required for WebRX to run. Please upgrade to a HTML5 compatible browser.");
