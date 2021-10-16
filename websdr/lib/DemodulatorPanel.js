@@ -33,7 +33,10 @@ function DemodulatorPanel(el) {
     });
     el.on('click', '.openwebrx-squelch-auto', function() {
         if (!self.squelchAvailable()) return;
-        el.find('.openwebrx-squelch-slider').val(getLogSmeterValue(smeter_level) + self.getSquelchMargin());
+        var smeter= getLogSmeterValue(smeter_level);
+        var sqlmargin=self.getSquelchMargin();
+        console.warn({smeter, sqlmargin});
+        el.find('.openwebrx-squelch-slider').val(smeter);
         self.updateSquelch();
     });
     el.on('change', '.openwebrx-squelch-slider', function() {
