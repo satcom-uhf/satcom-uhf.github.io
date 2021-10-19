@@ -320,7 +320,7 @@ function fetchdx(b)
         }
       }
     }
-  var url="/~~fetchdx?min="+(bi[b].effcenterfreq-bi[b].effsamplerate/2)+"&max="+(bi[b].effcenterfreq+bi[b].effsamplerate/2);
+  var url="http://sdr.rlspb.ru:3000/~~fetchdx?min="+(bi[b].effcenterfreq-bi[b].effsamplerate/2)+"&max="+(bi[b].effcenterfreq+bi[b].effsamplerate/2);
   xmlHttp.open("GET",url,true);
   xmlHttp.send(null);
 }
