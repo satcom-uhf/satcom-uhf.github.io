@@ -178,11 +178,7 @@
     <link href="static/fonts.css" rel="stylesheet" />
     <link href="static/support.css" rel="stylesheet" />
     <!-- Fontawesome -->
-    <link
-      rel="stylesheet"
-      href="static/all.css"      
-      crossorigin="anonymous"
-    />
+    <link rel="stylesheet" href="static/all.css" crossorigin="anonymous" />
     <!-- js -->
     <script src="static/bandinfo.js" type="text/javascript"></script>
     <script src="static/websdr-base.js" type="text/javascript"></script>
@@ -215,31 +211,48 @@
           <a class="navbar-brand" href="#">Radio-astronomy WebSDR</a>
         </div>
         <div class="navbar-collapse collapse">
+         
+        <div>
           <form name="usernameform" action="#" class="navbar-form navbar-left">
             <div class="form-group">
               <script type="text/javascript">
                 document_username();
-              </script>
-              <a id="please"
-                ><input
-                  type="text"
-                  name="username"
-                  onchange="setusernamecookie()"
-                  onclick=""
-                  placeholder="Name or callsign"
-                  class="form-control"
-              /></a>
-              <input
-                type="text"
-                name="dummytopreventsubmissiononenter"
-                style="display: none"
-                onclick=""
-                placeholder="Name or callsign"
-                class="form-control"
-              />
+              </script>             
               <button type="submit" class="btn btn-success">Enter</button>
             </div>
           </form>
+        </div>
+        <div>
+          <form method="POST" class="navbar-form" action="https://yoomoney.ru/quickpay/confirm.xml">
+            <input type="hidden" name="receiver" value="4100116653356197" />
+            <input
+              type="hidden"
+              name="formcomment"
+              value="Проект «Железный человек»: реактор холодного ядерного синтеза"
+            />
+            <input
+              type="hidden"
+              name="short-dest"
+              value="Проект «Железный человек»: реактор холодного ядерного синтеза"
+            />
+            <input type="hidden" name="quickpay-form" value="donate" />
+            <input type="hidden" name="targets" value="Поддержать WebSDR" />
+            <input
+              type="number"
+              class="form-control"
+              name="sum"
+              data-type="number"
+              placeholder="50р"
+              required
+            />
+            <input type="hidden" name="need-fio" value="false" />
+            <input type="hidden" name="need-email" value="false" />
+            <input type="hidden" name="need-phone" value="false" />
+            <input type="hidden" name="need-address" value="false" />
+            <input type="hidden" name="paymentType" value="AC" />
+            <input type="submit" class="btn" value="Поддержать" />
+          </form>
+        </div>
         </div>
       </div>
     </div>
@@ -248,24 +261,6 @@
       <div id="body" class="container">
         <!-- Info msg -->
         <div class="row nopadding">
-          
-          <p style="color: #ffff00">
-            Сейчас вы находитесь на WEBSDR Юго-Восточного направления.
-          </p>
-          <p style="color: #ffff00">
-            Для перехода на WEBSDR Юго-Западного направление нажмите
-            &gt;&gt;&gt;
-            <a href="http://171.25.164.45:3001/" target="blank"
-              ><strong><ins>СЮДА</ins></strong></a
-            >
-          </p>
-          <p style="color: #ffff00">
-            WEBSDR R4AUB о легальных радиолюбительских спутниках &gt;&gt;&gt;
-            <a href="http://websdr.r4uab.ru/" target="blank"
-              ><strong><ins>ТУТ</ins></strong></a
-            >
-          </p>
-
           <div class="row nopadding">
             <div class="col-md-12 col-sm-12">
               <div class="panel-group" id="accordion">
@@ -922,64 +917,6 @@
                           <script type="text/javascript">
                             document_bandbuttons();
                           </script>
-                          <label class="btn btn-default btn-xs"
-                            >&nbsp;<input
-                              type="radio"
-                              name="group0"
-                              value="1"
-                              onclick="setband(0)"
-                              checked="checked"
-                            />&nbsp;1 &nbsp;</label
-                          ><label class="btn btn-default btn-xs"
-                            >&nbsp;<input
-                              type="radio"
-                              name="group0"
-                              value="2"
-                              onclick="setband(1)"
-                            />&nbsp;2 &nbsp;</label
-                          ><label class="btn btn-default btn-xs"
-                            >&nbsp;<input
-                              type="radio"
-                              name="group0"
-                              value="3"
-                              onclick="setband(2)"
-                            />&nbsp;3 &nbsp;</label
-                          ><label class="btn btn-default btn-xs"
-                            >&nbsp;<input
-                              type="radio"
-                              name="group0"
-                              value="4"
-                              onclick="setband(3)"
-                            />&nbsp;4 &nbsp;</label
-                          ><label class="btn btn-default btn-xs"
-                            >&nbsp;<input
-                              type="radio"
-                              name="group0"
-                              value="5"
-                              onclick="setband(4)"
-                            />&nbsp;5 &nbsp;</label
-                          ><label class="btn btn-default btn-xs"
-                            >&nbsp;<input
-                              type="radio"
-                              name="group0"
-                              value="6"
-                              onclick="setband(5)"
-                            />&nbsp;6 &nbsp;</label
-                          ><label class="btn btn-default btn-xs"
-                            >&nbsp;<input
-                              type="radio"
-                              name="group0"
-                              value="7"
-                              onclick="setband(6)"
-                            />&nbsp;7 &nbsp;</label
-                          ><label class="btn btn-default btn-xs"
-                            >&nbsp;<input
-                              type="radio"
-                              name="group0"
-                              value="8"
-                              onclick="setband(7)"
-                            />&nbsp;8 &nbsp;</label
-                          >
                         </div>
                       </div>
                     </div>
