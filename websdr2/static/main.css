@@ -3,6 +3,11 @@
    margin: 0px !important;
 }
 
+#top-container{
+  padding: 0 120px;  
+}
+
+
 label.volumedb  {
       font-family: Arial, Tahoma;
       vertical-align: middle;
@@ -644,7 +649,6 @@ margin: 1;*/
   left: 10; 
 
 }
-
 .masksm
 {
   width: 254px;
