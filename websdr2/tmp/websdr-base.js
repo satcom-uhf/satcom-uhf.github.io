@@ -1,13 +1,14 @@
+
 // WebSDR JavaScript part
 // Copyright 2007-2014, Pieter-Tjerk de Boer, pa3fwm@websdr.org; all rights reserved.
 // Naturally, distributing this file by the original WebSDR server software to original WebSDR clients is permitted.
 
 
 // variables governing what the user listens to:
-var lo=-4,hi=4;   // edges of passband, in kHz w.r.t. the carrier
-var mode="FM";            // 1 if AM, 0 otherwise (SSB/CW); or text "AM", "FM" etc
+var lo=-3.0,hi=-0.01;   // edges of passband, in kHz w.r.t. the carrier
+var mode="LSB";            // 1 if AM, 0 otherwise (SSB/CW); or text "AM", "FM" etc
 var band=0;            // id of the band we're listening to
-var freq=255560;  // frequency (of the carrier) in kHz
+var freq=bandinfo[0].vfo;  // frequency (of the carrier) in kHz
 var memories = [ ];
 
 
@@ -76,9 +77,8 @@ var centerfreq=bandinfo[band].centerfreq;
 
 function debug(a)
 {
-   console.debug(a);
+//   console.debug(a);
 }
-
 
 
 // from http://www.switchonthecode.com/tutorials/javascript-tutorial-the-scroll-wheel
@@ -116,28 +116,10 @@ function send_soundsettings_to_server()
 {
   var m=mode;
   if (m=="USB") m=0;
-  // else if (m=="LSB") m=0;
-  // else if (m=="CW") m=0;
-  // else if (m=="AM") m=1;
-  // else if (m=="FM") m=4;
-
-  else if (m=="USBW") m=0;
-  else if (m=="USB") m=0;
-  else if (m=="USBN") m=0;
-  else if (m=="LSBW") m=0;
   else if (m=="LSB") m=0;
-  else if (m=="LSBN") m=0;
-  else if (m=="CWW") m=0;
   else if (m=="CW") m=0;
-  else if (m=="CWN") m=0;
-  else if (m=="AMW") m=1;
   else if (m=="AM") m=1;
-  else if (m=="AMN") m=1;
-  else if (m=="AMV") m=1;
-  else if (m=="FMW") m=4;
   else if (m=="FM") m=4;
-  else if (m=="FMN") m=4;
-  else if (m=="FMV") m=4;
   try {
      soundapplet.setparam(
          "f="+freq
@@ -145,11 +127,12 @@ function send_soundsettings_to_server()
         +"&lo="+lo
         +"&hi="+hi
         +"&mode="+m
-        +"&name="+encodeURIComponent(document.usernameform.username.value) 
+        +"&name=" 
         );
   } catch (e) {};
   timeout_idle_restart()
 }
+
 
 function setsquelch(a)
 {
@@ -225,36 +208,13 @@ function dx(freq,mode,text)
    dxs.push( { freq:freq, mode:mode, text:text } );
 }
 
-/*function setfreqm(b,f,mo)
-{
-   setband(b);
-   set_mode(mo);
-   if (iscw()) f-=(hi+lo)/2;
-   setfreq(f);
-}
-*/
 function setfreqm(b,f,mo)
 {
    setband(b);
    set_mode(mo);
    if (iscw()) f-=(hi+lo)/2;
    setfreq(f);
-   $('.modeLcd li').removeClass('active');
-   $('.bandLcd li').removeClass('active');		
-   $('#filterBox input').attr('checked', true);
-   if (mo == "USB" || mo == "usb"){$('#mod1').click();};
-   if (mo == "LSB" || mo == "lsb"){$('#mod2').click();};
-   if (mo == "AM" || mo == "am"){$('#mod3').click();};
-   if (mo == "FM" || mo == "fm"){$('#mod4').click();};
-   if (mo == "CW" || mo == "cw"){$('#mod5').click();};
-   if (mo == "CWN" || mo == "cwn"){$('#mod6').click();};
-   if (mo == "LSBN" || mo == "lsbn"){$('#mod7').click();};
-   if (mo == "USBN" || mo == "usbn"){$('#mod8').click();};
-   if (mo == "AMN" || mo == "amn"){$('#mod9').click();};
-   if (mo == "FMN" || mo == "fmn"){$('#mod10').click();};
 }
-
-
 
 
 function showdx(b)
@@ -320,7 +280,7 @@ function fetchdx(b)
         }
       }
     }
-  var url="http://sdr.rlspb.ru:3000/~~fetchdx?min="+(bi[b].effcenterfreq-bi[b].effsamplerate/2)+"&max="+(bi[b].effcenterfreq+bi[b].effsamplerate/2);
+  var url="http://localhost:5005/~~fetchdx?min="+(bi[b].effcenterfreq-bi[b].effsamplerate/2)+"&max="+(bi[b].effcenterfreq+bi[b].effsamplerate/2);
   xmlHttp.open("GET",url,true);
   xmlHttp.send(null);
 }
@@ -370,11 +330,6 @@ function zoomchange(id,zoom,start)
    }
 }
 
-function set_volume(v)
-{
-    try { soundapplet.setvolume(Math.pow(10,v/10.)) } catch (e) {};
-    settings_store();
-}
 
 var dont_update_textual_frequency=false;
 
@@ -447,28 +402,11 @@ function setmf(m, l, h)   // "set mode and filter"
 function set_mode(m)      // ...with appropriate filter
 {
    switch (m.toUpperCase()) {
-      // case "USB": setmf("usb", 0.3,  2.7); break;
-      // case "LSB": setmf("lsb", -2.7, -0.3); break;
-      // case "AM":  setmf("am", -3.5,  3.5); break;
-      // case "CW":  setmf("cw", -0.95,  -0.55); break;
-      // case "FM":  setmf("fm", -5,  5); break;
-      case "AMW":  setmf("amw", -6.5, 6.5); break;    // 13.0  kHz AM
-      case "AM":   setmf("am", -4.5, 4.5); break;     //  9.0  kHz AM
-      case "AMN":  setmf("amn", -3.5, 3.5); break;    //  7.0  kHz AM
-      case "AMV":  setmf("amv", -3, 3); break;        //  6.0  kHz AM
-      case "FMW":  setmf("fmw", -7.5, 7.5); break;    // 15.0  kHz FM
-      case "FM":   setmf("fm", -6.5, 6.5); break;         // 13.0  kHz FM
-      case "FMN":  setmf("fmn", -3, 3); break;        //  6.0  kHz FM
-      case "FMV":  setmf("fmv", -3, 3); break;        //  6.0  kHz FM
-      case "CWW":  setmf("cww", -1.15, -0.35); break;   //  0.8  kHz cw
-      case "CW":   setmf("cw", -0.95, -0.55); break;    //  0.4  kHz cw
-      case "CWN":  setmf("cwn", -0.78, -0.72); break;   //  0.06 kHz cw
-      case "LSBW": setmf("lsbw", -3.6, -0.1); break;  //  3.0  kHz lsb
-      case "LSB":  setmf("lsb", -2.7, -0.3); break;   //  2.4  kHz lsb
-      case "LSBN": setmf("lsbn", -2.2, -0.5); break;  //  1.7  kHz lsb
-      case "USBW": setmf("usbw", 0.1,  3.6); break;   //  3.0  kHz usb
-      case "USB":  setmf("usb", 0.3,  2.7); break;    //  2.4  kHz usb
-      case "USBN": setmf("usbn", 0.5, 2.2); break;    //  1.7  kHz usb
+      case "USB": setmf("usb", 0.01,  4.0); break;
+      case "LSB": setmf("lsb", -4.0, -0.01); break;
+      case "AM":  setmf("am", -5,  5); break;
+      case "CW":  setmf("cw", -0.95,  -0.55); break;
+      case "FM":  setmf("fm", -3.8,  3.8); break;
    }
 }
 
@@ -483,7 +421,7 @@ function freqstep(st)
    var steps_ssb= [bandinfo[band].tuningstep, 0.5, 2.5 ];
    var steps_am5= [0.1, 1, 5];
    var steps_am9= [0.1, 1, 9];
-   var steps_fm= [1, 5, 12.5 ];
+   var steps_fm= [1, 5, 8];
    var steps=steps_ssb;
    var grid=false;
    var i=Math.abs(st)-1;   
@@ -559,17 +497,17 @@ function mem_show()
    for (i=0;i<memories.length;i++) {
       var m="";
       m=memories[i].mode;
-      s+='<table class="mt2"><tr>';
-      s+='<td><!--<div class="btn-group" role="group">--><input class="btn btn-primary btn-xs" type="button" title="recall" value="&nbsp;&nbsp;recall&nbsp;&nbsp;" onclick="mem_recall('+i+')"></td><td><input class="btn btn-wf btn-xs" type="button" title="&nbsp;&nbsp;erase&nbsp;&nbsp;" value="erase" onclick="mem_erase('+i+')"></td><td><input class="btn btn-fw btn-xs" type="button" title="store" value="&nbsp;&nbsp;store&nbsp;&nbsp;" onclick="mem_store('+i+')"><!--</div>--></td>';
-      s+='<td>&nbsp;&nbsp;'+memories[i].nomfreq.toFixed(2)+'</td><td width="10px">&nbsp;<b>kHz</b>&nbsp;</td><td width="40px">'+m+'&nbsp;</td>';
-      s+='<td><input title="Укажите название метки" type="text" size=8 onchange="mem_label('+i+',this.value)" value="'+memories[i].label+'"</td>';
+      s+='<tr>';
+      s+='<td><input type="button" title="recall" value="recall" onclick="mem_recall('+i+')"><input type="button" title="erase" value="erase" onclick="mem_erase('+i+')"><input type="button" title="store" value="store" onclick="mem_store('+i+')"></td>';
+      s+='<td>'+memories[i].nomfreq.toFixed(2)+' kHz '+m+'</td>';
+      s+='<td><input title="label for this memory location" type="text" size=6 onchange="mem_label('+i+',this.value)" value="'+memories[i].label+'"></td>';
       s+='</tr>';
    }
    s+='<tr>';
-   s+='<td><!--<div class="btn-group" role="group">--><input class="btn btn-primary btn-xs" type="button" disabled title="recall" value="&nbsp;&nbsp;recall&nbsp;&nbsp;" onclick="mem_recall('+i+')"></td><td><input class="btn btn-wf btn-xs" type="button" disabled title="&nbsp;&nbsp;erase&nbsp;&nbsp;" value="erase" onclick="mem_erase('+i+')"></td><td><input class="btn btn-wf btn-xs" type="button" title="&nbsp;&nbsp;store&nbsp;&nbsp;" value="store" onclick="mem_store('+i+')"><!--</div>--></td>';
-   s+='<td>&nbsp;(new)</td>';
-   s+='</tr></table>';
-   document.getElementById('memories').innerHTML='<table><tr>'+s+'</tr></table>';
+   s+='<td><input type="button" disabled title="recall" value="recall" onclick="mem_recall('+i+')"><input type="button" disabled title="erase" value="erase" onclick="mem_erase('+i+')"><input type="button" title="store" value="store" onclick="mem_store('+i+')"></td>';
+   s+='<td>(new)</td>';
+   s+='</tr>';
+   document.getElementById('memories').innerHTML='<table>'+s+'</table>';
 }
 
 
@@ -664,7 +602,6 @@ function islsbband(b)
    return 0;
 }
 
-
 function setband(b)
 {
    if (b<0 || b>=nvbands) return;
@@ -700,7 +637,6 @@ function setband(b)
    setfreq(e.vfo);
    waterfallspeed(waterslowness);
 }
-
 
 
 function sethidedx(h)
@@ -819,7 +755,7 @@ function updatesmeter()
       else {
          var f=(sgraph.e1-sgraph.e0)/(sgraph.e1-e0);
          ct.drawImage(cv, 0,0, sgraph.width,cv.height, 0,0,sgraph.width,cv.height*f);
-         ct.fillStyle="rgba(46, 45, 45, 1)";
+         ct.fillStyle="white";
          ct.fillRect(0,Math.floor(cv.height*f),sgraph.width,cv.height*(1-f)+1);
       }
       sgraph.e0=e0;
@@ -835,7 +771,7 @@ function updatesmeter()
          var f=(sgraph.e1-sgraph.e0)/(e1-sgraph.e0);
          if (f<0) f=0;
          ct.drawImage(cv, 0,0, sgraph.width,cv.height, 0,cv.height*(1-f),sgraph.width,cv.height*f);
-         ct.fillStyle="rgba(46, 45, 45, 1)";
+         ct.fillStyle="white";
          ct.fillRect(0,0,sgraph.width,Math.ceil(cv.height*(1-f)));
       }
       sgraph.e1=e1;
@@ -844,11 +780,11 @@ function updatesmeter()
    if (redrawaxis) {
       ct.clearRect(sgraph.width,0,cv.width-sgraph.width,cv.height);
       var w=sgraph.e0;
-      ct.fillStyle="rgba(255, 0, 0, 1)"; //rgba(158, 158, 158, 1)
-      ct.font="12px Verdana";
+      ct.fillStyle="black";
+      ct.font="10px Verdana";
       while ((w=10*Math.ceil(w/10))<=sgraph.e1) {
          var y=s2y(w);
-         ct.fillText( w+" dB",sgraph.width+2,y+4,cv.width-sgraph.width);
+         ct.fillText(w+" dB",sgraph.width+2,y+4,cv.width-sgraph.width);
          w+=1;
       }
    }
@@ -861,14 +797,14 @@ function updatesmeter()
       if (v>=10) v=60;
       if (Math.floor(t/1000/v)!=Math.floor(sgraph.prevt/1000/v)) {
          // draw grey vertical line as time marker
-         ct.fillStyle="rgba(46, 45, 45, 1)"; //         ct.fillStyle="rgba(210,210,210,1)";
+         ct.fillStyle="rgba(210,210,210,1)";
          ct.fillRect(sgraph.width-1,0,1,cv.height);
          sgraph.prevt=t;
       } else {
          // draw white vertical line with grey dB scale markers
-         ct.fillStyle="rgba(46, 45, 45, 1)";
+         ct.fillStyle="white";
          ct.fillRect(sgraph.width-1,0,1,cv.height);
-         ct.fillStyle="rgba(158, 158, 158, 1)"; //ct.fillStyle="rgba(210,210,210,1)";
+         ct.fillStyle="rgba(210,210,210,1)";
          var w=sgraph.e0;
          while ((w=10*Math.ceil(w/10))<=sgraph.e1) {
             var y=s2y(w);
@@ -879,7 +815,7 @@ function updatesmeter()
    }
 
    // plot the actual data point
-   ct.fillStyle="yellow";
+   ct.fillStyle="blue";
    ct.fillRect(sgraph.width-1,s2y(s),1,1);
 }
 
@@ -957,7 +893,7 @@ function ajaxFunction3()
       }
     }
   interval_ajax3 = setTimeout('ajaxFunction3()',120000);
-  var url="http://sdr.rlspb.ru:3000/~~othersjj?chseq="+chseq;
+  var url="http://localhost:5005/~~othersjj?chseq="+chseq;
   xmlHttp.open("GET",url,true);
   xmlHttp.send(null);
 }
@@ -997,16 +933,6 @@ function updbw()
    var x60=document.getElementById('numericalbandwidth60');
    x6.innerHTML=(hi-lo+0.091).toFixed(2);
    x60.innerHTML=(hi-lo+0.551).toFixed(2);
-
-//modified by Piotr(WebSDR)
-
-   try {
-      document.getElementById('btn-'+mode).style='color: rgba(255, 0, 0, 1); background: rgba(26, 26, 26, 1); border-style:inset;';
-      var ar=['AM','FM','USB','LSB','CW','AMN','FMN','USBN','LSBN','CWN'];
-      var i;
-      for (i=0;i<ar.length;i++) if (ar[i]!=mode) document.getElementById('btn-'+ar[i]).style='';
-   } catch(e) {};
-
    setfreq(freq);
 }
 
@@ -1216,16 +1142,6 @@ function iOS_audio_start()
    try { s.start(0); } catch(e) { s.noteOn(0); }
 }
 
-function chrome_audio_start()
-{
-   // Chrome only plays webaudio after it has been started by clicking a button, so this function must be called from a button's onclick handler
-   if (!document.ct) document.ct= new webkitAudioContext();
-   var s = document.ct.createBufferSource();
-   s.connect(document.ct.destination);
-   document.ct.resume();
-   try { s.start(0); } catch(e) { s.noteOn(0);}
-}
-
 function html5orjavamenu()
 {
    var s;
@@ -1249,7 +1165,6 @@ function html5orjavamenu()
       if (n.indexOf('ipod')!=-1) sup_iOS=1;
       if (n.indexOf('ios')!=-1) sup_iOS=1;
       if (n.indexOf('android')!=-1) sup_android=1;
-      if (n.indexOf('chrome')!=-1) sup_chrome=1;
    } catch (e) {};
    if (sup_iOS) isTouchDev=true;
    var usecookie= readCookie('usejava');
@@ -1262,68 +1177,45 @@ function html5orjavamenu()
    
    var javacolor=checkjava();
    s='<b>Waterfall:</b>';
-   s+='<span style="color: '+javacolor+'">&nbsp;&nbsp;<input type="radio" name="groupw" value="Java" onclick="html5orjava(0,1);"'+(usejavawaterfall?" checked":"")+'>&nbsp;Java&nbsp;</span>';
+   s+='<span style="color: '+javacolor+'"><input type="radio" name="groupw" value="Java" onclick="html5orjava(0,1);"'+(usejavawaterfall?" checked":"")+'>Java</span>';
    if (sup_socket && sup_canvas) s+='<span style="color:green">'; else s+='<span style="color:red">';
-   s+='&nbsp;<input type="radio" name="groupw" value="HTML5" onclick="html5orjava(0,0);"'+(!usejavawaterfall?" checked":"")+'>&nbsp;HTML5&nbsp;</span>';
+   s+='<input type="radio" name="groupw" value="HTML5" onclick="html5orjava(0,0);"'+(!usejavawaterfall?" checked":"")+'>HTML5</span>';
    s+='&nbsp;&nbsp;&nbsp;<b>Sound:</b>';
-   s+='<span style="color: '+javacolor+'">&nbsp;&nbsp;<input type="radio" name="groupa" value="Java" onclick="html5orjava(1,1);"'+(usejavasound?" checked":"")+'>&nbsp;Java&nbsp;</span>';
+   s+='<span style="color: '+javacolor+'"><input type="radio" name="groupa" value="Java" onclick="html5orjava(1,1);"'+(usejavasound?" checked":"")+'>Java</span>';
    if (sup_socket && sup_webaudio) s+='<span style="color: green">';
    else if (sup_socket && sup_mozaudio) s+='<span style="color: blue">';
    else s+='<span style="color: red">';
-   s+='&nbsp;&nbsp;<input type="radio" name="groupa" value="HTML5" onclick="html5orjava(1,0);"'+(!usejavasound?" checked":"")+'>&nbsp;HTML5&nbsp;</span>';
+   s+='<input type="radio" name="groupa" value="HTML5" onclick="html5orjava(1,0);"'+(!usejavasound?" checked":"")+'>HTML5</span>';
    if (sup_iOS && sup_socket && sup_webaudio) s+='<input type="button" value="iOS audio start" onclick="iOS_audio_start()">';
-//   if (sup_chrome && sup_socket && sup_webaudio) s+='&nbsp <input class="btn btn-default btn-xs" type="button" value="Chrome audio start" onclick="chrome_audio_start()" style="font-size: 90%;">';
    document.getElementById('html5choice').innerHTML = s;
    document.getElementById('record_span').style.display = usejavasound ? "none" : "inline";
-}
-
-function settings_recall()
-{
-   var s;
-   try { s=JSON.parse(localStorage.getItem('settings')); } catch (e) { return; };
-   if (!s) return;
-   document.viewform.allowkeys.checked=s.allowkeys;
-   document.getElementById('compactviewcheckbox').checked=s.compactview;
-   if (s.volume) document.getElementById("volumecontrol2").value=s.volume;
-   if (s.volume) volumedb(s.volume);
-   if (s.waterfallheight) waterheight=s.waterfallheight;
-   document.getElementById('wfwidecheckbox').checked=s.waterfallwide;
-   var c=document.getElementsByName('wf-size');
-   var i;
-   for (i=0;i<c.length;i++)
-      if (c[i].value-waterheight>=0) {
-         c[i].checked=true;
-         break;
-      }
 }
 
 
 function bodyonload()
 {
+   console.warn("Starting...");
    var s;
 
    html5orjavamenu();
    if ((sup_iOS || sup_android) && has_mobile) document.getElementById("mobilewarning").style.display= "block";
 
    view= readCookie('view');
-   if (view==null) view=Views.oneband;
-   if (nvbands>=2) s='<input id="all_bands" type="radio" name="group" value="all bands" onclick="setview(0);">&nbsp;all bands&nbsp;<input type="radio" id="others slow" name="group" value="others slow" onclick="setview(1);" >&nbsp;others slow&nbsp;<input type="radio" name="group" value="one band" onclick="setview(2);" >&nbsp;one band&nbsp;';
+   if (view==null) view=Views.allbands;
+//   if (view==null) view=Views.oneband;
+   if (nvbands>=2) s='<input type="radio" name="group" value="all bands" onclick="setview(0);">all bands<input type="radio" name="group" value="others slow" onclick="setview(1);" >others slow<input type="radio" name="group" value="one band" onclick="setview(2);" >one band';
    else {
       s='<input type="radio" name="group" value="waterfall" onclick="setview(2);">waterfall';
       if (view==Views.othersslow || view==Views.allbands) view=Views.oneband;
    }
-   s+='<input type="radio" name="group" value="blind" onclick="setview(3);" >&nbsp;blind&nbsp;';
+   s+='<input type="radio" name="group" value="blind" onclick="setview(3);" >blind';
    document.getElementById('viewformbuttons').innerHTML = s;
    if (nvbands>=2) document.viewform.group[view].checked=true;
    else document.viewform.group[view-2].checked=true;
-
-   var x= readCookie('username');
-   var p=document.getElementById("please2");
-   if (!x && p) p.innerHTML="<b><i>Please type a name or callsign in the box at the <a href='#please'>top of the page</a> to identify your chat messages!</i></b>";
-
+   
    uu_compactview=document.getElementById("compactviewcheckbox").checked;
    document.getElementById("mutecheckbox").checked=false;
-   document.getElementById("squelchcheckbox").checked=false;
+   document.getElementById("squelchcheckbox").checked=true;
    document.getElementById("autonotchcheckbox").checked=false;
 
    try { memories=JSON.parse(localStorage.getItem('memories')); } catch (e) {};
@@ -1700,7 +1592,7 @@ if (document.addEventListener) {
 // direct control using keyboard:
 var allowkeyboard;
 
-/*function keydown(e)
+function keydown(e)
 {
    if (!document.viewform.allowkeys.checked) return true;
    e = e ? e : window.event;
@@ -1714,11 +1606,11 @@ var allowkeyboard;
       case 74: freqstep(-st);                return cancelEvent(e);    // J
       case 39:                                                         // right arrow
       case 75: freqstep(st);                 return cancelEvent(e);    // K
-      case 65: setmf ('am',  -4  ,  4  );    return cancelEvent(e);    // A
+      case 65: setmf ('am',  -5  ,  5  );    return cancelEvent(e);    // A
       case 70: setmf ('fm',  -8  ,  8  );    return cancelEvent(e);    // F
       case 67: setmf ('cw', -0.95, -0.55);   return cancelEvent(e);    // C
-      case 76: setmf('lsb', -2.7, -0.3);     return cancelEvent(e);    // L
-      case 85: setmf('usb',  0.3,  2.7);     return cancelEvent(e);    // U
+      case 76: setmf('lsb', -4.0, -0.01);     return cancelEvent(e);    // L
+      case 85: setmf('usb',  0.01,  4.0);     return cancelEvent(e);    // U
       case 90: if (e.shiftKey) wfset(2); else wfset(4); return cancelEvent(e);   // Z
       case 71: document.freqform.frequency.value=""; document.freqform.frequency.focus(); return cancelEvent(e);    // G
       case 66: if (e.shiftKey) setband((band-1+nbands)%nbands);        // B
@@ -1728,65 +1620,13 @@ var allowkeyboard;
    return true;
 }
 
-*/
-function keydown(e)
-{
-
-   if (!document.viewform.allowkeys.checked) return true;
-   e = e ? e : window.event;
-   if (!e.target) e.target = e.srcElement;
-   if (e.target.nodeName=="INPUT" && e.target.type=="text" && e.target.name!="frequency") return true;  // don't intercept keys when typing in one of the text fields, except the frequency field
-   var st=1;
-   if (e.shiftKey) st=2;
-   if (e.ctrlKey || e.altKey || e.metaKey) st=3;
-   switch (e.keyCode) {
-      case 37:                                                         // left arrow
-      case 74: freqstep(-st);                return cancelEvent(e);    // J
-      case 39:                                                         // right arrow
-      case 75: freqstep(st);                 return cancelEvent(e);    // K
-      case 65: setmf ('am',  -4  ,  4  );    return cancelEvent(e);    // A
-      case 70: setmf ('fm',  -8  ,  8  );    return cancelEvent(e);    // F
-      case 67: setmf ('cw', -0.95, -0.55);   return cancelEvent(e);    // C
-      case 76: setmf('lsb', -2.7, -0.3);     return cancelEvent(e);    // L
-      case 85: setmf('usb',  0.3,  2.7);     return cancelEvent(e);    // U
-      case 90: if (e.shiftKey) wfset(2); else wfset(4); return cancelEvent(e);   // Z
-      case 71: document.freqform.frequency.value=""; document.freqform.frequency.focus(); return cancelEvent(e);    // G
-      case 66: if (e.shiftKey) setband((band-1+nbands)%nbands);        // B
-               else setband((band+1)%nbands);
-               return cancelEvent(e);
-
-      case 77:   // M = mute
-          var mm=!document.getElementById("mutecheckbox").checked;
-          document.getElementById("mutecheckbox").checked=mm;
-          setmute(mm);
-          return cancelEvent(e);
-
-      case 86:   // V/v = volume up/down
-          var vv=document.getElementById("volumecontrol2").value;
-          if (e.shiftKey) vv++; else vv--;
-          document.getElementById("volumecontrol2").value=vv;
-          set_volume(vv);
-          return cancelEvent(e);
-
-      case 87:   // w/W = narrower/wider
-          if (e.shiftKey) {
-             if (lo<0) lo*=1.1; else lo/=1.1; if (hi>0) hi*=1.1; else hi/=1.1; updbw();
-          } else {
-             if (lo>0) lo*=1.1; else lo/=1.1; if (hi<0) hi*=1.1; else hi/=1.1; updbw();
-          }
-          return cancelEvent(e);
-   }
-   return true;
-
-}
-
 window.onkeydown = keydown;
 
 //----------------------------------------------------------------------------------------
 // functions that create part of the HTML GUI
 
 function document_username() 
-/*{
+{
   var x= readCookie('username');
   if (x) {
     document.write('<a id="please">Your name or callsign: ');
@@ -1795,18 +1635,6 @@ function document_username()
   } else {
     document.write('<a id="please"><span id="please1"><b><i>Please log in by typing your name or callsign here (it will be saved for later visits in a cookie):<\/i><\/b></span> ');
     document.write('<input type="text" value="" name="username" onchange="setusernamecookie()" onclick=""></a>');
-  }
-}
-*/
-{
-  var x= readCookie('username');
-  if (x) {
-    document.write('<a id="please">');
-    document.write('<input type="text" value="" name="username" onchange="setusernamecookie()" onclick="" placeholder="Name or callsign" class="form-control"></a>');
-    document.usernameform.username.value=x;
-  } else {
-    document.write('<a id="please">');
-    document.write('<input type="text" value="" name="username" onchange="setusernamecookie()" onclick="" placeholder="Name or callsign" class="form-control"></a>');
   }
 }
 
@@ -1879,9 +1707,9 @@ function document_waterfalls()
 
 function document_bandbuttons() {
     if (nvbands>1) {
-       document.write("")
+       document.write("<br>Band: ")
        var i;
-       for (i=0;i<nbands;i++) document.write ("<label class=\"btn btn-default btn-xs\">&nbsp;<input type=\"radio\" name=\"group0\" value=\""+bandinfo[i].name+"\" onclick=\"setband("+i+")\">&nbsp;"+bandinfo[i].name+"\n&nbsp;</label>");
+       for (i=0;i<nbands;i++) document.write ("<input type=\"radio\" name=\"group0\" value=\""+bandinfo[i].name+"\" onclick=\"setband("+i+")\">"+bandinfo[i].name+"\n");
     }
 }
 
@@ -2051,11 +1879,5 @@ function sendlog()
   setTimeout("document.logform.comment.value=''",1000);
   return false;
 }
-
-function volumedb(a)
-{
-  document.getElementById('volumedb').innerHTML=" " + a + "dB";
-}
-
 
 
