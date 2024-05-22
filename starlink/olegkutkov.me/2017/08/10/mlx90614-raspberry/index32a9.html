@@ -1,0 +1,2136 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2017/08/10/mlx90614-raspberry/?replytocom=790 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:18:01 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>Connecting MLX90614 infrared thermometer to the Raspberry PI &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large, noindex, follow' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Connecting MLX90614 infrared thermometer to the Raspberry PI Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/25.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../index970c.html?p=25' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embedfa1a.json?url=https%3A%2F%2Folegkutkov.me%2F2017%2F08%2F10%2Fmlx90614-raspberry%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embed0a27?url=https%3A%2F%2Folegkutkov.me%2F2017%2F08%2F10%2Fmlx90614-raspberry%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index32a9.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-25 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-25" class="post-25 post type-post status-publish format-standard hentry category-allsky-camera tag-i2c tag-infrared tag-mlx90614 tag-raspberry-pi tag-sky-temperature">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/allsky-camera/index.html" rel="category tag">Allsky camera</a></span><h1 class="entry-title">Connecting MLX90614 infrared thermometer to the Raspberry PI</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">August 10, 2017</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<h3><img decoding="async" class="alignleft wp-image-56" src="../../../../wp-content/uploads/2017/08/mlx.jpg" alt="" width="132" height="132" srcset="https://olegkutkov.me/wp-content/uploads/2017/08/mlx.jpg 200w, https://olegkutkov.me/wp-content/uploads/2017/08/mlx-150x150.jpg 150w" sizes="(max-width: 132px) 100vw, 132px" /></h3>
+<p class="western" lang="en-US">MLX<span lang="ru-RU">90614</span> is a cheap and popular infrared thermometer from Melexis. This device is made in different versions for different purposes.<br />
+You can get a general-purpose version with 0.5 accuracies or for medical purposes with accuracy up to 0.2.</p>
+<p class="western" lang="en-US">Also, you can choose the voltage you need: 3.3v or 5v versions are available.<br />
+With MLX90614, you can distantly measure the objects&#8217; temperature, even the temperature of the sky. This enables a wide range of tasks in science and technics.<br />
+This article will show how to connect this device to the Raspberry PI microcomputer via the i2c bus.</p>
+<p lang="en-US"><span id="more-25"></span></p>
+<p lang="en-US">Inside the hermetic package, you can find two sensors &#8211; one infrared and one thermopile for classical temperature sensing. Thermopiles may be used for some calibration of the main infrared sensor.</p>
+<div>The sensor&#8217;s values are digitized by the 17-bit ADC and processed with a powerful DSP unit.</div>
+<div>The operation of the MLX90614 is controlled by an internal state machine, which controls the measurements and calculations of the object and ambient temperatures and does the post-processing of the temperatures to output them through the PWM output or the SMBus compatible interface. In this article, we are connecting this device to the i2c interface, which is mostly compatible with SMBus (in our case).</div>
+<div></div>
+<div><a href="../../../../wp-content/uploads/2017/08/mlx90614_block_diagram.png"><img fetchpriority="high" decoding="async" class="aligncenter wp-image-68" src="../../../../wp-content/uploads/2017/08/mlx90614_block_diagram-300x144.png" alt="" width="492" height="236" srcset="https://olegkutkov.me/wp-content/uploads/2017/08/mlx90614_block_diagram-300x144.png 300w, https://olegkutkov.me/wp-content/uploads/2017/08/mlx90614_block_diagram-768x368.png 768w, https://olegkutkov.me/wp-content/uploads/2017/08/mlx90614_block_diagram.png 1003w" sizes="(max-width: 492px) 100vw, 492px" /></a></div>
+<div>PWM mode enables stand-alone usage of this device like a thermostat and won&#8217;t be discussed in this article (well, almost).</div>
+<p>Most important characteristics of this device you can find in the table below.<br />
+For full specifications, description, and complete usage, please use the official <a href="https://www.melexis.com/-/media/files/documents/datasheets/mlx90614-datasheet-melexis.pdf">datasheet</a>.</p>
+<p lang="en-US"><h2 id="tablepress-1-name" class="tablepress-table-name tablepress-table-name-id-1">MLX90614 specifications</h2>
+
+<table id="tablepress-1" class="tablepress tablepress-id-1" aria-labelledby="tablepress-1-name">
+<thead>
+<tr class="row-1 odd">
+	<th class="column-1"></th><th class="column-2"></th>
+</tr>
+</thead>
+<tbody class="row-hover">
+<tr class="row-2 even">
+	<td class="column-1">Power supply</td><td class="column-2">5V for MLX90614Axx<br />
+3.3V for MLX90614Bxx</td>
+</tr>
+<tr class="row-3 odd">
+	<td class="column-1">Temperature ranges</td><td class="column-2">-40...+125 ̊C for ambient sensor<br />
+-70...+380 ̊C for infrared sensor</td>
+</tr>
+<tr class="row-4 even">
+	<td class="column-1">Accuracy</td><td class="column-2">0.5°C for general purpose version<br />
+0.2°C for medical version<br />
+Both sensors</td>
+</tr>
+<tr class="row-5 odd">
+	<td class="column-1">Infrared sensor field of view</td><td class="column-2">90° for MLX90614xAA</td>
+</tr>
+<tr class="row-6 even">
+	<td class="column-1">Infrared sensor wavelengths</td><td class="column-2">5.5 – 14 μm</td>
+</tr>
+<tr class="row-7 odd">
+	<td class="column-1">Ambient temperature ranges</td><td class="column-2">-40...+85 C</td>
+</tr>
+<tr class="row-8 even">
+	<td class="column-1">Max current</td><td class="column-2">2 mA</td>
+</tr>
+<tr class="row-9 odd">
+	<td class="column-1"></td><td class="column-2"></td>
+</tr>
+<tr class="row-10 even">
+	<td class="column-1"></td><td class="column-2"></td>
+</tr>
+</tbody>
+</table>
+<!-- #tablepress-1 from cache --></p>
+<p lang="en-US"><strong> Device pinout</strong></p>
+<p lang="en-US"><img decoding="async" class="wp-image-74 aligncenter" src="../../../../wp-content/uploads/2017/08/mlx_pinout-300x292.png" alt="" width="248" height="241" /></p>
+<p lang="en-US"><strong>VDD</strong> &#8211; power supply (3.3 or 5 volts).</p>
+<p lang="en-US"><strong>SCL</strong> &#8211; i2c/SMBus clock.</p>
+<p lang="en-US"><strong>SDA</strong> &#8211; i2c/SMBus data or PWM output.</p>
+<p lang="en-US"><strong>VSS/GND</strong> &#8211; Ground.</p>
+<p lang="en-US">Please always carefully check voltages. 5v can kill your 3.3 v device!</p>
+<h3 lang="en-US"><strong>Connecting to the Raspberry Pi.</strong></h3>
+<p lang="en-US">It&#8217;s simple.</p>
+<p lang="en-US"><a href="../../../../wp-content/uploads/2017/08/mlx_connection.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-76" src="../../../../wp-content/uploads/2017/08/mlx_connection-300x188.jpg" alt="" width="565" height="354" srcset="https://olegkutkov.me/wp-content/uploads/2017/08/mlx_connection-300x188.jpg 300w, https://olegkutkov.me/wp-content/uploads/2017/08/mlx_connection-768x482.jpg 768w, https://olegkutkov.me/wp-content/uploads/2017/08/mlx_connection.jpg 800w" sizes="(max-width: 565px) 100vw, 565px" /></a></p>
+<p class="western" lang="en-US">R<span lang="ru-RU">1 and </span>R<span lang="ru-RU">2 – 4</span>K<span lang="ru-RU">7 are optional because Raspberry contains such resistors aboard. It may be used only in case of a &#8220;long&#8221; line.<br />
+</span></p>
+<p lang="en-US">C1 capacitor is important and should be placed as close as possible to the device.</p>
+<p lang="en-US"> Another important note about voltages! Raspberry PI is a 3.3v device and not tolerant of 5v inputs. So in the case of a 5v MLX device, an additional voltage shifter should be used!</p>
+<p lang="en-US">By default, the device is working in SMBus mode, but my sample was in PWM mode. What was puzzled me for some time i2c bus was full of random numbers. But after connecting the oscilloscope, I finally figured out what was going on and switched MLX to the &#8220;normal&#8221; SMBus mode.</p>
+<p lang="en-US">Switching is simple &#8211; pull the SCL pin to the ground for a short time. After resetting device returns to the original work mode. For permanent switching, some EEPROM values should be corrected. EEPROM reading and writing will be discussed below.</p>
+<h3 lang="en-US"><strong>Programming</strong></h3>
+<p lang="en-US">There are two ways to work with i2c devices.</p>
+<ol>
+<li lang="en-US">Using hardware i2c bus through i<span lang="ru-RU">2</span>c<span lang="ru-RU">_</span>bcm<span lang="ru-RU">2708</span> kernel module and libi<span lang="ru-RU">2</span>c library.</li>
+<li lang="en-US">Using a popular <a href="http://www.airspayce.com/mikem/bcm2835/">bcm<span lang="ru-RU">2835</span></a> library with software emulation of the i2c protocol.</li>
+</ol>
+<p>Looking ahead, I can tell you that I don&#8217;t have any problems with bcm2835. MLX device worked like a charm.<br />
+But I didn&#8217;t prefer this way due to its programmatic nature. Why emulate some hardware bus when we already had one? Especially on such a weak device as a Raspberry.</p>
+<p>So I chose the i2c_bcm2708, and this is the beginning of the interesting debugging with magic&#8230;</p>
+<p>First of all, we need to load the i2c_bcm2708 kernel module. We can do it with a <strong>modprobe</strong> command: <span style="color: #808080;">sudo modprobe i2c_bcm2708</span></p>
+<p>For automatically loading this module on every boot, add the module name to the end of the <span style="color: #808080;"><span lang="ru-RU">/</span>etc<span lang="ru-RU">/</span>modules</span> file.</p>
+<p>After successful module loading you can find two new devices: <span lang="ru-RU">/</span>dev<span lang="ru-RU">/</span>i<span lang="ru-RU">2</span>c<span lang="ru-RU">-0 and /</span>dev<span lang="ru-RU">/</span>i<span lang="ru-RU">2</span>c<span lang="ru-RU">-1. There are two separate i2c buses, and in the case of the first generation of the Raspberry &#8211; only i2c-1 is available on the GPIO header. i2c-0 is available for manual soldering. In later Raspberry models, both buses are available on the GPIO header.<br />
+</span></p>
+<p>To check that the MLX device is properly connected and working, run this command:<span style="color: #808080;"> i<span lang="ru-RU">2</span>cdetect<span lang="ru-RU"> &#8211;</span>y </span><span lang="ru-RU"><span style="color: #808080;">1</span> (1 means /dev/i2c-1 device). This utility is available in the i2c-tools package.<br />
+</span></p>
+<p>The Default MLX address is 0x5A. And if everything is OK and the MLX device is lonely on the bus &#8211; you can see such output:</p>
+<p><img loading="lazy" decoding="async" class=" wp-image-87 aligncenter" src="../../../../wp-content/uploads/2017/08/i2cdetect-300x115.jpg" alt="" width="535" height="205" srcset="https://olegkutkov.me/wp-content/uploads/2017/08/i2cdetect-300x115.jpg 300w, https://olegkutkov.me/wp-content/uploads/2017/08/i2cdetect.jpg 478w" sizes="(max-width: 535px) 100vw, 535px" /></p>
+<p>In the case of numbers chaos, your device might be in PWM mode and should be switched as described earlier.</p>
+<p>Okay, let&#8217;s write a simple program.</p>
+<pre class="prettyprint">#include &lt;sys/ioctl.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;string.h&gt;
+#include &lt;linux/i2c-dev.h&gt;
+
+///
+#define I2C_DEV_PATH "/dev/i2c-1"
+
+/* Just in case */
+#ifndef I2C_SMBUS_READ 
+#define I2C_SMBUS_READ 1 
+#endif 
+#ifndef I2C_SMBUS_WRITE 
+#define I2C_SMBUS_WRITE 0 
+#endif
+
+<span class="pl-k">typedef</span> <span class="pl-k">union</span> i2c_smbus_data i2c_data;
+int main()
+{
+    int fdev = open(I2C_DEV_PATH, O_RDWR); // open i2c bus
+
+    if (fdev &lt; 0) {
+        fprintf(stderr, "Failed to open I2C interface %s Error: %s\n", I2C_DEV_PATH, strerror(errno));
+        return -1;
+    }
+
+    unsigned char i2c_addr = 0x5A;
+
+    // set slave device address, default MLX is 0x5A
+    if (ioctl(fdev, I2C_SLAVE, i2c_addr) &lt; 0) {
+        fprintf(stderr, "Failed to select I2C slave device! Error: %s\n", strerror(errno));
+        return -1;
+    }
+
+    // enable checksums control
+    if (ioctl(fdev, I2C_PEC, 1) &lt; 0) {
+        fprintf(stderr, "Failed to enable SMBus packet error checking, error: %s\n", strerror(errno));
+        return -1;
+    }
+
+
+    // trying to read something from the device unsing SMBus READ request
+    i2c_data data;
+    char command = 0x06; // command 0x06 is reading thermopile sensor, see datasheet for all commands
+
+    // build request structure
+    struct i2c_smbus_ioctl_data sdat = {
+        .read_write = I2C_SMBUS_READ,
+        .command = command,
+        .size = I2C_SMBUS_WORD_DATA,
+        .data = &amp;data
+    };
+
+    // do actual request
+    if (ioctl(fdev, I2C_SMBUS, &amp;sdat) &lt; 0) {
+        fprintf(stderr, "Failed to perform I2C_SMBUS transaction, error: %s\n", strerror(errno));
+        return -1;
+    }
+
+    // calculate temperature in Celsius by formula from datasheet
+    double temp = (double) data.word;
+    temp = (temp * 0.02)-0.01;
+    temp = temp - 273.15;
+
+    // print result
+    printf("Tamb = %04.2f\n", temp);
+
+    return 0;
+}</pre>
+<p>Compile and run:</p>
+<pre><code>gcc <span class="hljs-keyword">test</span>.c -o <span class="hljs-keyword">test</span></code> &amp;&amp; ./test</pre>
+<pre><strong>NOTE:</strong> 
+If I2C_SMBUS_READ and I2C_SMBUS_WORD_DATA is undeclared please try to include &lt;linux/i2c.h&gt; instead or redifine this commands:
+
+#ifndef I2C_SMBUS_READ
+#define I2C_SMBUS_READ    1
+#endif
+#ifndef I2C_SMBUS_WRITE
+#define I2C_SMBUS_WRITE    0
+#endif</pre>
+<p>And Oops! We got the error &#8220;<b>Failed to perform I2C_SMBUS transaction, error: bad message</b>&#8221;</p>
+<p>So what is the problem? Sure, we did everything correctly and sent the correct messages to the device.</p>
+<p>I&#8217;ve spent a few days trying to figure out what is going on. Digging Raspberry PI forums, other code examples, and even the Linux kernel.</p>
+<p>As I already noted, using the bcm2835 library caused no errors.</p>
+<p>Finally, I&#8217;ve connected my logic analyzer to the Raspberry i2c bus and captured both communications &#8211; using the bcm2835 code and this example code.</p>
+<p>Looking datasheet, we can find an example of the proper SMBus communication.</p>
+<p><a href="../../../../wp-content/uploads/2017/08/smbus.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-116" src="../../../../wp-content/uploads/2017/08/smbus.png" alt="" width="502" height="108" srcset="https://olegkutkov.me/wp-content/uploads/2017/08/smbus.png 937w, https://olegkutkov.me/wp-content/uploads/2017/08/smbus-300x65.png 300w, https://olegkutkov.me/wp-content/uploads/2017/08/smbus-768x166.png 768w" sizes="(max-width: 502px) 100vw, 502px" /></a></p>
+<p>But the analyzer showed something strange.<br />
+A long pause after ACK is caused by an extra stop bit (red dot), just after the ACK packet.<br />
+The device recognizes this situation as two separate writes. But both these <code>write</code> operations are incomplete and incorrect, of course.</p>
+<p><a href="../../../../wp-content/uploads/2017/08/analyze_bad_color.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-119" src="../../../../wp-content/uploads/2017/08/analyze_bad_color-300x104.png" alt="" width="600" height="207" srcset="https://olegkutkov.me/wp-content/uploads/2017/08/analyze_bad_color-300x104.png 300w, https://olegkutkov.me/wp-content/uploads/2017/08/analyze_bad_color-768x265.png 768w, https://olegkutkov.me/wp-content/uploads/2017/08/analyze_bad_color.png 900w" sizes="(max-width: 600px) 100vw, 600px" /></a>And for example, this is a request made with the bcm2835 library.</p>
+<p><a href="../../../../wp-content/uploads/2017/08/analyze_good_color.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-120" src="../../../../wp-content/uploads/2017/08/analyze_good_color.png" alt="" width="600" height="181" srcset="https://olegkutkov.me/wp-content/uploads/2017/08/analyze_good_color.png 900w, https://olegkutkov.me/wp-content/uploads/2017/08/analyze_good_color-300x90.png 300w, https://olegkutkov.me/wp-content/uploads/2017/08/analyze_good_color-768x231.png 768w" sizes="(max-width: 600px) 100vw, 600px" /></a></p>
+<p>Everything is ok as expected.</p>
+<p>Digging the forums, I found that such behavior is a feature of the Raspberry i2c_bcm2708 driver. The driver should be switched to the &#8220;combined&#8221; mode to stop such packet splitting.</p>
+<p>Fortunately, this can be done with a simple command (as root):</p>
+<pre><code>echo -n <span class="hljs-number">1</span> &gt; <span class="hljs-regexp">/sys/module</span><span class="hljs-regexp">/i2c_bcm2708/parameters</span><span class="hljs-regexp">/combined</span></code></pre>
+<p><strong>UPD: On modern devices with a modern OS, this is not required! I2C bus works correctly from the box 🙂</strong><br />
+<strong>Tested on Raspberry PI 3 and newer, the Raspbian version is 10.1 (Buster)</strong></p>
+<p>Run our test utility, and magic happens.</p>
+<pre><code class="hljs protobuf">sudo ./test
+Tamb = <span class="hljs-number">19.4</span></code></pre>
+<p>It works!</p>
+<p>Now it&#8217;s time to write a fully functional utility.</p>
+<p>You can find all EEPROM and RAM addresses in the MLX <a href="https://www.melexis.com/-/media/files/documents/datasheets/mlx90614-datasheet-melexis.pdf">datasheet</a>.</p>
+<p><a href="../../../../wp-content/uploads/2017/08/eeprom_table.png"><img loading="lazy" decoding="async" class="wp-image-123 size-full aligncenter" src="../../../../wp-content/uploads/2017/08/eeprom_table.png" alt="" width="575" height="377" srcset="https://olegkutkov.me/wp-content/uploads/2017/08/eeprom_table.png 575w, https://olegkutkov.me/wp-content/uploads/2017/08/eeprom_table-300x197.png 300w" sizes="(max-width: 575px) 100vw, 575px" /></a></p>
+<p>PWCTRL is what we need to switch off PWM mode permanently.</p>
+<p>Register description</p>
+<p><a href="../../../../wp-content/uploads/2017/08/pwmctrl.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-124 size-full" src="../../../../wp-content/uploads/2017/08/pwmctrl.png" alt="" width="656" height="211" srcset="https://olegkutkov.me/wp-content/uploads/2017/08/pwmctrl.png 656w, https://olegkutkov.me/wp-content/uploads/2017/08/pwmctrl-300x96.png 300w" sizes="(max-width: 656px) 100vw, 656px" /></a></p>
+<p>So to disable PWM mode, just set the first (0) bit to the zero value. Simple.</p>
+<p>Temperatures are reading from RAM.</p>
+<p><a href="../../../../wp-content/uploads/2017/08/ram.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-125 size-full" src="../../../../wp-content/uploads/2017/08/ram.png" alt="" width="461" height="260" srcset="https://olegkutkov.me/wp-content/uploads/2017/08/ram.png 461w, https://olegkutkov.me/wp-content/uploads/2017/08/ram-300x169.png 300w" sizes="(max-width: 461px) 100vw, 461px" /></a></p>
+<p>Here you can see infrared channels RAW data (some versions of the MLX device contain two infrared sensors, see documentation), thermopile sensor temperature value (Ta), and infrared sensors calculated values (Tobj1 and Tobj2). For the single IR sensor device temperature value is read from Tojb1.</p>
+<p>I&#8217;ve made a header file with all useful address values.</p>
+<pre class="prettyprint">// RAM
+#define MLX90614_RAWIR1 0x04
+#define MLX90614_RAWIR2 0x05
+#define MLX90614_TA 0x06
+#define MLX90614_TOBJ1 0x07
+#define MLX90614_TOBJ2 0x08
+
+// EEPROM
+#define MLX90614_TOMAX 0x20
+#define MLX90614_TOMIN 0x21
+#define MLX90614_PWMCTRL 0x22
+#define MLX90614_TARANGE 0x23
+#define MLX90614_EMISS 0x24
+#define MLX90614_CONFIG 0x25
+#define MLX90614_ADDR 0x2E
+#define MLX90614_ID1 0x1C
+#define MLX90614_ID2 0x1D
+#define MLX90614_ID3 0x1E
+#define MLX90614_ID4 0x1F</pre>
+<p>Full source code of the utility with Makefile and good Readme you can find on <a href="https://github.com/olegkutkov/allsky/tree/master/src/utils/mlx90614">my GitHub.</a></p>
+<p>The compilation is simple. Just call <strong>make</strong>.</p>
+<p>Let&#8217;s test this program.</p>
+<p>Reading infrared temperature from the device on i2c bus 1 and with address 0x5A:</p>
+<pre><code class="hljs stylus">./read_mlx90614 --bus <span class="hljs-number">1</span> --i2c_addr <span class="hljs-number">0</span>x5a -<span class="hljs-selector-tag">i</span>
+Tobj = <span class="hljs-number">21.3</span></code></pre>
+<p>Seems plausible.</p>
+<p>Now thermopile:</p>
+<pre><code class="hljs livecodeserver">./read_mlx90614 <span class="hljs-comment">--bus 1 --i2c_addr 0x5a -a</span>
+Tamb = <span class="hljs-number">19.4</span></code></pre>
+<p>Checking the state of the PWM mode:</p>
+<pre><code class="hljs stylus">./read_mlx90614 --bus <span class="hljs-number">1</span> --i2c_addr <span class="hljs-number">0</span>x5a -<span class="hljs-selector-tag">p</span>
+PWM mode - enabled</code></pre>
+<p>Disable PWM mode:</p>
+<pre><code><span class="hljs-string">.</span><span class="hljs-comment">/read_mlx90614</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">bus</span> <span class="hljs-comment">1</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">i2c_addr</span> <span class="hljs-comment">0x5a</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">pwm_mode=0</span> <span class="hljs-literal">-</span><span class="hljs-comment">w</span></code></pre>
+<p>And enable (why not):</p>
+<pre><code><span class="hljs-string">.</span><span class="hljs-comment">/read_mlx90614</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">bus</span> <span class="hljs-comment">1</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">i2c_addr</span> <span class="hljs-comment">0x5a</span> <span class="hljs-literal">-</span><span class="hljs-literal">-</span><span class="hljs-comment">pwm_mode=1</span> <span class="hljs-literal">-</span><span class="hljs-comment">w</span></code></pre>
+<p>You can use an additional &#8211;debug option to see what is actually going on.</p>
+<pre><code class="hljs livecodeserver">./read_mlx90614 <span class="hljs-comment">--bus 1 --i2c_addr 0x5a --pwm_mode=1 -w –debug</span>
+
+   Opening i2c interface /dev/i2c<span class="hljs-number">-1</span>
+   Setting up slave address <span class="hljs-number">0x5A</span>
+   Perfoming I2C_SMBUS_READ request <span class="hljs-built_in">to</span> device, <span class="hljs-keyword">command</span> = <span class="hljs-title">0x22</span>
+   Ok, got answer <span class="hljs-built_in">from</span> device
+   EEPROM cell = <span class="hljs-number">0x22</span> current <span class="hljs-built_in">value</span> = <span class="hljs-number">0x0201</span>
+   Erasing EEPROM cell = <span class="hljs-number">0x22</span>
+   Trying <span class="hljs-built_in">to</span> store <span class="hljs-built_in">value</span> = <span class="hljs-number">0x0203</span> <span class="hljs-built_in">to</span> <span class="hljs-keyword">the</span> EEPROM cell = <span class="hljs-number">0x22</span>
+   PWM mode is now enabled</code></pre>
+<h3><strong>Offtopic. Sensor usage</strong></h3>
+<p>One of the most interesting usages of this device is to measure the sky temperature.  Why does it make sense?</p>
+<p>Well. Sky temperature &#8211; is the median temperature of the flipped conus from our sensor to the stratosphere.</p>
+<p><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-128" src="../../../../wp-content/uploads/2017/08/sensor_atm_volume.png" alt="" width="385" height="358" srcset="https://olegkutkov.me/wp-content/uploads/2017/08/sensor_atm_volume.png 385w, https://olegkutkov.me/wp-content/uploads/2017/08/sensor_atm_volume-300x279.png 300w" sizes="(max-width: 385px) 100vw, 385px" /></p>
+<p>This temperature depends on the quantity of water vapor in the air. This water vapor is heated by the infrared radiation re-emitted by the Earth&#8217;s surface.  More water &#8211; higher temperature. The sky&#8217;s temperature without any vapor and any gases are striving to the outer space&#8217;s temperature. So measuring the sky temperature can tell us how much water vapor in the air.<br />
+The concentration of the vapor is called clouds. Thus with these measurements, we can judge how cloudy it is today.</p>
+<p style="text-align: center;"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-129" src="../../../../wp-content/uploads/2017/08/skytemp_test_color.png" alt="" width="700" height="237" srcset="https://olegkutkov.me/wp-content/uploads/2017/08/skytemp_test_color.png 700w, https://olegkutkov.me/wp-content/uploads/2017/08/skytemp_test_color-300x102.png 300w" sizes="(max-width: 700px) 100vw, 700px" /> <i>(Image credit: Forrest M. Mims III., mynasadata.larc.nasa.gov)</i></p>
+<p>&nbsp;</p>
+<p>As was found experimentally, if the sky temperature is less than ambient temperature by 5 or fewer degrees &#8211; the sky is full of clouds. The difference by 20 or more is always the clearest sky.</p>
+<hr />
+<p>Thanks for reading.<br />
+I hope this material will be helpful.</p>
+<p>&nbsp;</p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<span class="tags-links">Tagged <a href="../../../../tag/i2c/index.html" rel="tag">i2c</a>, <a href="../../../../tag/infrared/index.html" rel="tag">infrared</a>, <a href="../../../../tag/mlx90614/index.html" rel="tag">mlx90614</a>, <a href="../../../../tag/raspberry-pi/index.html" rel="tag">raspberry pi</a>, <a href="../../../../tag/sky-temperature/index.html" rel="tag">sky temperature</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2018/06/07/autonomous-allsky-camera-with-raspberry-pi-part-3-shooting-night-sky-in-fits-using-qhy5-iim-camera/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2018/06/07/autonomous-allsky-camera-with-raspberry-pi-part-3-shooting-night-sky-in-fits-using-qhy5-iim-camera/index.html">Autonomous Allsky camera with Raspberry PI. Part 3: shooting night sky in FITS using QHY5-IIM camera</a></h2>
+                                         <span class="posted-date">June 7, 2018</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2018/03/22/autonomous-allsky-camera-with-raspberry-pi-part-2-powering-and-lightning-protection/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2018/03/22/autonomous-allsky-camera-with-raspberry-pi-part-2-powering-and-lightning-protection/index.html">Autonomous Allsky camera with Raspberry PI. Part 2: powering and lightning protection</a></h2>
+                                         <span class="posted-date">March 22, 2018</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2018/03/20/autonomous-allsky-camera-with-raspberry-pi-part-1-overview/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2018/03/20/autonomous-allsky-camera-with-raspberry-pi-part-1-overview/index.html">Autonomous Allsky camera with Raspberry PI. Part 1: overview.</a></h2>
+                                         <span class="posted-date">March 20, 2018</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-next"><a href="../../../11/02/converting-dslr-raw-images-scientific-fits-format-part-1-ui/index.html" rel="next">Converting DSLR RAW images into scientific FITS format. Part 1: UI</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			59 thoughts on &ldquo;<span>Connecting MLX90614 infrared thermometer to the Raspberry PI</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-3" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-3" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/f20116d1ad012c3847115b84fdb40359?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/f20116d1ad012c3847115b84fdb40359?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="https://www.facebook.com/app_scoped_user_id/10212401296420776/" class="url" rel="ugc external nofollow">Edoardo Raparelli</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3"><time datetime="2017-11-07T20:06:02+02:00">November 7, 2017 at 8:06 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg! Which is the difference between TOBJ1, TOBJ2, RAWIR1 and RAWIR2? I can see that all of them give quite different results. I read the Melexis datashet but I didn&#8217;t get well why the output are different. Can you help me?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index3094.html?replytocom=3#respond' data-commentid="3" data-postid="25" data-belowelement="div-comment-3" data-respondelement="respond" data-replyto="Reply to Edoardo Raparelli" aria-label='Reply to Edoardo Raparelli'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-4" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-4" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Oleg Kutkov</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-4"><time datetime="2017-11-08T00:11:24+02:00">November 8, 2017 at 12:11 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi!</p>
+<p>It&#8217;s simple.<br />
+RAWIR &#8211; just a instant filtered value from the ADC, some voltage.<br />
+Sensor workflow in this case:<br />
+[IR SENSE] (analog voltage output) &#8211;> [Amplifier] &#8211;> [FIR and Lowpass filters] (programmable) &#8211;> [RAW Register]</p>
+<p>TOBJ &#8211; calculated object temperature in Kelvins. Internal DSP uses filtered voltage value (RAW Register), applies some additional corrections/gain control and compensations to calculate resulting temperature value.<br />
+Simply speaking &#8211; there is a some linear dependecy between sensor analog voltage and measured temperature. Some voltage is considered as zero temperature. Voltage changes in some steps which means corresponding temperature changes. Knowing these correspondences &#8211; DSP can calculate temperature.</p>
+<p>All calculation and filtering steps uses calibration data stored in the EEPROM.</p>
+<p>In a real world applications you will never needed RAW value, maybe only in some very Special cases. Just use TOBJ to calculate temperature in Celsius or in Fahrenheit:</p>
+<p>TC = ((Tobj * 0.02) &#8211; 0.01) &#8211; 273.15<br />
+TF = (((Tobj * 0.02) &#8211; 0.01) &#8211; 273.15) × 1.8 + 32</p>
+<p>TOBJ1/TOBJ2 (RAWIR1/RAWIR2) only means IR channel number. There are 2 types of MLX devices &#8211; with single and with double IR sensors. All values can be read seperately by accessing corresponding register TOBJx<br />
+In case of single IR sensor you can use only TOBJ1 (second channel, probably, can return some garbage, i don&#8217;t know). In case of double channel IR sensor you can read different values from the sensors. This happens due to different FOV of both sensors, see Figure 20 in the MLX datasheet.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index21b4.html?replytocom=4#respond' data-commentid="4" data-postid="25" data-belowelement="div-comment-4" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-5" class="comment even thread-odd thread-alt depth-1">
+			<article id="div-comment-5" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/f20116d1ad012c3847115b84fdb40359?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/f20116d1ad012c3847115b84fdb40359?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="https://www.facebook.com/app_scoped_user_id/10212401296420776/" class="url" rel="ugc external nofollow">Edoardo Raparelli</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-5"><time datetime="2017-11-08T17:36:15+02:00">November 8, 2017 at 5:36 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Many thanks for the detailed reply! Using TOBJ2 on a single channel sensor gives something that looks like a temperature but much more noisy than using TOBJ1. That&#8217;s why I asked you for some explanations. Now it&#8217;s clear, thanks!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index8e42.html?replytocom=5#respond' data-commentid="5" data-postid="25" data-belowelement="div-comment-5" data-respondelement="respond" data-replyto="Reply to Edoardo Raparelli" aria-label='Reply to Edoardo Raparelli'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-7" class="pingback odd alt thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="../../../../2018/03/20/autonomous-allsky-camera-with-raspberry-pi-part-1-overview/index.html" class="url" rel="ugc">Autonomous Allsky camera with Raspberry PI. Part 1: overview. - Oleg Kutkov personal blog</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-17" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-17" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/7806e39ad3052ebf7d22d32cd6b62eba?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/7806e39ad3052ebf7d22d32cd6b62eba?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Andre</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-17"><time datetime="2018-05-20T22:43:46+03:00">May 20, 2018 at 10:43 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello,<br />
+I could read my mlx sensor thanks to your codes, Now I hava a challenge, I need to read two sensor, can you give me some ideas on how to do that ?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexa79a.html?replytocom=17#respond' data-commentid="17" data-postid="25" data-belowelement="div-comment-17" data-respondelement="respond" data-replyto="Reply to Andre" aria-label='Reply to Andre'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-18" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-18" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-18"><time datetime="2018-05-21T00:50:35+03:00">May 21, 2018 at 12:50 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi!<br />
+You means two different sensors on the same i2c bus?<br />
+Solution is very simple. Just change address of the one sensor by using my code.</p>
+<p>Connect one sensor to the bus and change default 5A to something different (and not used on your bus), 2A for example:<br />
+$ ./read_mlx90614 &#8211;bus 1 &#8211;i2c_addr 0x5A -w &#8211;new_addr=0x2A</p>
+<p>Now you can can connect second sensor and read both without any troubles, just using different addresses on reading.</p>
+<p>Read sensor with changed address:<br />
+$ ./read_mlx90614 &#8211;bus 1 &#8211;i2c_addr 0x2A -i</p>
+<p>Read second sensor with unchanged adress:<br />
+$ ./read_mlx90614 &#8211;bus 1 &#8211;i2c_addr 0x5A -i</p>
+<p>I&#8217;m using this technique in my projects to avoid conflicts with other i2c devices which may have the same address as mlx sensor.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexb951.html?replytocom=18#respond' data-commentid="18" data-postid="25" data-belowelement="div-comment-18" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-82" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-82" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/103a32565515918df567cf2aa5970a1c?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/103a32565515918df567cf2aa5970a1c?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Cor Pernot</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-82"><time datetime="2019-11-24T19:47:00+02:00">November 24, 2019 at 7:47 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg,</p>
+<p>great information, this is very helpful. But I am using BCC type sensors. Do you think your software will work on these as well?<br />
+Thanks in advance for answering.</p>
+<p>Cor</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexf0f0.html?replytocom=82#respond' data-commentid="82" data-postid="25" data-belowelement="div-comment-82" data-respondelement="respond" data-replyto="Reply to Cor Pernot" aria-label='Reply to Cor Pernot'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-83" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-83" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-83"><time datetime="2019-11-24T22:31:03+02:00">November 24, 2019 at 10:31 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi!<br />
+Thank you. Yes, your BCC sensor is pretty like I used but with 35 degree FOV and with additional temperature gradient compensation.<br />
+Please check page 1 and 2 of the datasheet: <a href="https://www.melexis.com/-/media/files/documents/datasheets/mlx90614-datasheet-melexis.pdf" rel="nofollow ugc">https://www.melexis.com/-/media/files/documents/datasheets/mlx90614-datasheet-melexis.pdf</a><br />
+All protocols and register are the same so software should work fine.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index118b.html?replytocom=83#respond' data-commentid="83" data-postid="25" data-belowelement="div-comment-83" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-84" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-84" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/103a32565515918df567cf2aa5970a1c?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/103a32565515918df567cf2aa5970a1c?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Cor Pernot</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-84"><time datetime="2019-11-25T10:27:31+02:00">November 25, 2019 at 10:27 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks for the quick reply. I want to change the emissivity values in the eeprom registers, these are 0x04 and 0x0F, according to the Melexis document &#8220;MLX90614-Changing-Emissivity-Unlocking-Key-Application-Note-Melexis&#8221;.<br />
+In your header file I see that the emissivity address is 0x24, that puzzles me.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index71fb.html?replytocom=84#respond' data-commentid="84" data-postid="25" data-belowelement="div-comment-84" data-respondelement="respond" data-replyto="Reply to Cor Pernot" aria-label='Reply to Cor Pernot'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-87" class="comment odd alt depth-2 parent">
+			<article id="div-comment-87" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/20d8f380dfc792150a399df5d431cbb7?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/20d8f380dfc792150a399df5d431cbb7?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Cor Pernot</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-87"><time datetime="2019-11-29T13:18:25+02:00">November 29, 2019 at 1:18 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I can confirm now that the software works fine with a BCC type sensor. Changing the emissivity constant is not possible because 2 EEPROM addresses need to be changed.<br />
+Thanks for the good work!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index6a51.html?replytocom=87#respond' data-commentid="87" data-postid="25" data-belowelement="div-comment-87" data-respondelement="respond" data-replyto="Reply to Cor Pernot" aria-label='Reply to Cor Pernot'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-88" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-3">
+			<article id="div-comment-88" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-88"><time datetime="2019-11-29T23:41:16+02:00">November 29, 2019 at 11:41 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks!<br />
+If you used values  0x04 and 0x0F for the emissivity register everything is working?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index0843.html?replytocom=88#respond' data-commentid="88" data-postid="25" data-belowelement="div-comment-88" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-89" class="comment odd alt thread-even depth-1">
+			<article id="div-comment-89" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/103a32565515918df567cf2aa5970a1c?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/103a32565515918df567cf2aa5970a1c?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Cor Pernot</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-89"><time datetime="2019-12-01T15:56:15+02:00">December 1, 2019 at 3:56 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Well, I could not try that because with your program I can only change the 0x04 register right?<br />
+I don&#8217;t trust myself to much in changing the code.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexbde5.html?replytocom=89#respond' data-commentid="89" data-postid="25" data-belowelement="div-comment-89" data-respondelement="respond" data-replyto="Reply to Cor Pernot" aria-label='Reply to Cor Pernot'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-90" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-90" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/103a32565515918df567cf2aa5970a1c?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/103a32565515918df567cf2aa5970a1c?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Cor Pernot</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-90"><time datetime="2019-12-01T16:41:14+02:00">December 1, 2019 at 4:41 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I did change the value in the header file from 0x24 to 0x2F for inspecting the register value. The value I got after recompiling was 1946 (0x079A). The Melexis&#8217;s document gives the value of 0x099A as default value.</p>
+<p>I also wonder why in the header file you use 0x24 as address and not 0x04? It yields the correct value of 65535 (0xFFF) though.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexcb29.html?replytocom=90#respond' data-commentid="90" data-postid="25" data-belowelement="div-comment-90" data-respondelement="respond" data-replyto="Reply to Cor Pernot" aria-label='Reply to Cor Pernot'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-565" class="comment odd alt depth-2">
+			<article id="div-comment-565" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/84286745fe17c28d566c117532bf6923?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/84286745fe17c28d566c117532bf6923?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">agustin veloso</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-565"><time datetime="2020-05-02T07:35:13+03:00">May 2, 2020 at 7:35 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>0x04 is the EEPROM address. 0x24 is the command yo chance an EEPROM values (0x20) plus the address You want to chance (0x04).<br />
+0x0f default values depends on every sensor. I had to send My sensor ID yo melexis support to get the default EEPROM values of My sensor.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index0e28.html?replytocom=565#respond' data-commentid="565" data-postid="25" data-belowelement="div-comment-565" data-respondelement="respond" data-replyto="Reply to agustin veloso" aria-label='Reply to agustin veloso'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-538" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-538" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/8c80e8b7ea0384d85b5a309233753668?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/8c80e8b7ea0384d85b5a309233753668?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Tom</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-538"><time datetime="2020-04-27T11:34:20+03:00">April 27, 2020 at 11:34 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg,<br />
+             Can u please tell me the use of that capacitor in the interfacing circuit?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index00bd.html?replytocom=538#respond' data-commentid="538" data-postid="25" data-belowelement="div-comment-538" data-respondelement="respond" data-replyto="Reply to Tom" aria-label='Reply to Tom'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-539" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-539" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-539"><time datetime="2020-04-27T11:45:25+03:00">April 27, 2020 at 11:45 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Tom,</p>
+<p>This is a ceramic capacitor, value 100 nF.<br />
+Connect this capacitor between VSS and VDD pins of the MLX90614.<br />
+This capacitor is required to minimize noise-like voltage spurs on the sensor power line.<br />
+Please check this amazing tutorial about bypass capacitors: <a href="https://www.youtube.com/watch?v=BcJ6UdDx1vg" rel="nofollow ugc">https://www.youtube.com/watch?v=BcJ6UdDx1vg</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexd2ff.html?replytocom=539#respond' data-commentid="539" data-postid="25" data-belowelement="div-comment-539" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-636" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-636" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/a33d1beb8222c6b7f2130bfc67503fd4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/a33d1beb8222c6b7f2130bfc67503fd4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Brandon</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-636"><time datetime="2020-05-15T15:41:55+03:00">May 15, 2020 at 3:41 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg,</p>
+<p>I ran through your steps on Raspi 4 and managed to spot the sensor on the address bus, however when i run your &#8220;simple program&#8221;, i got errors such as dev_path undeclared or I2C_SMBUS_READ undeclared or I2C_SMBUS_WORD_DATA undeclared. Do you know why this is happening?</p>
+<p>P.S I&#8217;m relatively new to linux pardon my lack of knowledge if this is really simple to fix. Thanks!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexdbd5.html?replytocom=636#respond' data-commentid="636" data-postid="25" data-belowelement="div-comment-636" data-respondelement="respond" data-replyto="Reply to Brandon" aria-label='Reply to Brandon'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-637" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2 parent">
+			<article id="div-comment-637" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-637"><time datetime="2020-05-15T16:12:51+03:00">May 15, 2020 at 4:12 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello!</p>
+<p>Sorry, &#8220;dev_path&#8221; it was my typo, now I fixed it. Please check the updated example.<br />
+Regarding the I2C_SMBUS_WORD_DATA and I2C_SMBUS_READ it depends on your Raspberry PI OS distribution.<br />
+Please try include &lt;linux/i2c.h>. If still not working &#8211; you can just redefine these commands like this (somewhere in the beggining of the file):</p>
+<p>#ifndef I2C_SMBUS_READ<br />
+#define I2C_SMBUS_READ 1<br />
+#endif</p>
+<p>#ifndef I2C_SMBUS_WRITE<br />
+#define I2C_SMBUS_WRITE 0<br />
+#endif</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index4169.html?replytocom=637#respond' data-commentid="637" data-postid="25" data-belowelement="div-comment-637" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-789" class="comment even depth-3 parent">
+			<article id="div-comment-789" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://stephen2615.wordpress.com/" class="url" rel="ugc external nofollow">Stephen2615</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-789"><time datetime="2020-06-19T10:16:09+03:00">June 19, 2020 at 10:16 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg,</p>
+<p>I just tried to compile your code and I got the same problem even though the header &lt;linux/i2c.h&gt; is available and you have already have the ifndef&#8230;. in the code. The funny thing is that your read_mlx90614 program compiles perfectly. Currently, I am running python code and it works well enough.</p>
+<p>I haven&#8217;t tried to measure the sky yet as I am trying to figure out a good container to put it in. What temps do you get when looking at the sky?</p>
+<p>Regards</p>
+<p>Stephen</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index5f2b.html?replytocom=789#respond' data-commentid="789" data-postid="25" data-belowelement="div-comment-789" data-respondelement="respond" data-replyto="Reply to Stephen2615" aria-label='Reply to Stephen2615'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-790" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-4 parent">
+			<article id="div-comment-790" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-790"><time datetime="2020-06-19T11:24:37+03:00">June 19, 2020 at 11:24 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Stephen,</p>
+<p>In my case, it might from +5 C (worst case) to -40 C. In order to analyze the sky condition you can simply subtract Sky temperature from the Ground Air temperature.<br />
+Sky_delta = Ground_Air_temp &#8211; Sky_temp.</p>
+<p>Experimentally I came to these values:<br />
+Sky_delta &lt;=5  &#8211; Worst conditions. The sky is full of heavy clouds.<br />
+Sky_delta > 5 and Sky_delta &lt;= 11 &#8211; Better, but still very bad.<br />
+Sky_delta > 11 and Sky_delta &lt;= 16 &#8211; Bad (but sometimes you can see the sky through the clouds)<br />
+Sky_delta > 16 and Sky_delta &lt;= 19 &#8211; Normal conditions. There are still some clouds.<br />
+Sky_delta > 19 and Sky_delta &lt;=25 &#8211; Good conditions. Just a few light clouds.<br />
+Sky_delta > 25 &#8211; Best visual conditions</p>
+<p>Sometimes it might be even Sky_delta > 35. This means that all vapor is almost gone. But in fact, visually you can&#8217;t see the difference.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index32a9.html?replytocom=790#respond' data-commentid="790" data-postid="25" data-belowelement="div-comment-790" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-791" class="comment even depth-5">
+			<article id="div-comment-791" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://stephen2615.wordpress.com/" class="url" rel="ugc external nofollow">Stephen2615</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-791"><time datetime="2020-06-19T13:59:47+03:00">June 19, 2020 at 1:59 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg,</p>
+<p>Normally, right now, we have cold clear winter nights but for the next week, we are going to have various amounts of rain and cloud. I might leave the device out (after the rain) and see what happens. I will log both object and ambient temps in a database and I also try capturing other stuff as I have a cheap luminosity sensor I want to test just to see what it thinks is out there. I have been experimenting with the &#8211;emissivity_coefficient settings (for my forehead) and oddly found 42534 was a good number while it only lowered the ambient temp by about one degree C. Mind you my forehead was probably colder than normal as the room temp was only 17 C. The original setting only gave my temp at 31 degrees. Lowering the emissivity to around 43k made it around 37. Interesting stuff. Thanks for your guidance.</p>
+<p>regards</p>
+<p>Stephen</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-679" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-679" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://stephen2615.wordpress.com/" class="url" rel="ugc external nofollow">Stephen2615</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-679"><time datetime="2020-05-25T06:11:49+03:00">May 25, 2020 at 6:11 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I am curious as to how the sensor would physically connect to the RPi. I know nothing about electronics so please forgive me asking about how to use it. I would like to measure the sky temp and be notified if something changes, such as if the temp increases which I believe indicates clouds. Would the RPi not be in its case and the sensor sits on the RPi or does the RPi connect to the sensor that sits outside of the case? Is the sensor protected in some way? Thank, Stephen</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexe053.html?replytocom=679#respond' data-commentid="679" data-postid="25" data-belowelement="div-comment-679" data-respondelement="respond" data-replyto="Reply to Stephen2615" aria-label='Reply to Stephen2615'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-681" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2 parent">
+			<article id="div-comment-681" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-681"><time datetime="2020-05-25T12:50:05+03:00">May 25, 2020 at 12:50 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi!</p>
+<p>The physical connection is described in the picture just above &#8220;Connecting to the Raspberry PI.&#8221;<br />
+This schematic describes everything almost as-is. At this schematic sensor is showed from the bottom, contacts side. A metal pin on the sensors&#8217; housing is a key that can help to properly orientate this sensor. You can see it as a &#8216;dot&#8217; on the schematic.<br />
+RPI connector is described as is. Just connect wires between appropriate pins of the sensor and RPI connector.<br />
+If you still have questions &#8211; feel free to ask.</p>
+<p>This sensor is perfectly fitted for the cloud sensor. You can check out my project &#8220;Allsky camera&#8221;: <a href="../../../../2018/03/20/autonomous-allsky-camera-with-raspberry-pi-part-1-overview/index.html" rel="ugc">https://olegkutkov.me/2018/03/20/autonomous-allsky-camera-with-raspberry-pi-part-1-overview/</a><br />
+The sensor is hermetically sealed so you can use it as is under the open sky. Of course, you should isolate electrical contacts. The perfect solution is to use some small waterproof box, drill hole with diameter little bit less than the diameter of the sensor. Push the sensor through this hole and seal it with silicone (or something equal).</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexb4e6.html?replytocom=681#respond' data-commentid="681" data-postid="25" data-belowelement="div-comment-681" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-683" class="comment odd alt depth-3 parent">
+			<article id="div-comment-683" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://stephen2615.wordpress.com/" class="url" rel="ugc external nofollow">Stephen2615</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-683"><time datetime="2020-05-26T03:30:16+03:00">May 26, 2020 at 3:30 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg,<br />
+Thanks for the response and I value your information. I will definitely give this a try as the &#8220;commercial&#8221; sensors are quite expensive. I have issues with fog where I live and the humidity rises to about 99% quite early at night. Does all that &#8220;moisture&#8221; in the air affect the reading that the sensor provides?<br />
+Regards<br />
+Stephen</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index063b.html?replytocom=683#respond' data-commentid="683" data-postid="25" data-belowelement="div-comment-683" data-respondelement="respond" data-replyto="Reply to Stephen2615" aria-label='Reply to Stephen2615'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-685" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-4 parent">
+			<article id="div-comment-685" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-685"><time datetime="2020-05-26T10:59:42+03:00">May 26, 2020 at 10:59 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Definitely. Fog is blocking IR so readings of the sensor might be absolutely incorrect.<br />
+The best decision is to use additional humidity sensor which can helps detect such situation. HTU21 for example: <a href="../../../../2018/02/21/htu21d-raspberry-pi/index.html" rel="ugc">https://olegkutkov.me/2018/02/21/htu21d-raspberry-pi/</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index6b19.html?replytocom=685#respond' data-commentid="685" data-postid="25" data-belowelement="div-comment-685" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-686" class="comment odd alt depth-5 parent">
+			<article id="div-comment-686" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://stephen2615.wordpress.com/" class="url" rel="ugc external nofollow">Stephen2615</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-686"><time datetime="2020-05-26T11:59:49+03:00">May 26, 2020 at 11:59 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg,<br />
+Thanks for the response. I will look into that as it makes sense to see the bigger picture. I get temp and humidity from my Pegasus Pocket Powerbox but I doubt I can pull that info out of it to use it another way.<br />
+Regards<br />
+Stephen</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-687" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-5 parent">
+			<article id="div-comment-687" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-687"><time datetime="2020-05-26T12:11:01+03:00">May 26, 2020 at 12:11 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>As I can see Pegasus Powerbox is compatible with Indi protocol and can be connected using open source libraries. So it&#8217;s possible to write some library wrapper and get all data.<br />
+<a href="../../../../../pegasusastro.com/wp-content/uploads/2019/02/ppb_indi.html" rel="nofollow ugc">https://pegasusastro.com/wp-content/uploads/2019/02/ppb_indi.jpg</a></p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-688" class="comment odd alt depth-5 parent">
+			<article id="div-comment-688" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://stephen2615.wordpress.com/" class="url" rel="ugc external nofollow">Stephen2615</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-688"><time datetime="2020-05-26T13:04:40+03:00">May 26, 2020 at 1:04 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>My powerbox is connected to a Windows computer (NUC) that sits on top of my scope and controls my camera, mount, focuser and the pocket power box all in NINA. Very nice setup. The stuff I am looking at for cloud sensor, etc, will be on a RPi somewhere close to the mount.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-689" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-5">
+			<article id="div-comment-689" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-689"><time datetime="2020-05-26T13:10:33+03:00">May 26, 2020 at 1:10 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Then the best solution is to use MLX90614 + HTU21D as a complete device.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-697" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-697" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/83fd3c8fd19d63d05ad63ce4ee319db2?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/83fd3c8fd19d63d05ad63ce4ee319db2?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Jose Arteaga</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-697"><time datetime="2020-05-28T05:22:40+03:00">May 28, 2020 at 5:22 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello Oleg,<br />
+Have you tried reading temperature by using a script written in Python?<br />
+I got a Raspberry Pi 3 B+, MLX90614 sensor, and Raspbian OS (latest version).<br />
+I wrote a script (Python) for a sequential control based on temperature value.<br />
+Also, I do need to show real-time temperature on a 5-inch display via HDMI connection. For displaying temperature I wrote a second script in Python in order to create a simple graphic user interface using TkInter toolkit.<br />
+I run both scripts simultaneously, at the beginning everything works well, sequential control and graphic user interface get access to temperature sensor, however, a few minutes later both of them crushes. At their respective terminal shell (XTerm) is shown an error message related to reading sensor failure. In case of the GUI script, it says “Timeout error”. I set a 5-second update time on its script, and I2C frequency to 100 KHz.<br />
+In both scripts I included the required code lines to get access to the sensor, nevertheless, I used different variable names to process raw temperature data.<br />
+When I run those scripts individually, nothing wrong happens. They cannot work at the same time.<br />
+I’ve unsuccessfully tried to include both applications (sequential control and GUI) at the same script, since sequential control is a closed loop. I have not gotten to make them work together.<br />
+I hope you can give me a clue to solve it,<br />
+If necessary I can send you my scripts.<br />
+Thanks a lot for your gentle attention.<br />
+Hope to get a reply from you as soon as possible.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexc4e7.html?replytocom=697#respond' data-commentid="697" data-postid="25" data-belowelement="div-comment-697" data-respondelement="respond" data-replyto="Reply to Jose Arteaga" aria-label='Reply to Jose Arteaga'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-702" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-702" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-702"><time datetime="2020-05-29T18:20:28+03:00">May 29, 2020 at 6:20 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello. Sorry, I never tried to use this sensor with Python.<br />
+Both of your scripts are trying to read the sensor data? It&#8217;s a bad idea. Without a proper arbiter, you can have a mess on the I2C bus. There is might be some mixes in commands and wrong timings. It depends on the Python library implementation.<br />
+You need some synchronization mechanism between two scripts.<br />
+Or the better decision is to use some single script as a data provider. This code must have only one purpose &#8211; periodically getting data from the sensor and storing somewhere &#8211; memory, file, etc.<br />
+Two seconds scripts are data consumers who can ask data from the first script. But any way you still need some sync tech&#8230; just like with your current two scripts.<br />
+You can use file locking mechs, semaphores, or something else, that might be available in Python IPC.</p>
+<p>In my project data from the sensor is stored directly to the database and all other consumers just selecting the required amount of data from this database. I can plot the data for any period of time, plus DB engine automatically provides a locking mechanism.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index9682.html?replytocom=702#respond' data-commentid="702" data-postid="25" data-belowelement="div-comment-702" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-779" class="comment odd alt depth-2 parent">
+			<article id="div-comment-779" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d25dff04e7a2e569ffbdba4f5d375c39?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/d25dff04e7a2e569ffbdba4f5d375c39?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">SeanieB</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-779"><time datetime="2020-06-18T14:52:25+03:00">June 18, 2020 at 2:52 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello, I am currently trying to Read Data from the MLX90614 with a Rpi 4 Model B and having issues&#8230; I use i2cDetect to confirm the mlx is connected. But i think there is an issue with the library? I run a very simple script to take readings and does not work.</p>
+<p>Would you be able to share your knowledge about how to get started with the Rpi and MLX90614 in Python. ?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index6df4.html?replytocom=779#respond' data-commentid="779" data-postid="25" data-belowelement="div-comment-779" data-respondelement="respond" data-replyto="Reply to SeanieB" aria-label='Reply to SeanieB'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-788" class="comment even depth-3">
+			<article id="div-comment-788" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://stephen2615.wordpress.com/" class="url" rel="ugc external nofollow">Stephen2615</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-788"><time datetime="2020-06-19T09:20:33+03:00">June 19, 2020 at 9:20 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Not sure if this works on a RPi4 but it does on a RPi3. Enjoy!!</p>
+<p>import smbus<br />
+from time import sleep</p>
+<p>class MLX90614():</p>
+<p><code>MLX90614_RAWIR1=0x04<br />
+MLX90614_RAWIR2=0x05<br />
+MLX90614_TA=0x06<br />
+MLX90614_TOBJ1=0x07<br />
+MLX90614_TOBJ2=0x08</p>
+<p>MLX90614_TOMAX=0x20<br />
+MLX90614_TOMIN=0x21<br />
+MLX90614_PWMCTRL=0x22<br />
+MLX90614_TARANGE=0x23<br />
+MLX90614_EMISS=0x24<br />
+MLX90614_CONFIG=0x25<br />
+MLX90614_ADDR=0x0E<br />
+MLX90614_ID1=0x3C<br />
+MLX90614_ID2=0x3D<br />
+MLX90614_ID3=0x3E<br />
+MLX90614_ID4=0x3F</p>
+<p>comm_retries = 5<br />
+comm_sleep_amount = 0.1</p>
+<p>def __init__(self, address=0x5a, bus_num=1):<br />
+    self.bus_num = bus_num<br />
+    self.address = address<br />
+    self.bus = smbus.SMBus(bus=bus_num)</p>
+<p>def read_reg(self, reg_addr):<br />
+    err = None<br />
+    for i in range(self.comm_retries):<br />
+        try:<br />
+            return self.bus.read_word_data(self.address, reg_addr)<br />
+        except IOError as e:<br />
+            err = e<br />
+            #"Rate limiting" - sleeping to prevent problems with sensor<br />
+            #when requesting data too quickly<br />
+            sleep(self.comm_sleep_amount)<br />
+    #By this time, we made a couple requests and the sensor didn't respond<br />
+    #(judging by the fact we haven't returned from this function yet)<br />
+    #So let's just re-raise the last IOError we got<br />
+    raise err</p>
+<p>def data_to_temp(self, data):<br />
+    temp = (data*0.02) - 273.15<br />
+    return temp</p>
+<p>def get_amb_temp(self):<br />
+    data = self.read_reg(self.MLX90614_TA)<br />
+    return self.data_to_temp(data)</p>
+<p>def get_obj_temp(self):<br />
+    data = self.read_reg(self.MLX90614_TOBJ1)<br />
+    return self.data_to_temp(data)<br />
+</code></p>
+<p>if <strong>name</strong> == &#8220;<strong>main</strong>&#8220;:<br />
+    sensor = MLX90614()<br />
+    print(sensor.get_amb_temp())<br />
+    print(sensor.get_obj_temp())</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index30b1.html?replytocom=788#respond' data-commentid="788" data-postid="25" data-belowelement="div-comment-788" data-respondelement="respond" data-replyto="Reply to Stephen2615" aria-label='Reply to Stephen2615'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-701" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-701" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/538180a661f8ea46c8e4823a88503f55?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/538180a661f8ea46c8e4823a88503f55?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://www.felipefabricio.wordpress.com/" class="url" rel="ugc external nofollow">FF</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-701"><time datetime="2020-05-29T18:06:00+03:00">May 29, 2020 at 6:06 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello! I&#8217;ve been trying this, but the code always says that there&#8217;s no known type name called &#8220;i2c_data&#8221; and the request for member &#8220;word&#8221; in something not a structure or union is an error. Do you know how to fix that?</p>
+<p>Thanks in advance!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index9814.html?replytocom=701#respond' data-commentid="701" data-postid="25" data-belowelement="div-comment-701" data-respondelement="respond" data-replyto="Reply to FF" aria-label='Reply to FF'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-703" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-703" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-703"><time datetime="2020-05-29T18:24:59+03:00">May 29, 2020 at 6:24 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello!<br />
+You can try now, I updated the example. It should be fine.</p>
+<p>By the way, I better recommend to use full source code of the 100% working utility from my github: <a href="https://github.com/olegkutkov/allsky/tree/master/src/utils/mlx90614" rel="nofollow ugc">https://github.com/olegkutkov/allsky/tree/master/src/utils/mlx90614</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexd54d.html?replytocom=703#respond' data-commentid="703" data-postid="25" data-belowelement="div-comment-703" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-720" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-720" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/75fd35e319d08fe4b160e1a352da5b5a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/75fd35e319d08fe4b160e1a352da5b5a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Fernando</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-720"><time datetime="2020-06-04T05:21:32+03:00">June 4, 2020 at 5:21 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg,</p>
+<p>Thank you for your efective and easy of understand code. I am testing a MLX90614ESF-DCI to measure body temperature. However I allways get a temperature about 4°C below the temperature the body should have (36-37°C). Could you give me some some hints that I could try in order to get an acurate value?. I checked Emissivity and it  has default value (E=1.0 should be very near to skin E=0.96). Besides that I am not sure what else can I adjust, as the thermometer is supposed to be &#8220;plu and play&#8221; an factory calibrated.</p>
+<p>Thank you so much for your help.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexf83e.html?replytocom=720#respond' data-commentid="720" data-postid="25" data-belowelement="div-comment-720" data-respondelement="respond" data-replyto="Reply to Fernando" aria-label='Reply to Fernando'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-724" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2 parent">
+			<article id="div-comment-724" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-724"><time datetime="2020-06-04T11:33:56+03:00">June 4, 2020 at 11:33 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello!<br />
+Sorry, I never tried the medical version of this sensor. Yes, this device should be factory-calibrated. But according to the datasheet, it&#8217;s very important to protect this device from the external influences.<br />
+Your version is temperature compensated but Melexis says:<br />
+&#8220;In these MLX90614xCx, the thermal gradients are measured internally and the measured temperature is compensated for<br />
+them. In this way, the xCx version of the MLX90614 is much less sensitive to thermal gradients, but the effect is not<br />
+totally eliminated. It is therefore important to avoid the causes of thermal gradients as much as possible or to shield<br />
+the sensor from them.&#8221;</p>
+<p>Probably you have some problems with thermal compensation?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index9b43.html?replytocom=724#respond' data-commentid="724" data-postid="25" data-belowelement="div-comment-724" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-727" class="comment odd alt depth-3 parent">
+			<article id="div-comment-727" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/75fd35e319d08fe4b160e1a352da5b5a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/75fd35e319d08fe4b160e1a352da5b5a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Fernando</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-727"><time datetime="2020-06-05T04:08:59+03:00">June 5, 2020 at 4:08 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg.</p>
+<p>Thanks for your kind answer. I installed the sensor provisionally inside a carton box and it seems to improve things. At least temperature is fluctuating less than when I was grabing the sensor with my hand. Do you think puting the sensor in a box should give a sreasonable compensation, at least for testing?.</p>
+<p>I personally have some guesses of what could be happening:</p>
+<p>I bought the sensor isntalled in a breakout board with a 3.3V regulator (despite 3V is recomended for Dxx sensors). I don&#8217;t know if the (little) heat produced by the regulator could generate a gradient. I suppose that if having 3.3V and a regulator onboard were so harmful, these brakout boards were not so pupular in Aliexpress.<br />
+Althoughin datasheet says factory settling time is 0.65, by reading Config Register1, I have it as 0.54. I want to set a bigger settling time, but have not been able of doing it by using i2cset.<br />
+I have a handheld thermometer. It has a setting for body, and another &#8220;surface temp&#8221;. Curiously the temperature thrown for surface mode, is very similar to the one read by the MLX90614. I was wondering what kind of compensation are they doing, but datasheet says nothing about an special calculation when the MLX90614 is used with human skin.</p>
+<p>Please let me know your thoughts.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index6209.html?replytocom=727#respond' data-commentid="727" data-postid="25" data-belowelement="div-comment-727" data-respondelement="respond" data-replyto="Reply to Fernando" aria-label='Reply to Fernando'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-748" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-4">
+			<article id="div-comment-748" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-748"><time datetime="2020-06-09T14:27:46+03:00">June 9, 2020 at 2:27 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi. Sorry for the late reply.<br />
+Yes, you should isolate this sensitive sensor. Put it in the box, just like you did, or use some thermal insulation + foil at least.<br />
+No voltage regulators or other &#8216;hot&#8217; electronics are allowed near the sensor.<br />
+I think that you can solve your problem by correcting the emissivity coefficient. Did you try my code from GitHub to set this value?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index0254.html?replytocom=748#respond' data-commentid="748" data-postid="25" data-belowelement="div-comment-748" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-806" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-806" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://stephen2615.wordpress.com/" class="url" rel="ugc external nofollow">Stephen2615</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-806"><time datetime="2020-06-22T09:01:44+03:00">June 22, 2020 at 9:01 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg,</p>
+<p>I need some inspiration about how to deploy the sensors. Do you have a picture that you can share of the sensors in situ. I have been getting more &#8220;sensitive&#8221; sensors and want to put them together in a box to put out the back for some testing. I would not describe myself as a hands on person as I am more likely to lose a finger if I use a screw driver.</p>
+<p>Cheers</p>
+<p>Stephen</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index8bb6.html?replytocom=806#respond' data-commentid="806" data-postid="25" data-belowelement="div-comment-806" data-respondelement="respond" data-replyto="Reply to Stephen2615" aria-label='Reply to Stephen2615'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-808" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2 parent">
+			<article id="div-comment-808" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-808"><time datetime="2020-06-22T11:01:02+03:00">June 22, 2020 at 11:01 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Sure. This is one of my setups. The cloud sensor just sits in a sealed hole.<br />
+Housing is a simple electricity box. From the inner side sensor is covered with thermal insulation and copper foil.</p>
+<p><a href="../../../../wp-content/uploads/2020/06/xdcJzU3isRM.jpg" rel="ugc">https://olegkutkov.me/wp-content/uploads/2020/06/xdcJzU3isRM.jpg</a><br />
+<a href="../../../../wp-content/uploads/2020/06/cloud_sensor_sealing.jpg" rel="ugc">https://olegkutkov.me/wp-content/uploads/2020/06/cloud_sensor_sealing.jpg</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index8a17.html?replytocom=808#respond' data-commentid="808" data-postid="25" data-belowelement="div-comment-808" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-809" class="comment odd alt depth-3">
+			<article id="div-comment-809" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://stephen2615.wordpress.com/" class="url" rel="ugc external nofollow">Stephen2615</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-809"><time datetime="2020-06-22T12:21:11+03:00">June 22, 2020 at 12:21 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks. I have been looking at cable glands, something like this:</p>
+<p><a href="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRzTfr3Cl77vxuXO2RUlZ1GJq7rytNpG2KFkDPSAsRDWxRQ4IdEsxFXgVeNkIqUzIbtYViEG6phqQ_OaerxT-lYjjMCUjdJ-KLe5QIkmVRbWfvT7nhuLt0B&amp;usqp=CAY" rel="nofollow ugc">https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRzTfr3Cl77vxuXO2RUlZ1GJq7rytNpG2KFkDPSAsRDWxRQ4IdEsxFXgVeNkIqUzIbtYViEG6phqQ_OaerxT-lYjjMCUjdJ-KLe5QIkmVRbWfvT7nhuLt0B&#038;usqp=CAY</a></p>
+<p>I would think that having the sensor sitting flush with the top of the gland would also keep the sensor away from anything that might effect it.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index5487.html?replytocom=809#respond' data-commentid="809" data-postid="25" data-belowelement="div-comment-809" data-respondelement="respond" data-replyto="Reply to Stephen2615" aria-label='Reply to Stephen2615'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-870" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-870" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71c8e3be61bc6422e9c4be0d60dbcb2e?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71c8e3be61bc6422e9c4be0d60dbcb2e?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">hdihd9162</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-870"><time datetime="2020-07-08T15:44:15+03:00">July 8, 2020 at 3:44 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>hello i connect sensor without capacitor when i type<br />
+i2cdetect -y 1<br />
+all address show can you help me</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexc86f.html?replytocom=870#respond' data-commentid="870" data-postid="25" data-belowelement="div-comment-870" data-respondelement="respond" data-replyto="Reply to hdihd9162" aria-label='Reply to hdihd9162'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-871" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-871" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-871"><time datetime="2020-07-08T16:18:54+03:00">July 8, 2020 at 4:18 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello. Your sensor might be in PWM mode.<br />
+I mention this in the article:<br />
+<em><br />
+By default, the device is working in SMBus mode, but my sample was in PWM mode what was puzzled me for some time, i2c bus was full of random numbers. But after connecting the oscilloscope I finally figured out what’s going on and switched MLX to the “normal” SMBus mode.</p>
+<p>Switching is simple – just pull SCL pin to the ground for a short time. After reset device will return to the original mode, so for permanent switching some EEPROM value should be corrected. EEPROM reading and writing will be discussed below.</em></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index356c.html?replytocom=871#respond' data-commentid="871" data-postid="25" data-belowelement="div-comment-871" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-914" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-914" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/7bcefc92ca218afd395c966392a487ea?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/7bcefc92ca218afd395c966392a487ea?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="https://www.observables.com/" class="url" rel="ugc external nofollow">Morgan Ware</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-914"><time datetime="2020-07-28T02:31:33+03:00">July 28, 2020 at 2:31 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello! I have modified this code a bit for a similar thermopile device; the G-TPMO-102 provided by Mouser Electronics. Above in the example you specify that using the i2c_bcm2708 caused you to use &#8220;echo -n 1 &gt; /sys/module/i2c_bcm2708/parameters/combined&#8221; from root. I am using i2c_bcm2835 and am using a newer device (pi4), so by your guide I should not encounter &#8220;Failed to perfom I2C_SMBUS transaction, error: -1&#8221;.</p>
+<p>I am receiving the error and have tried a few work-arounds, to no avail. Do you have any suggestions for clearing this issue? ( For my similar thermopile device I have been adapting code that I found in the github you linked.)</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index6d55.html?replytocom=914#respond' data-commentid="914" data-postid="25" data-belowelement="div-comment-914" data-respondelement="respond" data-replyto="Reply to Morgan Ware" aria-label='Reply to Morgan Ware'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-915" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2 parent">
+			<article id="div-comment-915" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-915"><time datetime="2020-07-29T19:23:09+03:00">July 29, 2020 at 7:23 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi!<br />
+Unfortunately, I never used 824-G-TPMO-102 sensor. I can see from the datasheet that this device have a slightly different protocol.<br />
+Can this device be detected on the I2C bus (using <strong>i2cdetect -y 1</strong> command)?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index0a50.html?replytocom=915#respond' data-commentid="915" data-postid="25" data-belowelement="div-comment-915" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-916" class="comment even depth-3 parent">
+			<article id="div-comment-916" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/7bcefc92ca218afd395c966392a487ea?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/7bcefc92ca218afd395c966392a487ea?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="https://www.observables.com/" class="url" rel="ugc external nofollow">Morgan Ware</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-916"><time datetime="2020-07-29T19:29:16+03:00">July 29, 2020 at 7:29 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Yes! My device is located on 0x00, and can only be detected when typing &#8220;sudo i2cdetect -y -a 1&#8221;.<br />
+Thank you for your response. All my code is in a private repository, so I can not link it, but I can copy/paste things if that would help.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index06b1.html?replytocom=916#respond' data-commentid="916" data-postid="25" data-belowelement="div-comment-916" data-respondelement="respond" data-replyto="Reply to Morgan Ware" aria-label='Reply to Morgan Ware'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-919" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-4 parent">
+			<article id="div-comment-919" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-919"><time datetime="2020-07-30T02:46:25+03:00">July 30, 2020 at 2:46 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Yes, share some code, please. Let&#8217;s try to figure out what&#8217;s wrong.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index5f75.html?replytocom=919#respond' data-commentid="919" data-postid="25" data-belowelement="div-comment-919" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-921" class="comment even depth-5">
+			<article id="div-comment-921" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/7bcefc92ca218afd395c966392a487ea?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/7bcefc92ca218afd395c966392a487ea?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="https://www.observables.com/" class="url" rel="ugc external nofollow">Morgan Ware</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-921"><time datetime="2020-07-30T18:49:12+03:00">July 30, 2020 at 6:49 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Below is &#8220;main.cpp&#8221;. This should look familiar to you! :</p>
+<p>#include &lt;sys/ioctl.h&gt;<br />
+#include &lt;sys/types.h&gt;<br />
+#include &lt;sys/stat.h&gt;<br />
+#include &lt;stdint.h&gt;<br />
+#include &lt;fcntl.h&gt;<br />
+#include &lt;unistd.h&gt;<br />
+#include &lt;string.h&gt;<br />
+#include &lt;stdio.h&gt;<br />
+#include &lt;getopt.h&gt;<br />
+#include &lt;stdlib.h&gt;<br />
+#include &lt;linux/i2c.h&gt;<br />
+#include &lt;linux/i2c-dev.h&gt;<br />
+#include &lt;errno.h&gt;<br />
+#include &#8220;gtpmo102.h&#8221;</p>
+<p>/* Just in case */<br />
+#ifndef I2C_SMBUS_READ<br />
+#define I2C_SMBUS_READ 1<br />
+#endif<br />
+#ifndef I2C_SMBUS_WRITE<br />
+#define I2C_SMBUS_WRITE 0<br />
+#endif</p>
+<p>// buffer for data reading or writing<br />
+typedef union i2c_smbus_data i2c_data;</p>
+<p>static int DEBUG_MODE = 0;</p>
+<p>extern const char* __progname;<br />
+///</p>
+<p>int get_device(const int bus_num, const unsigned char i2c_addr)<br />
+{<br />
+    char dev_path[11] = { 0 };</p>
+<p><code>// construct path to i2c device<br />
+snprintf(dev_path, 11, "/dev/i2c-%i", bus_num);</p>
+<p>if (DEBUG_MODE)<br />
+{<br />
+    fprintf(stderr, "Opening i2c interface %s\n", dev_path);<br />
+}</p>
+<p>int fdev = open(dev_path, O_RDWR);</p>
+<p>if (fdev &lt; 0)<br />
+{<br />
+    fprintf(stderr, "Failed to open I2C interface %s Error: %s\n", dev_path, strerror(errno));<br />
+    return -1;<br />
+}</p>
+<p>if (DEBUG_MODE)<br />
+{<br />
+    fprintf(stderr, "Setting up slave address 0x%02X\n", i2c_addr);<br />
+}</p>
+<p>// set addr of the slave i2c device<br />
+if (ioctl(fdev, I2C_SLAVE, i2c_addr) &lt; 0)<br />
+{<br />
+    fprintf(stderr, "Failed to select I2C slave device! Error: %s\n", strerror(errno));<br />
+    return -1;<br />
+}</p>
+<p>// enable checksums<br />
+if (ioctl(fdev, I2C_PEC, 1) &lt; 0)<br />
+{<br />
+    fprintf(stderr, "Failed to enable SMBus packet error checking, error: %s\n", strerror(errno));<br />
+    return -1;<br />
+}</p>
+<p>return fdev;<br />
+</code></p>
+<p>}</p>
+<p>int talk_to_device(const int fdev, const int read, const char command, i2c_data* data)<br />
+{</p>
+<p><code>// initialize i2c_smus structure for combined write/read request to device<br />
+struct i2c_smbus_ioctl_data sdat =<br />
+{<br />
+    .read_write = (read ? I2C_SMBUS_READ : I2C_SMBUS_WRITE), // set operation type: read or write<br />
+    .command = command,     // set command, i.e. register number<br />
+    .size = I2C_SMBUS_WORD_DATA,   // set data size, note: mlx supports only WORD<br />
+    .data = data    // pointer to data<br />
+};</p>
+<p>if (DEBUG_MODE)<br />
+{<br />
+    fprintf(stderr, "Perfoming %s request to device, command = 0x%02X\n"<br />
+                    , (read ? "I2C_SMBUS_READ" : "I2C_SMBUS_WRITE"), command);<br />
+}</p>
+<p>// perfom combined request to device<br />
+if (ioctl(fdev, I2C_SMBUS, &amp;sdat) &lt; 0)<br />
+{<br />
+    fprintf(stderr, "Failed to perfom I2C_SMBUS transaction, error: %s\n", strerror(errno));<br />
+    return -1;<br />
+}</p>
+<p>if (DEBUG_MODE)<br />
+{<br />
+    fprintf(stderr, "Ok, got answer from device\n");<br />
+}</p>
+<p>return 0;<br />
+</code></p>
+<p>}</p>
+<p>int main()<br />
+{</p>
+<p><code>int fdev = get_device(1, 0x00);<br />
+printf("First Function: Status: %d \n", fdev);</p>
+<p>i2c_data data;<br />
+int comm = talk_to_device(fdev, 1, GTPMO102_I2CADDR, &amp;data);<br />
+printf("Second Function: Status: %d \n", comm);</p>
+<p>printf("Hello World\n");<br />
+return 0;<br />
+</code></p>
+<p>}</p>
+<p>Below this line is my header file, &#8220;gtpmo102.h&#8221;, this part I had to adapt to reflect the datasheet of my device, which is located here: <a href="https://www.te.com/commerce/DocumentDelivery/DDEController?Action=showdoc&amp;DocId=Data+Sheet%7FTSD305-2C55%7FA%7Fpdf%7FEnglish%7FENG_DS_TSD305-2C55_A.pdf%7F10205977-00" rel="nofollow ugc">https://www.te.com/commerce/DocumentDelivery/DDEController?Action=showdoc&#038;DocId=Data+Sheet%7FTSD305-2C55%7FA%7Fpdf%7FEnglish%7FENG_DS_TSD305-2C55_A.pdf%7F10205977-00</a></p>
+<p>&#8220;gtpmo102.h&#8221; :</p>
+<p>#ifndef GTPMO102_H<br />
+#define GTPMO102_H</p>
+<p>#define GTPMO102_I2CADDR 0x00</p>
+<p>// EEPROM CONTENT<br />
+#define GTPMO102_SerialNum 0x01<br />
+#define GTPMO102_TsensorMIN 0x1A<br />
+#define GTPMO102_TsensorMAX 0x1B<br />
+#define GTPMO102_TobjMIN 0x1C<br />
+#define GTPMO102_TobjMAX 0x1D<br />
+#define GTPMO102_TC_H_word 0x1E<br />
+#define GTPMO102_TC_L_word 0x1F<br />
+#define GTPMO102_Tref_H_word 0x20<br />
+#define GTPMO102_Tref_L_word 0x21<br />
+#define GTPMO102_K4comp_H 0x22<br />
+#define GTPMO102_K4comp_L 0x23<br />
+#define GTPMO102_K3comp_H 0x24<br />
+#define GTPMO102_K3comp_L 0x25<br />
+#define GTPMO102_K2comp_H 0x26<br />
+#define GTPMO102_K2comp_L 0x27<br />
+#define GTPMO102_K1comp_H 0x28<br />
+#define GTPMO102_K1comp_L 0x29<br />
+#define GTPMO102_K0comp_H 0x2A<br />
+#define GTPMO102_K0comp_L 0x2B<br />
+#define GTPMO102_K4obj_H 0X2E<br />
+#define GTPMO102_K4obj_L 0X2F<br />
+#define GTPMO102_K3obj_H 0X30<br />
+#define GTPMO102_K3obj_L 0x31<br />
+#define GTPMO102_K2obj_H 0x32<br />
+#define GTPMO102_K2obj_L 0x33<br />
+#define GTPMO102_K1obj_H 0x34<br />
+#define GTPMO102_K1obj_L 0x35<br />
+#define GTPMO102_K0obj_H 0x36<br />
+#define GTPMO102_K0obj_L 0x37<br />
+#define GTPMO102_Status 0x38<br />
+#define ADC 0xAF</p>
+<p>#endif</p>
+<p>Output:</p>
+<p>First Function: Status: 3<br />
+Failed to perfom I2C_SMBUS transaction, error: Bad message<br />
+Second Function: Status: -1<br />
+Hello World</p>
+<p>As you can see by the output, I want to change the second functions status to a positive number, and perform the I2C_SMBUS transaction correctly!</p>
+<p>Thank you very much for your willingness to assist, Oleg!</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1099" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-1099" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/0e033593ecf6d33057526187cd258379?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/0e033593ecf6d33057526187cd258379?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Kulwant Singh</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1099"><time datetime="2021-12-04T02:29:08+02:00">December 4, 2021 at 2:29 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg!<br />
+I&#8217;m hoping you are still reading this and can help me with an issue I&#8217;m having with setting emissivity on 90614DCC sensor.</p>
+<p>I&#8217;m following the steps in MLX90614-Changing-Emissivity-Unlocking-Key-Application-Note-Melexis section 6.2. I&#8217;m able to read and write to the EEPROM locations as specified except for the very first step which is to &#8220;Enter EEPROM address 0x0F unlock key&#8221;.<br />
+I have tried reading from 0x60 (as listed in opcode column) but this address doesn&#8217;t exist so there&#8217;s an error. Also tried writing 0x0F to 0x60 but that didn&#8217;t work either.<br />
+If I skip this step and follow the rest of the steps as following, new values written are not saved. I read old values back:<br />
+-Write 0x0000 to 0x24 (Erase emissivity)<br />
+&#8211; write new emissivity to 0x24<br />
+&#8211; read back emissivity (Reads old value, not new)<br />
+&#8211; write 0x0000 to 0x2F (Erase )<br />
+&#8211; write new value to 0x2F<br />
+&#8211; read 0x2F (returns old value, not new)</p>
+<p>I&#8217;m wondering if there is an error in the datasheet section 6.2.1  &#8220;Enter EEPROM address 0x0F unlock key&#8221; or whether I am doing something wrong.</p>
+<p>Any ideas to try out are appreciated.</p>
+<p>Code:<br />
+from time import sleep<br />
+import smbus</p>
+<p>class MLX90614():</p>
+<p><code># RAM offsets with 16-bit data, MSB first<br />
+# Raw data IR channel 1<br />
+MLX90614_RAWIR1 = 0x04<br />
+# Raw data IR channel 2<br />
+MLX90614_RAWIR2 = 0x05<br />
+# Ambient temperature<br />
+MLX90614_TA = 0x06<br />
+# Object 1 temperature<br />
+MLX90614_TOBJ1 = 0x07<br />
+# Object 2 temperature<br />
+MLX90614_TOBJ2 = 0x08</p>
+<p># EEPROM offsets with 16-bit data, MSB first<br />
+# Object temperature max register<br />
+MLX90614_TOMAX = 0x20<br />
+# Object temperature min register<br />
+MLX90614_TOMIN = 0x21<br />
+# PWM configuration register<br />
+MLX90614_PWMCTRL = 0x22<br />
+# Ambient temperature register<br />
+MLX90614_TARANGE = 0x23<br />
+# Emissivity correction register<br />
+MLX90614_EMISS = 0x24<br />
+# Configuration register<br />
+MLX90614_CONFIG = 0x25<br />
+# Slave address register<br />
+MLX90614_ADDR = 0x2E<br />
+#EEPROM Unlock key<br />
+MLX90614_UNLOCK_KEY = 0x2F<br />
+# 1 ID register (read-only)<br />
+MLX90614_ID1 = 0x3C<br />
+# 2 ID register (read-only)<br />
+MLX90614_ID2 = 0x3D<br />
+# 3 ID register (read-only)<br />
+MLX90614_ID3 = 0x3E<br />
+# 4 ID register (read-only)<br />
+MLX90614_ID4 = 0x3F</p>
+<p>comm_retries = 5<br />
+comm_sleep_amount = 0.1</p>
+<p>def __init__(self, bus_num = 1, address=0x5A):<br />
+    self.address = address<br />
+    self.bus = smbus.SMBus(bus=bus_num)</p>
+<p>def read_reg(self, reg_addr):<br />
+    err = None<br />
+    for i in range(self.comm_retries):<br />
+        try:<br />
+            return self.bus.read_word_data(self.address, reg_addr)<br />
+        except IOError as e:<br />
+            err = e<br />
+            # "Rate limiting" - sleeping to prevent problems with sensor<br />
+            # when requesting data too quickly<br />
+            sleep(self.comm_sleep_amount)<br />
+    # By this time, we made a couple requests and the sensor didn't respond<br />
+    # (judging by the fact we haven't returned from this function yet)<br />
+    # So let's just re-raise the last IOError we got<br />
+    raise err</p>
+<p>def write_reg(self, reg_addr, data):<br />
+    err = None<br />
+    for i in range(self.comm_retries):<br />
+        try:<br />
+            return self.bus.write_word_data(self.address, reg_addr, data)<br />
+        except IOError as e:<br />
+            err = e<br />
+            # "Rate limiting" - sleeping to prevent problems with sensor<br />
+            # when requesting data too quickly<br />
+            sleep(self.comm_sleep_amount)<br />
+    # By this time, we made a couple requests and the sensor didn't respond<br />
+    # (judging by the fact we haven't returned from this function yet)<br />
+    # So let's just re-raise the last IOError we got<br />
+    raise err</p>
+<p>def read_temp(self, reg):<br />
+    data = self.read_reg(reg)<br />
+    temp = (data * 0.02) - 273.15<br />
+    return temp</p>
+<p>def get_ambient(self):<br />
+    return self.read_temp(self.MLX90614_TA)</p>
+<p>def get_object_1(self):<br />
+    return self.read_temp(self.MLX90614_TOBJ1)</p>
+<p>def get_object_2(self):<br />
+    return self.read_temp(self.MLX90614_TOBJ2)</p>
+<p>def get_emmissivity(self):<br />
+    return self.read_reg(self.MLX90614_EMISS)</p>
+<p>def get_unlock0F(self):<br />
+    return self.read_reg(self.MLX90614_UNLOCK_KEY)</p>
+<p>def set_unlock0F(self, data):<br />
+    return self.write_reg(self.MLX90614_UNLOCK_KEY, data)</p>
+<p>def set_emmissivity(self, data):<br />
+    #self.read_reg(self.MLX90614_UNLOCK_KEY)<br />
+    self.write_reg(self.MLX90614_EMISS, 0x0000)<br />
+    return self.write_reg(self.MLX90614_EMISS, data)<br />
+</code></p>
+<p>if <strong>name</strong> == &#8220;<strong>main</strong>&#8220;:</p>
+<p><code>#bus = smbus.SMBus()<br />
+IRTemp = MLX90614(1)</p>
+<p>print("TO Max: ", IRTemp.read_temp(IRTemp.MLX90614_TOMAX))<br />
+print("TO Min: ", IRTemp.read_temp(IRTemp.MLX90614_TOMIN))<br />
+print("Ambient Temperature (deg. C): ", IRTemp.get_ambient())<br />
+print("Object Temperature (deg. C): ", IRTemp.get_object_1())</p>
+<p>emissOld = IRTemp.get_emmissivity()<br />
+print("Old Emmissivity: ", emissOld)<br />
+print("unlock 0x60 read: ", IRTemp.read_reg(0x0F))<br />
+print(IRTemp.write_reg(0x60, 0x0F))<br />
+unlockOld = IRTemp.get_unlock0F()<br />
+print("unlock Old: ", unlockOld)<br />
+#calculate emmissivity<br />
+#Treal = float(input("Real object Temp:"))<br />
+#Areal = float(input("Real ambient Temp:"))<br />
+Treal = 25.4<br />
+Areal = 28.9<br />
+Tsens = IRTemp.get_object_1()<br />
+Asens = IRTemp.get_ambient()</p>
+<p>emiss = ((Tsens+273.15)**4 - (Asens+273.15)**4)/((Treal+273.15)**4 - (Areal+273.15)**4)<br />
+emissReg = round((2**16)*emiss - 1)<br />
+emisshex = hex(emissReg)</p>
+<p>print(f"calculated emmiss:{emiss}, reg value: {emissReg}, hex:{emisshex}")<br />
+unlockNew = round(emissOld*unlockOld/emissReg)</p>
+<p>print("New Emmissivity: ", emissReg)<br />
+print("New Unlock: ", unlockNew)<br />
+print("unlock 0x60 read: ", IRTemp.read_reg(0x0F))</p>
+<p>IRTemp.set_emmissivity(emissReg)<br />
+print("Read Emmissivity: ", IRTemp.get_emmissivity())<br />
+IRTemp.set_unlock0F(0x0000)<br />
+IRTemp.set_unlock0F(unlockNew)<br />
+print("Read Unlock: ", IRTemp.get_unlock0F())<br />
+</code></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index045e.html?replytocom=1099#respond' data-commentid="1099" data-postid="25" data-belowelement="div-comment-1099" data-respondelement="respond" data-replyto="Reply to Kulwant Singh" aria-label='Reply to Kulwant Singh'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1311" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-1311" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/07c364393409731c033be38d1394030f?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/07c364393409731c033be38d1394030f?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">farm2440</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1311"><time datetime="2022-06-09T22:16:46+03:00">June 9, 2022 at 10:16 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>VSS – power supply (3.3 or 5 volts).  : Watch out!!! This is wrong! VSS is ground and VDD is positive power supply.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index8db9.html?replytocom=1311#respond' data-commentid="1311" data-postid="25" data-belowelement="div-comment-1311" data-respondelement="respond" data-replyto="Reply to farm2440" aria-label='Reply to farm2440'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1312" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-1312" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1312"><time datetime="2022-06-09T22:25:23+03:00">June 9, 2022 at 10:25 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thank you for your comment. Fixed!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexd73e.html?replytocom=1312#respond' data-commentid="1312" data-postid="25" data-belowelement="div-comment-1312" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1352" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-1352" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Stephen Petersen</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1352"><time datetime="2022-07-17T02:42:09+03:00">July 17, 2022 at 2:42 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I read somewhere that for the sensor to be accurate, you have to expose it to the sky without anything like a plastic dome to cover it. If that is correct, how do you do that? TIA!!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index276e.html?replytocom=1352#respond' data-commentid="1352" data-postid="25" data-belowelement="div-comment-1352" data-respondelement="respond" data-replyto="Reply to Stephen Petersen" aria-label='Reply to Stephen Petersen'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1353" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2 parent">
+			<article id="div-comment-1353" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1353"><time datetime="2022-07-17T02:46:21+03:00">July 17, 2022 at 2:46 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello. That&#8217;s correct.<br />
+I&#8217;m using my MLX sensor outdoor without any cover on the top. It&#8217;s waterproof. Sure, bottom contacts are hidden inside a box, but the top panel window is exposed to the open sky.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexc1f6.html?replytocom=1353#respond' data-commentid="1353" data-postid="25" data-belowelement="div-comment-1353" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1354" class="comment even depth-3 parent">
+			<article id="div-comment-1354" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/c6536c1d2444a141f0db19b53e67056a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Stephen Petersen</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1354"><time datetime="2022-07-17T02:47:46+03:00">July 17, 2022 at 2:47 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks for the very quick response. Are you using a cable gland or something similar?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index1d15.html?replytocom=1354#respond' data-commentid="1354" data-postid="25" data-belowelement="div-comment-1354" data-respondelement="respond" data-replyto="Reply to Stephen Petersen" aria-label='Reply to Stephen Petersen'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1355" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-4">
+			<article id="div-comment-1355" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1355"><time datetime="2022-07-17T02:53:19+03:00">July 17, 2022 at 2:53 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>The sensor is mounted on the box with Raspberry PI and other electronics inside.<br />
+It just tightly sits in a hole and is secured with sealant.<br />
+<img src="../../../../wp-content/uploads/2022/07/xdcJzU3isRM.jpg" alt="" /></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexd035.html?replytocom=1355#respond' data-commentid="1355" data-postid="25" data-belowelement="div-comment-1355" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1418" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-1418" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/adfc568187442e8e3464c0d1f5066b12?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/adfc568187442e8e3464c0d1f5066b12?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Team</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1418"><time datetime="2023-02-06T21:49:33+02:00">February 6, 2023 at 9:49 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Is the MLX90614 compatible with the Raspberry Pi?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index075d.html?replytocom=1418#respond' data-commentid="1418" data-postid="25" data-belowelement="div-comment-1418" data-respondelement="respond" data-replyto="Reply to Team" aria-label='Reply to Team'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1419" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-1419" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1419"><time datetime="2023-02-06T22:00:13+02:00">February 6, 2023 at 10:00 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>The whole article is about using MLX90614 with Raspberry Pi</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index538d.html?replytocom=1419#respond' data-commentid="1419" data-postid="25" data-belowelement="div-comment-1419" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-2270" class="comment even thread-odd thread-alt depth-1">
+			<article id="div-comment-2270" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/c69aa30eae2cd6756387c482a8c49538?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/c69aa30eae2cd6756387c482a8c49538?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Robert O</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2270"><time datetime="2024-03-06T03:36:03+02:00">March 6, 2024 at 3:36 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Really helped me with my project. Thank you</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexc69e.html?replytocom=2270#respond' data-commentid="2270" data-postid="25" data-belowelement="div-comment-2270" data-respondelement="respond" data-replyto="Reply to Robert O" aria-label='Reply to Robert O'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply to <a href="#comment-790">Oleg Kutkov</a> <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='25' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='790' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="a07b06a731" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="146"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../../2020/06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index32a9.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_1827c9da4c86fc3ad9db01f6a6132235.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2017/08/10/mlx90614-raspberry/?replytocom=790 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:18:01 GMT -->
+</html>

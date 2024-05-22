@@ -1,0 +1,1076 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2019/11/10/cpp-in-linux-kernel/?replytocom=1359 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:16:47 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>C++ in Linux kernel &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large, noindex, follow' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; C++ in Linux kernel Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/1017.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../indexf628.html?p=1017' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embed14fb.json?url=https%3A%2F%2Folegkutkov.me%2F2019%2F11%2F10%2Fcpp-in-linux-kernel%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embed232e?url=https%3A%2F%2Folegkutkov.me%2F2019%2F11%2F10%2Fcpp-in-linux-kernel%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "indexc62d.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-1017 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-1017" class="post-1017 post type-post status-publish format-standard hentry category-linux-kernel category-linux-system-development category-software tag-c tag-kernel tag-linux tag-runtime">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/linux-kernel/index.html" rel="category tag">Linux kernel</a>, <a href="../../../../category/linux-system-development/index.html" rel="category tag">Linux system development</a>, <a href="../../../../category/software/index.html" rel="category tag">Software</a></span><h1 class="entry-title">C++ in Linux kernel</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">November 10, 2019</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><img decoding="async" class="alignleft size-thumbnail wp-image-1019" src="../../../../wp-content/uploads/2019/11/cpp_linux_200p-1-150x150.png" alt="" width="150" height="150" /> Linux kernel is written in C (and in Assembly in platform-specific portions) language. C language is the only language allowed to write kernel modules. And there is no problem in most cases.</p>
+<p>But sometimes, some stranger things may be required. Let&#8217;s see how to use C++ for the Linux kernel modules.</p>
+<p><span id="more-1017"></span></p>
+<p>Of course, it&#8217;s not a common situation. But imagine that you have some big code with some logic and algorithms implementations, and you need to reuse this code inside the Linux kernel, which is written in C++&#8230;</p>
+<p>There are two options: completely rewrite this code to C language or somehow use it as is. This article can help those brave hearts who chose the second option.</p>
+<p>I have to say that it&#8217;s impossible to write a pure C++ kernel module. You still need many C routines and interlayers to communicate with the kernel and use resources. But all this is possible because C++ is basically based on C and can link with C functions and structures.<br />
+C code can also use C++ methods if it&#8217;s not classes or something C++-specific.</p>
+<p>Actually, when talking about C++, it&#8217;s very important to understand that language functionality is very limited. Standard libraries, like<strong> libstdc++</strong> with all containers, are not available. Exceptions and RTTI also can&#8217;t be used because of overhead and required resources to add support of these features.<br />
+Since the standard library is unavailable, we need to implement some basic runtime functionality like &#8216;<em>new</em>&#8216; and &#8216;<em>delete</em>&#8216; functions, virtual functions support, and everything that can cause linker errors. It might be sounds not so easy, but actually, everything is quite simple.</p>
+<p>Support C++ runtime required two components. I called these components &#8220;<strong>CPP support</strong>&#8221; and &#8220;<strong>kernel library</strong>&#8220;.<br />
+The first component, &#8220;CPP support,&#8221; implements C++-specific things like memory allocators and so on.<br />
+The second component, &#8220;kernel library&#8221; is a lightweight implementation of the standard library with low-level functions. Still, actually, this is only a &#8220;bridge&#8221; between C &#8220;library&#8221; (in-kernel implementation) and the C++ world.</p>
+<h4>C and C++ are working together.</h4>
+<p>When talking about this &#8220;bridge&#8221; it&#8217;s very important to know that it&#8217;s impossible to mix C and C++ code without a little trick directly.<br />
+There is a difference in function name mangling in C and C++ compilers. In the C++ world, a function can be overloaded, so the compiler adds some special information about specific function prototypes. This code can&#8217;t be linked by C code and vice versa. That&#8217;s why we can&#8217;t directly include C headers in the C++ file.<br />
+To solve this problem, there is a little instruction to the C++ compiler called &#8216;<em>extern &#8220;C&#8221;</em>&#8216;. These instructions disable C++-specific name mangling and allow mixing of the code.<br />
+C-style code must be wrapped with &#8216;<em>extern &#8220;C&#8221;</em>&#8216; for the C++ compiler. For the C compiler, such wrapping is not required. C++ compilers define preprocessor variable &#8220;<strong>__cplusplus</strong>&#8221; that can be used with function wrappers.<br />
+Here is what it looks like:</p>
+<pre class="prettyprint">#ifdef __cplusplus
+extern "C" {
+#endif
+void foo_c_style_function();
+void bar_c_style_function();
+#ifdef __cplusplus
+}
+#endif</pre>
+<p>The great thing here is that this function&#8217;s actual implementation can be in a C or C++ file. In a C++ world, both functions can use classes and other C++-specific code and still can be called from the C world.</p>
+<p><a href="../../../../wp-content/uploads/2019/11/cpp_c_worlds_comm.png"><img fetchpriority="high" decoding="async" class="aligncenter size-full wp-image-1030" src="../../../../wp-content/uploads/2019/11/cpp_c_worlds_comm.png" alt="" width="800" height="416" srcset="https://olegkutkov.me/wp-content/uploads/2019/11/cpp_c_worlds_comm.png 800w, https://olegkutkov.me/wp-content/uploads/2019/11/cpp_c_worlds_comm-300x156.png 300w, https://olegkutkov.me/wp-content/uploads/2019/11/cpp_c_worlds_comm-768x399.png 768w" sizes="(max-width: 800px) 100vw, 800px" /></a></p>
+<p>When talking about Linux kernel modules, some tricks are also required in Makefile. It will be discussed below.</p>
+<p>Now all together.<br />
+What is required to support and run C++ code in the Linux kernel?</p>
+<p><a href="../../../../wp-content/uploads/2019/11/cpp_kernel_1.png"><img decoding="async" class="aligncenter wp-image-1031" src="../../../../wp-content/uploads/2019/11/cpp_kernel_1.png" alt="" width="703" height="605" srcset="https://olegkutkov.me/wp-content/uploads/2019/11/cpp_kernel_1.png 800w, https://olegkutkov.me/wp-content/uploads/2019/11/cpp_kernel_1-300x258.png 300w, https://olegkutkov.me/wp-content/uploads/2019/11/cpp_kernel_1-768x660.png 768w" sizes="(max-width: 703px) 100vw, 703px" /></a></p>
+<h4>Demo implementation of the kernel module with C++ components</h4>
+<p>Let&#8217;s begin our implementation with the simple logger that can provide printk functionality for the C++ module.</p>
+<p>Header and implementation files.</p>
+<pre class="prettyprint">/*
+ * Linux kernel logger for C and C++
+ */
+
+#ifndef LOGGER_H
+#define LOGGER_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+void kern_log(const char* fmt, ...);
+#ifdef __cplusplus
+}
+#endif
+
+#endif</pre>
+<pre class="prettyprint">/*
+ * Linux kernel logger for C and C++
+ */
+
+#include &lt;linux/kernel.h&gt;
+#include "logger.h"
+
+void kern_log(const char* fmt, ...)
+{
+    va_list args;
+    va_start(args, fmt);
+    vprintk(fmt, args);
+    va_end(args);
+}
+</pre>
+<p>Now we can use <strong>the kern_log</strong> function in the C and C++ code.</p>
+<p>Declaration of the example C++ module with few classes. Implementation, <strong>cpp_module.cpp</strong>:</p>
+<pre class="prettyprint">/*
+ * C++ component inside the Linux kernel
+ */
+#include &lt;linux/kernel.h&gt;
+#include &lt;linux/module.h&gt;
+#include "cpp_module.h"
+#include "logger.h"
+
+/* Also needed to define NULL as simple 0. It's Ok by standard. */
+#define NULL 0
+
+class foo {
+public:
+    foo()
+        : a(0)
+    {
+        kern_log("C++ class constructor\n");
+    }
+
+    virtual ~foo()
+    {
+        kern_log("C++ class destructor\n");
+    }
+
+    /* "Normal" virtual function */
+    virtual void set_data(int data)
+    { 
+        kern_log("Don't call me!\n"); 
+    };  
+
+    /* Pure virtual function */
+    virtual int get_data() =0;  
+
+protected:
+    int a;
+};
+
+/* Class bar is <span class="gt-baf-term-text"><span class="gt-baf-cell gt-baf-word-clickable">inheritor</span></span> of the class foo
+ * Overloading implementation of the class methods
+ */
+class bar: foo {
+public:
+/* Virtual destructor is required */
+    ~bar()
+    {
+    }
+
+    void set_data(int data)
+    {
+        kern_log("&gt;&gt; set_data %d\n", data);
+        a = data;
+    }
+
+    int get_data()
+    {
+        return a;
+    }
+};
+
+static bar *bar_instance = NULL;
+
+/* This functions can be called from the C code */
+void init_cpp_subsystem_example(void)
+{
+    kern_log("Init C++ subsystem\n");
+
+    bar_instance = new bar;
+
+    if (!bar_instance) {
+        kern_log("Failed to allocate bar class\n");
+        return;
+    }
+
+    bar_instance-&gt;set_data(42);
+
+    kern_log("Getting data from bar: %d\n", bar_instance-&gt;get_data());
+}
+
+void release_cpp_subsystem_example(void)
+{
+    kern_log("Release C++ subsystem\n");
+    
+    if (bar_instance) {
+        delete bar_instance;
+    }
+}
+</pre>
+<p>And the header, <strong>cpp_module.h</strong>:</p>
+<pre class="prettyprint">/*
+ */
+
+#ifndef CPP_MODULE_H
+#define CPP_MODULE_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+void init_cpp_subsystem_example(void);
+void release_cpp_subsystem_example(void);
+#ifdef __cplusplus
+}
+#endif
+
+#endif</pre>
+<p>Very basic kernel library module to support C++ code.</p>
+<pre class="prettyprint">/*
+ * Kernel lib - support basic C++ runtime functions
+ */
+
+#ifndef KERN_LIB_H
+#define KERN_LIB_H
+
+#ifdef __cplusplus
+#include &lt;cstdarg&gt;
+extern "C" {
+#else
+#include &lt;stdarg.h&gt;
+#endif
+
+void kmemset(void *dst, int c, unsigned int len);
+void *kcmemcpy(void *dst, void *src, unsigned int len);
+void *kcmemmove(void *dst, void *src, unsigned int len);
+int kcmemcmp(void *p1, void *p2, unsigned int len);
+void *kcmalloc(unsigned int size);
+void *kcrealloc(void *mem, unsigned int size);
+void kcfree(void *mem);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif</pre>
+<pre class="prettyprint">/*
+ * Kernel lib - support basic C++ runtime functions
+ */
+
+#include &lt;linux/kernel.h&gt;
+#include &lt;linux/slab.h&gt;
+#include &lt;linux/string.h&gt;
+
+#include "kern_lib.h"
+
+void kcmemset(void *dst, int c, unsigned int len)
+{
+    memset(dst, c, len);
+}
+
+void *kcmemcpy(void *dst, void *src, unsigned int len)
+{
+    memcpy(dst, src, len);
+    return dst;
+}
+
+void *kcmemmove(void *dst, void *src, unsigned int len)
+{
+    memmove(dst, src, len);
+    return dst;
+}
+
+int kcmemcmp(void *p1, void *p2, unsigned int len)
+{
+    return memcmp(p1, p2, len);
+}
+
+void *kcmalloc(unsigned int size)
+{
+    return kmalloc(size, GFP_ATOMIC);
+}
+
+void *kcrealloc(void *mem, unsigned int size)
+{
+    return krealloc(mem, size, GFP_ATOMIC);
+}
+
+void kcfree(void *mem)
+{
+    kfree(mem);
+}
+</pre>
+<p>And the last C++ component is <strong>&#8220;CPP support&#8221;</strong> module. There is no header file. This code is only required by the linker and should be present in the object file.</p>
+<pre class="prettyprint">/*
+ * Kernel C++ support
+ */
+
+#include &lt;cstddef&gt;
+#include "kern_lib.h"
+#include "logger.h"
+
+void *operator new(size_t sz) throw ()
+{
+    return kcmalloc(sz);
+}
+
+void *operator new[](size_t sz) throw ()
+{
+    return kcmalloc(sz);
+}
+
+void operator delete(void *p)
+{
+    kcfree(p);
+}
+
+void operator delete[](void *p)
+{
+    kcfree(p);
+}
+
+void terminate()
+{
+    kern_log("terminate requested\n");
+}
+
+extern "C" void __cxa_pure_virtual()
+{
+    kern_log("cxa_pure_virtual error handler\n");
+}
+</pre>
+<p>As you can see, this module is quite simple. The function <strong>&#8220;terminate()&#8221;</strong> must be defined and must terminate execution. But since this code is working inside the kernel, there is no process to terminate. You can probably request here panic of the kernel.</p>
+<p>Function with a mangled name <strong>&#8220;__cxa_pure_virtual()&#8221;</strong> is also required by the linker. This function is called when occurred some error with virtual functions. Just another stub.</p>
+<p>Here is the module entry point, which can use the C++ code from above.</p>
+<pre class="prettyprint">/*
+ * Linux kernel module 
+ */
+
+#include &lt;linux/kernel.h&gt;
+#include &lt;linux/module.h&gt;
+
+#include "logger.h"
+#include "cpp_module.h"
+
+static int __init module_load(void)
+{
+    kern_log("Loading C++ kernel module\n");
+
+    init_cpp_subsystem_example();
+
+    return 0;
+}
+
+static void __exit module_unload(void)
+{
+    kern_log("Unloading C++ kernel module\n");
+
+    release_cpp_subsystem_example();
+}
+
+module_init(module_load);
+module_exit(module_unload);
+
+MODULE_DESCRIPTION ("Linux kernel module with C++");
+MODULE_VERSION ("0.1");
+MODULE_AUTHOR ("Oleg Kutkov");
+MODULE_LICENSE ("GPL");
+</pre>
+<p>Now it&#8217;s time for the Makefile with some tricks.<br />
+We can declare CPP objects in a common list of all module objects.</p>
+<pre class="prettyprint">OBJECTS := module.o \
+            kern_lib.o \
+            logger.o \
+            cpp_support.cpp.o \
+            cpp_module.cpp.o</pre>
+<p>But to be able to build these CPP objects, we need to define a special target for the CPP files:</p>
+<pre class="prettyprint">cxx-prefix := " $(HOSTCXX) [M]  "
+
+%.cpp.o: %.cpp
+    @echo $(cxx-prefix)$@
+    @$(HOSTCXX) $(cxxflags) -c $&lt; -o $@</pre>
+<p>This target defines to use g++ compiler for CPP files. You can also see some &#8220;cosmetics&#8221; that change the CPP&#8217;s output to be Kbuild-like.</p>
+<p>For the proper compilation, it&#8217;s important to set some compiler flags.</p>
+<pre class="prettyprint">cxxflags = $(FLAGS) \
+            -fno-builtin \
+            -nostdlib \
+            -fno-rtti \
+            -fno-exceptions \
+            -std=c++0x</pre>
+<p><strong>FLAGS</strong> is a common flags set that can be derived from the <strong>CFLAGS</strong>.<br />
+<strong>-fno-builtin</strong> disables built-in compiler functions. Not all of the functions can be used inside the kernel.<br />
+<strong>-nostdlib</strong> disables usage of the standard C++ library<br />
+<strong>-fno-rtti</strong> disables RTTI support. This can help to reduce code size.<br />
+<strong>-fno-exceptions</strong> disable exceptions support.<br />
+<strong>-std=c++0x</strong> defines to use 0x C++ standard. You can try to use some other standard if required&#8230;</p>
+<p>Also, it&#8217;s essential to provide KBUILD_CFLAGS for the C++ compiler. But not all flags are valid for the C++ compiler. To remove warnings, we can use sed magic:</p>
+<pre class="prettyprint">cxx-selected-flags = $(shell echo $(KBUILD_CFLAGS) \
+            | sed s/-D\"KBUILD.\"//g \
+            | sed s/-Werror=strict-prototypes//g \
+            | sed s/-Werror=implicit-function-declaration//g \
+            | sed s/-Werror=implicit-int//g \
+            | sed s/-Wdeclaration-after-statement//g \
+            | sed s/-Wno-pointer-sign//g \
+            | sed s/-Werror=incompatible-pointer-types//g \
+            | sed s/-Werror=designated-init//g \
+            | sed s/-std=gnu90//g )</pre>
+<p>Append <strong>cxx-selected-flags</strong> to the <strong>cxxflags</strong></p>
+<p>Now all together, Makefile:</p>
+<pre class="prettyprint">#
+# Linux kernel C++ module makefile
+# Oleg Kutkov, 2019
+#
+
+MOD_NAME    := cpp_kernel
+KERNEL      := /lib/modules/$(shell uname -r)/build
+FLAGS       := -Wall
+KMOD_DIR    := $(shell pwd)
+
+OBJECTS := module.o \
+            kern_lib.o \
+            logger.o \
+            cpp_support.cpp.o \
+            cpp_module.cpp.o
+
+ccflags-y += $(FLAGS)
+
+# Apply C flags to the cpp compiler and disable cpp features that can't be supported in the kernel module
+cxx-selected-flags = $(shell echo $(KBUILD_CFLAGS) \
+            | sed s/-D\"KBUILD.\"//g \
+            | sed s/-Werror=strict-prototypes//g \
+            | sed s/-Werror=implicit-function-declaration//g \
+            | sed s/-Werror=implicit-int//g \
+            | sed s/-Wdeclaration-after-statement//g \
+            | sed s/-Wno-pointer-sign//g \
+            | sed s/-Werror=incompatible-pointer-types//g \
+            | sed s/-Werror=designated-init//g \
+            | sed s/-std=gnu90//g )
+
+cxxflags = $(FLAGS) \
+            $(cxx-selected-flags) \
+            -fno-builtin \
+            -nostdlib \
+            -fno-rtti \
+            -fno-exceptions \
+            -std=c++0x
+
+
+obj-m += $(MOD_NAME).o
+
+$(MOD_NAME)-y := $(OBJECTS)
+
+.PHONY: $(MOD_NAME).ko
+$(MOD_NAME).ko:
+    @echo building module
+    make -C $(KERNEL) M=$(KMOD_DIR) modules
+
+cxx-prefix := " $(HOSTCXX) [M]  "
+
+%.cpp.o: %.cpp
+    @echo $(cxx-prefix)$@
+    @$(HOSTCXX) $(cxxflags) -c $&lt; -o $@
+    @echo -n &gt; $$(dirname $@)/.$$(basename $@).cmd
+
+.PHONY: clean
+clean:
+    @echo clean
+    make -C $(KERNEL) M=$(KMOD_DIR) clean
+</pre>
+<h4>Compilation and testing</h4>
+<pre>$ make clean &amp;&amp; make
+$ sudo insmod cpp_kernel.ko
+$ dmesg | tail -n10
+
+[158142.977086] Loading C++ kernel module
+[158142.977088] Init C++ subsystem
+[158142.977089] C++ class constructor
+[158142.977091] &gt;&gt; set_data 42
+[158142.977092] Getting data from bar: 42
+[158144.422263] Unloading C++ kernel module
+[158144.422265] Release C++ subsystem
+[158144.422266] C++ class destructor</pre>
+<p>As you can see, everything is working properly. Destructors of the classes are handled as expected, with no linking errors or crashes.</p>
+<p>I hope this material will be helpful to someone 🙂<br />
+Thanks for reading!</p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<span class="tags-links">Tagged <a href="../../../../tag/c/index.html" rel="tag">c</a>, <a href="../../../../tag/kernel/index.html" rel="tag">kernel</a>, <a href="../../../../tag/linux/index.html" rel="tag">linux</a>, <a href="../../../../tag/runtime/index.html" rel="tag">runtime</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a></h2>
+                                         <span class="posted-date">July 18, 2022</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2022/04/10/initial-analysis-of-the-starlink-router-gen2/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2022/04/10/initial-analysis-of-the-starlink-router-gen2/index.html">Initial analysis of the Starlink router gen2</a></h2>
+                                         <span class="posted-date">April 10, 2022</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../08/rs-485-practice-and-theory/index.html" rel="prev">RS-485 practice and theory</a></div><div class="nav-next"><a href="../../../12/26/cheap-single-component-rf-filters/index.html" rel="next">Cheap single-component RF filters</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			13 thoughts on &ldquo;<span>C++ in Linux kernel</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-713" class="comment even thread-even depth-1">
+			<article id="div-comment-713" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/dc379b266f424901df062ea793e755a6?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/dc379b266f424901df062ea793e755a6?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Ricky</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-713"><time datetime="2020-06-01T20:14:32+03:00">June 1, 2020 at 8:14 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>{{~foo()}} must be virtual. Maybe better to use C++11, then compiler would throw an error if keyword override has been used at {{~bar()}} override.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexa664.html?replytocom=713#respond' data-commentid="713" data-postid="1017" data-belowelement="div-comment-713" data-respondelement="respond" data-replyto="Reply to Ricky" aria-label='Reply to Ricky'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-990" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-990" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/ba20cba75c2b88def2ae75c0ce7b82a5?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/ba20cba75c2b88def2ae75c0ce7b82a5?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">me</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-990"><time datetime="2021-02-14T12:12:18+02:00">February 14, 2021 at 12:12 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Black font on black background &#8211; your are a genius</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexecc8.html?replytocom=990#respond' data-commentid="990" data-postid="1017" data-belowelement="div-comment-990" data-respondelement="respond" data-replyto="Reply to me" aria-label='Reply to me'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-991" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-991" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-991"><time datetime="2021-02-14T12:54:19+02:00">February 14, 2021 at 12:54 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I don&#8217;t have black fonts on black background.<br />
+<img src="../../../../wp-content/uploads/2021/02/cpp_kernel_page_shot.png" alt="Screenshot" /></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexb9f3.html?replytocom=991#respond' data-commentid="991" data-postid="1017" data-belowelement="div-comment-991" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1041" class="pingback odd alt thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="https://windowsquestions.com/2021/05/18/linux-kernel-monule-on-c/" class="url" rel="ugc external nofollow">Linux kernel monule on c++ &#8211; Windows Questions</a> 			</div>
+		<ol class="children">
+		<li id="comment-1042" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-1042" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1042"><time datetime="2021-05-18T19:56:13+03:00">May 18, 2021 at 7:56 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello. Can you share details of what&#8217;s not working?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index3282.html?replytocom=1042#respond' data-commentid="1042" data-postid="1017" data-belowelement="div-comment-1042" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1359" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-1359" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/0b9afb7f8274cc6e0c937fb791d670e9?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/0b9afb7f8274cc6e0c937fb791d670e9?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Pat</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1359"><time datetime="2022-08-15T20:26:31+03:00">August 15, 2022 at 8:26 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello,<br />
+Thanks for the tutorial, it&#8217;s super nice.<br />
+I followed your tutorial, I had at the end the list of the following files:</p>
+<p>cpp_kernel.cpp<br />
+cpp_module.cpp<br />
+cpp_module.h<br />
+cpp_support.cpp<br />
+kern_lib.c<br />
+kern_lib.h<br />
+ kern_log.c<br />
+ logger.h<br />
+Makefile</p>
+<p>When I run the command: &#8220;make clean &amp;&amp; make&#8221;</p>
+<p>I have the following error:</p>
+<p>clean<br />
+make -C /lib/modules/5.10.0-16-amd64/build M=/home/mrzk/src/kernel_c_cpp clean<br />
+make[1]: enter the directory &#8220;/usr/src/linux-headers-5.10.0-16-amd64&#8221;<br />
+make[1]: leave the directory &#8220;/usr/src/linux-headers-5.10.0-16-amd64&#8221;<br />
+building-module<br />
+make -C /lib/modules/5.10.0-16-amd64/build M=/home/mrzk/src/kernel_c_cpp modules<br />
+make[1]: enter the directory &#8220;/usr/src/linux-headers-5.10.0-16-amd64&#8221;<br />
+make[3]: *** No rule to make target &#8216;/home/mrzk/src/kernel_c_cpp/module.o&#8217;, needed for &#8216;/home/mrzk/src/kernel_c_cpp/cpp_kernel.o&#8217;. Stop.<br />
+make[2]: *** [/usr/src/linux-headers-5.10.0-16-common/Makefile:1846:/home/mrzk/src/kernel_c_cpp] Error 2<br />
+make[1]: *** [/usr/src/linux-headers-5.10.0-16-common/Makefile:185:__sub-make] Error 2<br />
+make[1]: leave the directory &#8220;/usr/src/linux-headers-5.10.0-16-amd64&#8221;<br />
+make: *** [Makefile:44:cpp_kernel.ko] Error 2</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexc62d.html?replytocom=1359#respond' data-commentid="1359" data-postid="1017" data-belowelement="div-comment-1359" data-respondelement="respond" data-replyto="Reply to Pat" aria-label='Reply to Pat'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1360" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-1360" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1360"><time datetime="2022-08-15T21:32:08+03:00">August 15, 2022 at 9:32 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello. Make sure that you have your Linux kernel headers installed.<br />
+Check your running kernel version with <code>uname -r</code> and install the headers package according to your distributive.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexf6d0.html?replytocom=1360#respond' data-commentid="1360" data-postid="1017" data-belowelement="div-comment-1360" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1396" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-1396" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/da8a1b26616aa141d026e3fe6d966798?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/da8a1b26616aa141d026e3fe6d966798?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Johannes</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1396"><time datetime="2022-12-02T18:31:39+02:00">December 2, 2022 at 6:31 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg,</p>
+<p>thanks for your tutorial. I tried to follow it but I don&#8217;t get it compiled with Ubuntu 22.10.</p>
+<p>First I had to change some minor things i.e. #include &lt;stdarg.h&gt; =&gt; #include &lt;linux/stdarg.h&gt;<br />
+And I think in</p>
+<p>void *operator new(size_t sz) throw ()<br />
+{<br />
+    kmalloc(sz);<br />
+    return kcmalloc(sz);<br />
+}</p>
+<p>the line calling kmalloc(sz); is not valid anymore and should be removed?</p>
+<p>But my biggest problem is that I wnd up with a linker error. Here&#8217;s the complete output on my test machine:</p>
+<p>clean<br />
+make -C /lib/modules/5.19.0-26-generic/build M=/home/johannes/KernelCPP clean<br />
+make[1]: Entering directory &#8216;/usr/src/linux-headers-5.19.0-26-generic&#8217;<br />
+make[1]: Leaving directory &#8216;/usr/src/linux-headers-5.19.0-26-generic&#8217;<br />
+building module<br />
+make -C /lib/modules/5.19.0-26-generic/build M=/home/johannes/KernelCPP modules<br />
+make[1]: Entering directory &#8216;/usr/src/linux-headers-5.19.0-26-generic&#8217;<br />
+warning: the compiler differs from the one used to build the kernel<br />
+  The kernel was built by: x86_64-linux-gnu-gcc-12 (Ubuntu 12.2.0-3ubuntu1) 12.2.0<br />
+  You are using:           gcc (Ubuntu 12.2.0-3ubuntu1) 12.2.0<br />
+  CC [M]  /home/johannes/KernelCPP/module.o<br />
+  CC [M]  /home/johannes/KernelCPP/kern_lib.o<br />
+  CC [M]  /home/johannes/KernelCPP/logger.o<br />
+ g++ [M]  /home/johannes/KernelCPP/cpp_support.cpp.o<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=strict-prototypes? is not valid for C++<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=implicit-function-declaration? is not valid for C++<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=implicit-int? is not valid for C++<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=incompatible-pointer-types? is not valid for C++<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=designated-init? is not valid for C++<br />
+cc1plus: warning: command-line option ?-std=gnu11? is valid for C/ObjC but not for C++<br />
+ g++ [M]  /home/johannes/KernelCPP/cpp_module.cpp.o<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=strict-prototypes? is not valid for C++<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=implicit-function-declaration? is not valid for C++<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=implicit-int? is not valid for C++<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=incompatible-pointer-types? is not valid for C++<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=designated-init? is not valid for C++<br />
+cc1plus: warning: command-line option ?-std=gnu11? is valid for C/ObjC but not for C++<br />
+  LD [M]  /home/johannes/KernelCPP/cpp_kernel.o<br />
+  MODPOST /home/johannes/KernelCPP/Module.symvers<br />
+/home/johannes/KernelCPP/.cpp_support.cpp.o.cmd: No such file or directory<br />
+make[2]: *** [scripts/Makefile.modpost:128: /home/johannes/KernelCPP/Module.symvers] Error 1<br />
+make[1]: *** [Makefile:1765: modules] Error 2<br />
+make[1]: Leaving directory &#8216;/usr/src/linux-headers-5.19.0-26-generic&#8217;<br />
+make: *** [Makefile:44: cpp_kernel.ko] Error 2</p>
+<p>Those .*.o.cmd files seem to be built only for c sources?</p>
+<p>Any idea what I could do here?</p>
+<p>Thanks and best regards,<br />
+Johannes</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index5d78.html?replytocom=1396#respond' data-commentid="1396" data-postid="1017" data-belowelement="div-comment-1396" data-respondelement="respond" data-replyto="Reply to Johannes" aria-label='Reply to Johannes'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1397" class="comment even depth-2 parent">
+			<article id="div-comment-1397" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/da8a1b26616aa141d026e3fe6d966798?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/da8a1b26616aa141d026e3fe6d966798?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Johannes</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1397"><time datetime="2022-12-07T17:45:02+02:00">December 7, 2022 at 5:45 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>OK, I think I found it. I had to add one line in the Makefile at the end of the %.cpp.o: target in order to build the .0.cmd files. Now the complete target in my Makefile looks like this:</p>
+<p>%.cpp.o: %.cpp<br />
+    @echo $(cxx-prefix)$@<br />
+    @$(HOSTCXX) $(cxxflags) -c $&lt; -o $@<br />
+    @echo -n &gt; $$(dirname $@)/.$$(basename $@).cmd</p>
+<p>Now I&#8217;m still seeing these compiler warnings but the Kernel Module is built and I can laod/unload it and I see the same output as you in my dmesg 🙂</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index74d1.html?replytocom=1397#respond' data-commentid="1397" data-postid="1017" data-belowelement="div-comment-1397" data-respondelement="respond" data-replyto="Reply to Johannes" aria-label='Reply to Johannes'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1398" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-3 parent">
+			<article id="div-comment-1398" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1398"><time datetime="2022-12-07T18:44:32+02:00">December 7, 2022 at 6:44 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello! Sorry for the late reply, and thank you for your patch.<br />
+To get rid of the warning, you need to use different cxx-selected-flags.</p>
+<p>I updated my example, so it should compile fine now</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexe77c.html?replytocom=1398#respond' data-commentid="1398" data-postid="1017" data-belowelement="div-comment-1398" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1399" class="comment even depth-4 parent">
+			<article id="div-comment-1399" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/da8a1b26616aa141d026e3fe6d966798?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/da8a1b26616aa141d026e3fe6d966798?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Johannes</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1399"><time datetime="2022-12-07T19:12:08+02:00">December 7, 2022 at 7:12 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg, perfect! Thanks a lot. And all the best for your country &#8230;</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index1bd3.html?replytocom=1399#respond' data-commentid="1399" data-postid="1017" data-belowelement="div-comment-1399" data-respondelement="respond" data-replyto="Reply to Johannes" aria-label='Reply to Johannes'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1400" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-5">
+			<article id="div-comment-1400" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1400"><time datetime="2022-12-08T01:17:36+02:00">December 8, 2022 at 1:17 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks!</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1713" class="comment even thread-odd thread-alt depth-1">
+			<article id="div-comment-1713" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/da8a1b26616aa141d026e3fe6d966798?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/da8a1b26616aa141d026e3fe6d966798?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Johannes</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1713"><time datetime="2023-06-05T19:48:52+03:00">June 5, 2023 at 7:48 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg,</p>
+<p>it&#8217;s been quite a while since I did my last tests with this, but now I decided to give it again a chance and now I&#8217;m facing some problems with the include directories and include files used in my cpp files. For example I wanted to use a spinlock_t in my C++ class but I always get &#8220;error: ‘spinlock_t’ does not name a type&#8221;. But the spinlock works inside the same project when used in a c file. Do you have any idea how I could adjust the include directories for those kernel header files to also work for C++ files?</p>
+<p>Best regards,<br />
+Johannes</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexb162.html?replytocom=1713#respond' data-commentid="1713" data-postid="1017" data-belowelement="div-comment-1713" data-respondelement="respond" data-replyto="Reply to Johannes" aria-label='Reply to Johannes'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply to <a href="#comment-1359">Pat</a> <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='1017' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='1359' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="2be791cf48" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="242"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../../2020/06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "indexc62d.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_1827c9da4c86fc3ad9db01f6a6132235.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2019/11/10/cpp-in-linux-kernel/?replytocom=1359 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:16:47 GMT -->
+</html>

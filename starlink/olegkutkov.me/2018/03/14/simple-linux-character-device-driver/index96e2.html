@@ -1,0 +1,1421 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2018/03/14/simple-linux-character-device-driver/?replytocom=853 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:16:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>Simple Linux character device driver &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large, noindex, follow' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Simple Linux character device driver Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/359.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../indexcaf0.html?p=359' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embedc987.json?url=https%3A%2F%2Folegkutkov.me%2F2018%2F03%2F14%2Fsimple-linux-character-device-driver%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embed3aa3?url=https%3A%2F%2Folegkutkov.me%2F2018%2F03%2F14%2Fsimple-linux-character-device-driver%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index96e2.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-359 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-359" class="post-359 post type-post status-publish format-standard hentry category-linux-system-development tag-character tag-chardev tag-driver tag-kernel tag-linux">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/linux-system-development/index.html" rel="category tag">Linux system development</a></span><h1 class="entry-title">Simple Linux character device driver</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">March 14, 2018</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><img decoding="async" class="alignleft wp-image-360 size-thumbnail" src="../../../../wp-content/uploads/2018/03/linux_chardev_logo-150x150.png" alt="" width="150" height="150" srcset="https://olegkutkov.me/wp-content/uploads/2018/03/linux_chardev_logo-150x150.png 150w, https://olegkutkov.me/wp-content/uploads/2018/03/linux_chardev_logo.png 300w" sizes="(max-width: 150px) 100vw, 150px" />A character device is one of the simplest ways to communicate with a module in the Linux kernel.<br />
+These devices are presented as special files in a <em>/dev</em> directory and support direct reading and writing of any data, byte by byte, like a stream. Actually, most of the pseudo-devices in <em>/dev</em> are character devices: serial ports, modems, sound, and video adapters, keyboards, some custom I/O interfaces. Userspace programs can easily open, read, write, and custom control requests with such device files.<br />
+Here I am describing how to write a simple Linux kernel module which can create one or multiple character device.</p>
+<p><span id="more-359"></span></p>
+<h2>Introducing to character devices.</h2>
+<p>Detection of the device type in <em>/dev</em> directory is pretty simple.</p>
+<pre class="prettyprint">$ ls -l /dev/ttyS0
+crw-rw---- 1 root dialout 4, 64 Mar 11 16:52 /dev/ttyS0</pre>
+<p>Symbol <strong>C, </strong>in the beginning, means that this device is a character device.<br />
+Also, you can find here two strange numbers: <strong>4</strong> and <strong>64</strong>. This is a Major and Minor number of this device.<br />
+Inside the Linux kernel, every device is identified not by a symbolic name but by a unique number &#8211; the device&#8217;s major number. This number assigning by the kernel during device registration. Every device driver can support multiple &#8220;sub-devices&#8221;. For example, a serial port adapter may contain two hardware ports. Both of these ports are handled by the same driver, and they share one Major number. But inside this driver, each of these ports is also identified by the unique number, and this is a device Minor number.</p>
+<pre class="prettyprint">crw-rw---- 1 root dialout 4, 64 Mar 11 16:52 /dev/ttyS0
+crw-rw---- 1 root dialout 4, 65 Mar 11 16:52 /dev/ttyS1
+crw-rw---- 1 root dialout 4, 66 Mar 11 16:52 /dev/ttyS2</pre>
+<p>One Major number <strong>4</strong> for every ttySX device and different (<strong>64</strong>&#8211;<strong>65</strong>) Minor numbers.<br />
+The driver&#8217;s code assigns minor numbers, and the developer of this driver may select any suitable values.</p>
+<p>As this device acts like a file &#8211; programs can do almost everything except seeking. Every file operation on this object commands the driver to do something inside the Linux kernel and start reading some data from the hardware.</p>
+<p>At the end of this article, you can find a complete example of the character device driver, but first, let&#8217;s discuss how it works.</p>
+<p>The diagram below shows how the userspace program interacts with the IBM PC serial port using the character device.</p>
+<p><a href="../../../../wp-content/uploads/2018/03/serail_driver_read.png"><img fetchpriority="high" decoding="async" class="aligncenter wp-image-368 size-full" src="../../../../wp-content/uploads/2018/03/serail_driver_read.png" alt="" width="665" height="608" srcset="https://olegkutkov.me/wp-content/uploads/2018/03/serail_driver_read.png 665w, https://olegkutkov.me/wp-content/uploads/2018/03/serail_driver_read-300x274.png 300w" sizes="(max-width: 665px) 100vw, 665px" /></a>The virtual filesystem is an abstraction layer on top of a more concrete file system. A VFS aims to allow client applications to access different types of concrete file systems uniformly.</p>
+<h2>File operations</h2>
+<p>In special device files, VFS is responsible for calling I/O functions set by the device driver.<br />
+To set this function special kernel structure is used.<br />
+<!--?prettify linenums=true?--></p>
+<pre class="prettyprint">    struct file_operations {
+       struct module *owner;
+       loff_t (*llseek) (struct file *, loff_t, int);
+       ssize_t (*read) (struct file *, char *, size_t, loff_t *);
+       ssize_t (*write) (struct file *, const char *, size_t, loff_t *);
+       int (*readdir) (struct file *, void *, filldir_t);
+       unsigned int (*poll) (struct file *, struct poll_table_struct *);
+       int (*ioctl) (struct inode *, struct file *, unsigned int, unsigned long);
+       int (*mmap) (struct file *, struct vm_area_struct *);
+       int (*open) (struct inode *, struct file *);
+       int (*flush) (struct file *);
+       int (*release) (struct inode *, struct file *);
+       int (*fsync) (struct file *, struct dentry *, int datasync);
+       int (*fasync) (int, struct file *, int);
+       int (*lock) (struct file *, int, struct file_lock *);
+         ssize_t (*readv) (struct file *, const struct iovec *, unsigned long,
+          loff_t *);
+         ssize_t (*writev) (struct file *, const struct iovec *, unsigned long,
+          loff_t *);
+    };</pre>
+<p>Some operations are not implemented by a driver. For example, a driver that handles a video card won&#8217;t need to read from a directory structure. The corresponding entries in the <strong><span class="TYPE">file_operations</span></strong> structure should be set to <tt class="VARNAME">NULL</tt>.</p>
+<p>In a C99 way, initialization is simple.</p>
+<pre class="prettyprint">    struct file_operations fops = {
+       .read = device_read,
+       .write = device_write,
+       .open = device_open,
+       .release = device_release
+    };</pre>
+<p>Initialized <strong>file_operation</strong>s can be assigned to the character device during device registration.</p>
+<h2>Registration of the character device</h2>
+<p>The registration procedure consists of several simple steps.<br />
+First, you need to decide how many minor devices you need. This is a constant which typically depends on your hardware (if you are writing a driver for real hardware).<br />
+Minor numbers are convenient to use as part of the device name. For example,/dev/mychardev0 with a Minor 0 /dev/mychardev2 with a Minor 2.</p>
+<p>The first step is an allocation and registration of the range of char device numbers using <em>alloc_chrdev_region</em>.</p>
+<pre class="prettyprint">int alloc_chrdev_region(dev_t *dev, unsigned int firstminor, unsigned int count, char *name);</pre>
+<p>Where <em>dev</em> is output parameter for first assigned number, <em>baseminor</em> is first of the requested range of minor numbers (e.g., 0), <em>count</em> is a number of minor numbers required, and <em>name</em> &#8211; the associated device&#8217;s name driver.</p>
+<p>The major number will be chosen dynamically and returned (along with the first minor number) in dev.<br />
+The function returns zero or a negative error code.</p>
+<p>To get generated Major number, we can use <strong>MAJOR()</strong> macros.</p>
+<pre class="prettyprint">int dev_major = MAJOR(dev);</pre>
+<p>Now it&#8217;s time to initialize a new character device and set file_operations with <em>cdev_init</em>.</p>
+<pre class="prettyprint">void cdev_init(struct cdev *cdev, const struct file_operations *fops);</pre>
+<p><em>struct cdev</em> represents a character device and is allocated by this function.</p>
+<p>Now add the device to the system.</p>
+<pre class="prettyprint">int cdev_add(struct cdev *p, dev_t dev, unsigned count);</pre>
+<p>Finally &#8211; create a device file node and register it with sysfs.</p>
+<pre class="prettyprint">struct device * device_create(struct class *class, struct device *parent, dev_t devt, const char *fmt, ...);</pre>
+<p>Now all together.<br />
+This code creates 2 character devices with names <em>/dev/mychardev0</em> and <em>/dev/mychardev1</em></p>
+<pre class="prettyprint">#include &lt;linux/cdev.h&gt;
+#include &lt;linux/device.h&gt;
+#include &lt;linux/kernel.h&gt;
+#include &lt;linux/fs.h&gt;
+
+// max Minor devices
+#define MAX_DEV 2
+
+// initialize file_operations
+static const struct file_operations mychardev_fops = {
+    .owner      = THIS_MODULE,
+    .open       = mychardev_open,
+    .release    = mychardev_release,
+    .unlocked_ioctl = mychardev_ioctl,
+    .read       = mychardev_read,
+    .write       = mychardev_write
+};
+
+// device data holder, this structure may be extended to hold additional data
+struct mychar_device_data {
+    struct cdev cdev;
+};
+
+// global storage for device Major number
+static int dev_major = 0;
+
+// sysfs class structure
+static struct class *mychardev_class = NULL;
+
+// array of mychar_device_data for
+static struct mychar_device_data mychardev_data[MAX_DEV];
+
+void mychardev_init(void)
+{
+    int err, i;
+    dev_t dev;
+
+    // allocate chardev region and assign Major number
+    err = alloc_chrdev_region(&amp;dev, 0, MAX_DEV, "mychardev");
+
+    dev_major = MAJOR(dev);
+
+    // create sysfs class
+    mychardev_class = class_create(THIS_MODULE, "mychardev");
+
+    // Create necessary number of the devices
+    for (i = 0; i &lt; MAX_DEV; i++) {
+        // init new device
+        cdev_init(&amp;mychardev_data[i].cdev, &amp;mychardev_fops);
+        mychardev_data[i].cdev.owner = THIS_MODULE;
+
+        // add device to the system where "i" is a Minor number of the new device
+        cdev_add(&amp;mychardev_data[i].cdev, MKDEV(dev_major, i), 1);
+
+        // create device node /dev/mychardev-x where "x" is "i", equal to the Minor number
+        device_create(mychardev_class, NULL, MKDEV(dev_major, i), NULL, "mychardev-%d", i);
+    }
+}</pre>
+<p>You can find a few new things in this example. The creation of the sysfs class is a necessary part of the device node creation.<br />
+Function class_create(THIS_MODULE, &#8220;mychardev&#8221;) creates sysfs class with paths for each character devices:</p>
+<pre class="prettyprint">$ tree /sys/devices/virtual/mychardev/
+/sys/devices/virtual/mychardev/
+├── mychardev-0
+│   ├── dev
+│   ├── power
+│   │   ├── async
+│   │   ├── autosuspend_delay_ms
+│   │   ├── control
+│   │   ├── runtime_active_kids
+│   │   ├── runtime_active_time
+│   │   ├── runtime_enabled
+│   │   ├── runtime_status
+│   │   ├── runtime_suspended_time
+│   │   └── runtime_usage
+│   ├── subsystem -&gt; ../../../../class/mychardev
+│   └── uevent
+└── mychardev-1
+    ├── dev
+    ├── power
+    │   ├── async
+    │   ├── autosuspend_delay_ms
+    │   ├── control
+    │   ├── runtime_active_kids
+    │   ├── runtime_active_time
+    │   ├── runtime_enabled
+    │   ├── runtime_status
+    │   ├── runtime_suspended_time
+    │   └── runtime_usage
+    ├── subsystem -&gt; ../../../../class/mychardev
+    └── uevent</pre>
+<p><strong>Sysfs</strong> can be used as an additional way to interact with userspace. Setting up some driver params, for example.<br />
+Another useful thing &#8211; configure <strong>UDEV</strong> variables to set up correct permissions to the character device.<br />
+This can be done by setting uevent callback to sysfs class.</p>
+<pre class="prettyprint">static int mychardev_uevent(struct device *dev, struct kobj_uevent_env *env)
+{
+    add_uevent_var(env, "DEVMODE=%#o", 0666);
+    return 0;
+}
+
+...
+
+mychardev_class = class_create(THIS_MODULE, "mychardev");
+mychardev_class-&gt;dev_uevent = mychardev_uevent;</pre>
+<p>Now we got &#8220;<em>rw-rw-rw-</em>&#8221; permissions on each mychardev.</p>
+<pre class="prettyprint">$ ls -l /dev/mychardev-*
+crw-rw-rw- 1 root root 246, 0 Mar 14 12:24 /dev/mychardev-0
+crw-rw-rw- 1 root root 246, 1 Mar 14 12:24 /dev/mychardev-1
+</pre>
+<p>Every user can read and write.</p>
+<p>When a character device is no longer required it must be properly destroyed.</p>
+<pre class="prettyprint">void mychardev_destroy(void)
+{
+    int i;
+
+    for (i = 0; i &lt; MAX_DEV; i++) {
+        device_destroy(mychardev_class, MKDEV(dev_major, i));
+    }
+
+    class_unregister(mychardev_class);
+    class_destroy(mychardev_class);
+
+    unregister_chrdev_region(MKDEV(dev_major, 0), MINORMASK);
+}</pre>
+<h2>Device I/O functions</h2>
+<p>To interact with your device file, we need to set a few functions to the <strong>struct file_operations.</strong></p>
+<pre class="prettyprint">static int mychardev_open(struct inode *inode, struct file *file)
+{
+    printk("MYCHARDEV: Device open\n");
+    return 0;
+}
+
+static int mychardev_release(struct inode *inode, struct file *file)
+{
+    printk("MYCHARDEV: Device close\n");
+    return 0;
+}
+
+static long mychardev_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+{
+    printk("MYCHARDEV: Device ioctl\n");
+    return 0;
+}
+
+static ssize_t mychardev_read(struct file *file, char __user *buf, size_t count, loff_t *offset)
+{
+    printk("MYCHARDEV: Device read\n");
+    return 0;
+}
+
+static ssize_t mychardev_write(struct file *file, const char __user *buf, size_t count, loff_t *offset)
+{
+    printk("MYCHARDEV: Device write\n");
+    return 0;
+}</pre>
+<p>Now we can handle I/O requests.<br />
+If build and load the kernel module with this code and then run &#8220;<em>cat /dev/mychardev-0</em>&#8221; these messages will be printed in dmesg:</p>
+<pre class="prettyprint">$ cat /dev/mychardev-0 
+
+$ sudo tail -n3 /var/log/messages
+Mar 14 12:52:46 oleg-lab kernel: [244801.849652] MYCHARDEV: Device open
+Mar 14 12:52:46 oleg-lab kernel: [244801.849665] MYCHARDEV: Device read
+Mar 14 12:52:46 oleg-lab kernel: [244801.849672] MYCHARDEV: Device close
+</pre>
+<p>It&#8217;s working.</p>
+<p>To transfer some real data within <code>read</code>/<code>write</code> requests, we need to use special kernel functionality.<br />
+It&#8217;s very dangerous or even impossible to do simple memory copying using *buf pointers.<br />
+Safe way is to use <strong>copy_to_user()</strong> and <strong>copy_from_user()</strong></p>
+<pre class="prettyprint">#include &lt;linux/uaccess.h&gt;
+
+unsigned long copy_to_user(void __user *to, const void *from, unsigned long n);
+unsigned long copy_from_user(void *to, const void __user *from, unsigned long n);
+</pre>
+<p>These functions perform additional checks of the permissions and memory regions before actual data access.</p>
+<p>Let&#8217;s modify our <strong>mychardev_read().</strong></p>
+<pre class="prettyprint">static ssize_t mychardev_read(struct file *file, char __user *buf, size_t count, loff_t *offset)
+{
+    uint8_t *data = "Hello from the kernel world!\n";
+    size_t datalen = strlen(data);
+
+    if (count &gt; datalen) {
+        count = datalen;
+    }
+
+    if (copy_to_user(buf, data, count)) {
+        return -EFAULT;
+    }
+
+    return count;
+}
+
+</pre>
+<p>It&#8217;s always important to check how many bytes users want to read. If this size exceeds the prepared data&#8217;s actual size &#8211; the user can read the kernel stack what can be a hole in the system security.</p>
+<p>Now let&#8217;s try to read 29 bytes from our character device.</p>
+<pre class="prettyprint">$ head -c29 /dev/mychardev-1 
+Hello from the kernel world!
+</pre>
+<p>Of course, we can send to the user space not only strings but any other raw data structures.</p>
+<p>Now <strong>mychardev_write().</strong></p>
+<pre class="prettyprint">static ssize_t mychardev_write(struct file *file, const char __user *buf, size_t count, loff_t *offset)
+{
+    size_t maxdatalen = 30, ncopied;
+    uint8_t databuf[maxdatalen];
+
+    if (count &lt; maxdatalen) {
+        maxdatalen = count;
+    }
+
+    ncopied = copy_from_user(databuf, buf, maxdatalen);
+
+    if (ncopied == 0) {
+        printk("Copied %zd bytes from the user\n", maxdatalen);
+    } else {
+        printk("Could't copy %zd bytes from the user\n", ncopied);
+    }
+
+    databuf[maxdatalen] = 0;
+
+    printk("Data from the user: %s\n", databuf);
+
+    return count;
+}
+</pre>
+<p>It&#8217;s also very important to verify how many bytes sending users and how many bytes we can accept.</p>
+<p>Function copy_from_user returns the number of bytes that could not be copied. On success, this will be zero.<br />
+If some data could not be copied, this function will pad the copied data to the requested size using zero bytes.</p>
+<p>Test:</p>
+<pre class="prettyprint">$ echo "Hello from the user" &gt; /dev/mychardev-1
+
+$ sudo tail -n5 /var/log/messages
+Mar 14 15:57:14 oleg-lab kernel: [255870.547447] MYCHARDEV: Device open
+Mar 14 15:57:14 oleg-lab kernel: [255870.547466] Copied 20 bytes from the user
+Mar 14 15:57:14 oleg-lab kernel: [255870.547468] Data from the user: Hello from the user
+Mar 14 15:57:14 oleg-lab kernel: [255870.547468] 
+Mar 14 15:57:14 oleg-lab kernel: [255870.547472] MYCHARDEV: Device close
+
+</pre>
+<p>You may ask how to identify which device (mychardev-0 or mychardev-1) is used in a specific I/O process?<br />
+Since our Minor numbers are the same as device names we can get <code>Minor number</code> from the file inode using <strong>struct file</strong>.</p>
+<pre class="prettyprint">MINOR(file-&gt;f_path.dentry-&gt;d_inode-&gt;i_rdev)
+</pre>
+<p>Let&#8217;s print this value in the <strong>read</strong> and <strong>write</strong> functions and see what happens.</p>
+<pre class="prettyprint">...
+printk("Reading device: %d\n", MINOR(file-&gt;f_path.dentry-&gt;d_inode-&gt;i_rdev));
+
+...
+printk("Writing device: %d\n", MINOR(file-&gt;f_path.dentry-&gt;d_inode-&gt;i_rdev));</pre>
+<p>Result:</p>
+<pre class="prettyprint">$ echo "Hello from the user" &gt; /dev/mychardev-0
+
+dmesg
+Mar 14 16:02:08 oleg-lab kernel: [256164.495609] Writing device: 0
+
+
+$ echo "Hello from the user" &gt; /dev/mychardev-1
+
+dmesg
+Mar 14 16:02:08 oleg-lab kernel: [256164.495609] Writing device: 1</pre>
+<p>Few notes about ioctl.</p>
+<pre class="prettyprint">static long mychardev_ioctl(struct file *file, unsigned int cmd, unsigned long arg)</pre>
+<p>This utility function is used to pass some CMD as the number and some optional data as ARG.</p>
+<p>You need to define some magic numbers used as CMD (and probably as ARG) somewhere in a separate header file, shared between driver code and user application code.</p>
+<p>All implementation of the ioctl function is a simple switch case routine where you do something depending on the sent CMD.</p>
+<p>Now <strong>a complete example</strong> of the Linux kernel module, which implements everything that we were discussed here.</p>
+<pre class="prettyprint">#include &lt;linux/init.h&gt;
+#include &lt;linux/module.h&gt;
+#include &lt;linux/cdev.h&gt;
+#include &lt;linux/device.h&gt;
+#include &lt;linux/kernel.h&gt;
+#include &lt;linux/uaccess.h&gt;
+#include &lt;linux/fs.h&gt;
+
+#define MAX_DEV 2
+
+static int mychardev_open(struct inode *inode, struct file *file);
+static int mychardev_release(struct inode *inode, struct file *file);
+static long mychardev_ioctl(struct file *file, unsigned int cmd, unsigned long arg);
+static ssize_t mychardev_read(struct file *file, char __user *buf, size_t count, loff_t *offset);
+static ssize_t mychardev_write(struct file *file, const char __user *buf, size_t count, loff_t *offset);
+
+static const struct file_operations mychardev_fops = {
+    .owner      = THIS_MODULE,
+    .open       = mychardev_open,
+    .release    = mychardev_release,
+    .unlocked_ioctl = mychardev_ioctl,
+    .read       = mychardev_read,
+    .write       = mychardev_write
+};
+
+struct mychar_device_data {
+    struct cdev cdev;
+};
+
+static int dev_major = 0;
+static struct class *mychardev_class = NULL;
+static struct mychar_device_data mychardev_data[MAX_DEV];
+
+static int mychardev_uevent(struct device *dev, struct kobj_uevent_env *env)
+{
+    add_uevent_var(env, "DEVMODE=%#o", 0666);
+    return 0;
+}
+
+static int __init mychardev_init(void)
+{
+    int err, i;
+    dev_t dev;
+
+    err = alloc_chrdev_region(&amp;dev, 0, MAX_DEV, "mychardev");
+
+    dev_major = MAJOR(dev);
+
+    mychardev_class = class_create(THIS_MODULE, "mychardev");
+    mychardev_class-&gt;dev_uevent = mychardev_uevent;
+
+    for (i = 0; i &lt; MAX_DEV; i++) {
+        cdev_init(&amp;mychardev_data[i].cdev, &amp;mychardev_fops);
+        mychardev_data[i].cdev.owner = THIS_MODULE;
+
+        cdev_add(&amp;mychardev_data[i].cdev, MKDEV(dev_major, i), 1);
+
+        device_create(mychardev_class, NULL, MKDEV(dev_major, i), NULL, "mychardev-%d", i);
+    }
+
+    return 0;
+}
+
+static void __exit mychardev_exit(void)
+{
+    int i;
+
+    for (i = 0; i &lt; MAX_DEV; i++) {
+        device_destroy(mychardev_class, MKDEV(dev_major, i));
+    }
+
+    class_unregister(mychardev_class);
+    class_destroy(mychardev_class);
+
+    unregister_chrdev_region(MKDEV(dev_major, 0), MINORMASK);
+}
+
+static int mychardev_open(struct inode *inode, struct file *file)
+{
+    printk("MYCHARDEV: Device open\n");
+    return 0;
+}
+
+static int mychardev_release(struct inode *inode, struct file *file)
+{
+    printk("MYCHARDEV: Device close\n");
+    return 0;
+}
+
+static long mychardev_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+{
+    printk("MYCHARDEV: Device ioctl\n");
+    return 0;
+}
+
+static ssize_t mychardev_read(struct file *file, char __user *buf, size_t count, loff_t *offset)
+{
+    uint8_t *data = "Hello from the kernel world!\n";
+    size_t datalen = strlen(data);
+
+    printk("Reading device: %d\n", MINOR(file-&gt;f_path.dentry-&gt;d_inode-&gt;i_rdev));
+
+    if (count &gt; datalen) {
+        count = datalen;
+    }
+
+    if (copy_to_user(buf, data, count)) {
+        return -EFAULT;
+    }
+
+    return count;
+}
+
+static ssize_t mychardev_write(struct file *file, const char __user *buf, size_t count, loff_t *offset)
+{
+    size_t maxdatalen = 30, ncopied;
+    uint8_t databuf[maxdatalen];
+
+    printk("Writing device: %d\n", MINOR(file-&gt;f_path.dentry-&gt;d_inode-&gt;i_rdev));
+
+    if (count &lt; maxdatalen) {
+        maxdatalen = count;
+    }
+
+    ncopied = copy_from_user(databuf, buf, maxdatalen);
+
+    if (ncopied == 0) {
+        printk("Copied %zd bytes from the user\n", maxdatalen);
+    } else {
+        printk("Could't copy %zd bytes from the user\n", ncopied);
+    }
+
+    databuf[maxdatalen] = 0;
+
+    printk("Data from the user: %s\n", databuf);
+
+    return count;
+}
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Oleg Kutkov &lt;elenbert@gmail.com&gt;");
+
+module_init(mychardev_init);
+module_exit(mychardev_exit);
+</pre>
+<p>And <strong>Makefile</strong> to build this code.</p>
+<pre class="prettyprint">BINARY     := mychardev
+KERNEL      := /lib/modules/$(shell uname -r)/build
+ARCH        := x86
+C_FLAGS     := -Wall
+KMOD_DIR    := $(shell pwd)
+TARGET_PATH := /lib/modules/$(shell uname -r)/kernel/drivers/char
+
+OBJECTS := main.o
+
+ccflags-y += $(C_FLAGS)
+
+obj-m += $(BINARY).o
+
+$(BINARY)-y := $(OBJECTS)
+
+$(BINARY).ko:
+    make -C $(KERNEL) M=$(KMOD_DIR) modules
+
+install:
+    cp $(BINARY).ko $(TARGET_PATH)
+    depmod -a
+
+uninstall:
+    rm $(TARGET_PATH)/$(BINARY).ko
+    depmod -a
+
+clean:
+    make -C $(KERNEL) M=$(KMOD_DIR) clean</pre>
+<p>Module building and loading</p>
+<pre class="prettyprint">make &amp;&amp; sudo insmod mychardev.ko</pre>
+<p>You should find two new devices: /dev/mychardev-0 and /dev/mychardev-1, and repeat all experiments from this article.</p>
+<p>I hope this material will be helpful.<br />
+This code can be used as a basic pattern in some more complex driver project.</p>
+<p>Thanks for reading!</p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<span class="tags-links">Tagged <a href="../../../../tag/character/index.html" rel="tag">character</a>, <a href="../../../../tag/chardev/index.html" rel="tag">chardev</a>, <a href="../../../../tag/driver/index.html" rel="tag">driver</a>, <a href="../../../../tag/kernel/index.html" rel="tag">kernel</a>, <a href="../../../../tag/linux/index.html" rel="tag">linux</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a></h2>
+                                         <span class="posted-date">July 18, 2022</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html">Writing a PCI device driver for Linux</a></h2>
+                                         <span class="posted-date">January 7, 2021</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2020/12/15/satellite-lnb-controller-with-gui-interface/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2020/12/15/satellite-lnb-controller-with-gui-interface/index.html">Satellite LNB controller with GUI interface</a></h2>
+                                         <span class="posted-date">December 15, 2020</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../../02/21/htu21d-raspberry-pi/index.html" rel="prev">Connecting HTU21D temperature/humidity sensor to the Raspberry PI using simple C i2c interface</a></div><div class="nav-next"><a href="../../20/autonomous-allsky-camera-with-raspberry-pi-part-1-overview/index.html" rel="next">Autonomous Allsky camera with Raspberry PI. Part 1: overview.</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			32 thoughts on &ldquo;<span>Simple Linux character device driver</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-317" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="../../../../2020/02/10/linux-block-device-driver/index.html" class="url" rel="ugc">Linux block device driver &#8211; Oleg Kutkov personal blog</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-366" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-366" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/0e22dec4de29db15c5902bb16f64e211?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/0e22dec4de29db15c5902bb16f64e211?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Sanjib Das</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-366"><time datetime="2020-02-28T11:25:25+02:00">February 28, 2020 at 11:25 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Excellent. Thanks for sharing this.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index8a01.html?replytocom=366#respond' data-commentid="366" data-postid="359" data-belowelement="div-comment-366" data-respondelement="respond" data-replyto="Reply to Sanjib Das" aria-label='Reply to Sanjib Das'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-368" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-368" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-368"><time datetime="2020-02-28T23:49:10+02:00">February 28, 2020 at 11:49 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks! 🙂</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index189f.html?replytocom=368#respond' data-commentid="368" data-postid="359" data-belowelement="div-comment-368" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-395" class="comment odd alt thread-even depth-1">
+			<article id="div-comment-395" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/cda3315808b0774564aa0e0aaf4c6a5e?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/cda3315808b0774564aa0e0aaf4c6a5e?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">ANIL Dsouza</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-395"><time datetime="2020-03-09T23:30:24+02:00">March 9, 2020 at 11:30 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Amazing. All in one . Good start for beginners.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index6f2c.html?replytocom=395#respond' data-commentid="395" data-postid="359" data-belowelement="div-comment-395" data-respondelement="respond" data-replyto="Reply to ANIL Dsouza" aria-label='Reply to ANIL Dsouza'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-481" class="comment even thread-odd thread-alt depth-1">
+			<article id="div-comment-481" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/552cf3fa6ad3f68387873d7f26a49d42?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/552cf3fa6ad3f68387873d7f26a49d42?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Sohaib Mohammed</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-481"><time datetime="2020-04-18T12:42:17+03:00">April 18, 2020 at 12:42 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Most comprehensive blog.<br />
+Thank you.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexfd85.html?replytocom=481#respond' data-commentid="481" data-postid="359" data-belowelement="div-comment-481" data-respondelement="respond" data-replyto="Reply to Sohaib Mohammed" aria-label='Reply to Sohaib Mohammed'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-853" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-853" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d603605defd9daf3ffeb8f1ab22e566e?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/d603605defd9daf3ffeb8f1ab22e566e?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Sergey</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-853"><time datetime="2020-07-02T18:21:15+03:00">July 2, 2020 at 6:21 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi dear Oleg I have question about how to implement this kind of char device driver.<br />
+Create a kernel character device driver which will:</p>
+<p>Register /dev/copy node into a Linux file system.</p>
+<p>Any file written into /dev/copy shall be catch by driver and saved into a /tmp/output file in the ASCII character format: the binary data should be printed byte by byte with %02x and after 8th printed byte one new line should be added. Different size of files (100Kb, 250Kb, 1MB, 2MB etc.) need to be tested before considered task to be done.</p>
+<p>A simple test for this driver will be:</p>
+<p>•         Load your driver</p>
+<p>•         Create a file containing some binary data  &#8212; /tmp/test</p>
+<p>•         Run “cat /tmp/test &gt; /dev/copy” command from Linux prompt</p>
+<p>•         Compare /tmp/output with the output of hexdump linux command on the test (they should exact match), for example:</p>
+<p>$ hexdump -v -e &#8216;8/1 &#8220;%02x &#8221; &#8220;\n&#8221;&#8216; test</p>
+<p>00 01 1b 03 3b 34 00 00</p>
+<p>00 05 00 00 00 00 fe ff</p>
+<p>ff 80 00 00 00 40 fe ff</p>
+<p>ff 50 00 00 00 36 ff ff</p>
+<p>ff a8 00 00 00 60 ff ff</p>
+<p>ff c8 00 00 00 d0 ff ff</p>
+<p>ff 10 01 00 00 00 00 00</p>
+<p>00 14 00 00 00 00 00 00</p>
+<p>00 01 7a 52 0a</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index96e2.html?replytocom=853#respond' data-commentid="853" data-postid="359" data-belowelement="div-comment-853" data-respondelement="respond" data-replyto="Reply to Sergey" aria-label='Reply to Sergey'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-856" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-856" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-856"><time datetime="2020-07-03T13:20:34+03:00">July 3, 2020 at 1:20 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello. It&#8217;s quite easy.<br />
+Sure, you can&#8217;t directly identify chardev input data as a file. Everything you writing to the character device is just a byte stream, without additional information. So you have to deal with written size, count bytes to set the required limit  (100Kb, 250Kb, 1MB, 2MB, etc.).<br />
+There are several ways to configure this limit if you need it. It can be some custom IOCTL, or special command, written to the character device before data writing.<br />
+For example, you can send something like <code>'echo "SIZE: "ls -l testfile | awk '{print $5}' > /dev/copy'</code> and then parse this keyword in your character device write handler. All future data you interpret just like a binary stream.<br />
+You can read data from the user by chunks (8 bytes at a time, for example), manipulating &#8216;&#8221;&#8216;loff_t *offset param, just incrementing offset by your buffer size (8 bytes).<br />
+Then you can split your bytes and convert data to the string using <strong>snprintf()</strong> with the format <strong>&#8220;%02x&#8221;</strong>.</p>
+<p>Regarding to the &#8220;/tmp/output&#8221; file handling. You can use kernel file handling API:<br />
+<strong>filp_open()</strong><br />
+<strong>vfs_write()</strong> (for kernel version &lt; 4.14.0)<br />
+<strong>kernel_write()</strong> (for kernel version >= 4.14.0)<br />
+Please check <strong>include/linux/fs.h</strong> for additional information about this functions.</p>
+<p>For example:</p>
+<p><code><br />
+struct file *file = filp_open("/tmp/output", O_CREAT, 0);<br />
+char str_data[STR_LEN];<br />
+kernel_write(file, str_data, STR_LEN, &amp;file->f_pos);<br />
+</code></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index5cb3.html?replytocom=856#respond' data-commentid="856" data-postid="359" data-belowelement="div-comment-856" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-857" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-857" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d603605defd9daf3ffeb8f1ab22e566e?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/d603605defd9daf3ffeb8f1ab22e566e?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Sergey</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-857"><time datetime="2020-07-03T17:22:46+03:00">July 3, 2020 at 5:22 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi thank you for your message, I really newcomer to linux kernel and driver programming I understand that it realization is very easy, but for me problem is to understand can you give some solution of this task. I really please you about that.</p>
+<p>Thank you, regads.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index397e.html?replytocom=857#respond' data-commentid="857" data-postid="359" data-belowelement="div-comment-857" data-respondelement="respond" data-replyto="Reply to Sergey" aria-label='Reply to Sergey'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-932" class="comment even thread-even depth-1">
+			<article id="div-comment-932" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/2b2e11d48969e491cdec68995ae52b11?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/2b2e11d48969e491cdec68995ae52b11?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">HARIKRISHNA K</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-932"><time datetime="2020-08-27T17:21:21+03:00">August 27, 2020 at 5:21 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Really very clear explaination with understandable steps.</p>
+<p>Could you please point me below things<br />
+1) platform devices and drivers program linked with device tree.<br />
+2) understanding linkage between char driver, bus drver(i2c, spi, uart).</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index4cb5.html?replytocom=932#respond' data-commentid="932" data-postid="359" data-belowelement="div-comment-932" data-respondelement="respond" data-replyto="Reply to HARIKRISHNA K" aria-label='Reply to HARIKRISHNA K'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-963" class="pingback odd alt thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html" class="url" rel="ugc">Writing a PCI device driver for Linux &#8211; Oleg Kutkov personal blog</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-969" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-969" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/1f6bb3b3b432fc4530f6d6570d9857c3?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/1f6bb3b3b432fc4530f6d6570d9857c3?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Ondrej</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-969"><time datetime="2021-01-15T15:48:09+02:00">January 15, 2021 at 3:48 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks, it&#8217;s very helpful to me !</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index8157.html?replytocom=969#respond' data-commentid="969" data-postid="359" data-belowelement="div-comment-969" data-respondelement="respond" data-replyto="Reply to Ondrej" aria-label='Reply to Ondrej'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-970" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-970" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-970"><time datetime="2021-01-15T15:51:00+02:00">January 15, 2021 at 3:51 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Glad to hear 🙂</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexad46.html?replytocom=970#respond' data-commentid="970" data-postid="359" data-belowelement="div-comment-970" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1008" class="comment even thread-odd thread-alt depth-1">
+			<article id="div-comment-1008" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/db2dc73c1d4510aa22758390806285fd?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/db2dc73c1d4510aa22758390806285fd?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="index.html" class="url" rel="ugc">c</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1008"><time datetime="2021-03-16T11:03:41+02:00">March 16, 2021 at 11:03 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>thank u so muchhhhhhhhhhhhhhhhh</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index6a8d.html?replytocom=1008#respond' data-commentid="1008" data-postid="359" data-belowelement="div-comment-1008" data-respondelement="respond" data-replyto="Reply to c" aria-label='Reply to c'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1016" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-1016" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/09f2114e6a34904af59f7e8db442829b?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/09f2114e6a34904af59f7e8db442829b?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">imaami</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1016"><time datetime="2021-04-03T20:16:25+03:00">April 3, 2021 at 8:16 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>In <code>mychardev_write()</code> <code>databuf</code> is a VLA for no reason. VLA&#8217;s are effectively banned from kernel code nowadays for several reasons. Also, using <code>maxdatalen</code> to declare the size of <code>databuf</code> is doing things backwards. What you want is <code>uint8_t databuf[30]; size_t maxdatalen = sizeof(databuf);</code>.</p>
+<p>There&#8217;s also an off-by-one bug a few lines down: the null terminator gets written outside of <code>databuf</code> array boundary whenever <code>count</code> is not less than <code>maxdatalen</code>.</p>
+<p>In <code>mychardev_read()</code> the initialization of non-const <code>uint8_t *</code> with a string literal is kind of weird especially when it&#8217;s purely for storing a predetermined string. The appropriate choice there is <code>static const char foobar[] = "stuff";</code>. And don&#8217;t use <code>strlen()</code> to get the length, for const char arrays <code>sizeof(foobar)-1</code> gives the same result but won&#8217;t introduce an unnecessary runtime call.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index5a55.html?replytocom=1016#respond' data-commentid="1016" data-postid="359" data-belowelement="div-comment-1016" data-respondelement="respond" data-replyto="Reply to imaami" aria-label='Reply to imaami'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1018" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-1018" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1018"><time datetime="2021-04-04T15:34:13+03:00">April 4, 2021 at 3:34 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Yes, there are a few errors and typos. I will fix them. Thanks.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index57e1.html?replytocom=1018#respond' data-commentid="1018" data-postid="359" data-belowelement="div-comment-1018" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1017" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-1017" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/e4b6959c0216c0b3f5e9ca6129c9fde0?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/e4b6959c0216c0b3f5e9ca6129c9fde0?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Ivan Kryvosheya</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1017"><time datetime="2021-04-04T15:17:14+03:00">April 4, 2021 at 3:17 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Great!<br />
+But it looks like there is an error with MINORMASK.<br />
+There must be lMAX_DEV.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexa3a6.html?replytocom=1017#respond' data-commentid="1017" data-postid="359" data-belowelement="div-comment-1017" data-respondelement="respond" data-replyto="Reply to Ivan Kryvosheya" aria-label='Reply to Ivan Kryvosheya'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1030" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-1030" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/5fd2a1bf5bdf21d0236c3a2d977a0b4a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/5fd2a1bf5bdf21d0236c3a2d977a0b4a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">* LXW*</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1030"><time datetime="2021-05-02T19:14:36+03:00">May 2, 2021 at 7:14 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>thank you for this tutorial.<br />
+I run on raspberry pi. when I use cat /dev/mychardev-0<br />
+it print out<br />
+Hello from the kernel world!<br />
+Hello from the kernel world!<br />
+Hello from the kernel world!<br />
+non stop.<br />
+do you know why?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexb5b7.html?replytocom=1030#respond' data-commentid="1030" data-postid="359" data-belowelement="div-comment-1030" data-respondelement="respond" data-replyto="Reply to * LXW*" aria-label='Reply to * LXW*'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1031" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2 parent">
+			<article id="div-comment-1031" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1031"><time datetime="2021-05-03T12:06:31+03:00">May 3, 2021 at 12:06 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello.<br />
+This happens because single &#8216;cat&#8217; command tries to read a file to the end of the stream. In this case, there is no end, so <strong>&#8216;cat&#8217;</strong> repeats <strong>&#8216;read()&#8217;</strong> call.<br />
+In my example, there is  a specifier of the expected buffer length:<br />
+<code>head -c29</code><br />
+This command reads 29 bytes and exits.</p>
+<p>Alternatively, you can set a read bytes counter in your driver and modify mychardev_read. Return <strong>&#8216;datalen&#8217;</strong> on the first call of the function and return 0 on the next call. But this is just a bad synthetic example. Be careful in real-world applications.<br />
+Really you should always read some valid data length, verify this length in a driver function and always return the real size of the data. Then handle read count in the top-level code.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index2521.html?replytocom=1031#respond' data-commentid="1031" data-postid="359" data-belowelement="div-comment-1031" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1032" class="comment even depth-3 parent">
+			<article id="div-comment-1032" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/5fd2a1bf5bdf21d0236c3a2d977a0b4a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/5fd2a1bf5bdf21d0236c3a2d977a0b4a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">* LXW*</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1032"><time datetime="2021-05-04T00:31:47+03:00">May 4, 2021 at 12:31 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>so cat will keep call mychardev_read() untill it return 0. thank you.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexaa2f.html?replytocom=1032#respond' data-commentid="1032" data-postid="359" data-belowelement="div-comment-1032" data-respondelement="respond" data-replyto="Reply to * LXW*" aria-label='Reply to * LXW*'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1033" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-4">
+			<article id="div-comment-1033" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1033"><time datetime="2021-05-04T00:43:25+03:00">May 4, 2021 at 12:43 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Yes. Any value is greater than zero means that there are some bytes left. Then cat tries to read those bytes and reads your string.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index8e93.html?replytocom=1033#respond' data-commentid="1033" data-postid="359" data-belowelement="div-comment-1033" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1066" class="comment even thread-odd thread-alt depth-1">
+			<article id="div-comment-1066" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/4fdce145bab6d27d69e34403f99fd11c?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/4fdce145bab6d27d69e34403f99fd11c?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">me not you</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1066"><time datetime="2021-09-23T16:00:16+03:00">September 23, 2021 at 4:00 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>A black font for the code would be even better, in order to make it more difficult to read it</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index445e.html?replytocom=1066#respond' data-commentid="1066" data-postid="359" data-belowelement="div-comment-1066" data-respondelement="respond" data-replyto="Reply to me not you" aria-label='Reply to me not you'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1092" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-1092" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/2ae6daabda82b18b048b93316aa299b4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/2ae6daabda82b18b048b93316aa299b4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Fabian</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1092"><time datetime="2021-11-26T14:51:39+02:00">November 26, 2021 at 2:51 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi, nice work!<br />
+Are you sure that the call to class_unregister AND class_destroy is correct? class_destroy will call class_unregister itself and my driver crashes during unload with a &#8220;use-after-free&#8221; error. When I remove the call to class_unregister, everything seems fine.<br />
+Also the variable MINORMASK is not defined.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index792e.html?replytocom=1092#respond' data-commentid="1092" data-postid="359" data-belowelement="div-comment-1092" data-respondelement="respond" data-replyto="Reply to Fabian" aria-label='Reply to Fabian'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1093" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-1093" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1093"><time datetime="2021-11-26T22:08:09+02:00">November 26, 2021 at 10:08 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello.<br />
+Thank you for the information. Something may be changed in the Linux kernel. I&#8217;ll check.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index69c2.html?replytocom=1093#respond' data-commentid="1093" data-postid="359" data-belowelement="div-comment-1093" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1562" class="comment odd alt depth-2">
+			<article id="div-comment-1562" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/4f09513e433328c6ae69e03b6ca8dbf1?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/4f09513e433328c6ae69e03b6ca8dbf1?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Arun</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1562"><time datetime="2023-05-04T06:29:45+03:00">May 4, 2023 at 6:29 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>true, I also faced same issue with linux 6.1.2</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index841a.html?replytocom=1562#respond' data-commentid="1562" data-postid="359" data-belowelement="div-comment-1562" data-respondelement="respond" data-replyto="Reply to Arun" aria-label='Reply to Arun'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1351" class="comment even thread-odd thread-alt depth-1">
+			<article id="div-comment-1351" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/54c1d7f4dcd2a316ff54eb4aa6f2a50f?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/54c1d7f4dcd2a316ff54eb4aa6f2a50f?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Brian Carcich</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1351"><time datetime="2022-07-15T22:27:09+03:00">July 15, 2022 at 10:27 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>@Oleg Kutkov:  Thank you for this!  It was slow going to get my slow brain to the knee of the device driver learning curve, and your example has helped a lot.</p>
+<p>The off-by-one error is still there, but since the buffer length is 30, in practice it will not matter because that buffer will actually include the next two bytes (i.e. to 32).  Not that I am excusing the error, just sayin&#8217;</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index057a.html?replytocom=1351#respond' data-commentid="1351" data-postid="359" data-belowelement="div-comment-1351" data-respondelement="respond" data-replyto="Reply to Brian Carcich" aria-label='Reply to Brian Carcich'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1382" class="pingback odd alt thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="https://www.techtalk7.com/what-is-the-modern-way-of-creating-devices-files-in-dev/" class="url" rel="ugc external nofollow">What is the modern way of creating devices files in /dev/? - TechTalk7</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-1383" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-1383" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/e591907e9c5b5a03af3cd3b76e50575a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/e591907e9c5b5a03af3cd3b76e50575a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="https://aster89.github.io/" class="url" rel="ugc external nofollow">Enrico Maria De Angelis</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1383"><time datetime="2022-11-13T18:04:42+02:00">November 13, 2022 at 6:04 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>When declaring databuf, maxdatalen is always 30. Would it make sense to define it as const, for the purpose of declaring databuf without relying on the VLA extension, and then declare another variable to be inizialized to maxdatalen and be used in its place afterwards?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index9b0d.html?replytocom=1383#respond' data-commentid="1383" data-postid="359" data-belowelement="div-comment-1383" data-respondelement="respond" data-replyto="Reply to Enrico Maria De Angelis" aria-label='Reply to Enrico Maria De Angelis'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1387" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-1387" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1387"><time datetime="2022-11-14T23:21:48+02:00">November 14, 2022 at 11:21 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>In most cases, yes. But this is just a tutorial about how to write chardev driver, not a production code. In the real world, apps buffer and buffer size might be dynamically declared somewhere else in a larger driver structure.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index479c.html?replytocom=1387#respond' data-commentid="1387" data-postid="359" data-belowelement="div-comment-1387" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1384" class="comment even thread-even depth-1">
+			<article id="div-comment-1384" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/e591907e9c5b5a03af3cd3b76e50575a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/e591907e9c5b5a03af3cd3b76e50575a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="https://aster89.github.io/" class="url" rel="ugc external nofollow">Enrico Maria De Angelis</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1384"><time datetime="2022-11-13T18:07:55+02:00">November 13, 2022 at 6:07 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>By const I guess I mean a macro (sorry, coming from the C++ side of things, not much used to C-style arrays).</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexa818.html?replytocom=1384#respond' data-commentid="1384" data-postid="359" data-belowelement="div-comment-1384" data-respondelement="respond" data-replyto="Reply to Enrico Maria De Angelis" aria-label='Reply to Enrico Maria De Angelis'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1385" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-1385" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/e591907e9c5b5a03af3cd3b76e50575a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/e591907e9c5b5a03af3cd3b76e50575a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="https://aster89.github.io/" class="url" rel="ugc external nofollow">Enrico Maria De Angelis</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1385"><time datetime="2022-11-13T18:32:03+02:00">November 13, 2022 at 6:32 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Also, the variable <code>ncopied</code> seems to suggest &#8220;number of bytes copied&#8221;, whereas it is the number of bytes <em>not</em> copied yet, so a better name would be <code>notCopied</code>?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index0614.html?replytocom=1385#respond' data-commentid="1385" data-postid="359" data-belowelement="div-comment-1385" data-respondelement="respond" data-replyto="Reply to Enrico Maria De Angelis" aria-label='Reply to Enrico Maria De Angelis'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1386" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="https://jtuto.com/mercure/why-piping-cat-into-head-c-5-for-a-chardev-results-in-many-more-calls-to-the-drivers-read-than-just-calling-head-c-5-on-the-chardev/" class="url" rel="ugc external nofollow">Why piping cat into head -c 5 for a chardev results in many more calls to the driver&#039;s read than just calling head -c 5 on the chardev? - JTuto Mercure</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-1402" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-1402" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/148df4fe87cc149112587af15216fbfa?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/148df4fe87cc149112587af15216fbfa?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Tom</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1402"><time datetime="2022-12-15T07:42:03+02:00">December 15, 2022 at 7:42 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg!</p>
+<p>This is the best tutorial I have come across, thanks a ton!</p>
+<p>I really liked rest of the articles as well. You have a knack for simplifying the complexity, keep up the good work.</p>
+<p>I come from the bare metal side, taking first steps in embedded linux. Your example code works well on x86. I was trying to attempt it on a A7 cpu, changed the ARCH to arm-linux-gnueabihf in the makefile but it still complains.</p>
+<p>Would be great if you could give some pointer on how and what to change for ARM based devices. Maybe add to the above article or write a new one whenever you can.</p>
+<p>Thanks again</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index23a0.html?replytocom=1402#respond' data-commentid="1402" data-postid="359" data-belowelement="div-comment-1402" data-respondelement="respond" data-replyto="Reply to Tom" aria-label='Reply to Tom'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply to <a href="#comment-853">Sergey</a> <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='359' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='853' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="73ddc21e47" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="194"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../../2020/06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index96e2.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_1827c9da4c86fc3ad9db01f6a6132235.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2018/03/14/simple-linux-character-device-driver/?replytocom=853 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:16:51 GMT -->
+</html>

@@ -1,0 +1,642 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2020/12/15/satellite-lnb-controller-with-gui-interface/?replytocom=1816 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:16:37 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>Satellite LNB controller with GUI interface &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large, noindex, follow' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Satellite LNB controller with GUI interface Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/1511.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../index071e.html?p=1511' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embeda5c0.json?url=https%3A%2F%2Folegkutkov.me%2F2020%2F12%2F15%2Fsatellite-lnb-controller-with-gui-interface%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embedd777?url=https%3A%2F%2Folegkutkov.me%2F2020%2F12%2F15%2Fsatellite-lnb-controller-with-gui-interface%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index6dcf.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-1511 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-1511" class="post-1511 post type-post status-publish format-standard hentry category-electronics category-linux-system-development category-radio-antennas category-radioastronomy category-software tag-antenna tag-controller tag-gtk tag-hacrkrf tag-lnb tag-satellite tag-sdr">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/electronics/index.html" rel="category tag">Electronics</a>, <a href="../../../../category/linux-system-development/index.html" rel="category tag">Linux system development</a>, <a href="../../../../category/radio-antennas/index.html" rel="category tag">Radio &amp; antennas</a>, <a href="../../../../category/radioastronomy/index.html" rel="category tag">Radioastronomy</a>, <a href="../../../../category/software/index.html" rel="category tag">Software</a></span><h1 class="entry-title">Satellite LNB controller with GUI interface</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">December 15, 2020</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><img decoding="async" class="alignleft size-full wp-image-1512" src="../../../../wp-content/uploads/2020/12/lnb_controller_thumb.png" alt="" width="150" height="150" /><a href="../../../09/20/reworking-linear-polarization-satellite-lnb-into-a-circular-polarized/index.html">Satellite LNB</a> are quite cheap and easy to get devices. There are different models for different bands (C, Ku, and Ka) with different characteristics like SNR, noise figure, etc. Typically those devices are used with TV Set-top boxes.<br />
+More interesting is that LNB can be easily connected to an SDR receiver. LNB is a simple frequency down-converter with an output band in 950-1750 MHz (typically), which is great for all known SDR. This gives the ability to discover higher frequency ranges (10-12 GHz and even 18-21 GHz): receive and analyze satellite signals. Additionally, you can use such a setup in amateur radio astronomy.</p>
+<p><span id="more-1511"></span></p>
+<h3>LNB operation</h3>
+<p>Of course, there are professional LNB models for the telecommunication systems. Those LNB have excellent characteristics and can provide different connection options. But they are expensive and not interesting for HAM usage. The operation principle of the &#8220;home&#8221; LNB and professional systems are the same.</p>
+<p><a href="../../../../wp-content/uploads/2020/12/lnb_pro_home.png"><img fetchpriority="high" decoding="async" class="aligncenter wp-image-1556" src="../../../../wp-content/uploads/2020/12/lnb_pro_home.png" alt="" width="632" height="352" srcset="https://olegkutkov.me/wp-content/uploads/2020/12/lnb_pro_home.png 799w, https://olegkutkov.me/wp-content/uploads/2020/12/lnb_pro_home-400x223.png 400w, https://olegkutkov.me/wp-content/uploads/2020/12/lnb_pro_home-768x428.png 768w" sizes="(max-width: 632px) 100vw, 632px" /></a></p>
+<p>To operate correctly, satellite LNB requires different voltages to select signal polarization (Vertical/Right or Horizontal/Left). Additionally, some LNB can switch to the secondary LO (higher band) when an injected 22 kHz tone signal is directed on the power supply line.</p>
+<p>You can find all Polarization/Band parameters in the tables down below.</p>
+<p><strong>C-band LNB<br />
+</strong></p>
+
+<table id="tablepress-5" class="tablepress tablepress-id-5">
+<thead>
+<tr class="row-1 odd">
+	<th class="column-1">LNB Supply voltage</th><th class="column-2">Polarization</th><th class="column-3">LO frequency</th><th class="column-4">Frequency band</th><th class="column-5">IF range</th>
+</tr>
+</thead>
+<tbody class="row-hover">
+<tr class="row-2 even">
+	<td class="column-1">13 V</td><td class="column-2">Vertical</td><td class="column-3">5.15 GHz </td><td class="column-4">3.40–4.20 GHz </td><td class="column-5">950–1750 MHz </td>
+</tr>
+<tr class="row-3 odd">
+	<td class="column-1">18 V</td><td class="column-2">Horizontal</td><td class="column-3">5.15 GHz </td><td class="column-4">3.40–4.20 GHz </td><td class="column-5">950–1750 MHz </td>
+</tr>
+</tbody>
+</table>
+<!-- #tablepress-5 from cache -->
+<p><strong>Ku-band LNB, North America<br />
+</strong></p>
+
+<table id="tablepress-6" class="tablepress tablepress-id-6">
+<thead>
+<tr class="row-1 odd">
+	<th class="column-1">LNB Supply voltage</th><th class="column-2">Polarization</th><th class="column-3">LO frequency</th><th class="column-4">Frequency band</th><th class="column-5">IF range</th>
+</tr>
+</thead>
+<tbody class="row-hover">
+<tr class="row-2 even">
+	<td class="column-1">13 V</td><td class="column-2">Vertical</td><td class="column-3">10.75 GHz</td><td class="column-4">11.70–12.20 GHz </td><td class="column-5">950–1450 MHz </td>
+</tr>
+<tr class="row-3 odd">
+	<td class="column-1">18 V</td><td class="column-2">Horizontal</td><td class="column-3">10.75 GHz</td><td class="column-4">11.70–12.20 GHz </td><td class="column-5">950–1450 MHz </td>
+</tr>
+</tbody>
+</table>
+<!-- #tablepress-6 from cache -->
+<p><strong>Universal Ku-band LNB, Europe</strong></p>
+
+<table id="tablepress-7" class="tablepress tablepress-id-7">
+<thead>
+<tr class="row-1 odd">
+	<th class="column-1">LNB Supply voltage</th><th class="column-2">Tone signal</th><th class="column-3">Polarization</th><th class="column-4">LO frequency</th><th class="column-5">Frequency band</th><th class="column-6">IF range</th>
+</tr>
+</thead>
+<tbody class="row-hover">
+<tr class="row-2 even">
+	<td class="column-1">13 V</td><td class="column-2">0</td><td class="column-3">Vertical</td><td class="column-4">9.75 GHz</td><td class="column-5">10.70–11.70 GHz</td><td class="column-6">950–1950 MHz </td>
+</tr>
+<tr class="row-3 odd">
+	<td class="column-1">18 V</td><td class="column-2">0</td><td class="column-3">Horizontal</td><td class="column-4">9.75 GHz</td><td class="column-5">10.70–11.70 GHz</td><td class="column-6">950–1950 MHz </td>
+</tr>
+<tr class="row-4 even">
+	<td class="column-1">13 V</td><td class="column-2">22 kHz</td><td class="column-3">Vertical</td><td class="column-4">10.60 GHz </td><td class="column-5">11.70–12.75 GHz</td><td class="column-6">1100–2150 MHz </td>
+</tr>
+<tr class="row-5 odd">
+	<td class="column-1">18 V</td><td class="column-2">22 kHz</td><td class="column-3">Horizontal</td><td class="column-4">10.60 GHz </td><td class="column-5">11.70–12.75 GHz</td><td class="column-6">1100–2150 MHz </td>
+</tr>
+</tbody>
+</table>
+<!-- #tablepress-7 from cache -->
+<p><strong>North America DBS LNB</strong></p>
+
+<table id="tablepress-8" class="tablepress tablepress-id-8">
+<thead>
+<tr class="row-1 odd">
+	<th class="column-1">LNB Supply voltage</th><th class="column-2">Polarization</th><th class="column-3">LO frequency</th><th class="column-4">Frequency band</th><th class="column-5">IF range</th>
+</tr>
+</thead>
+<tbody class="row-hover">
+<tr class="row-2 even">
+	<td class="column-1">13 V</td><td class="column-2">Right-hand</td><td class="column-3">11.25 GHz</td><td class="column-4">12.20–12.70 GHz</td><td class="column-5">950–1450 MHz </td>
+</tr>
+<tr class="row-3 odd">
+	<td class="column-1">18 V</td><td class="column-2">Left-hand</td><td class="column-3">11.25 GHz</td><td class="column-4">12.20–12.70 GHz</td><td class="column-5">950–1450 MHz </td>
+</tr>
+</tbody>
+</table>
+<!-- #tablepress-8 from cache -->
+<p><strong>Europe DTH LNB</strong></p>
+
+<table id="tablepress-9" class="tablepress tablepress-id-9">
+<thead>
+<tr class="row-1 odd">
+	<th class="column-1">LNB Supply voltage</th><th class="column-2">Polarization</th><th class="column-3">LO frequency</th><th class="column-4">Frequency band</th><th class="column-5">IF range</th>
+</tr>
+</thead>
+<tbody class="row-hover">
+<tr class="row-2 even">
+	<td class="column-1">13 V</td><td class="column-2">Right-hand</td><td class="column-3"> 10.75 GHz </td><td class="column-4">11.7 GHz–12.75 GHz</td><td class="column-5"> 1100–2150 MHz </td>
+</tr>
+<tr class="row-3 odd">
+	<td class="column-1">18 V</td><td class="column-2">Left-hand</td><td class="column-3"> 10.75 GHz </td><td class="column-4">11.7 GHz–12.75 GHz</td><td class="column-5"> 1100–2150 MHz </td>
+</tr>
+</tbody>
+</table>
+<!-- #tablepress-9 from cache -->
+<p><strong>Ka-band LNB</strong></p>
+
+<table id="tablepress-10" class="tablepress tablepress-id-10">
+<thead>
+<tr class="row-1 odd">
+	<th class="column-1">LNB Supply voltage</th><th class="column-2">Tone signal</th><th class="column-3">Polarization</th><th class="column-4">LO frequency</th><th class="column-5">Frequency band</th><th class="column-6">IF range</th>
+</tr>
+</thead>
+<tbody class="row-hover">
+<tr class="row-2 even">
+	<td class="column-1">13 V</td><td class="column-2">0</td><td class="column-3">Vertical</td><td class="column-4">19.25 GHz</td><td class="column-5">20.2–21.2 GHz</td><td class="column-6">950–1950 MHz </td>
+</tr>
+<tr class="row-3 odd">
+	<td class="column-1">18 V</td><td class="column-2">0</td><td class="column-3">Horizontal</td><td class="column-4">19.25 GHz</td><td class="column-5">20.2–21.2 GHz</td><td class="column-6">950–1950 MHz </td>
+</tr>
+<tr class="row-4 even">
+	<td class="column-1">13 V</td><td class="column-2">22 kHz</td><td class="column-3">Vertical</td><td class="column-4">20.25 GHz </td><td class="column-5">21.2–22.2 GHz</td><td class="column-6">950–1950 MHz </td>
+</tr>
+<tr class="row-5 odd">
+	<td class="column-1">18 V</td><td class="column-2">22 kHz</td><td class="column-3">Horizontal</td><td class="column-4">20.25 GHz </td><td class="column-5">21.2–22.2 GHz</td><td class="column-6">950–1950 MHz </td>
+</tr>
+</tbody>
+</table>
+<!-- #tablepress-10 from cache -->
+<p><strong>Ka-band LNB (Saorsat)</strong></p>
+
+<table id="tablepress-11" class="tablepress tablepress-id-11">
+<thead>
+<tr class="row-1 odd">
+	<th class="column-1">LNB Supply voltage</th><th class="column-2">Polarization</th><th class="column-3">LO frequency</th><th class="column-4">Frequency band</th><th class="column-5">IF range</th>
+</tr>
+</thead>
+<tbody class="row-hover">
+<tr class="row-2 even">
+	<td class="column-1">13 V</td><td class="column-2">Right-hand</td><td class="column-3">21.20 GHz </td><td class="column-4">19.7 GHz–20.20 GHz</td><td class="column-5"> 1000–1500 MHz </td>
+</tr>
+<tr class="row-3 odd">
+	<td class="column-1">18 V</td><td class="column-2">Left-hand</td><td class="column-3">21.20 GHz </td><td class="column-4">19.7 GHz–20.20 GHz</td><td class="column-5"> 1000–1500 MHz </td>
+</tr>
+</tbody>
+</table>
+<!-- #tablepress-11 from cache -->
+<h3>LNB controller</h3>
+<p class="_1qeIAgB0cPwnLhDF9XSiJM">I decided to build and share this simple LNB controller. The controller is controlled with PC software (GUI and CLI) over the USB.<br />
+There are two independent channels, so it&#8217;s possible to run and tune two independent LNBs.</p>
+<p><a href="../../../../wp-content/uploads/2020/12/title_pic_1.jpg"><img decoding="async" class="aligncenter size-large wp-image-1558" src="../../../../wp-content/uploads/2020/12/title_pic_1-1024x370.jpg" alt="" width="850" height="307" srcset="https://olegkutkov.me/wp-content/uploads/2020/12/title_pic_1-1024x370.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2020/12/title_pic_1-400x145.jpg 400w, https://olegkutkov.me/wp-content/uploads/2020/12/title_pic_1-768x277.jpg 768w, https://olegkutkov.me/wp-content/uploads/2020/12/title_pic_1-1536x555.jpg 1536w, https://olegkutkov.me/wp-content/uploads/2020/12/title_pic_1.jpg 1575w" sizes="(max-width: 850px) 100vw, 850px" /></a></p>
+<p>The controller produces a stable 13/18 v and 22kHz signal. It&#8217;s required to use an external Bias-T circuit. I&#8217;m using <a href="https://www.amazon.com/10MHz-6GHz-Broadband-Frequency-Microwave-Amplifier/dp/B07Q7HKWZZ">this</a> popular bias-T model (it also can be found on Aliexpress).<br />
+The Bias-T box requires a tiny rework. It&#8217;s important to remove one big capacitor. This helps to save the injected 22 kHz signal.</p>
+<p><a href="../../../../wp-content/uploads/2020/12/bias-t-rework.jpg"><img loading="lazy" decoding="async" class="aligncenter size-medium wp-image-1560" src="../../../../wp-content/uploads/2020/12/bias-t-rework-400x279.jpg" alt="" width="400" height="279" srcset="https://olegkutkov.me/wp-content/uploads/2020/12/bias-t-rework-400x279.jpg 400w, https://olegkutkov.me/wp-content/uploads/2020/12/bias-t-rework-768x536.jpg 768w, https://olegkutkov.me/wp-content/uploads/2020/12/bias-t-rework.jpg 900w" sizes="(max-width: 400px) 100vw, 400px" /></a></p>
+<p>Here is an example of the hardware setup. HackRF One SDR + Bias-T + LNB controller. Receiving satellite signals from the satellite antenna.</p>
+<p><a href="../../../../wp-content/uploads/2020/12/lnb_controller_v1_setup.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-1559" src="../../../../wp-content/uploads/2020/12/lnb_controller_v1_setup.jpg" alt="" width="950" height="668" srcset="https://olegkutkov.me/wp-content/uploads/2020/12/lnb_controller_v1_setup.jpg 950w, https://olegkutkov.me/wp-content/uploads/2020/12/lnb_controller_v1_setup-400x281.jpg 400w, https://olegkutkov.me/wp-content/uploads/2020/12/lnb_controller_v1_setup-768x540.jpg 768w" sizes="(max-width: 950px) 100vw, 950px" /></a></p>
+<p>Hardware is quite simple. The controller is based on a popular STM32F103 MCU board, aka &#8220;Blue Pill.&#8221; In my case, it&#8217;s a black &#8220;STM32 MINI&#8221; from RobotDyn. I found this version of the &#8220;pill&#8221; is of better quality and more reliable. The rest of the LNB controller is built on a breadboard with SMD and through-hole components. Voltage regulators are based on LM317.</p>
+<p>The board schematic is down below. All signals are just connected to the appropriate MCU board pins.</p>
+<p><a href="../../../../wp-content/uploads/2020/12/lnb_controller_v1_schematic_bw.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-1563" src="../../../../wp-content/uploads/2020/12/lnb_controller_v1_schematic_bw-1024x570.png" alt="" width="850" height="473" srcset="https://olegkutkov.me/wp-content/uploads/2020/12/lnb_controller_v1_schematic_bw-1024x570.png 1024w, https://olegkutkov.me/wp-content/uploads/2020/12/lnb_controller_v1_schematic_bw-400x223.png 400w, https://olegkutkov.me/wp-content/uploads/2020/12/lnb_controller_v1_schematic_bw-768x428.png 768w, https://olegkutkov.me/wp-content/uploads/2020/12/lnb_controller_v1_schematic_bw-1536x856.png 1536w, https://olegkutkov.me/wp-content/uploads/2020/12/lnb_controller_v1_schematic_bw.png 1605w" sizes="(max-width: 850px) 100vw, 850px" /></a></p>
+<p>As a Step-up converter, I&#8217;m using the MT3608 board. This converter can be replaced with anything that can provide up to 20V and stable &gt;=400 mA. A low noise converter is better. Sure, this converter can be removed and use just a good enough external power supply.<br />
+There are two power options for the converter:</p>
+<ul>
+<li>USB from the MCU board. But it would be best if you had a really good USB connector, cable, and host that can provide enough current.</li>
+<li>External PSU.</li>
+</ul>
+<p>You can see here a power switch (Q1 MOSFET) that allows completely disable and enable the power. A voltage regulator is based on the popular LM317T and configurable resistor divider. The tone signal is injected into the voltage control line. It&#8217;s better to use a film capacitor here.</p>
+<p>This voltage regulator produces a little bit higher voltages. This is required in case of possible long RF cable, but still in a valid range.<br />
+You can see oscillograms down below.<br />
+Clean 14V (Vertical/Right polarization) and with 22kHz signal injected.<br />
+The tone signal should be 50-60% duty cycle and ~650 mV peak to peak. I&#8217;m using a 55% duty cycle, and this is Ok for all my LNBs.</p>
+<p><a href="../../../../wp-content/uploads/2020/12/lnb_vert_scope.png"><img loading="lazy" decoding="async" class="wp-image-1564 alignleft" src="../../../../wp-content/uploads/2020/12/lnb_vert_scope.png" alt="" width="360" height="263" srcset="https://olegkutkov.me/wp-content/uploads/2020/12/lnb_vert_scope.png 640w, https://olegkutkov.me/wp-content/uploads/2020/12/lnb_vert_scope-400x293.png 400w" sizes="(max-width: 360px) 100vw, 360px" /></a> <a href="../../../../wp-content/uploads/2020/12/lnb_vert_scope_22KHz_injected.png"><img loading="lazy" decoding="async" class="alignleft wp-image-1565" src="../../../../wp-content/uploads/2020/12/lnb_vert_scope_22KHz_injected.png" alt="" width="360" height="263" srcset="https://olegkutkov.me/wp-content/uploads/2020/12/lnb_vert_scope_22KHz_injected.png 640w, https://olegkutkov.me/wp-content/uploads/2020/12/lnb_vert_scope_22KHz_injected-400x293.png 400w" sizes="(max-width: 360px) 100vw, 360px" /></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3></h3>
+<h3>Controller software</h3>
+<p>You can find the full description, hardware schematics, MCU firmware, and desktop application sources on my GitHub here: <a class="_3t5uN8xUmg0TOwRCOGQEcU" href="https://github.com/olegkutkov/satellite-lnb-controller" target="_blank" rel="noopener nofollow ugc">https://github.com/olegkutkov/satellite-lnb-controller</a></p>
+<p>STM32 controller firmware source code can be found here: <a href="https://github.com/olegkutkov/satellite-lnb-controller/tree/main/mcu_firmware">mcu_firmware</a></p>
+<p>To compile this project you will need <strong>gcc-arm-none-eabi </strong>package</p>
+<p>Firmware compilation:</p>
+<div class="highlight highlight-source-shell">
+<pre><span class="pl-c1">cd</span> mcu_firmware
+make</pre>
+</div>
+<p>Also, there are already compiled binaries in <a href="https://github.com/olegkutkov/satellite-lnb-controller/tree/main/mcu_firmware/precompiled">mcu_firmware/precompiled</a></p>
+<p>Please configure STM32 boot pins accordingly to the GitHub project page.<br />
+MCU firmware can be flashed with &#8220;upload&#8221; command.</p>
+<div class="highlight highlight-source-shell">
+<pre>make upload</pre>
+</div>
+<p>There is a &#8220;Hello&#8221; blink pattern on the board LEDs if a successful firmware starts.</p>
+<h3>Desktop application</h3>
+<p>There are GUI and console applications that live <a href="https://github.com/olegkutkov/satellite-lnb-controller/tree/main/desktop_software">here</a>. Both programs can be run on Linux and macOS (Intel) systems.<br />
+GUI is written with the GTK-3 framework.<br />
+You will need <strong>gtk-3.0</strong> library and development files to build and run the GUI application.</p>
+<p>On the Linux system install <strong>libgtk-3-dev</strong> package and you ready to build the program.<br />
+On the Apple system (x86) you can install gtk+3 libraries with <a href="https://brew.sh/" rel="nofollow">homebrew</a>.</p>
+<div class="highlight highlight-source-shell">
+<pre>brew install epoxy
+brew install gtk+3</pre>
+<p>Library installation may take some time.<br />
+It&#8217;s important to export <strong>PKG_CONFIG</strong> environment variable with a path to the installed library and header files.</p>
+<div class="highlight highlight-source-shell">
+<pre><span class="pl-k">export</span> PKG_CONFIG_PATH=/usr/local/Cellar/libepoxy/1.5.4_1/lib/pkgconfig/:/usr/local/Cellar/gtk+3/3.24.24/lib/pkgconfig/</pre>
+</div>
+<p>Probably you will need to change packages versions to your current version. Please verify the paths.</p>
+<p>Now everything is ready to build the desktop software. You can type <code>make</code> to build both programs (GUI and console). Alternatively, you can type <code>make gui</code> or <code>make cli</code> to build only one of the programs.</p>
+<p>The GUI program is quite straightforward. You can select your serial device (typically it&#8217;s <code>/dev/ttyACMX</code> on Linux and <code>/dev/tty.cu.usb*</code> on the Apple system). The list of the available devices is built automatically during the program start-up. Then you can switch On and Off the system power supply and configure both LNB channels (polarization and 22KHz tone signal). The program is constantly measured output voltages of the channels. The Refresh interval is 500 ms.<br />
+Additionally, this program reads the whole state of the hardware to be in sync GUI-hardware state.</p>
+<p><a href="../../../../wp-content/uploads/2020/12/lnb_controller_gui_on_linux.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-1568" src="../../../../wp-content/uploads/2020/12/lnb_controller_gui_on_linux.png" alt="" width="620" height="371" srcset="https://olegkutkov.me/wp-content/uploads/2020/12/lnb_controller_gui_on_linux.png 620w, https://olegkutkov.me/wp-content/uploads/2020/12/lnb_controller_gui_on_linux-400x239.png 400w" sizes="(max-width: 620px) 100vw, 620px" /></a></p>
+<p>Also, you can do everything with the console version. This is might be helpful for a custom and automatic satellite receiver or signal scanner.</p>
+<p>You need to specify the serial device path and required command. For example, get the current state of the hardware:</p>
+<div class="highlight highlight-source-shell">
+<pre>lnb_controller-cli -p /dev/ttyACM0 -g</pre>
+<p>Enable and disable the power supply:</p>
+<div class="highlight highlight-source-shell">
+<pre>lnb_controller-cli -p /dev/ttyACM0 -w 1
+lnb_controller-cli -p /dev/ttyACM0 -w 0</pre>
+<p>Switch channel one LNB to the Horizontal polarization and enable 22kHz signal:</p>
+<div class="highlight highlight-source-shell">
+<pre>lnb_controller-cli -p /dev/ttyACM0 -c 1 <span class="pl-s">--horizontal_pol</span></pre>
+<pre>lnb_controller-cli -p /dev/ttyACM0 -c 1 <span class="pl-s">--tone_on</span></pre>
+<p>Console program on macOS:</p>
+<p><a href="../../../../wp-content/uploads/2020/12/lnb_controller_console_on_mac.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-1569" src="../../../../wp-content/uploads/2020/12/lnb_controller_console_on_mac.png" alt="" width="716" height="555" srcset="https://olegkutkov.me/wp-content/uploads/2020/12/lnb_controller_console_on_mac.png 782w, https://olegkutkov.me/wp-content/uploads/2020/12/lnb_controller_console_on_mac-387x300.png 387w, https://olegkutkov.me/wp-content/uploads/2020/12/lnb_controller_console_on_mac-768x595.png 768w" sizes="(max-width: 716px) 100vw, 716px" /></a></p>
+<p>Thanks for reading and happy RF hacking!</p>
+</div>
+</div>
+</div>
+</div>
+<span class="tags-links">Tagged <a href="../../../../tag/antenna/index.html" rel="tag">antenna</a>, <a href="../../../../tag/controller/index.html" rel="tag">controller</a>, <a href="../../../../tag/gtk/index.html" rel="tag">gtk</a>, <a href="../../../../tag/hacrkrf/index.html" rel="tag">hacrkrf</a>, <a href="../../../../tag/lnb/index.html" rel="tag">lnb</a>, <a href="../../../../tag/satellite/index.html" rel="tag">satellite</a>, <a href="../../../../tag/sdr/index.html" rel="tag">sdr</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a></h2>
+                                         <span class="posted-date">November 7, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a></h2>
+                                         <span class="posted-date">June 9, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../../09/22/mysterious-flat-satellite-antenna-from-china/index.html" rel="prev">Mysterious Flat satellite antenna from China</a></div><div class="nav-next"><a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html" rel="next">Writing a PCI device driver for Linux</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			4 thoughts on &ldquo;<span>Satellite LNB controller with GUI interface</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-965" class="comment even thread-even depth-1">
+			<article id="div-comment-965" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/e9031c0afadaa80cc3e02ab241729334?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/e9031c0afadaa80cc3e02ab241729334?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Ivan</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-965"><time datetime="2021-01-13T18:56:53+02:00">January 13, 2021 at 6:56 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Очень интересное решение!<br />
+Попробую собрать.<br />
+Можно вместо Bais-T вот такое поставить?</p>
+<p><a href="https://ibb.co/jbN7zB9" rel="nofollow ugc">https://ibb.co/jbN7zB9</a></p>
+<p>Я через него сейчас разные LBNы на HackeRF слушаю ,правда пока без 22 кГц, просто 18 Вольт подаю.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexa726.html?replytocom=965#respond' data-commentid="965" data-postid="1511" data-belowelement="div-comment-965" data-respondelement="respond" data-replyto="Reply to Ivan" aria-label='Reply to Ivan'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1377" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-1377" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/a40309fcf4206bdbf7aeb1ded0095539?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/a40309fcf4206bdbf7aeb1ded0095539?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Stephan from Germany</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1377"><time datetime="2022-10-12T00:53:40+03:00">October 12, 2022 at 12:53 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I am not good enough to make projects like that myself, but I love reading your side and your spirit! Keep going!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexca41.html?replytocom=1377#respond' data-commentid="1377" data-postid="1511" data-belowelement="div-comment-1377" data-respondelement="respond" data-replyto="Reply to Stephan from Germany" aria-label='Reply to Stephan from Germany'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1815" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-1815" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/19d1713815112220a447b98e1af65438?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/19d1713815112220a447b98e1af65438?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">nk</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1815"><time datetime="2023-08-08T16:37:45+03:00">August 8, 2023 at 4:37 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Could board like OLIMEXINO STM32F103RBT6 work as controller?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexd85c.html?replytocom=1815#respond' data-commentid="1815" data-postid="1511" data-belowelement="div-comment-1815" data-respondelement="respond" data-replyto="Reply to nk" aria-label='Reply to nk'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1816" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-1816" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1816"><time datetime="2023-08-08T18:38:05+03:00">August 8, 2023 at 6:38 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Sure</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index6dcf.html?replytocom=1816#respond' data-commentid="1816" data-postid="1511" data-belowelement="div-comment-1816" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply to <a href="#comment-1816">Oleg Kutkov</a> <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='1511' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='1816' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="2e6605a86b" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="11"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index6dcf.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+jQuery(function($){
+var DT_language={"en_US":{}};
+$('#tablepress-5').DataTable({"language":DT_language["en_US"],"stripeClasses":["even","odd"],"ordering":false,"paging":false,"searching":false,"info":false});
+});
+</script>
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_8f0f8bdb533439f628e39f9d214bd723.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2020/12/15/satellite-lnb-controller-with-gui-interface/?replytocom=1816 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:16:37 GMT -->
+</html>

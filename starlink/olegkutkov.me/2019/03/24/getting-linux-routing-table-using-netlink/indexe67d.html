@@ -1,0 +1,1046 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/?replytocom=1120 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:16:49 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>Getting Linux routing table using netlink &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large, noindex, follow' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Getting Linux routing table using netlink Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/821.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../index6d2c.html?p=821' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embed5e46.json?url=https%3A%2F%2Folegkutkov.me%2F2019%2F03%2F24%2Fgetting-linux-routing-table-using-netlink%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embedc68c?url=https%3A%2F%2Folegkutkov.me%2F2019%2F03%2F24%2Fgetting-linux-routing-table-using-netlink%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "indexe67d.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-821 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-821" class="post-821 post type-post status-publish format-standard hentry category-linux-kernel category-linux-system-development category-networking category-software tag-kernel tag-linux tag-netlink tag-netwo tag-routing">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/linux-kernel/index.html" rel="category tag">Linux kernel</a>, <a href="../../../../category/linux-system-development/index.html" rel="category tag">Linux system development</a>, <a href="../../../../category/networking/index.html" rel="category tag">Networking</a>, <a href="../../../../category/software/index.html" rel="category tag">Software</a></span><h1 class="entry-title">Getting Linux routing table using netlink</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">March 24, 2019</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<div class="wp-block-image">
+<figure class="alignleft"><img decoding="async" width="150" height="150" class="wp-image-294" src="../../../../wp-content/uploads/2018/02/Screenshot-02152018-121038-PM-150x150.png" alt="" /></figure>
+</div>
+<p style="text-align: left;">In the <a href="../../../../2018/02/14/monitoring-linux-networking-state-using-netlink/index.html">previous</a> article, we discussed the monitoring of the network interfaces using Netlink. Now it&#8217;s time to do something more complex and interesting.<br />
+Let&#8217;s discover how to get and print the system routing table like &#8220;ip route&#8221; command.</p>
+<p><span id="more-821"></span></p>
+<p>The routing table is a runtime in-memory data structure that stores the routes (and in some cases, metrics associated with those routes) to particular network destinations. This is very important with TCP/IP. Using this table network stack decides where and how to put packets for a specified network.<br />
+Linux kernel supports multiple routing tables. Beyond the two commonly used routing tables (the local and main routing tables), the kernel supports 252 additional routing tables.<br />
+The multiple routing table system provides a flexible infrastructure on top of which to implement policy routing. By allowing multiple traditional routing tables (keyed primarily to destination address) to be combined with the routing policy database (RPDB) (keyed primarily to source address), the kernel supports a well-known and well-understood interface while simultaneously expanding and extending its routing capabilities.</p>
+<p>To get Linux main routing table, we can use commands &#8220;<strong>route -n</strong>&#8220;, &#8220;<strong>netstat -rn</strong>&#8221; and &#8220;<strong>ip route</strong>&#8220;:</p>
+<blockquote class="wp-block-quote"><p>$route -n</p></blockquote>
+<p>The first utility is used the classic <strong>ioctl</strong> interface to get information from the kernel. This way is limited and became deprecated now.<br />
+Instead of <strong>ioctl</strong> &#8220;<strong>ip route</strong>&#8221; is based on the Netlink sockets, and now we discover how it works.</p>
+<p>Like in the monitor, everything starts with the creation of the Netlink socket and binding. Binding here is essential. This allows us to execute this program as a normal user.</p>
+<pre class="prettyprint">struct sockaddr_nl saddr;
+
+/* Open raw socket for the NETLINK_ROUTE protocol */
+int nl_sock = socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE);
+
+if (nl_sock &lt; 0) {
+    perror("Failed to open netlink socket");
+    return -1;
+}
+
+memset(&amp;saddr, 0, sizeof(saddr));
+
+saddr.nl_family = AF_NETLINK;
+saddr.nl_pid = getpid();
+
+/* Bind current process to the netlink socket */
+if (bind(nl_sock, (struct sockaddr *)&amp;saddr, sizeof(saddr)) &lt; 0) {
+    perror("Failed to bind to netlink socket");
+    close(nl_sock);
+    return -1;
+}</pre>
+<p>Now it&#8217;s time to send the request to the kernel.</p>
+<pre class="prettyprint">/* Request struct */
+struct {
+    struct nlmsghdr nlh;  /* Netlink header */
+    struct rtmsg rtm;     /* Payload - route message */
+} nl_request;
+
+nl_request.nlh.nlmsg_type = RTM_GETROUTE;  /* We wish to get routes */
+nl_request.nlh.nlmsg_flags = NLM_F_REQUEST | NLM_F_DUMP;
+nl_request.nlh.nlmsg_len = sizeof(nl_request);
+nl_request.nlh.nlmsg_seq = time(NULL);
+nl_request.rtm.rtm_family = AF_INET;
+
+ssize_t sent = send(sock, &amp;nl_request, sizeof(nl_request), 0);
+
+if (sent &lt; 0) {
+    perror("Failed to perfom request");
+    close(nl_sock);
+    return -1;
+}</pre>
+<p>We need to declare a request structure that describes the Netlink packet with a header and some payload &#8211; actual message.<br />
+In the header, we specify what we need with RTM_GETROUTE as a message type that can return the main routing table.<br />
+Additional flags &#8220;NLM_F_REQUEST | NLM_F_DUMP&#8221; telling the kernel that this is a dump request.<br />
+As rtm_family we can specify AF_INET if we want to get the table for IPv4 protocol and AF_INET6 for IPv6.</p>
+<p>Getting kernel response is more complex.<br />
+We need to execute vectored reading using already known <strong>recvmsg</strong> and struct <strong>iovec</strong>.<br />
+For simplification reasons, this code is split into the 3 functions.</p>
+<p>On the lowest level is a simple wrapper around <strong>recvmsg</strong>, which more robust and can handle &#8220;busy&#8221; states.</p>
+<pre class="prettyprint">int rtnl_receive(int fd, struct msghdr *msg, int flags)
+{
+    int len;
+
+    /* Try to read the message in case of busy or interrupted call */
+    do {
+        len = recvmsg(fd, msg, flags);
+    } while (len &lt; 0 &amp;&amp; (errno == EINTR || errno == EAGAIN));
+
+    if (len &lt; 0) {
+        perror("Netlink receive failed");
+        return -errno;
+    }
+
+    if (len == 0) {
+        perror("EOF on netlink");
+        return -ENODATA;
+    }
+
+    return len;
+}</pre>
+<p>Receive is called from the rtnl_recvmsg function, which reads the message size first, then allocating buffer using size info and reading the actual response message.</p>
+<p>Here struct <strong>iovec</strong> is passed from the top-level function get_route_dump_response.</p>
+<pre class="prettyprint">int get_route_dump_response(int sock)
+{
+    struct sockaddr_nl nladdr;
+    struct iovec iov;
+    struct msghdr msg = {
+        .msg_name = &amp;nladdr,
+        .msg_namelen = sizeof(nladdr),
+        .msg_iov = &amp;iov,
+        .msg_iovlen = 1,
+    };
+
+    char *buf;
+    int dump_intr = 0;
+
+    /* Get the message */
+    int status = rtnl_recvmsg(sock, &amp;msg, &amp;buf);
+
+    /* Pointer to the messages head */
+    struct nlmsghdr *h = (struct nlmsghdr *)buf;
+    int msglen = status;
+
+    printf("Main routing table IPv4\n");
+
+    /* Iterate through all messages in buffer */
+    while (NLMSG_OK(h, msglen)) {
+        if (h-&gt;nlmsg_flags &amp; NLM_F_DUMP_INTR) {
+            perror("Dump was interrupted\n");
+            free(buf);
+            return -1;
+        }
+
+        if (nladdr.nl_pid != 0) {
+            continue;
+        }
+
+        if (h-&gt;nlmsg_type == NLMSG_ERROR) {
+            perror("netlink reported error");
+            free(buf);
+        }
+
+        /* Decode and print single message */
+        print_route(h);
+
+        h = NLMSG_NEXT(h, msglen);
+    }
+
+    free(buf);
+
+    return status;
+}</pre>
+<p>Netlink messages can be split into parts, so this function is trying to read all those parts.<br />
+After successfully receiving the message, we can call the printer function print_route.</p>
+<pre class="prettyprint">void parse_rtattr(struct rtattr *tb[], int max, struct rtattr *rta, int len)
+{
+    memset(tb, 0, sizeof(struct rtattr *) * (max + 1));
+
+    while (RTA_OK(rta, len)) {
+        if (rta-&gt;rta_type &lt;= max) {
+            tb[rta-&gt;rta_type] = rta;
+        }
+
+        rta = RTA_NEXT(rta,len);
+    }
+}
+
+static inline int rtm_get_table(struct rtmsg *r, struct rtattr **tb)
+{
+    __u32 table = r-&gt;rtm_table;
+
+    if (tb[RTA_TABLE]) {
+        table = *(__u32 *)RTA_DATA(tb[RTA_TABLE]);
+    }
+
+    return table;
+}</pre>
+<p>The printer function is using two auxiliary functions for parsing the message. One of these functions is already known from the network monitor.<br />
+Both these functions perform simple iteration on the memory, some conversion of the types, and alignment.<br />
+Finally, we ready to print the route.</p>
+<pre class="prettyprint">void print_route(struct nlmsghdr* nl_header_answer)
+{
+    struct rtmsg* r = NLMSG_DATA(nl_header_answer);
+    int len = nl_header_answer-&gt;nlmsg_len;
+    struct rtattr* tb[RTA_MAX+1];
+    int table;
+    char buf[256];
+
+    len -= NLMSG_LENGTH(sizeof(*r));
+
+    if (len &lt; 0) {
+        perror("Wrong message length");
+        return;
+    }
+
+    /* Parse message */
+    parse_rtattr(tb, RTA_MAX, RTM_RTA(r), len);
+
+    table = rtm_get_table(r, tb);
+
+    if (r-&gt;rtm_family != AF_INET &amp;&amp; table != RT_TABLE_MAIN) {
+        return;
+    }
+
+    /* Read destination address from the tb at RTA_DST index */
+    if (tb[RTA_DST]) {
+        if ((r-&gt;rtm_dst_len != 24) &amp;&amp; (r-&gt;rtm_dst_len != 16)) {
+            return;
+        }
+        /* Print readable address using inet_ntop */
+        printf("%s/%u ", inet_ntop(r-&gt;rtm_family, RTA_DATA(tb[RTA_DST]), buf, sizeof(buf)), r-&gt;rtm_dst_len);
+
+    } else if (r-&gt;rtm_dst_len) {
+        printf("0/%u ", r-&gt;rtm_dst_len);
+    } else {
+        printf("default ");
+    }
+
+    /* Do the same thing for rest of the fields */
+    if (tb[RTA_GATEWAY]) {
+        printf("via %s", inet_ntop(r-&gt;rtm_family, RTA_DATA(tb[RTA_GATEWAY]), buf, sizeof(buf)));
+    }
+
+    if (tb[RTA_OIF]) {
+        char if_nam_buf[IF_NAMESIZE];
+        int ifidx = *(__u32 *)RTA_DATA(tb[RTA_OIF]);
+
+        printf(" dev %s", if_indextoname(ifidx, if_nam_buf));
+    }
+
+    if (tb[RTA_SRC]) {
+        printf("src %s", inet_ntop(r-&gt;rtm_family, RTA_DATA(tb[RTA_SRC]), buf, sizeof(buf)));
+    }
+
+    printf("\n");
+}</pre>
+<p>In the beginning, this function performing parsing of the message and some checks.<br />
+Then we can easily access different parts of the routing message using array and indices with readable defines.</p>
+<p>To get the IPv4 address in a human-readable text form is used standard inet_ntop.<br />
+The network interface is presented as numeric indexes and converted to the readable form (like &#8220;eth0&#8221;) using if_indextoname.<br />
+This function required a pre-allocated buffer with IF_NAMESIZE size.</p>
+<p>Now all together:</p>
+<pre class="prettyprint">/*
+ *
+ */
+
+#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;time.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;net/if.h&gt;
+#include &lt;arpa/inet.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;linux/rtnetlink.h&gt;
+
+int rtnl_receive(int fd, struct msghdr *msg, int flags)
+{
+    int len;
+
+    do { 
+        len = recvmsg(fd, msg, flags);
+    } while (len &lt; 0 &amp;&amp; (errno == EINTR || errno == EAGAIN));
+
+    if (len &lt; 0) {
+        perror("Netlink receive failed");
+        return -errno;
+    }
+
+    if (len == 0) { 
+        perror("EOF on netlink");
+        return -ENODATA;
+    }
+
+    return len;
+}
+
+static int rtnl_recvmsg(int fd, struct msghdr *msg, char **answer)
+{
+    struct iovec *iov = msg-&gt;msg_iov;
+    char *buf;
+    int len;
+
+    iov-&gt;iov_base = NULL;
+    iov-&gt;iov_len = 0;
+
+    len = rtnl_receive(fd, msg, MSG_PEEK | MSG_TRUNC);
+
+    if (len &lt; 0) {
+        return len;
+    }
+
+    buf = malloc(len);
+
+    if (!buf) {
+        perror("malloc failed");
+        return -ENOMEM;
+    }
+
+    iov-&gt;iov_base = buf;
+    iov-&gt;iov_len = len;
+
+    len = rtnl_receive(fd, msg, 0);
+
+    if (len &lt; 0) {
+        free(buf);
+        return len;
+    }
+
+    *answer = buf;
+
+    return len;
+}
+
+void parse_rtattr(struct rtattr *tb[], int max, struct rtattr *rta, int len)
+{
+    memset(tb, 0, sizeof(struct rtattr *) * (max + 1));
+
+    while (RTA_OK(rta, len)) {
+        if (rta-&gt;rta_type &lt;= max) {
+            tb[rta-&gt;rta_type] = rta;
+        }
+
+        rta = RTA_NEXT(rta,len);
+    }
+}
+
+static inline int rtm_get_table(struct rtmsg *r, struct rtattr **tb)
+{
+    __u32 table = r-&gt;rtm_table;
+
+    if (tb[RTA_TABLE]) {
+        table = *(__u32 *)RTA_DATA(tb[RTA_TABLE]);
+    }
+
+    return table;
+}
+
+void print_route(struct nlmsghdr* nl_header_answer)
+{
+    struct rtmsg* r = NLMSG_DATA(nl_header_answer);
+    int len = nl_header_answer-&gt;nlmsg_len;
+    struct rtattr* tb[RTA_MAX+1];
+    int table;
+    char buf[256];
+
+    len -= NLMSG_LENGTH(sizeof(*r));
+
+    if (len &lt; 0) {
+        perror("Wrong message length");
+        return;
+    }
+    
+    parse_rtattr(tb, RTA_MAX, RTM_RTA(r), len);
+
+    table = rtm_get_table(r, tb);
+
+    if (r-&gt;rtm_family != AF_INET &amp;&amp; table != RT_TABLE_MAIN) {
+        return;
+    }
+
+    if (tb[RTA_DST]) {
+        if ((r-&gt;rtm_dst_len != 24) &amp;&amp; (r-&gt;rtm_dst_len != 16)) {
+            return;
+        }
+
+        printf("%s/%u ", inet_ntop(r-&gt;rtm_family, RTA_DATA(tb[RTA_DST]), buf, sizeof(buf)), r-&gt;rtm_dst_len);
+
+    } else if (r-&gt;rtm_dst_len) {
+        printf("0/%u ", r-&gt;rtm_dst_len);
+    } else {
+        printf("default ");
+    }
+
+    if (tb[RTA_GATEWAY]) {
+        printf("via %s", inet_ntop(r-&gt;rtm_family, RTA_DATA(tb[RTA_GATEWAY]), buf, sizeof(buf)));
+    }
+
+    if (tb[RTA_OIF]) {
+        char if_nam_buf[IF_NAMESIZE];
+        int ifidx = *(__u32 *)RTA_DATA(tb[RTA_OIF]);
+
+        printf(" dev %s", if_indextoname(ifidx, if_nam_buf));
+    }
+
+    if (tb[RTA_SRC]) {
+        printf("src %s", inet_ntop(r-&gt;rtm_family, RTA_DATA(tb[RTA_SRC]), buf, sizeof(buf)));
+    }
+
+    printf("\n");
+}
+
+int open_netlink()
+{
+    struct sockaddr_nl saddr;
+
+    int sock = socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE);
+
+    if (sock &lt; 0) {
+        perror("Failed to open netlink socket");
+        return -1;
+    }
+
+    memset(&amp;saddr, 0, sizeof(saddr));
+
+    saddr.nl_family = AF_NETLINK;
+    saddr.nl_pid = getpid();
+
+    if (bind(sock, (struct sockaddr *)&amp;saddr, sizeof(saddr)) &lt; 0) {
+        perror("Failed to bind to netlink socket");
+        close(sock);
+        return -1;
+    }
+
+    return sock;
+}
+
+int do_route_dump_requst(int sock)
+{
+    struct {
+        struct nlmsghdr nlh;
+        struct rtmsg rtm;
+    } nl_request;
+
+    nl_request.nlh.nlmsg_type = RTM_GETROUTE;
+    nl_request.nlh.nlmsg_flags = NLM_F_REQUEST | NLM_F_DUMP;
+    nl_request.nlh.nlmsg_len = sizeof(nl_request);
+    nl_request.nlh.nlmsg_seq = time(NULL);
+    nl_request.rtm.rtm_family = AF_INET;
+
+    return send(sock, &amp;nl_request, sizeof(nl_request), 0);
+}
+
+int get_route_dump_response(int sock)
+{
+    struct sockaddr_nl nladdr;
+    struct iovec iov;
+    struct msghdr msg = {
+        .msg_name = &amp;nladdr,
+        .msg_namelen = sizeof(nladdr),
+        .msg_iov = &amp;iov,
+        .msg_iovlen = 1,
+    };
+
+    char *buf;
+    int dump_intr = 0;
+
+    int status = rtnl_recvmsg(sock, &amp;msg, &amp;buf);
+
+    struct nlmsghdr *h = (struct nlmsghdr *)buf;
+    int msglen = status;
+
+    printf("Main routing table IPv4\n");
+
+    while (NLMSG_OK(h, msglen)) {
+        if (h-&gt;nlmsg_flags &amp; NLM_F_DUMP_INTR) {
+            fprintf(stderr, "Dump was interrupted\n");
+            free(buf);
+            return -1;
+        }
+
+        if (nladdr.nl_pid != 0) {
+            continue;
+        }
+
+        if (h-&gt;nlmsg_type == NLMSG_ERROR) {
+            perror("netlink reported error");
+            free(buf);
+        }
+
+        print_route(h);
+
+        h = NLMSG_NEXT(h, msglen);
+    }
+
+    free(buf);
+
+    return status;
+}
+
+int main()
+{
+    int nl_sock = open_netlink();
+
+    if (do_route_dump_requst(nl_sock) &lt; 0) {
+        perror("Failed to perfom request");
+        close(nl_sock);
+        return -1;
+    }
+
+    get_route_dump_response(nl_sock);
+
+    close (nl_sock);
+
+    return 0;
+}
+</pre>
+<p>Compilation and execution:</p>
+<blockquote class="wp-block-quote"><p>$ gcc -g -ggdb routing.c -o routing<br />
+$ ./routing<br />
+Main routing table IPv4<br />
+default via 192.168.8.1 dev eth0<br />
+169.254.0.0/16 dev eth0<br />
+192.168.8.0/24 dev eth0</p></blockquote>
+<p>That&#8217;s it.<br />
+In the next article, I will show how to delete and add new routes.</p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<span class="tags-links">Tagged <a href="../../../../tag/kernel/index.html" rel="tag">kernel</a>, <a href="../../../../tag/linux/index.html" rel="tag">linux</a>, <a href="../../../../tag/netlink/index.html" rel="tag">netlink</a>, <a href="../../../../tag/netwo/index.html" rel="tag">netwo</a>, <a href="../../../../tag/routing/index.html" rel="tag">routing</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a></h2>
+                                         <span class="posted-date">June 9, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a></h2>
+                                         <span class="posted-date">March 18, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../../01/27/dish-antenna-for-the-amateur-radioastronomy/index.html" rel="prev">Dish antenna for the amateur radioastronomy</a></div><div class="nav-next"><a href="../../25/simple-logger-with-stdout-files-and-syslog-support-for-c-projects-in-linux/index.html" rel="next">Simple logger with STDOUT, Files and syslog support for C projects in Linux</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			10 thoughts on &ldquo;<span>Getting Linux routing table using netlink</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-73" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-73" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/58d3d23dea727b23fac8e27f233619bd?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/58d3d23dea727b23fac8e27f233619bd?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' decoding='async'/>						<b class="fn">Mike B</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-73"><time datetime="2019-06-02T23:14:45+03:00">June 2, 2019 at 11:14 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>very useful, waiting for next articles about netlink</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexd61b.html?replytocom=73#respond' data-commentid="73" data-postid="821" data-belowelement="div-comment-73" data-respondelement="respond" data-replyto="Reply to Mike B" aria-label='Reply to Mike B'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-74" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-74" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-74"><time datetime="2019-06-03T10:59:22+03:00">June 3, 2019 at 10:59 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks!<br />
+New article is upcoming. Stay tuned.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index46e3.html?replytocom=74#respond' data-commentid="74" data-postid="821" data-belowelement="div-comment-74" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-76" class="pingback even thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="../../../08/29/modifying-linux-network-routes-using-netlink/index.html" class="url" rel="ugc">Modifying Linux network routes using netlink - Oleg Kutkov personal blog</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-929" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-929" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/3c8c0202957fdb3d4619c0591c86fb25?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/3c8c0202957fdb3d4619c0591c86fb25?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Savva</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-929"><time datetime="2020-08-18T05:38:49+03:00">August 18, 2020 at 5:38 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hey Oleg, thanks for the post! Very useful. I&#8217;m using this code on an ad-hoc network (with olsrd). I am seeing at least a 20 second delay between an ip address appearing among the results of the &#8220;route -n&#8221; command and the same ip address appearing among the outputs of the get_route_dump_response() function. Any insights as to why this might be happening?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index3264.html?replytocom=929#respond' data-commentid="929" data-postid="821" data-belowelement="div-comment-929" data-respondelement="respond" data-replyto="Reply to Savva" aria-label='Reply to Savva'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-930" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-930" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-930"><time datetime="2020-08-18T23:05:48+03:00">August 18, 2020 at 11:05 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello!<br />
+Can you repeat your tests with command <strong>ip r</strong> ?<br />
+This command is also based on netlink. Command &#8220;<strong>route -n</strong>&#8221; uses old-style ioctl requests.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index4a62.html?replytocom=930#respond' data-commentid="930" data-postid="821" data-belowelement="div-comment-930" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-939" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-939" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/601463151f057d8251ce375d12d9ca61?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/601463151f057d8251ce375d12d9ca61?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Digvijay</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-939"><time datetime="2020-09-23T15:24:29+03:00">September 23, 2020 at 3:24 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Very useful. Nicely coded.<br />
+I think there should be a return statement in the following block otherwise it can crash:</p>
+<p><code>    if (h-&gt;nlmsg_type == NLMSG_ERROR) {<br />
+        perror("netlink reported error");<br />
+        free(buf);<br />
+    }<br />
+</code></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index9f4c.html?replytocom=939#respond' data-commentid="939" data-postid="821" data-belowelement="div-comment-939" data-respondelement="respond" data-replyto="Reply to Digvijay" aria-label='Reply to Digvijay'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-958" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-958" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/a84c01ec21b39721bc99df23687ec803?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/a84c01ec21b39721bc99df23687ec803?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Sandy</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-958"><time datetime="2020-11-09T22:57:05+02:00">November 9, 2020 at 10:57 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>This code is not working for IPV6 if I change family to AF_INET6 as specified above.<br />
+nl_request.rtm.rtm_family = AF_INET6</p>
+<p>Please help</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index74e6.html?replytocom=958#respond' data-commentid="958" data-postid="821" data-belowelement="div-comment-958" data-respondelement="respond" data-replyto="Reply to Sandy" aria-label='Reply to Sandy'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-959" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-959" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-959"><time datetime="2020-11-09T23:31:24+02:00">November 9, 2020 at 11:31 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello. It&#8217;s no problem.<br />
+This code is just adopted for the IPv4, you can easily switch to IPv6.<br />
+Just replace everywhere AF_INET to AF_INET6 + remove the address length check at line 119:</p>
+<p><code>if ((r->rtm_dst_len != 24) &amp;&amp; (r->rtm_dst_len != 16)) {<br />
+    return;<br />
+}</code></p>
+<p>This code just skips your IPv6 addresses due to IPv6  rtm_dst_len == 128.<br />
+Without this check IPv6 table can be printed without any problems:</p>
+<p><code>$ ./print_route<br />
+Main routing table IPv6<br />
+::1/128  dev lo<br />
+fe80::/64  dev enp4s0<br />
+::1/128  dev lo<br />
+fe80::d448:77d5:68fa:bf6b/128  dev enp4s0<br />
+ff00::/8  dev enp4s0</code></p>
+<p>You can completely remove this check or better adopt it to the 128 bit address lengths.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index65d8.html?replytocom=959#respond' data-commentid="959" data-postid="821" data-belowelement="div-comment-959" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1120" class="comment even thread-odd thread-alt depth-1">
+			<article id="div-comment-1120" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/179820ef5cd4a80b46db01655b3ed3fb?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/179820ef5cd4a80b46db01655b3ed3fb?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Ort</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1120"><time datetime="2022-01-26T10:06:27+02:00">January 26, 2022 at 10:06 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg,<br />
+Thanks for the useful information!</p>
+<p>Is there any way to know if a specific route exists in the routing table? For example to use RTM_GETROUTE but also to specify the ip address of the route we&#8217;re searching? I don&#8217;t want all the entries in the routing table, only a specific entry.<br />
+Thanks!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexe67d.html?replytocom=1120#respond' data-commentid="1120" data-postid="821" data-belowelement="div-comment-1120" data-respondelement="respond" data-replyto="Reply to Ort" aria-label='Reply to Ort'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1455" class="comment odd alt thread-even depth-1">
+			<article id="div-comment-1455" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d7d2c6606e77533b96622afbfc005213?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/d7d2c6606e77533b96622afbfc005213?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Baa</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1455"><time datetime="2023-03-25T13:41:32+02:00">March 25, 2023 at 1:41 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi,<br />
+I have change the code to send request IPv4/IPv6 in main, like below</p>
+<p>int main()<br />
+{<br />
+    int nl_sock = open_netlink();</p>
+<p><code>if (do_route_dump_requst(nl_sock, AF_INET) &lt; 0) {<br />
+    perror("Failed to perfom request");<br />
+    close(nl_sock);<br />
+    return -1;<br />
+}</p>
+<p>get_route_dump_response(nl_sock);</p>
+<p>if (do_route_dump_requst(nl_sock, AF_INET6) &lt; 0) {<br />
+    perror("Failed to perfom request");<br />
+    close(nl_sock);<br />
+    return -1;<br />
+}</p>
+<p>get_route_dump_response(nl_sock);</p>
+<p>close (nl_sock);</p>
+<p>return 0;<br />
+</code></p>
+<p>}</p>
+<p>and change int do_route_dump_requst(int sock) to<br />
+int do_route_dump_requst(int sock, int family)<br />
+{<br />
+&#8230;<br />
+int do_route_dump_requst(int sock, int family)<br />
+&#8230;<br />
+}</p>
+<p>but the IPv6 always show &#8220;Wrong message length: No error information&#8221;<br />
+if I change AF_INET to AF_UNSPEC , it&#8217;s will working fine.</p>
+<p>Can you give me some comment?<br />
+Thanks</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexd9f7.html?replytocom=1455#respond' data-commentid="1455" data-postid="821" data-belowelement="div-comment-1455" data-respondelement="respond" data-replyto="Reply to Baa" aria-label='Reply to Baa'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply to <a href="#comment-1120">Ort</a> <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='821' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='1120' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="c28ca02373" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="65"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../../2020/06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "indexe67d.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_1827c9da4c86fc3ad9db01f6a6132235.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/?replytocom=1120 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:16:49 GMT -->
+</html>

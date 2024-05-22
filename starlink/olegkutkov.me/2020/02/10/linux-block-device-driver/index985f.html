@@ -1,0 +1,1012 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2020/02/10/linux-block-device-driver/?replytocom=1333 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:16:44 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>Linux block device driver &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large, noindex, follow' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Linux block device driver Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/1104.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../index994c.html?p=1104' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embed6395.json?url=https%3A%2F%2Folegkutkov.me%2F2020%2F02%2F10%2Flinux-block-device-driver%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embed1a20?url=https%3A%2F%2Folegkutkov.me%2F2020%2F02%2F10%2Flinux-block-device-driver%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index985f.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-1104 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-1104" class="post-1104 post type-post status-publish format-standard hentry category-linux-kernel category-software tag-block tag-block-devices tag-kernel tag-linux">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/linux-kernel/index.html" rel="category tag">Linux kernel</a>, <a href="../../../../category/software/index.html" rel="category tag">Software</a></span><h1 class="entry-title">Linux block device driver</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">February 10, 2020</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><img decoding="async" class="alignleft size-full wp-image-1105" src="../../../../wp-content/uploads/2020/01/blk_dev_icon.png" alt="" width="150" height="130" /> My <a href="../../../../2018/03/14/simple-linux-character-device-driver/index.html">article</a> about character devices is quite popular, so I decided to write something about another big class of devices in Linux &#8211; block devices.<br />
+This type of device is used to access various storage hardware types &#8211; hard disks, SSD, etc.<br />
+Here I want to describe blk-mq based devices in modern (&gt;= 5.0) Linux kernels and a previous type of device for a bit older but still actual kernels.</p>
+<p><span id="more-1104"></span></p>
+<h3>Block devices vs. Character devices</h3>
+<p>Character devices are typically called streams. It&#8217;s really a stream of bytes. We can read bytes one by one or by chunks, but we can&#8217;t do &#8216;seek&#8217; on the data and access random position in a stream. Data is not buffered. Access is almost real-time. Examples of character devices: serial ports and parallel ports, sound cards, pseudo-devices like <em>/dev/random</em>.</p>
+<p>Block devices are always buffering data i/o and support random access. You can seek any position and read (or write) any portion of the data. This is the actual representation of the storage devices—examples of block devices: disks (mostly), USB cameras, etc.<br />
+Additionally, the I/O process of the block device may be managed by some scheduler to optimize system load and data access time.</p>
+<p>Please note that this is not a strict rule. Also, it&#8217;s not common for all operating systems. FreeBSD doesn&#8217;t use block devices at all, for example. In Linux, it&#8217;s possible to use a block device as a character device using a special <a href="https://en.wikipedia.org/wiki/Raw_device">RAW driver</a>, but it&#8217;s now deprecated.</p>
+<h3>Single queue and multi-queue</h3>
+<p>Originally Linux block devices were designed for the HDD with spinning discs and moving heads. Such hardware cannot support parallel access to the different chunks of data on separate disc sectors. Some scheduler is required, and the device supports only a single queue for <code>read</code> and <code>write</code> requests. This is the Linux kernel block device framework.</p>
+<p>Modern SSD devices support fast random access and may serve multiple I/O requests. For such a purpose, the kernel supports a new framework &#8211; blk-mq with multiple queues.</p>
+<p>You get more information about blk-mq <a href="https://yarondar.wordpress.com/2018/07/29/have-you-tried-blk-mq/">in this nice article</a>.</p>
+<p><a href="https://arxiv.org/pdf/1504.07481.pdf"><img fetchpriority="high" decoding="async" class="aligncenter wp-image-1113 size-full" src="../../../../wp-content/uploads/2020/02/blk_vs_blk-mq.png" alt="" width="695" height="788" srcset="https://olegkutkov.me/wp-content/uploads/2020/02/blk_vs_blk-mq.png 695w, https://olegkutkov.me/wp-content/uploads/2020/02/blk_vs_blk-mq-265x300.png 265w" sizes="(max-width: 695px) 100vw, 695px" /></a><a href="https://arxiv.org/pdf/1504.07481.pdf">Image source: https://arxiv.org/pdf/1504.07481.pdf</a></p>
+<p>This framework was introduced in Linux kernel versions 4.x, but since version 5.0 blk-mq is default and the old framework was removed. All drivers should be rewritten.<br />
+Of course, blk-mq supports single queue mode, so there are no compatibility problems.</p>
+<p>My machine is equipped with SSD and running Linux kernel version 5.3.0, so I will focus mostly on blk-mq. I will provide some examples for the legacy framework.</p>
+<h3>Basic structures</h3>
+<h6><strong>struct gendisk</strong></h6>
+<p>Introduced in kernel 2.4, <strong>gendisk</strong> structure is at the core of the block subsystem.<br />
+This structure represents a disk device and holds all necessary information like device name, queues, user, and system data.</p>
+<p>Here is <strong>gendisk</strong> structure from the 5.3 kernels. As you can see, this structure is quite clear and well-documented.</p>
+<pre class="prettyprint">struct gendisk {
+    /* major, first_minor and minors are input parameters only,
+     * don't use directly.  Use disk_devt() and disk_max_parts().
+     */
+    int major;          /* major number of driver */
+    int first_minor;
+    int minors;                     /* maximum number of minors, =1 for
+                                         * disks that can't be partitioned. */
+
+    char disk_name[DISK_NAME_LEN];  /* name of major driver */
+    char *(*devnode)(struct gendisk *gd, umode_t *mode);
+
+    unsigned short events;      /* supported events */
+    unsigned short event_flags; /* flags related to event processing */
+
+    /* Array of pointers to partitions indexed by partno.
+     * Protected with matching bdev lock but stat and other
+     * non-critical accesses use RCU.  Always access through
+     * helpers.
+     */
+    struct disk_part_tbl __rcu *part_tbl;
+    struct hd_struct part0;
+
+    const struct block_device_operations *fops;
+    struct request_queue *queue;
+    void *private_data;
+
+    int flags;
+    struct rw_semaphore lookup_sem;
+    struct kobject *slave_dir;
+
+    struct timer_rand_state *random;
+    atomic_t sync_io;       /* RAID */
+    struct disk_events *ev;
+#ifdef  CONFIG_BLK_DEV_INTEGRITY
+    struct kobject integrity_kobj;
+#endif /* CONFIG_BLK_DEV_INTEGRITY */
+    int node_id;
+    struct badblocks *bb;
+    struct lockdep_map lockdep_map;
+};</pre>
+<p>The kernel provides sets of the function for allocation, deallocation of the <strong>gendisk</strong>, and adding/removing disks. Most important is:</p>
+<pre><strong>struct gendisk *alloc_disk(int minors) </strong> - allocate new gendisk structure, minors is the maximum number of minor numbers (partitions) that this disk can have.
+
+<strong>void add_disk(struct gendisk *disk) </strong> - add new disk to the system. Please note that gendisk structure must be initialized before adding new disk.
+
+<strong>void set_capacity(struct gendisk *disk, sector_t size)</strong>  - specify capacity (in sectors) of the new disk;
+
+<strong>void del_gendisk(struct gendisk *gp) </strong> - delete disk from the system.
+
+<strong>void put_disk(struct gendisk *disk) </strong> - release memory allocated in alloc_disk(int minors);</pre>
+<p>Typical initialization routine of the <strong>gendisk</strong> structure is setting disk name, setting flags, initialization I/O queue, and setting driver private data.<br />
+This procedure is common for all kernel versions. The major difference is queue initialization. It&#8217;s different for blk-mq and older frameworks.</p>
+<p>It&#8217;s important to register a new block device with a new major number.</p>
+<pre><strong>int register_blkdev(unsigned int major, const char * name)</strong> - register a new block device, if major is 0 kernel will try to allocate any unused major number.</pre>
+<p><strong>gendisk</strong> initialization (actually full disc block device initialization) code for the kernel <strong>versions 4.x</strong> (single queue):</p>
+<pre class="prettyprint">#include &lt;linux/genhd.h&gt;
+#include &lt;linux/blkdev.h&gt;
+
+void block_dev_init()
+{
+    spinlock_t *lk;  /* Main lock for the device */
+    struct gendisk *gdisk;
+    int major_number = register_blkdev(0, "testblk");
+
+    gdisk = alloc_disk(1);
+
+    if (!gdisk) {
+        return;
+    }
+
+    spin_lock_init(&amp;lk);
+
+    snprintf(gdisk-&gt;disk_name, 8, "blockdev");  /* Block device file name: "/dev/blockdev" */
+
+    gdisk-&gt;flags = GENHD_FL_NO_PART_SCAN;  /* Kernel won't scan for partitions on the new disk */
+    gdisk-&gt;major = major_number;
+    gdisk-&gt;fops = &amp;blockdev_ops;  /* Block device file operations, see below */
+    gdisk-&gt;first_minor = 0;
+
+    gdisk-&gt;queue = blk_init_queue(req_fun, &amp;lk);  /* Init I/O queue, see below */
+
+    set_capacity(block_device-&gt;gdisk, 1024 * 512);  /* Set some random capacity, 1024 sectors (with size of 512 bytes) */
+
+    add_disk(gdisk);
+}</pre>
+<p><strong>gendisk</strong> file options are sets functions for the device file operations, like on character devices.<br />
+You should specify open, close, and <strong>ioctl</strong> functions. You can do whatever you want in the <code>open</code>/<code>close</code> functions. <strong>Some software may use ioctl requests</strong> to get disk geometry and some other capabilities. Nowadays, it&#8217;s optional.</p>
+<pre class="prettyprint">#include &lt;linux/fs.h&gt;
+
+int blockdev_open(struct block_device *dev, fmode_t mode)
+{
+    printk("Device %s opened"\n, dev-&gt;bd_disk-&gt;disk_name);
+    return 0;
+}
+
+void blockdev_release(struct gendisk *gdisk, fmode_t mode)
+{
+    printk("Device %s closed"\n, dev-&gt;bd_disk-&gt;disk_name);
+}
+
+int blockdev_ioctl (struct block_device *dev, fmode_t mode, unsigned cmd, unsigned long arg)
+{
+    return -ENOTTY; /* ioctl not supported */
+}
+
+static struct block_device_operations blockdev_ops = {
+    .owner = THIS_MODULE,
+    .open = blockdev_open,
+    .release = blockdev_release,
+    .ioctl = blockdev_ioctl
+};</pre>
+<p>In this example, only one flag is used &#8211; GENHD_FL_NO_PART_SCAN. This flag forbids the kernel to scan for partitions on the new block devices. Sure our example block device can&#8217;t serve any partitions like real hardware.<br />
+You can check this Linux kernel header file to get more info about available flags: <em><strong>include/linux/genhd.h</strong></em></p>
+<p>Function <strong>blk_init_queue</strong> is used to initialize a single I/O queue for the device.<br />
+This function is quite simple to use. Only two arguments are required:</p>
+<pre><strong>struct request_queue * blk_init_queue (request_fn_proc * rfn, spinlock_t * lock);</strong></pre>
+<p><strong>request_fn_proc</strong> is a function to be called to process requests that have been placed in the queue.</p>
+<p>Here is a declaration of this function:</p>
+<pre><strong>void request_fn_proc(struct request_queue *q);</strong></pre>
+<p>Only one argument with an actual request to process.</p>
+<p>Using <code>request_queue</code> we can fetch requests from the queue, check the direction (READ or WRITE) of the new request, and get data buffer to transfer.</p>
+<p>An elementary example of the <strong>request_fn_proc</strong>:</p>
+<pre class="prettyprint">static void block_request(struct request_queue *q)
+{
+    int direction;
+    int err = -EIO;
+    u8 *data;
+    struct request *req = blk_fetch_request(q); /* get one top request from the queue */
+
+    while (req) {
+        if (__blk_end_request_cur(req, err)) {  /* check for the end */
+            break;
+        }
+
+        /* Data processing */
+
+        direction = rq_data_dir(req);
+
+        if (direction == WRITE) {
+            printk("Writing data to the block device\n");
+        } else {
+            printk("Reading data from the block devicen\n");
+        }
+
+        data = bio_data(req-&gt;bio); /* Data buffer to perform I/O operations */
+
+        /* */
+
+        req = blk_fetch_request(q); /* get next request from the queue */
+    }
+}</pre>
+<p>Please note that with real hardware, we really need to deal with sectors, current positions, etc.<br />
+For this purpose we can use functions like this: <strong>blk_rq_pos(req)</strong>, <strong>blk_rq_cur_sectors(req)</strong>, <strong>blk_rq_cur_bytes(req)</strong> and so on.<br />
+Please check this Linux kernel header file to find more functions: <em><strong>include/linux/blkdev.h</strong></em><br />
+This code is well commented.</p>
+<h4>blk-mq and kernels &gt;= 5.0</h4>
+<p>Now it&#8217;s time to switch to the blk-mq framework.<br />
+You can use the previous example almost as-is. Only one thing is changing here &#8211; queue initialization.</p>
+<p>With blk-mq we need to use more complex <strong>blk_mq_init_sq_queue</strong> function.</p>
+<pre><strong>struct request_queue *blk_mq_init_sq_queue(struct blk_mq_tag_set *set,</strong>
+<strong>                        const struct blk_mq_ops *ops,</strong>
+<strong>                        unsigned int queue_depth,</strong>
+<strong>                        unsigned int set_flags);</strong></pre>
+<p>struct <strong>blk_mq_tag_set</strong> is a utility structure to store all params like driver private data, commands size, max queue depth, and so on.<br />
+This structure is initializing inside <strong>blk_mq_init_sq_queue</strong> using other params of the function, which we&#8217;ll see later.</p>
+<pre class="prettyprint">struct blk_mq_tag_set {
+    /*
+     * map[] holds ctx -&gt; hctx mappings, one map exists for each type
+     * that the driver wishes to support. There are no restrictions
+     * on maps being of the same size, and it's perfectly legal to
+     * share maps between types.
+     */
+    struct blk_mq_queue_map map[HCTX_MAX_TYPES];
+    unsigned int        nr_maps;    /* nr entries in map[] */
+    const struct blk_mq_ops *ops;
+    unsigned int        nr_hw_queues;   /* nr hw queues across maps */
+    unsigned int        queue_depth;    /* max hw supported */
+    unsigned int        reserved_tags;
+    unsigned int        cmd_size;   /* per-request extra data */
+    int         numa_node;
+    unsigned int        timeout;
+    unsigned int        flags;      /* BLK_MQ_F_* */
+    void            *driver_data;
+
+    struct blk_mq_tags  **tags;
+
+    struct mutex        tag_list_lock;
+    struct list_head    tag_list;
+};</pre>
+<p>Most of the fields are optional, and you can leave it as-is if you don&#8217;t (or can&#8217;t) really want to set some values.</p>
+<p><strong>struct blk_mq_ops</strong> it&#8217;s a set of the function pointers. You can find a declaration of this structure in the Linux kernel header: <em><strong>include/linux/blk-mq.h</strong></em></p>
+<p>In the simplest cases, drivers must define <strong>queue_rq</strong> function to serve I/O requests. This is equivalent to <strong>request_fn_proc</strong> in the example above.</p>
+<p>Here is an example of the queue_rq function. Let&#8217;s discover how it works:</p>
+<pre class="prettyprint">#include &lt;linux/blk-mq.h&gt;
+
+int do_request(struct request *rq, unsigned int *nr_bytes)
+{
+    struct bio_vec bvec;
+    struct req_iterator iter;
+    loff_t pos = blk_rq_pos(rq) &lt;&lt; SECTOR_SHIFT; /* Required position for the Read or Write */
+    void* data;
+    unsigned long data_len;
+
+    /* Iterate over reuquests in the queue */    
+    rq_for_each_segment(bvec, rq, iter)
+    {
+        data = page_address(bvec.bv_page) + bvec.bv_offset; /* Get I/O data */
+        data_len = bvec.bv_len; /* Length of the data buffer */
+
+        if (rq_data_dir(rq) == WRITE) {
+            printk("Writing data to the blk-mq device\n");
+        } else {
+            printk("Reading data from the blk-mq device\n");
+        }
+
+        pos += b_len;
+        *nr_bytes += data_len;  /* Increment amount of the processed bytes. */
+    }
+
+    return 0;
+}
+
+/* Simple example of the blk-mq I/O function */
+blk_status_t queue_rq(struct blk_mq_hw_ctx *hctx, const struct blk_mq_queue_data* bd)
+{   
+    unsigned int nr_bytes = 0;
+    blk_status_t status = BLK_STS_OK;
+    struct request *rq = bd-&gt;rq;  /* Get one top request */
+
+    /* 
+        Start new request procedure.
+        Please note that this function sets a timer for the data transaction. 
+        This internal timer is used to measure request processing time and to detect problems with hardware. 
+    */
+    blk_mq_start_request(rq);
+
+    /* Serve request */     
+    if (do_request(rq, &amp;nr_bytes) != 0) {
+        status = BLK_STS_IOERR;
+    }
+
+    /* Notify blk-mq about processed bytes */
+    if (blk_update_request(rq, status, nr_bytes)) {
+        BUG();
+    }
+
+    /* End request procedure */     
+    __blk_mq_end_request(rq, status);
+     
+    return status;
+}
+
+/* Set I/O function */
+static struct blk_mq_ops mq_ops = {
+    .queue_rq = queue_rq,
+};
+
+void block_dev_init()
+{
+    struct blk_mq_tag_set tag_set;
+
+    /* */
+
+    /* Create new queue with depth 128 and with on flag to enable queues merging. */
+    gdisk-&gt;queue = blk_mq_init_sq_queue(&amp;tag_set, &amp;mq_ops, 128, BLK_MQ_F_SHOULD_MERGE);
+
+    /* */
+}
+</pre>
+<p>As you can blk-mq code is much complex, you can find some similarities with the example above. You can see additional request start/stop routines that can help the kernel track request execution time and detect a stuck block device.</p>
+<p>In both examples, we are getting data I/O buffer. In the real driver&#8217;s case, all data from this buffer should be transferred to (or read from) the hardware. You can use additional buffering here if it&#8217;s required and doesn&#8217;t break performance.<br />
+In the virtual block device driver (like our example), you can also use a memory buffer to simulate real hardware. The size of this buffer must be equal to devise capacity, which was set in <strong>set_capacity()</strong>;</p>
+<p>It&#8217;s safe to use simple <strong>memcpy()</strong>. The kernel block device subsystem handles all nuances of copying to the user and copying from the user.</p>
+<h3>Under the blk_mq_init_sq_queue()</h3>
+<p>Let&#8217;s dig down a little bit to see how <strong>blk_mq_init_sq_queue()</strong> is implemented.</p>
+<p>This function is simple wrapper for <strong>blk_mq_init_queue()</strong> which is used initialized <strong>blk_mq_tag_set</strong> as only one argument. Structure <strong>tag_set</strong> is initialized at the beginning of the function using arguments.</p>
+<pre class="prettyprint">     /* Initialize passed tag_set */
+    memset(set, 0, sizeof(*set));
+    set-&gt;ops = ops;     /* Set options */
+    set-&gt;nr_hw_queues = 1;  /* Number of the hw queues is 1 */
+    set-&gt;nr_maps = 1;   
+    set-&gt;queue_depth = queue_depth; /* Depth of the queue */
+    set-&gt;numa_node = NUMA_NO_NODE;
+    set-&gt;flags = set_flags;     /* Set options */</pre>
+<p>The next step is sanity check and initialization of the additional data. The blk_mq_alloc_tag_set does this.</p>
+<p>This function is quite long, and I don&#8217;t want to post it here. You can check the source code (kernel version 5.3) <a href="https://elixir.bootlin.com/linux/v5.3/source/block/blk-mq.c#L3023">here</a>. As you can see, this function mostly doing parameter checks and memory allocations.</p>
+<p>And the final step is the creation of the actual queue using <strong>blk_mq_init_queue(), </strong>which requires configured and allocated <strong>tag_set</strong>;<br />
+<!--?prettify linenums=true?--></p>
+<pre class="prettyprint">    struct request_queue *q = blk_mq_init_queue(set);
+    return q;</pre>
+<p>This function is a simple wrapper around <a href="https://elixir.bootlin.com/linux/v5.3/source/block/blk-core.c#L472">blk_alloc_queue_node</a> and <a href="https://elixir.bootlin.com/linux/v5.3/source/block/blk-mq.c#L2841">blk_mq_init_allocated_queue</a> where kernel creates request queues as a linked list, sets io buffers, timers, and locking.</p>
+<p>You may notice that <strong>blk_mq_init_sq_queue</strong> sets only 1 hardware queue. It&#8217;s because this function is a Single Queue initializer. If your hardware supports multiple queues and you wish to create a multi-queue block device driver, you have to write your own function around <strong>blk_mq_alloc_tag_set</strong> and <strong>blk_mq_init_queue</strong>.</p>
+<h3>blk-mq driver example</h3>
+<p>Now it&#8217;s time for a complete example. Here is the source code of the blk-mq driver. You can use it as a reference.</p>
+<pre class="prettyprint">#include &lt;linux/init.h&gt;
+#include &lt;linux/module.h&gt;
+#include &lt;linux/slab.h&gt;
+#include &lt;linux/vmalloc.h&gt;
+#include &lt;linux/fs.h&gt;
+#include &lt;linux/genhd.h&gt;
+#include &lt;linux/blkdev.h&gt;
+#include &lt;linux/buffer_head.h&gt;
+#include &lt;linux/blk-mq.h&gt;
+#include &lt;linux/hdreg.h&gt;
+
+#ifndef SECTOR_SIZE
+#define SECTOR_SIZE 512
+#endif
+
+static int dev_major = 0;
+
+/* Just internal representation of the our block device
+ * can hold any useful data */
+struct block_dev {
+    sector_t capacity;
+    u8 *data;   /* Data buffer to emulate real storage device */
+    struct blk_mq_tag_set tag_set;
+    struct request_queue *queue;
+    struct gendisk *gdisk;
+};
+
+/* Device instance */
+static struct block_dev *block_device = NULL;
+
+static int blockdev_open(struct block_device *dev, fmode_t mode)
+{
+    printk("&gt;&gt;&gt; blockdev_open\n");
+
+    return 0;
+}
+
+static void blockdev_release(struct gendisk *gdisk, fmode_t mode)
+{
+    printk("&gt;&gt;&gt; blockdev_release\n");
+}
+
+int blockdev_ioctl(struct block_device *bdev, fmode_t mode, unsigned cmd, unsigned long arg)
+{
+    printk("ioctl cmd 0x%08x\n", cmd);
+
+    return -ENOTTY;
+}
+
+/* Set block device file I/O */
+static struct block_device_operations blockdev_ops = {
+    .owner = THIS_MODULE,
+    .open = blockdev_open,
+    .release = blockdev_release,
+    .ioctl = blockdev_ioctl
+};
+
+/* Serve requests */
+static int do_request(struct request *rq, unsigned int *nr_bytes)
+{
+    int ret = 0;
+    struct bio_vec bvec;
+    struct req_iterator iter;
+    struct block_dev *dev = rq-&gt;q-&gt;queuedata;
+    loff_t pos = blk_rq_pos(rq) &lt;&lt; SECTOR_SHIFT;
+    loff_t dev_size = (loff_t)(dev-&gt;capacity &lt;&lt; SECTOR_SHIFT);
+
+    printk(KERN_WARNING "sblkdev: request start from sector %lld  pos = %lld  dev_size = %lld\n", blk_rq_pos(rq), pos, dev_size);
+
+    /* Iterate over all requests segments */
+    rq_for_each_segment(bvec, rq, iter)
+    {
+        unsigned long b_len = bvec.bv_len;
+
+        /* Get pointer to the data */
+        void* b_buf = page_address(bvec.bv_page) + bvec.bv_offset;
+
+        /* Simple check that we are not out of the memory bounds */
+        if ((pos + b_len) &gt; dev_size) {
+            b_len = (unsigned long)(dev_size - pos);
+        }
+
+        if (rq_data_dir(rq) == WRITE) {
+            /* Copy data to the buffer in to required position */
+            memcpy(dev-&gt;data + pos, b_buf, b_len);
+        } else {
+            /* Read data from the buffer's position */
+            memcpy(b_buf, dev-&gt;data + pos, b_len);
+        }
+
+        /* Increment counters */
+        pos += b_len;
+        *nr_bytes += b_len;
+    }
+
+    return ret;
+}
+
+/* queue callback function */
+static blk_status_t queue_rq(struct blk_mq_hw_ctx *hctx, const struct blk_mq_queue_data* bd)
+{
+    unsigned int nr_bytes = 0;
+    blk_status_t status = BLK_STS_OK;
+    struct request *rq = bd-&gt;rq;
+
+    /* Start request serving procedure */
+    blk_mq_start_request(rq);
+
+    if (do_request(rq, &amp;nr_bytes) != 0) {
+        status = BLK_STS_IOERR;
+    }
+
+    /* Notify kernel about processed nr_bytes */
+    if (blk_update_request(rq, status, nr_bytes)) {
+        /* Shouldn't fail */
+        BUG();
+    }
+
+    /* Stop request serving procedure */
+    __blk_mq_end_request(rq, status);
+
+    return status;
+}
+
+static struct blk_mq_ops mq_ops = {
+    .queue_rq = queue_rq,
+};
+
+static int __init myblock_driver_init(void)
+{
+    /* Register new block device and get device major number */
+    dev_major = register_blkdev(dev_major, "testblk");
+
+    block_device = kmalloc(sizeof (struct block_dev), GFP_KERNEL);
+
+    if (block_device == NULL) {
+        printk("Failed to allocate struct block_dev\n");
+        unregister_blkdev(dev_major, "testblk");
+
+        return -ENOMEM;
+    }
+
+    /* Set some random capacity of the device */
+    block_device-&gt;capacity = (112 * PAGE_SIZE) &gt;&gt; 9; /* nsectors * SECTOR_SIZE; */
+    /* Allocate corresponding data buffer */
+    block_device-&gt;data = kmalloc(block_device-&gt;capacity &lt;&lt; 9, GFP_KERNEL);
+
+    if (block_device-&gt;data == NULL) {
+        printk("Failed to allocate device IO buffer\n");
+        unregister_blkdev(dev_major, "testblk");
+        kfree(block_device);
+
+        return -ENOMEM;
+    }
+
+    printk("Initializing queue\n");
+
+    block_device-&gt;queue = blk_mq_init_sq_queue(&amp;block_device-&gt;tag_set, &amp;mq_ops, 128, BLK_MQ_F_SHOULD_MERGE);
+
+    if (block_device-&gt;queue == NULL) {
+        printk("Failed to allocate device queue\n");
+        kfree(block_device-&gt;data);
+
+        unregister_blkdev(dev_major, "testblk");
+        kfree(block_device);
+
+        return -ENOMEM;
+    }
+
+    /* Set driver's structure as user data of the queue */
+    block_device-&gt;queue-&gt;queuedata = block_device;
+
+    /* Allocate new disk */
+    block_device-&gt;gdisk = alloc_disk(1);
+
+    /* Set all required flags and data */
+    block_device-&gt;gdisk-&gt;flags = GENHD_FL_NO_PART_SCAN;
+    block_device-&gt;gdisk-&gt;major = dev_major;
+    block_device-&gt;gdisk-&gt;first_minor = 0;
+
+    block_device-&gt;gdisk-&gt;fops = &amp;blockdev_ops;
+    block_device-&gt;gdisk-&gt;queue = block_device-&gt;queue;
+    block_device-&gt;gdisk-&gt;private_data = block_device;
+
+    /* Set device name as it will be represented in /dev */
+    strncpy(block_device-&gt;gdisk-&gt;disk_name, "blockdev\0", 9);
+
+    printk("Adding disk %s\n", block_device-&gt;gdisk-&gt;disk_name);
+
+    /* Set device capacity */
+    set_capacity(block_device-&gt;gdisk, block_device-&gt;capacity);
+
+    /* Notify kernel about new disk device */
+    add_disk(block_device-&gt;gdisk);
+
+    return 0;
+}
+
+static void __exit myblock_driver_exit(void)
+{
+    /* Don't forget to cleanup everything */
+    if (block_device-&gt;gdisk) {
+        del_gendisk(block_device-&gt;gdisk);
+        put_disk(block_device-&gt;gdisk);
+    }
+
+    if (block_device-&gt;queue) {
+        blk_cleanup_queue(block_device-&gt;queue);
+    }
+
+    kfree(block_device-&gt;data);
+
+    unregister_blkdev(dev_major, "testblk");
+    kfree(block_device);
+}
+
+module_init(myblock_driver_init);
+module_exit(myblock_driver_exit);
+MODULE_LICENSE("GPL");
+</pre>
+<p>And simple Makefile:</p>
+<pre class="prettyprint">BINARY     := test_blockdev
+KERNEL      := /lib/modules/$(shell uname -r)/build
+ARCH        := x86
+C_FLAGS     := -Wall
+KMOD_DIR    := $(shell pwd)
+TARGET_PATH := /lib/modules/$(shell uname -r)/kernel/drivers/char
+
+OBJECTS := blockdev.o
+
+ccflags-y += $(C_FLAGS)
+
+obj-m += $(BINARY).o
+
+$(BINARY)-y := $(OBJECTS)
+
+$(BINARY).ko:
+    make -C $(KERNEL) M=$(KMOD_DIR) modules
+
+install:
+    cp $(BINARY).ko $(TARGET_PATH)
+    depmod -a
+
+clean:
+    rm -f *.ko
+    rm -f *.o
+</pre>
+<p>After module building and loading, we can test it.<br />
+Let&#8217;s try the<strong> fdisk</strong> utility.</p>
+<pre>$ sudo fdisk /dev/blockdev
+
+Welcome to fdisk (util-linux 2.31.1).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+Device does not contain a recognized partition table.
+Created a new DOS disklabel with disk identifier 0x7c8bee17.
+
+Command (m for help): o
+Created a new DOS disklabel with disk identifier <strong>0xd7002c1e</strong>.
+
+Command (m for help): w
+The partition table has been altered.
+Syncing disks.
+
+$ sudo fdisk /dev/blockdev
+
+Welcome to fdisk (util-linux 2.31.1).
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
+
+
+Command (m for help): p
+Disk /dev/blockdev: 448 KiB, 458752 bytes, 896 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: dos
+Disk identifier: <strong>0xd7002c1e</strong></pre>
+<p>As you can <strong>fdisk</strong> recognizes our block device as a valid disk and successfully creates a new DOS partition table with id <strong>0xd7002c1e</strong>.<br />
+This partition table is stored in our driver&#8217;s memory buffer and valid until the driver is unloaded.</p>
+<p>Same for the graphical tools</p>
+<p><a href="../../../../wp-content/uploads/2020/02/disks_blokdev.png"><img decoding="async" class="aligncenter size-full wp-image-1135" src="../../../../wp-content/uploads/2020/02/disks_blokdev.png" alt="" width="653" height="443" srcset="https://olegkutkov.me/wp-content/uploads/2020/02/disks_blokdev.png 653w, https://olegkutkov.me/wp-content/uploads/2020/02/disks_blokdev-300x204.png 300w" sizes="(max-width: 653px) 100vw, 653px" /></a></p>
+<p>But what happens if we try to format this device and create a new partition? You can try it. Unfortunately, this operation will fail. The problem is that creating the new partitions must create new block device instances like /dev/blockdev0, /dev/blockdev1, etc.<br />
+All software expects to find such devices, and this is the point of the failure because this example driver didn&#8217;t create any new per-partition devices.<br />
+The driver should handle partitioning operations (which is normally handled by the hardware). Hope to describe this in new interesting material.</p>
+<p>Thanks for reading!</p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<span class="tags-links">Tagged <a href="../../../../tag/block/index.html" rel="tag">block</a>, <a href="../../../../tag/block-devices/index.html" rel="tag">block devices</a>, <a href="../../../../tag/kernel/index.html" rel="tag">kernel</a>, <a href="../../../../tag/linux/index.html" rel="tag">linux</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a></h2>
+                                         <span class="posted-date">July 18, 2022</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2022/04/10/initial-analysis-of-the-starlink-router-gen2/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2022/04/10/initial-analysis-of-the-starlink-router-gen2/index.html">Initial analysis of the Starlink router gen2</a></h2>
+                                         <span class="posted-date">April 10, 2022</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../../../2019/12/26/cheap-single-component-rf-filters/index.html" rel="prev">Cheap single-component RF filters</a></div><div class="nav-next"><a href="../../../06/17/combining-two-hackrf-sdr-to-see-more/index.html" rel="next">Combining two HackRF SDR to see more</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			4 thoughts on &ldquo;<span>Linux block device driver</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-1294" class="comment even thread-even depth-1">
+			<article id="div-comment-1294" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/77bc1e78c51a8769c3b67f5382237a67?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/77bc1e78c51a8769c3b67f5382237a67?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Paginski</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1294"><time datetime="2022-05-27T12:08:50+03:00">May 27, 2022 at 12:08 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Great tutorial, helped me a lot. Any updates about continuation about making partitions?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index14e9.html?replytocom=1294#respond' data-commentid="1294" data-postid="1104" data-belowelement="div-comment-1294" data-respondelement="respond" data-replyto="Reply to Paginski" aria-label='Reply to Paginski'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1333" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-1333" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/e5f6c75707f5e76f263c0a4afa853c0b?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/e5f6c75707f5e76f263c0a4afa853c0b?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">MG</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1333"><time datetime="2022-06-21T11:03:40+03:00">June 21, 2022 at 11:03 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>The myblock_driver_exit function is missing the release of blockdev:</p>
+<p>kobject_put(blockdev);</p>
+<p>Without this loading the module, then unloading, and loading again fails with</p>
+<p>kobject_add_internal failed for blockdev with -EEXIST, don&#8217;t try to register things with the same name in the same directory.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index985f.html?replytocom=1333#respond' data-commentid="1333" data-postid="1104" data-belowelement="div-comment-1333" data-respondelement="respond" data-replyto="Reply to MG" aria-label='Reply to MG'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1542" class="comment even thread-even depth-1">
+			<article id="div-comment-1542" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/8945c72b84a253020f44d843fa6c27ba?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/8945c72b84a253020f44d843fa6c27ba?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Ronny</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1542"><time datetime="2023-04-28T18:08:31+03:00">April 28, 2023 at 6:08 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I really liked your tutorial and managed to get everything working fine with kernel 5.4.*.<br />
+However, when compiling with kernel 5.15 there are two ERRORS:<br />
+ERROR: modpost: &#8220;alloc_disk&#8221; undefined<br />
+ERROR: modpost: &#8220;blk_mq_init_sq_queue&#8221; undefined<br />
+A quick search on the internet revealed that the API has changed for newer kernels.</p>
+<p>I am miles away from doing this rewrite myself.<br />
+Do you have time and fun to update your great tutorial?<br />
+Thanks</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index1634.html?replytocom=1542#respond' data-commentid="1542" data-postid="1104" data-belowelement="div-comment-1542" data-respondelement="respond" data-replyto="Reply to Ronny" aria-label='Reply to Ronny'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1866" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-1866" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/3f8ed8e5b6aa37f1e5f40b4d521042b3?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/3f8ed8e5b6aa37f1e5f40b4d521042b3?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">RS</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1866"><time datetime="2023-10-13T16:15:38+03:00">October 13, 2023 at 4:15 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Great tutorial. Thanks a lot.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index8c3f.html?replytocom=1866#respond' data-commentid="1866" data-postid="1104" data-belowelement="div-comment-1866" data-respondelement="respond" data-replyto="Reply to RS" aria-label='Reply to RS'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply to <a href="#comment-1333">MG</a> <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='1104' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='1333' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="1fb1afdcdc" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="122"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index985f.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_1827c9da4c86fc3ad9db01f6a6132235.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2020/02/10/linux-block-device-driver/?replytocom=1333 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:16:44 GMT -->
+</html>

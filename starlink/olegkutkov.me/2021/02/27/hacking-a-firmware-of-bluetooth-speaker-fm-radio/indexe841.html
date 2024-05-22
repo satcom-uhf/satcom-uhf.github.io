@@ -1,0 +1,736 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2021/02/27/hacking-a-firmware-of-bluetooth-speaker-fm-radio/?replytocom=1117 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:16:43 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_aa18b3c6bb8bde8c0b4426d297d38d17.css" rel="stylesheet"><title>Hacking Bluetooth speaker/FM radio firmware &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large, noindex, follow' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Hacking Bluetooth speaker/FM radio firmware Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/1855.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../index6ca8.html?p=1855' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embed36cf.json?url=https%3A%2F%2Folegkutkov.me%2F2021%2F02%2F27%2Fhacking-a-firmware-of-bluetooth-speaker-fm-radio%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embedab8d?url=https%3A%2F%2Folegkutkov.me%2F2021%2F02%2F27%2Fhacking-a-firmware-of-bluetooth-speaker-fm-radio%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "indexe841.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-1855 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-1855" class="post-1855 post type-post status-publish format-standard hentry category-electronics category-firmware category-reverse-engineering category-software tag-flash tag-hacking tag-programmer tag-radio tag-reverse-engineering tag-speaker">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/electronics/index.html" rel="category tag">Electronics</a>, <a href="../../../../category/firmware/index.html" rel="category tag">Firmware</a>, <a href="../../../../category/reverse-engineering/index.html" rel="category tag">Reverse engineering</a>, <a href="../../../../category/software/index.html" rel="category tag">Software</a></span><h1 class="entry-title">Hacking Bluetooth speaker/FM radio firmware</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">February 27, 2021</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><img decoding="async" class="alignleft size-full wp-image-1858" src="../../../../wp-content/uploads/2021/02/fm_radio_hack_thumb.png" alt="" width="150" height="137" /></p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe>I have a little Bluetooth speaker/FM radio. This speaker is not perfect, but it is nice for its price.</div>
+<div>Except for a few annoying things regarding sound notifications. I decided to &#8220;fix&#8221; those issues.<br />
+A little bit of reverse engineering was involved.</div>
+<div></div>
+<p><span id="more-1855"></span></p>
+<p>The first problem is annoying and loud turn-on notifications. It sounds like some SMS notification. There is no way to disable or volume down this &#8220;greeting&#8221;.</p>
+<div style="width: 850px;" class="wp-video"><!--[if lt IE 9]><script>document.createElement('video');</script><![endif]-->
+<video class="wp-video-shortcode" id="video-1855-1" width="850" height="478" preload="metadata" controls="controls"><source type="video/webm" src="../../../../wp-content/uploads/2021/02/sven_radio_turn_on230a.webm?_=1" /><a href="../../../../wp-content/uploads/2021/02/sven_radio_turn_on.webm">https://olegkutkov.me/wp-content/uploads/2021/02/sven_radio_turn_on.webm</a></video></div>
+<p>&nbsp;</p>
+<p>The second problem is also a sound notification. The speaker interrupts music with loud phone-like beeping. Its low-level battery notifications.</p>
+<p>Let&#8217;s open this thing.</p>
+<p><a href="../../../../wp-content/uploads/2021/02/sven_radio_internal_overview.jpg"><img fetchpriority="high" decoding="async" class="aligncenter size-full wp-image-1875" src="../../../../wp-content/uploads/2021/02/sven_radio_internal_overview.jpg" alt="" width="700" height="439" srcset="https://olegkutkov.me/wp-content/uploads/2021/02/sven_radio_internal_overview.jpg 700w, https://olegkutkov.me/wp-content/uploads/2021/02/sven_radio_internal_overview-400x251.jpg 400w" sizes="(max-width: 700px) 100vw, 700px" /></a></p>
+<p>A relatively simple single-board construction. I pulled the board and tried to identify all components.</p>
+<p><a href="../../../../wp-content/uploads/2021/02/sven_radio_pcb_details.jpg"><img decoding="async" class="aligncenter size-full wp-image-1880" src="../../../../wp-content/uploads/2021/02/sven_radio_pcb_details.jpg" alt="" width="959" height="544" srcset="https://olegkutkov.me/wp-content/uploads/2021/02/sven_radio_pcb_details.jpg 959w, https://olegkutkov.me/wp-content/uploads/2021/02/sven_radio_pcb_details-400x227.jpg 400w, https://olegkutkov.me/wp-content/uploads/2021/02/sven_radio_pcb_details-768x436.jpg 768w" sizes="(max-width: 959px) 100vw, 959px" /></a></p>
+<p>The central processor is marked as &#8220;AE8U278&#8221;. It&#8217;s an interesting IC containing Bluetooth radio, FM tuner, ADC, MP3 decoder, and the CPU core.<br />
+Unfortunately, I can&#8217;t find anything about this chip.</p>
+<p>SC2313LD is a clone of the <a href="https://datasheetspdf.com/pdf-file/378814/STMicroelectronics/TDA7313/1">TDA7313</a> audio processor.<br />
+This I2C-controlled chip regulates sound Volume, Tone, and signals commutation.<br />
+It&#8217;s a typical solution, nothing interesting.</p>
+<p>It&#8217;s good to see here an SPI NOR memory chip. <a href="https://datasheetspdf.com/pdf-file/1304096/BergMicroelectronics/BG25Q40A/1">25D40</a> is a 4M-bit 3.3V chip. I can read and program this chip with my TL866 programmer and <a href="https://gitlab.com/DavidGriffith/minipro/">minipro</a> software.</p>
+<p>The SPI flash identifies as &#8220;Berg Microelectronics&#8221; BG25Q40A. But logo mismatches, probably it&#8217;s also a clone. Anyway, this chip is still can be read and programmed correctly.</p>
+<pre>$ minipro -p "BG25Q40A@SOIC8" -r sven_firmware.bin
+Found TL866CS 03.2.86 (0x256)
+Reading Code... 4.89Sec OK</pre>
+<p>Now it&#8217;s time to explore this <code>sven_firmware.bin</code> flash image. The best friend of any researcher is <a href="https://www.refirmlabs.com/binwalk-open-source/">binwalk</a>.</p>
+<pre>$ binwalk sven_firmware.bin
+
+DECIMAL HEXADECIMAL DESCRIPTION
+--------------------------------------------------------------------------------</pre>
+<p>And nothing. It looks like binwalk couldn&#8217;t find any valid signature. Then I thought that those sounds were stored in some simple known format.</p>
+<p>Let&#8217;s try to find a WAV signature:</p>
+<pre>WAV:
+$ binwalk sven_firmware.bin -e --dd=".*" --raw="RIFF"
+$</pre>
+<p>No results. MP3?</p>
+<pre>$ binwalk sven_firmware.bin -e --dd=".*" --raw="ID3"
+
+DECIMAL HEXADECIMAL DESCRIPTION
+--------------------------------------------------------------------------------
+<strong>217088</strong> 0x35000 Raw signature (ID3)
+254464 0x3E200 Raw signature (ID3)
+258560 0x3F200 Raw signature (ID3)
+269824 0x41E00 Raw signature (ID3)
+273920 0x42E00 Raw signature (ID3)
+278016 0x43E00 Raw signature (ID3)
+282112 0x44E00 Raw signature (ID3)
+285184 0x45A00 Raw signature (ID3)
+288768 0x46800 Raw signature (ID3)
+293376 0x47A00 Raw signature (ID3)
+296960 0x48800 Raw signature (ID3)
+300544 0x49600 Raw signature (ID3)
+304640 0x4A600 Raw signature (ID3)
+308736 0x4B600 Raw signature (ID3)
+311808 0x4C200 Raw signature (ID3)
+315392 0x4D000 Raw signature (ID3)
+317952 0x4DA00 Raw signature (ID3)
+348160 0x55000 Raw signature (ID3)
+379904 0x5CC00 Raw signature (ID3)
+384000 0x5DC00 Raw signature (ID3)</pre>
+<p>20 files were extracted. All files are identified as MP3.</p>
+<pre>$ ls _sven_firmware.bin.extracted/
+35000 3E200 3F200 41E00 42E00 43E00 44E00 45A00 46800 47A00 48800 49600 4A600 4B600 4C200 4D000 4DA00 55000 5CC00 5DC00
+
+$ file _sven_firmware.bin.extracted/35000 
+_sven_firmware.bin.extracted/35000: Audio file with ID3 version 2.3.0, contains:MPEG ADTS, layer III, v2, 32 kbps, 16 kHz, Monaural
+
+$ file _sven_firmware.bin.extracted/41E00
+_sven_firmware.bin.extracted/41E00: Audio file with ID3 version 2.3.0, contains:MPEG ADTS, layer III, v2, 32 kbps, 16 kHz, Monaural</pre>
+<p>I tried to play those files. Most of them are playable MP3s but sound a little bit messy and distorted. It looks like different tracks were mixed up during extraction.</p>
+<p>Then I extracted all the data from the offset <strong>217088</strong> up to the end of the file. The file size is <strong>524288</strong>, so the count is <strong>307200</strong></p>
+<pre>$ dd if=sven_firmware.bin of=big.mp3 bs=1 skip=<strong>217088</strong> count=<strong>307200
+</strong></pre>
+<p>The resulting big.mp3 file contains multiple MP3 headers and audio samples in the correct order.<br />
+The mp3 file can be opened with an <a href="https://www.audacityteam.org/">Audacity</a> sound editor. Now it&#8217;s very easy to listen and identify all fragments. I found that the <code>turn-on</code> notification is the very first chunk. Also, I found the <code>low-battery</code> sound.</p>
+<p><a href="../../../../wp-content/uploads/2021/02/audacity_sven_big_mp3.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-1892" src="../../../../wp-content/uploads/2021/02/audacity_sven_big_mp3-1024x490.png" alt="" width="850" height="407" srcset="https://olegkutkov.me/wp-content/uploads/2021/02/audacity_sven_big_mp3-1024x490.png 1024w, https://olegkutkov.me/wp-content/uploads/2021/02/audacity_sven_big_mp3-400x191.png 400w, https://olegkutkov.me/wp-content/uploads/2021/02/audacity_sven_big_mp3-768x368.png 768w, https://olegkutkov.me/wp-content/uploads/2021/02/audacity_sven_big_mp3.png 1448w" sizes="(max-width: 850px) 100vw, 850px" /></a></p>
+<p>Now the required sample can be extracted and replaced.</p>
+<p><strong>217088</strong> is the sample header position from the binwalk output above.<br />
+<strong>37376</strong> is the sample length (the difference between the following and current sample positions).</p>
+<pre>dd if=sven_firmware.bin of=1.mp3 bs=1 skip=217088 count=37376</pre>
+<p>It&#8217;s important to keep the original data format and total data size. 37376 bytes, 32Kbps sample rate, mono:</p>
+<pre>$ file 1.mp3 
+1.mp3: Audio file with ID3 version 2.3.0, contains:MPEG ADTS, layer III, v2, <strong>32 kbps</strong>, <strong>16 kHz</strong>, <strong>Monaural</strong></pre>
+<p>I decided to edit the original sound and make it less loud. In Audacity, it can be done with <code>Effect/Amplify</code> Negative amplification drops the volume down.</p>
+<p><a href="../../../../wp-content/uploads/2021/02/audacity_sven_volume_down.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-1896" src="../../../../wp-content/uploads/2021/02/audacity_sven_volume_down-1024x449.png" alt="" width="850" height="373" srcset="https://olegkutkov.me/wp-content/uploads/2021/02/audacity_sven_volume_down-1024x449.png 1024w, https://olegkutkov.me/wp-content/uploads/2021/02/audacity_sven_volume_down-400x175.png 400w, https://olegkutkov.me/wp-content/uploads/2021/02/audacity_sven_volume_down-768x337.png 768w, https://olegkutkov.me/wp-content/uploads/2021/02/audacity_sven_volume_down.png 1367w" sizes="(max-width: 850px) 100vw, 850px" /></a></p>
+<p>The modified track should be exported as MP3 with corresponding parameters.</p>
+<p><a href="../../../../wp-content/uploads/2021/02/audacity_sven_export_mp3.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-1897" src="../../../../wp-content/uploads/2021/02/audacity_sven_export_mp3.png" alt="" width="939" height="308" srcset="https://olegkutkov.me/wp-content/uploads/2021/02/audacity_sven_export_mp3.png 939w, https://olegkutkov.me/wp-content/uploads/2021/02/audacity_sven_export_mp3-400x131.png 400w, https://olegkutkov.me/wp-content/uploads/2021/02/audacity_sven_export_mp3-768x252.png 768w" sizes="(max-width: 939px) 100vw, 939px" /></a></p>
+<p>The resulting file is smaller than the original by <strong>10554</strong> bytes. The new file is <strong>26822</strong>; the original was <strong>37376</strong>.</p>
+<p>Missed bytes can be filled with zeros. We need to mine <strong>10554</strong> zero bytes:</p>
+<pre>$ dd if=/dev/zero of=10554_bytes.bin bs=1 count=<strong>10554</strong>
+10554+0 records in
+10554+0 records out
+10554 bytes (11 kB, 10 KiB) copied, 0,0154512 s, 683 kB/s</pre>
+<p>Now concatenate modified MP3 and zeros chunk:</p>
+<pre>cat 1.mp3 10554_bytes.bin &gt;1_new.mp3</pre>
+<p>And finally, replace the binary section with new data:</p>
+<pre>dd conv=notrunc if=1_new.mp3 of=sven_firmware.bin bs=1 seek=<strong>217088</strong></pre>
+<p>Write the file back to the SPI flash:</p>
+<pre>minipro -p "BG25Q40A@SOIC8" -w sven_firmware.bin</pre>
+<p>A quick test shows that everything is working, and the turn-on sound is less annoying now.</p>
+<p>In the same manner, I modified the &#8220;battery&#8221; sound. I decided to replace the original &#8220;beep&#8221; with a cat &#8220;meow&#8221; (why not?).</p>
+<div style="width: 850px;" class="wp-video"><video class="wp-video-shortcode" id="video-1855-2" width="850" height="478" preload="metadata" controls="controls"><source type="video/webm" src="../../../../wp-content/uploads/2021/02/sven_radio_battery_meowe6f8.webm?_=2" /><a href="../../../../wp-content/uploads/2021/02/sven_radio_battery_meow.webm">https://olegkutkov.me/wp-content/uploads/2021/02/sven_radio_battery_meow.webm</a></video></div>
+<p>&nbsp;</p>
+<p>Now I&#8217;m happy with my radio 🙂</p>
+<p>Thanks for reading!</p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<span class="tags-links">Tagged <a href="../../../../tag/flash/index.html" rel="tag">flash</a>, <a href="../../../../tag/hacking/index.html" rel="tag">hacking</a>, <a href="../../../../tag/programmer/index.html" rel="tag">programmer</a>, <a href="../../../../tag/radio/index.html" rel="tag">radio</a>, <a href="../../../../tag/reverse-engineering/index.html" rel="tag">reverse engineering</a>, <a href="../../../../tag/speaker/index.html" rel="tag">speaker</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a></h2>
+                                         <span class="posted-date">November 7, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a></h2>
+                                         <span class="posted-date">June 9, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../11/small-satellite-dish-with-rotator/index.html" rel="prev">Small satellite dish with rotator</a></div><div class="nav-next"><a href="../../28/1pps-distribution-circuit/index.html" rel="next">1PPS distribution circuit</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			15 thoughts on &ldquo;<span>Hacking Bluetooth speaker/FM radio firmware</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-1043" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-1043" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/25b5b422b8fccf7598f4b449a189f2a7?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/25b5b422b8fccf7598f4b449a189f2a7?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">mehmet</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1043"><time datetime="2021-06-04T22:41:03+03:00">June 4, 2021 at 10:41 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>After one week searching finally found the solution but i have no experience with this kind of fixing, so how can i connect to the speaker board and do the same changings? That woman&#8217;s voice is very loud!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index6819.html?replytocom=1043#respond' data-commentid="1043" data-postid="1855" data-belowelement="div-comment-1043" data-respondelement="respond" data-replyto="Reply to mehmet" aria-label='Reply to mehmet'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1044" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-1044" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1044"><time datetime="2021-06-04T23:23:50+03:00">June 4, 2021 at 11:23 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello. It depends on your hardware. Typically you need to find an SPI chip and dump the firmware with all data.<br />
+Does your speaker is similar to mine?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index3bd3.html?replytocom=1044#respond' data-commentid="1044" data-postid="1855" data-belowelement="div-comment-1044" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1322" class="comment even depth-2 parent">
+			<article id="div-comment-1322" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/c16167c14e0cb330454a029e18a1b4c2?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/c16167c14e0cb330454a029e18a1b4c2?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Gregg Eshelman</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1322"><time datetime="2022-06-14T04:18:55+03:00">June 14, 2022 at 4:18 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Does she have a British accent and says BLUETOOTH MODE ON! or something like that?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexb205.html?replytocom=1322#respond' data-commentid="1322" data-postid="1855" data-belowelement="div-comment-1322" data-respondelement="respond" data-replyto="Reply to Gregg Eshelman" aria-label='Reply to Gregg Eshelman'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1324" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-3">
+			<article id="div-comment-1324" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1324"><time datetime="2022-06-14T12:05:38+03:00">June 14, 2022 at 12:05 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Nope. It has a Chinese-accent woman&#8217;s voice that reads numbers. That&#8217;s it.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexd88a.html?replytocom=1324#respond' data-commentid="1324" data-postid="1855" data-belowelement="div-comment-1324" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1116" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-1116" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/805739ba4b5dd6ce6f201f4364fc22f3?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/805739ba4b5dd6ce6f201f4364fc22f3?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">APM</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1116"><time datetime="2022-01-23T17:57:56+02:00">January 23, 2022 at 5:57 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I have the same speaker but under a different name<br />
+the charging board (cant charge no matter what)is kinda fucked and i dont know the problemn&#8230; for now ive sodered a boost converter and a lithium charger to it to make it work but its kinda annoying<br />
+I was wondering if you ever had the same problem<br />
+or if you know where to start</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index3654.html?replytocom=1116#respond' data-commentid="1116" data-postid="1855" data-belowelement="div-comment-1116" data-respondelement="respond" data-replyto="Reply to APM" aria-label='Reply to APM'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1119" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-1119" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1119"><time datetime="2022-01-25T00:23:46+02:00">January 25, 2022 at 12:23 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I don&#8217;t have such problems.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index9f8b.html?replytocom=1119#respond' data-commentid="1119" data-postid="1855" data-belowelement="div-comment-1119" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1117" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-1117" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/805739ba4b5dd6ce6f201f4364fc22f3?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/805739ba4b5dd6ce6f201f4364fc22f3?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">APM</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1117"><time datetime="2022-01-23T18:01:03+02:00">January 23, 2022 at 6:01 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>also i was wondering how you arranged the radio wire inside cause idk how to put it back inside<br />
+ive wrapped it around inside the handle but its not good at picking up a good signal that way</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexe841.html?replytocom=1117#respond' data-commentid="1117" data-postid="1855" data-belowelement="div-comment-1117" data-respondelement="respond" data-replyto="Reply to APM" aria-label='Reply to APM'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1118" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-1118" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1118"><time datetime="2022-01-25T00:23:23+02:00">January 25, 2022 at 12:23 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Yeah. This antenna is sucks. I have plans to replace it with a normal telescopic antenna.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexb095.html?replytocom=1118#respond' data-commentid="1118" data-postid="1855" data-belowelement="div-comment-1118" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1373" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-1373" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/466f77b06852b67990ac24e96ea87297?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/466f77b06852b67990ac24e96ea87297?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">John Jennings</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1373"><time datetime="2022-10-01T11:34:41+03:00">October 1, 2022 at 11:34 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Great work figuring out how the announcements were stored, and better still changing and re-storing them in the chip ! Just wondering if minipro is the only way to do this ? Its quite expensive.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index225b.html?replytocom=1373#respond' data-commentid="1373" data-postid="1855" data-belowelement="div-comment-1373" data-respondelement="respond" data-replyto="Reply to John Jennings" aria-label='Reply to John Jennings'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1374" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-1374" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1374"><time datetime="2022-10-03T02:57:47+03:00">October 3, 2022 at 2:57 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>You can use any SPI NOR programmer. Like this one: <a href="https://www.amazon.com/Programmer-CH341A-Burner-EEPROM-Writer/dp/B081VKFT1X/ref=sr_1_7?crid=1R56Y01CEKAJQ&amp;keywords=SPI+Flash+Programmer&amp;qid=1664754999&amp;qu=eyJxc2MiOiIzLjI2IiwicXNhIjoiMi41NSIsInFzcCI6IjEuODgifQ%3D%3D&amp;sprefix=spi+flash+programmer%2Caps%2C168&amp;sr=8-7" rel="nofollow ugc">https://www.amazon.com/Programmer-CH341A-Burner-EEPROM-Writer/dp/B081VKFT1X/ref=sr_1_7?crid=1R56Y01CEKAJQ&#038;keywords=SPI+Flash+Programmer&#038;qid=1664754999&#038;qu=eyJxc2MiOiIzLjI2IiwicXNhIjoiMi41NSIsInFzcCI6IjEuODgifQ%3D%3D&#038;sprefix=spi+flash+programmer%2Caps%2C168&#038;sr=8-7</a></p>
+<p>Just make sure that programmer voltage matches flash voltage (3.3 or 1.8V).</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexcf55.html?replytocom=1374#respond' data-commentid="1374" data-postid="1855" data-belowelement="div-comment-1374" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1375" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="https://aldubailuxury.com/gadgets/bluetooth-speaker-domesticated-through-firmware-mod/" class="url" rel="ugc external nofollow">Bluetooth Speaker Domesticated Through Firmware Mod &#8211; AL Dubai Luxury</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-1380" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-1380" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/8b4e1e39d9a9e970733877c32b71566b?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/8b4e1e39d9a9e970733877c32b71566b?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Jacqueb1337</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1380"><time datetime="2022-10-23T00:13:28+03:00">October 23, 2022 at 12:13 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I&#8217;m kind of new to this sort of thing, could you message me on Discord and maybe give me an in-depth explanation? I have a T48 (newer model TL866) and the speaker I wish to modify, but I&#8217;ve never messed with this before. I mess around with software more often than hardware, so I THINK I can do this on my own, but there are some grey areas where I am afraid I will mess something up. My discord is Jacqueb#9802</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index7df4.html?replytocom=1380#respond' data-commentid="1380" data-postid="1855" data-belowelement="div-comment-1380" data-respondelement="respond" data-replyto="Reply to Jacqueb1337" aria-label='Reply to Jacqueb1337'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1460" class="comment even thread-even depth-1">
+			<article id="div-comment-1460" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/00abc13a6c6e36c70ea00a32293f7f47?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/00abc13a6c6e36c70ea00a32293f7f47?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">William Rennan</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1460"><time datetime="2023-04-03T02:56:28+03:00">April 3, 2023 at 2:56 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>olá, na minha região as caixas de som são chinesas, não contem o chip EEPROM (SPI NOR flash) para a aleitura, o firmware está dentro do chip MCU bluetooth do fabricante: <a href="http://www.chenbingdom.com/" rel="nofollow ugc">http://www.chenbingdom.com</a><br />
+o chip para qual estou a analizar é o  jl ac20bp que não tem datasheet no fabricante, imagino por ser antigo ou algo parecido, porém no fabricante contem chip mais novos do mesmo seguimento exemplo: AC6969A2 datasheet:<a href="http://www.chenbingdom.com/uploadfile/202141411355096441.pdf" rel="nofollow ugc">http://www.chenbingdom.com/uploadfile/202141411355096441.pdf</a><br />
+traduzindo o datasheet, existe uma parte onde descreve &#8220;Pontos de gravação reservados para programação&#8221; mas não se parece com a leitura de de chip EEPROM, estou com dificuldade em identificar como fazer a leitura e escrita destes modelos de chip, qualquer ajuda seria de grande valia!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index9ca1.html?replytocom=1460#respond' data-commentid="1460" data-postid="1855" data-belowelement="div-comment-1460" data-respondelement="respond" data-replyto="Reply to William Rennan" aria-label='Reply to William Rennan'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-3750" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-3750" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/6431513947124871f673cdbf9f1a6346?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/6431513947124871f673cdbf9f1a6346?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">anmonk1</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3750"><time datetime="2024-05-06T21:28:53+03:00">May 6, 2024 at 9:28 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi, I have a similar board that isn&#8217;t working. Had a programmer laying around and it turns out that the flash chip is filled with zeros. Is there a chance that you could send me a .bin file from your board? I suspect that it could start working again after reprogramming.</p>
+<p>Best</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexd171.html?replytocom=3750#respond' data-commentid="3750" data-postid="1855" data-belowelement="div-comment-3750" data-respondelement="respond" data-replyto="Reply to anmonk1" aria-label='Reply to anmonk1'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3751" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-3751" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3751"><time datetime="2024-05-06T22:47:42+03:00">May 6, 2024 at 10:47 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Sure: <a href="../../../../misc/sven_firmware.bin" rel="ugc">https://olegkutkov.me/misc/sven_firmware.bin</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index521b.html?replytocom=3751#respond' data-commentid="3751" data-postid="1855" data-belowelement="div-comment-3751" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply to <a href="#comment-1117">APM</a> <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='1855' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='1117' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="0e36b1e5b9" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="232"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../../2020/06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a>
+
+<script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "indexe841.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+<script type="text/javascript" id="mediaelement-core-js-before">
+/* <![CDATA[ */
+var mejsL10n = {"language":"en","strings":{"mejs.download-file":"Download File","mejs.install-flash":"You are using a browser that does not have Flash player enabled or installed. Please turn on your Flash player plugin or download the latest version from https:\/\/get.adobe.com\/flashplayer\/","mejs.fullscreen":"Fullscreen","mejs.play":"Play","mejs.pause":"Pause","mejs.time-slider":"Time Slider","mejs.time-help-text":"Use Left\/Right Arrow keys to advance one second, Up\/Down arrows to advance ten seconds.","mejs.live-broadcast":"Live Broadcast","mejs.volume-help-text":"Use Up\/Down Arrow keys to increase or decrease volume.","mejs.unmute":"Unmute","mejs.mute":"Mute","mejs.volume-slider":"Volume Slider","mejs.video-player":"Video Player","mejs.audio-player":"Audio Player","mejs.captions-subtitles":"Captions\/Subtitles","mejs.captions-chapters":"Chapters","mejs.none":"None","mejs.afrikaans":"Afrikaans","mejs.albanian":"Albanian","mejs.arabic":"Arabic","mejs.belarusian":"Belarusian","mejs.bulgarian":"Bulgarian","mejs.catalan":"Catalan","mejs.chinese":"Chinese","mejs.chinese-simplified":"Chinese (Simplified)","mejs.chinese-traditional":"Chinese (Traditional)","mejs.croatian":"Croatian","mejs.czech":"Czech","mejs.danish":"Danish","mejs.dutch":"Dutch","mejs.english":"English","mejs.estonian":"Estonian","mejs.filipino":"Filipino","mejs.finnish":"Finnish","mejs.french":"French","mejs.galician":"Galician","mejs.german":"German","mejs.greek":"Greek","mejs.haitian-creole":"Haitian Creole","mejs.hebrew":"Hebrew","mejs.hindi":"Hindi","mejs.hungarian":"Hungarian","mejs.icelandic":"Icelandic","mejs.indonesian":"Indonesian","mejs.irish":"Irish","mejs.italian":"Italian","mejs.japanese":"Japanese","mejs.korean":"Korean","mejs.latvian":"Latvian","mejs.lithuanian":"Lithuanian","mejs.macedonian":"Macedonian","mejs.malay":"Malay","mejs.maltese":"Maltese","mejs.norwegian":"Norwegian","mejs.persian":"Persian","mejs.polish":"Polish","mejs.portuguese":"Portuguese","mejs.romanian":"Romanian","mejs.russian":"Russian","mejs.serbian":"Serbian","mejs.slovak":"Slovak","mejs.slovenian":"Slovenian","mejs.spanish":"Spanish","mejs.swahili":"Swahili","mejs.swedish":"Swedish","mejs.tagalog":"Tagalog","mejs.thai":"Thai","mejs.turkish":"Turkish","mejs.ukrainian":"Ukrainian","mejs.vietnamese":"Vietnamese","mejs.welsh":"Welsh","mejs.yiddish":"Yiddish"}};
+/* ]]> */
+</script>
+
+
+<script type="text/javascript" id="mediaelement-js-extra">
+/* <![CDATA[ */
+var _wpmejsSettings = {"pluginPath":"\/wp-includes\/js\/mediaelement\/","classPrefix":"mejs-","stretching":"responsive","audioShortcodeLibrary":"mediaelement","videoShortcodeLibrary":"mediaelement"};
+/* ]]> */
+</script>
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_a60394e0f8c1c53682415868569afddf.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2021/02/27/hacking-a-firmware-of-bluetooth-speaker-fm-radio/?replytocom=1117 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:16:43 GMT -->
+</html>

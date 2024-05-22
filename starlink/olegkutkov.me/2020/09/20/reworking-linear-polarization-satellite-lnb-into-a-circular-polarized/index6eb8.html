@@ -1,0 +1,623 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2020/09/20/reworking-linear-polarization-satellite-lnb-into-a-circular-polarized/?replytocom=973 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:16:38 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>Reworking linear polarization satellite LNB into a circular polarized &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large, noindex, follow' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Reworking linear polarization satellite LNB into a circular polarized Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/1360.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../index1ce4.html?p=1360' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embed8532.json?url=https%3A%2F%2Folegkutkov.me%2F2020%2F09%2F20%2Freworking-linear-polarization-satellite-lnb-into-a-circular-polarized%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embed83a3?url=https%3A%2F%2Folegkutkov.me%2F2020%2F09%2F20%2Freworking-linear-polarization-satellite-lnb-into-a-circular-polarized%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index6eb8.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-1360 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-1360" class="post-1360 post type-post status-publish format-standard hentry category-electronics category-radio-antennas tag-antenna tag-ku-band tag-lnb tag-radio tag-satellite">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/electronics/index.html" rel="category tag">Electronics</a>, <a href="../../../../category/radio-antennas/index.html" rel="category tag">Radio &amp; antennas</a></span><h1 class="entry-title">Reworking linear polarization satellite LNB into a circular polarized</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">September 20, 2020</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><img decoding="async" class="alignleft size-thumbnail wp-image-1362" src="../../../../wp-content/uploads/2020/09/lnb_thumbnail-150x150.jpg" alt="" width="150" height="150" />In this article, I want to discuss different types of satellite <a href="https://en.wikipedia.org/wiki/Low-noise_block_downconverter">LNB</a>, polarization, and depolarization of waves. Also, I&#8217;ll show how to rework the LNB.</p>
+<p>Also, we will discuss a theory to figure out why this rework is working. The primary topic here is Ku-band LNB, but all this also works for the Ka-band and C-band.</p>
+<p><span id="more-1360"></span></p>
+<p>Here in Europe, we have two major types of satellite LNB.<br />
+&#8211; Universal LNB with two <a href="https://en.wikipedia.org/wiki/Local_oscillator">LO</a> for the full Ku-band (10.7 &#8211; 12.7 GHz), <strong>Linear</strong> polarization.<br />
+&#8211; Single LNB with single LO for the upper Ku-band (11.2 &#8211; 12.7 GHz), <strong>Circular</strong> polarization.</p>
+<p>Typically Circular single LNBs are used by DTH providers and Linear universal LNBs are for FTA and everything else.</p>
+<p>All LNBs are great for the ham-radio experiments due to output band 950 &#8211; 1750 MHz which is suitable for most SDRs.<br />
+In order to get full Ku bandwidth with Circular polarization, it&#8217;s possible to rework the Universal LNB.<br />
+Also, you may want to receive some <a href="https://en.wikipedia.org/wiki/Satellite_television#Direct_broadcast_via_satellite">DTH</a> channels with Circular polarization, but only Universal LNBs are lying around 🙂</p>
+<p>But before the actual rework, let&#8217;s review the theory&#8230;</p>
+<h3>Polarization of the waves</h3>
+<p>As we know, radio waves, light, gamma, x-rays, and so on are just a part of <a href="https://en.wikipedia.org/wiki/Electromagnetic_radiation">the electromagnetic spectrum</a> with different wavelengths and energy. This means that some therms and laws can be used for radio and optics both. Sometimes it might be helpful.</p>
+<p>An electromagnetic wave consists of synchronized oscillations of electric and magnetic fields. In free space, both components of the electromagnetic wave are properly described as transverse waves. This means that Electric (<strong>E</strong>) and Magnetic (<strong>H</strong>) oscillations are perpendicular to the direction of wave propagation (<strong>Z</strong>).</p>
+<figure id="attachment_1369" aria-describedby="caption-attachment-1369" style="width: 800px" class="wp-caption aligncenter"><a href="../../../../wp-content/uploads/2020/09/Electromagnetic_wave.png"><img fetchpriority="high" decoding="async" class="wp-image-1369 size-full" src="../../../../wp-content/uploads/2020/09/Electromagnetic_wave.png" alt="" width="800" height="225" srcset="https://olegkutkov.me/wp-content/uploads/2020/09/Electromagnetic_wave.png 800w, https://olegkutkov.me/wp-content/uploads/2020/09/Electromagnetic_wave-300x84.png 300w, https://olegkutkov.me/wp-content/uploads/2020/09/Electromagnetic_wave-768x216.png 768w" sizes="(max-width: 800px) 100vw, 800px" /></a><figcaption id="caption-attachment-1369" class="wp-caption-text">By P.wormer &#8211; Own work, CC BY-SA 3.0, <a href="https://commons.wikimedia.org/w/index.php?curid=12270410">https://commons.wikimedia.org/w/index.php?curid=12270410</a></figcaption></figure>
+<p>When both (<strong>E</strong> and <strong>H</strong>) vectors are in phase (zero amplitude happens at the same time) &#8211; we have Linear polarization. By convention, the &#8220;polarization&#8221; direction of an electromagnetic wave is given by its electric field vector. The vertical or Horizontal direction of the linear polarization is always relative to the plane of the wave source.<br />
+Typically radio antennas are emitting linear polarized waves. Let&#8217;s see how it happens.</p>
+<figure id="attachment_1373" aria-describedby="caption-attachment-1373" style="width: 768px" class="wp-caption aligncenter"><a href="../../../../wp-content/uploads/2020/09/vertical_polarization_explain.png"><img decoding="async" class="wp-image-1373 size-full" src="../../../../wp-content/uploads/2020/09/vertical_polarization_explain.png" alt="" width="768" height="356" srcset="https://olegkutkov.me/wp-content/uploads/2020/09/vertical_polarization_explain.png 768w, https://olegkutkov.me/wp-content/uploads/2020/09/vertical_polarization_explain-300x139.png 300w" sizes="(max-width: 768px) 100vw, 768px" /></a><figcaption id="caption-attachment-1373" class="wp-caption-text">Here is an example of the Vertical polarization</figcaption></figure>
+<p>Imagine that we have some dipole antenna on a tower. This antenna is mounted vertically, relative to the ground. The transmitter causes an alternating electrical current in the antenna. Electrical current is just a moving charged particles, electrons in this case. Electrons are moving up and down (relative to the ground plane) producing vertically oscillating electric field. Finally, observers can receive vertically polarized signals with an appropriate antenna.<br />
+For the horizontal polarization, everything is the same, but the antenna is placed horizontally. Of course, everything is relative&#8230;</p>
+<p>The main profit here is the ability to transmit different channels on the same frequency but with different polarizations. Of course, the receiver should be properly aligned and isolate both waves in the best way.</p>
+<p>Typical <strong>Linear</strong> satellite LNB contains a waveguide and two simple perpendicular whip antennas (<strong>probes</strong>). One antenna is for vertical and one for horizontal polarization.</p>
+<figure id="attachment_1393" aria-describedby="caption-attachment-1393" style="width: 750px" class="wp-caption aligncenter"><a href="../../../../wp-content/uploads/2020/09/lnb_inside_waveguide_with_labels.jpg"><img loading="lazy" decoding="async" class="wp-image-1393" src="../../../../wp-content/uploads/2020/09/lnb_inside_waveguide_with_labels.jpg" alt="" width="750" height="512" srcset="https://olegkutkov.me/wp-content/uploads/2020/09/lnb_inside_waveguide_with_labels.jpg 841w, https://olegkutkov.me/wp-content/uploads/2020/09/lnb_inside_waveguide_with_labels-300x205.jpg 300w, https://olegkutkov.me/wp-content/uploads/2020/09/lnb_inside_waveguide_with_labels-768x524.jpg 768w" sizes="(max-width: 750px) 100vw, 750px" /></a><figcaption id="caption-attachment-1393" class="wp-caption-text">Inside view of the LNB waveguide</figcaption></figure>
+<p>On the image above you can see that construction is quite simple. Waveguide with proper sizes which acts like a resonator and two whip antennas. Also, you can a see big shorted whip that acts as a filter, blocking horizontal waves for the vertical antenna.</p>
+<p>When we talking about geostationary satellites, the linearly polarized wave is only perpendicular earth at the satellite longitude. If we moving to the East or West then we need to rotate LNB at the corresponding angle.</p>
+<p><a href="../../../../wp-content/uploads/2020/09/lnb_rotated_hv.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-1374" src="../../../../wp-content/uploads/2020/09/lnb_rotated_hv.jpg" alt="" width="561" height="338" srcset="https://olegkutkov.me/wp-content/uploads/2020/09/lnb_rotated_hv.jpg 561w, https://olegkutkov.me/wp-content/uploads/2020/09/lnb_rotated_hv-300x181.jpg 300w" sizes="(max-width: 561px) 100vw, 561px" /></a></p>
+<p>Sure some misalignment between the transmitter and receiver is allowed, but this will significantly lose the signal strength.</p>
+<p>Now let&#8217;s talk about<strong> Circular polarization.</strong> This type of polarization happens when there is a <strong>90° phase shift</strong> between <strong>E</strong> and <strong>H</strong> components of the electromagnetic wave. With the different signs of the phase shift, we might get Left or Righ polarization.<br />
+Simply, a circularly polarized wave as a sum of two linearly polarized components 90° out of phase, and on the plane chart, this sum makes a circle.</p>
+<figure id="attachment_1378" aria-describedby="caption-attachment-1378" style="width: 500px" class="wp-caption aligncenter"><a href="../../../../wp-content/uploads/2020/09/circular_polarization_example.png"><img loading="lazy" decoding="async" class="wp-image-1378 size-full" src="../../../../wp-content/uploads/2020/09/circular_polarization_example.png" alt="" width="500" height="325" srcset="https://olegkutkov.me/wp-content/uploads/2020/09/circular_polarization_example.png 500w, https://olegkutkov.me/wp-content/uploads/2020/09/circular_polarization_example-300x195.png 300w, https://olegkutkov.me/wp-content/uploads/2020/09/circular_polarization_example-345x225.png 345w" sizes="(max-width: 500px) 100vw, 500px" /></a><figcaption id="caption-attachment-1378" class="wp-caption-text">Image source: <a href="https://commons.wikimedia.org/wiki/File:Circular.Polarization.Circularly.Polarized.Light_With.Components_Right.Handed.svg">Wikipedia</a></figcaption></figure>
+<p>Due to the circular nature of such waves, there are no &#8220;vertical&#8221; alignment requirements for the receiver.</p>
+<p>At the same time, circularly polarized radio waves are a little bit harder to produce and receive. A special antenna type is required.</p>
+<p><a href="../../../../wp-content/uploads/2020/09/circular_antennas_example.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-1383" src="../../../../wp-content/uploads/2020/09/circular_antennas_example.jpg" alt="" width="800" height="399" srcset="https://olegkutkov.me/wp-content/uploads/2020/09/circular_antennas_example.jpg 1200w, https://olegkutkov.me/wp-content/uploads/2020/09/circular_antennas_example-300x150.jpg 300w, https://olegkutkov.me/wp-content/uploads/2020/09/circular_antennas_example-1024x510.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2020/09/circular_antennas_example-768x383.jpg 768w" sizes="(max-width: 800px) 100vw, 800px" /></a></p>
+<p>The direction of the spiral wounding determines Right or Left polarization, also known as Right-handed and Left-handed polarization. You may see these types of antennas on interplanetary spacecraft photos.</p>
+<p>Unfortunately, this type of antenna is effective only on lower radio frequencies. And you can not easily put such an antenna in the focal plane of the dish due to its direction diagram.<br />
+To be able to receive signals from a satellite at 10-12 GHz you need a &#8220;huge&#8221; array of these spirals and some kind of summator.<br />
+This is the only way to collect enough energy.</p>
+<figure id="attachment_1385" aria-describedby="caption-attachment-1385" style="width: 600px" class="wp-caption aligncenter"><a href="../../../../wp-content/uploads/2020/09/spiral_antenna_ku_band.jpg"><img loading="lazy" decoding="async" class="wp-image-1385" src="../../../../wp-content/uploads/2020/09/spiral_antenna_ku_band.jpg" alt="" width="600" height="507" srcset="https://olegkutkov.me/wp-content/uploads/2020/09/spiral_antenna_ku_band.jpg 1000w, https://olegkutkov.me/wp-content/uploads/2020/09/spiral_antenna_ku_band-300x254.jpg 300w, https://olegkutkov.me/wp-content/uploads/2020/09/spiral_antenna_ku_band-768x649.jpg 768w" sizes="(max-width: 600px) 100vw, 600px" /></a><figcaption id="caption-attachment-1385" class="wp-caption-text">Like this one. Hope to write about this antenna someday.</figcaption></figure>
+<p>Sure, it&#8217;s very nice to use the same big dish antenna and compact LNB for the Circular waves reception. This is possible with a special &#8220;polarizer&#8221; addition.<br />
+Yes, every modern LNB for <strong>circular</strong> polarization is just a linear LNB with a polarizer block. This block is just transforming <strong>circular</strong> waves into <strong>linear</strong>-polarized that regular LNB is able to receive. This means that every <strong>circular</strong> LNB can be reworked into a <strong>linear</strong> one and vise versa.<br />
+Let&#8217;s see how these polarizes blocks are doing the job.</p>
+<h3>Quarter-wave polarizer plate</h3>
+<p>As we already discussed, the main difference between circular and linear polarization is a 90° phase shift between the wave&#8217;s components.<br />
+This means that everything we need is just to change the phase somehow, in order to transform the polarization type.</p>
+<p>The phase shift can be achieved by applying some delay of the component(s) propagation.</p>
+<p>Electromagnetic wave propagation is always different in different environments. Ideal transverse waves can be achieved only in a vacuum. Placing the right <a href="https://en.wikipedia.org/wiki/Anisotropy">anisotropic</a> material on the wave path can affect the propagation speed of the component of the wave and will change the phase. Selecting geometrical sizes and types of material we can achieve a precise 90° phase shift. An anisotropic dielectric-filled waveguide polarizer was proposed <a href="https://ieeexplore.ieee.org/document/1125140">in 1957 by H.S. Kirschbaum and S. Chen</a></p>
+<p>A quarter-wave plate is a plate of some dielectric material with proper permittivity coefficient and length (according to wave propagation vector). All these parameters are chosen so that the phase shift between polarization components is = π/2 = 90°.</p>
+<p>Here is an example of the quarter-wave polarizer (dielectric septum) plate inside the waveguide.</p>
+<p><a href="../../../../wp-content/uploads/2020/09/dielectric_septum_in_waveguide.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-1397" src="../../../../wp-content/uploads/2020/09/dielectric_septum_in_waveguide.png" alt="" width="555" height="484" srcset="https://olegkutkov.me/wp-content/uploads/2020/09/dielectric_septum_in_waveguide.png 555w, https://olegkutkov.me/wp-content/uploads/2020/09/dielectric_septum_in_waveguide-300x262.png 300w" sizes="(max-width: 555px) 100vw, 555px" /></a></p>
+<p>Let&#8217;s assume that <strong>E0</strong> is an incident Linear-polarized wave oriented at 45° relative to the dielectric septum.<br />
+<strong>Ey</strong> and <strong>Ex</strong> are wave components respectively parallel and perpendicular to the dielectric septum. Propagation of the <strong>Ey</strong> and <strong>Ex</strong> components are different due to different thicknesses of the material, according to the axis. Thus <strong>Ey</strong> and <strong>Ex</strong> are called <strong>the Fast</strong> and <strong>Slow</strong> axis of the polarizer plate.<br />
+If the axis of polarization of the incident wave is chosen so that it makes a 45° with the <strong>fast</strong> and <strong>slow</strong> axes of the waveplate then the resulting wave upon exiting the waveplate wave is circularly polarized. This also works in reverse order so we can get the linear-polarized wave from the original circular wave.</p>
+<p>According to this rule, the optimal position of the dielectric septum is 45° to each of the probes.</p>
+<p><a href="../../../../wp-content/uploads/2020/09/dielectric_septum_with_probes.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-1399" src="../../../../wp-content/uploads/2020/09/dielectric_septum_with_probes.png" alt="" width="950" height="359" srcset="https://olegkutkov.me/wp-content/uploads/2020/09/dielectric_septum_with_probes.png 1297w, https://olegkutkov.me/wp-content/uploads/2020/09/dielectric_septum_with_probes-300x113.png 300w, https://olegkutkov.me/wp-content/uploads/2020/09/dielectric_septum_with_probes-1024x387.png 1024w, https://olegkutkov.me/wp-content/uploads/2020/09/dielectric_septum_with_probes-768x290.png 768w" sizes="(max-width: 950px) 100vw, 950px" /></a></p>
+<p>Depending on the incoming Circular polarization type (<strong>Left</strong> or <strong>Right</strong>) we can get respective Linear polarization (<strong>Horizontal</strong> or <strong>Vertical</strong>, corresponding).</p>
+<p>It&#8217;s very important to correctly select material type, length, thickness, and precisely place this plate in a waveguide.<br />
+Compliance with all conditions can give an extra<strong> 2-3 dB</strong> of Signal to Noise ratio, that&#8217;s huge!</p>
+<p>Typically polarizer plate is made of Teflon, fluoroplastic, or some other type of plastic that can be selected experimentally. The thickness of the material depends on the dielectric constant (at a given frequency), for the Ku-band it&#8217;s usually something around 3mm. The width also depends on the dielectric constant of the material but just limited by the size of the waveguide. For the Ku-band this value is ~18mm. The total length of the plate can be found as 1 x Wavelength in the waveguide. The wavelength in the cylindrical waveguide can be calculated by this formula:</p>
+<figure id="attachment_1404" aria-describedby="caption-attachment-1404" style="width: 242px" class="wp-caption aligncenter"><a href="../../../../wp-content/uploads/2020/09/wavelen_in_waveguide_formula.png"><img loading="lazy" decoding="async" class="wp-image-1404" src="../../../../wp-content/uploads/2020/09/wavelen_in_waveguide_formula.png" alt="" width="242" height="77" srcset="https://olegkutkov.me/wp-content/uploads/2020/09/wavelen_in_waveguide_formula.png 625w, https://olegkutkov.me/wp-content/uploads/2020/09/wavelen_in_waveguide_formula-300x96.png 300w" sizes="(max-width: 242px) 100vw, 242px" /></a><figcaption id="caption-attachment-1404" class="wp-caption-text">Where is D is waveguide diameter and λ is free-space wavelength.</figcaption></figure>
+<p>The typical value is 40mm but it also depends on waveguide length and construction. Please note, that this plate can&#8217;t be to close to the probes and never should be touched them.</p>
+<p>In some configuration, this plate can be cut down or placed a little bit outside the waveguide. Here are some examples of the dielectric plates from the different circular LNBs:</p>
+<p><a href="../../../../wp-content/uploads/2020/09/different_polarizers.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-1405" src="../../../../wp-content/uploads/2020/09/different_polarizers.jpg" alt="" width="800" height="400" srcset="https://olegkutkov.me/wp-content/uploads/2020/09/different_polarizers.jpg 800w, https://olegkutkov.me/wp-content/uploads/2020/09/different_polarizers-300x150.jpg 300w, https://olegkutkov.me/wp-content/uploads/2020/09/different_polarizers-768x384.jpg 768w" sizes="(max-width: 800px) 100vw, 800px" /></a></p>
+<h3>Experiments</h3>
+<p>For my experiments, I selected a 60 cm offset dish and two LNB.</p>
+<ul>
+<li><strong>Inverto SINGLE Circular Black Pro</strong> as reference circular LNB</p>
+</li>
+<li>
+<p><strong>Inverto IDLP-SNL410-PREMU-OPN</strong> for rework. This is a very nice Linear LNB with a <a href="https://en.wikipedia.org/wiki/Phase-locked_loop">PLL</a> oscillator.</p>
+</li>
+</ul>
+<p>As a test source, I used a DVB-S2 transponder on <a href="https://www.lyngsat.com/Eutelsat-36B-and-Express-AMU1.html"><strong>Eutelsat 36E</strong></a> satellite. Transponder frequency &#8211; 12226 MHz, polarization &#8211; Circular Left. Receiver &#8211; Openbox S2 HD DVB-S2.</p>
+<p>In the first two experiments, I tried to use two polarizers from the picture above. For some reason, the worst results gave the white Teflon one. I tried different positions but SNR was &lt;= <strong>6 dB</strong>. Next was this strange-looking black polarizer. I also found it in another circular LNB (with a quite short waveguide). With the second polarizer, I got much better results &#8211; up to <strong>8.2 dB SNR</strong>!</p>
+<p>Then I decided to play with some alternatives. I found housing from an old access point. It&#8217;s appeared that the plastic thickness was 3mm. Nice!<br />
+I made a few polarizers with different lengths around 40mm. The width was selected to fit inside my waveguide.</p>
+<p><a href="../../../../wp-content/uploads/2020/09/MG_1275.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-1409" src="../../../../wp-content/uploads/2020/09/MG_1275.jpg" alt="" width="598" height="398" srcset="https://olegkutkov.me/wp-content/uploads/2020/09/MG_1275.jpg 800w, https://olegkutkov.me/wp-content/uploads/2020/09/MG_1275-300x200.jpg 300w, https://olegkutkov.me/wp-content/uploads/2020/09/MG_1275-768x511.jpg 768w" sizes="(max-width: 598px) 100vw, 598px" /></a></p>
+<p>I also tried different positions inside the waveguide.<br />
+The best result I got with a 39mm plate that protrudes outward the waveguide for ~13mm. During the tests, I can observe up to <strong>10 dB SNR</strong>! That&#8217;s was a record!</p>
+<p>I can&#8217;t get better results so decided that this version is final. The polarizer was secured with a small amount of hot glue.</p>
+<figure id="attachment_1410" aria-describedby="caption-attachment-1410" style="width: 766px" class="wp-caption aligncenter"><a href="../../../../wp-content/uploads/2020/09/polarizer_final.jpg"><img loading="lazy" decoding="async" class="wp-image-1410" src="../../../../wp-content/uploads/2020/09/polarizer_final.jpg" alt="" width="766" height="570" srcset="https://olegkutkov.me/wp-content/uploads/2020/09/polarizer_final.jpg 900w, https://olegkutkov.me/wp-content/uploads/2020/09/polarizer_final-300x223.jpg 300w, https://olegkutkov.me/wp-content/uploads/2020/09/polarizer_final-768x572.jpg 768w" sizes="(max-width: 766px) 100vw, 766px" /></a><figcaption id="caption-attachment-1410" class="wp-caption-text">The final version of the LNB</figcaption></figure>
+<p>Here are the test results:</p>
+
+<table id="tablepress-3" class="tablepress tablepress-id-3">
+<thead>
+<tr class="row-1 odd">
+	<th class="column-1">Antenna</th><th class="column-2">LNB</th><th class="column-3">Transponder</th><th class="column-4">SNR, dB</th><th class="column-5">Level, dBm</th><th class="column-6">Note</th>
+</tr>
+</thead>
+<tbody class="row-hover">
+<tr class="row-2 even">
+	<td class="column-1">0.6 m dish</td><td class="column-2">Inverto SINGLE Circular Black Pro</td><td class="column-3">12226 MHz, Left circular</td><td class="column-4">8.0</td><td class="column-5">-20</td><td class="column-6">Reference circular LNB</td>
+</tr>
+<tr class="row-3 odd">
+	<td class="column-1">0.6 m dish</td><td class="column-2">Inverto IDLP-SNL410-PREMU-OPN</td><td class="column-3">12226 MHz, Left circular</td><td class="column-4">6.2</td><td class="column-5">-20</td><td class="column-6">White Teflon polarizer</td>
+</tr>
+<tr class="row-4 even">
+	<td class="column-1">0.6 m dish</td><td class="column-2">Inverto IDLP-SNL410-PREMU-OPN</td><td class="column-3">12226 MHz, Left circular</td><td class="column-4">8.0 - 8.2</td><td class="column-5">-19</td><td class="column-6">Black plastic polarizer</td>
+</tr>
+<tr class="row-5 odd">
+	<td class="column-1">0.6 m dish</td><td class="column-2">Inverto IDLP-SNL410-PREMU-OPN</td><td class="column-3">12226 MHz, Left circular</td><td class="column-4">9.5 - 10</td><td class="column-5">-19</td><td class="column-6">Handmade 39mm polarizer</td>
+</tr>
+</tbody>
+</table>
+<!-- #tablepress-3 from cache -->
+<p>Thanks for reading! Please post your thoughts below.</p>
+<span class="tags-links">Tagged <a href="../../../../tag/antenna/index.html" rel="tag">antenna</a>, <a href="../../../../tag/ku-band/index.html" rel="tag">ku-band</a>, <a href="../../../../tag/lnb/index.html" rel="tag">lnb</a>, <a href="../../../../tag/radio/index.html" rel="tag">radio</a>, <a href="../../../../tag/satellite/index.html" rel="tag">satellite</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a></h2>
+                                         <span class="posted-date">November 7, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a></h2>
+                                         <span class="posted-date">June 9, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../../06/17/combining-two-hackrf-sdr-to-see-more/index.html" rel="prev">Combining two HackRF SDR to see more</a></div><div class="nav-next"><a href="../../22/mysterious-flat-satellite-antenna-from-china/index.html" rel="next">Mysterious Flat satellite antenna from China</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			11 thoughts on &ldquo;<span>Reworking linear polarization satellite LNB into a circular polarized</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-935" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-935" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/90a9508293a0f0b2bc28eb8ea9c0879a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/90a9508293a0f0b2bc28eb8ea9c0879a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://superkuh.com/" class="url" rel="ugc external nofollow">superkuh</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-935"><time datetime="2020-09-21T08:46:38+03:00">September 21, 2020 at 8:46 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I&#8217;d love to hear more about that single turn helical pair spiral ku band antenna you show a photo of. It must have a very busy power combiner on the backside.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index3fc5.html?replytocom=935#respond' data-commentid="935" data-postid="1360" data-belowelement="div-comment-935" data-respondelement="respond" data-replyto="Reply to superkuh" aria-label='Reply to superkuh'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-937" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-937" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-937"><time datetime="2020-09-22T12:18:16+03:00">September 22, 2020 at 12:18 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello,<br />
+It&#8217;s here: <a href="../../22/mysterious-flat-satellite-antenna-from-china/index.html" rel="ugc">https://olegkutkov.me/2020/09/22/mysterious-flat-satellite-antenna-from-china/</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index8352.html?replytocom=937#respond' data-commentid="937" data-postid="1360" data-belowelement="div-comment-937" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-936" class="pingback even thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="../../22/mysterious-flat-satellite-antenna-from-china/index.html" class="url" rel="ugc">Mysterious Flat satellite antenna from China &#8211; Oleg Kutkov personal blog</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-942" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-942" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/e65bf3c0adc4f3f32cebb4fb5b157667?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/e65bf3c0adc4f3f32cebb4fb5b157667?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Sarga</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-942"><time datetime="2020-11-05T10:57:25+02:00">November 5, 2020 at 10:57 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello,<br />
+I try make a circular lnb from ( F926013  fibreirs optical universal mk2 lnb ) but all attempts fail.<br />
+Maybe you can comment on it?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index555b.html?replytocom=942#respond' data-commentid="942" data-postid="1360" data-belowelement="div-comment-942" data-respondelement="respond" data-replyto="Reply to Sarga" aria-label='Reply to Sarga'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-944" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2 parent">
+			<article id="div-comment-944" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-944"><time datetime="2020-11-05T12:54:08+02:00">November 5, 2020 at 12:54 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello. Sure, I checked some photos of this LNB.<br />
+Looks like quite standard construction of a feed horn, should be no problems to convert this LNB.<br />
+Can you show me your construction?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index4af4.html?replytocom=944#respond' data-commentid="944" data-postid="1360" data-belowelement="div-comment-944" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-945" class="comment odd alt depth-3">
+			<article id="div-comment-945" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/e65bf3c0adc4f3f32cebb4fb5b157667?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/e65bf3c0adc4f3f32cebb4fb5b157667?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Sarga</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-945"><time datetime="2020-11-05T12:56:30+02:00">November 5, 2020 at 12:56 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks i send email to you.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index71a2.html?replytocom=945#respond' data-commentid="945" data-postid="1360" data-belowelement="div-comment-945" data-respondelement="respond" data-replyto="Reply to Sarga" aria-label='Reply to Sarga'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-962" class="pingback even thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="../../../12/15/satellite-lnb-controller-with-gui-interface/index.html" class="url" rel="ugc">Satellite LNB controller with GUI interface &#8211; Oleg Kutkov personal blog</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-973" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-973" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d23a72f0b7b7f4580ea1a9006f9c5a90?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/d23a72f0b7b7f4580ea1a9006f9c5a90?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">eric lindahl</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-973"><time datetime="2021-01-16T13:24:09+02:00">January 16, 2021 at 1:24 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Oleg,<br />
+I have to complement you on constructing a very informational blog.</p>
+<p>The chinese flat panel antenna is indeed a mystery.    Many things seem to be going on here.  First the individual elements, if they do indeed transform a left or right handed polarized wave into a current in the probes on cavity side, the phase of that current in the probe will be dependant on the rotational orientation of the individual element.    This only matters relative to adjacent probes.  So you can<br />
+have any phase you want with respect to other probes by simply turning the element.</p>
+<p>If this antenna is being illuminated on axis by a left or right polarized wave which these elements are sensitive and all the elements<br />
+were oriented to say twelve oclock,    All the probes in the cavity side would be in phase.     That would be useful if the probes were attached to an efficient combining network.     Such network would be hugely expensive.</p>
+<p>Lets not call the thing on the back a cavity,  it&#8217;s too lossy around the edge anyway and would have tuning issues too.   Lets call it<br />
+a pie shaped wave guide.      Think of each radial pie section as a distributed feed wave guide where the probes contribute some power to a traveling wave.    A wave which travels and gets stronger as it passes each probe till the energy is extracted from the<br />
+guide by the central probe which is connected to the LNA.</p>
+<p>For this to work out each probe must be in phase with the wave that is propagating under it in that sector.    That is aranged by orienting (rotating) each element to get the desired phase at it&#8217;s radial distance from central, output probe.</p>
+<p>One more thing,  while there is a wave coherently building toward the center of the pie  there can be waves going outward and being lost from the signal by the action of all of those elemenal probes.      The radial spacing of the elemental probes is an engineering<br />
+choice and can give rise to driving a radially outward propagating wave which won&#8217;t feed the central probe and produce useful output.</p>
+<p>Since these pie shaped wave guide segments have no real constraint for guiding waves in the radial direction, it is possible to propagate waves in other than radially inward directions if the layout of the elemenents is not optimal or the antenna is used at<br />
+different than designed frequency.</p>
+<p>Back to your blog picture,  it looks like the element orientations at each radial distance from the center do not show a common orentation, as in the hands of an ensemble of clocks,  so it appears that the probe phases inside the wave guide at each radial<br />
+location are not the same, which would be bad.    This could happen in the transit from china or the people preparing this array<br />
+during manufacture had a bad day or were unaware of the phase matching problem and that the phase of each element, determined by rotational orientation,  is significant.</p>
+<p>There might be ways to &#8216;align&#8217; this antenna.   I use the word align because the word relates to tuning a distributed amplifier.<br />
+You mentioned getting no signal during testing.       Do you suppose you could set the thing up again  with the circuler polarized input beam impinging exactly normal to the plane of the antenna and orient the first ring of elements to the same clock angle.   This should<br />
+put all six of the first ring in phase with each other at that radial distance from the output probe at the center of the antenna.    With<br />
+six probes in phase you should get a reading on your power meter.        Then orient the next ring of 12 elements to an arbritrary clock position and see if this new ring of elements is helping or hindering the output power.    Next  advance the clock angle of all 12<br />
+elements incrementally if the power out goes up, try another increment of rotation or turn the other way if power goes down.    Continue until you get max power for that ring.</p>
+<p>To really get the concept of how a circularly polarized element works, consider this:     If you rotate a cp antenna around it&#8217;s axis at the rate of one turn per second, this will shift the received frequency by one hertz.    Rotating physically the other direction will shift the received frequency one hertz the other way.     A circularly polarized antenna is a perfect phase shifter.   Turn the thing 30 degrees<br />
+and the output phase will shift 30 degrees.      So an array of elements in a plane will all have the same phase  if   their rotational datum points in the same direction as the hand of many clocks on a wall.     For these elements the datum could be taken as the little arm&#8217;s pointing direction or just as well where the loops wire slightly overlap direction from the center.</p>
+<p>On with the allignment:    Go to the next ring of elements from the center and carry out the same optimization procedure.   Since each ring of elements are approximately the same incremental distance from the center,   one should expect the required phase shift to be about the same for each step out.    This means you should orient all the elements in the ring by about the same angle to get close to the correct orientation.     Small rotations of all the elements of the ring of elements should quickly peak the power detected.</p>
+<p>Keep moving out to the next ring and optimizing before moving out to the next ring of elements.</p>
+<p>As each element should contribute about the same amount of power to the load and each ring of elements from the center has more elements.   It should be easy to see improvements as each ring of elements coherently adds power to the load.</p>
+<p>These are just some ideas that you inspired me to write down.    They may be correct.</p>
+<p>On a different topic:       Earlier in your blog you state:</p>
+<p>&#8220;Now let&#8217;s talk about circular polarization.  This type of polarization happens when there is a 90 degree phase shift between the E and H component of the electromagnetic wave.    With the different sigh of the phase shift we might get Left or Right circular polarization.&#8221;</p>
+<p>It&#8217;s my understanding that for a linearly polarized wave propagating in free space, the E field maxima and minima are exactly in phase with the H field maxima and minima,  That they are welded at the hip, so to speak.</p>
+<p>A circularly polarized electromagnetic wave in free space is exactly equivlent to two linearly polarized electromagnetic waves of the same frequency, one vertically polarized E field, the other horizontally polarized E field, propagating in the same direction.   The two waves phase shifted + or &#8211; 90 degrees.      As you show in your disection of LNB  cp antennas,    The dipoles are orthogonal as required to make two independent linear E field polarizations, orthogonal and spaced one ahead of the other by 90 degrees of electrical phase.     The H field, welded to the hip of the E field, just goes along for the ride.</p>
+<p>Thanks again for getting me to think about this stuff and show me a very interesting and cleaver antenna and crazy traveling wave combiner.   I might have described it corectly.   Somebody probably wrote a paper on it 50 years ago!</p>
+<p>eric-</p>
+<p>WN7WNL, 73</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index6eb8.html?replytocom=973#respond' data-commentid="973" data-postid="1360" data-belowelement="div-comment-973" data-respondelement="respond" data-replyto="Reply to eric lindahl" aria-label='Reply to eric lindahl'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-978" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-978" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-978"><time datetime="2021-01-18T02:01:32+02:00">January 18, 2021 at 2:01 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thank you for such detailed reply!</p>
+<p>And sorry for Akismet 🙂</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexd44b.html?replytocom=978#respond' data-commentid="978" data-postid="1360" data-belowelement="div-comment-978" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-988" class="pingback odd alt thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="../../../../2021/02/11/small-satellite-dish-with-rotator/index.html" class="url" rel="ugc">Small satellite dish with rotator &#8211; Oleg Kutkov personal blog</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-1082" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="https://www.rtl-sdr.com/receiving-starlink-beacons-with-a-hackrf-supercluster/" class="url" rel="ugc external nofollow">Receiving Starlink Beacons with a HackRF Supercluster</a> 			</div>
+		</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply to <a href="#comment-973">eric lindahl</a> <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='1360' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='973' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="5bbedfdedb" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="159"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index6eb8.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+jQuery(function($){
+var DT_language={"en_US":{}};
+$('#tablepress-3').DataTable({"language":DT_language["en_US"],"stripeClasses":["even","odd"],"ordering":false,"paging":false,"searching":false,"info":false});
+});
+</script>
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_8f0f8bdb533439f628e39f9d214bd723.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2020/09/20/reworking-linear-polarization-satellite-lnb-into-a-circular-polarized/?replytocom=973 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:16:38 GMT -->
+</html>

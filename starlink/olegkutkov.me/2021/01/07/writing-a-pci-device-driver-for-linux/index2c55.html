@@ -1,0 +1,1068 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/?replytocom=1029 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:11:51 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>Writing a PCI device driver for Linux &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large, noindex, follow' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Writing a PCI device driver for Linux Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/1575.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../index4817.html?p=1575' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embede604.json?url=https%3A%2F%2Folegkutkov.me%2F2021%2F01%2F07%2Fwriting-a-pci-device-driver-for-linux%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embedf24c?url=https%3A%2F%2Folegkutkov.me%2F2021%2F01%2F07%2Fwriting-a-pci-device-driver-for-linux%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index2c55.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-1575 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-1575" class="post-1575 post type-post status-publish format-standard hentry category-linux-kernel category-linux-system-development category-software tag-development tag-driver tag-kernel tag-linux tag-pci">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/linux-kernel/index.html" rel="category tag">Linux kernel</a>, <a href="../../../../category/linux-system-development/index.html" rel="category tag">Linux system development</a>, <a href="../../../../category/software/index.html" rel="category tag">Software</a></span><h1 class="entry-title">Writing a PCI device driver for Linux</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">January 7, 2021</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><img decoding="async" class="alignleft size-full wp-image-1577" src="../../../../wp-content/uploads/2020/12/pic_card_image.jpg" alt="" width="150" height="131" />In this article, I want to discuss some basics of the Linux PCI/PCIe drivers development. I think this issue is not properly covered, and some existing information is might be outdated.</p>
+<p>I will show basic concepts and important structures, and this is might be a good beginner guide for newbie driver developers.</p>
+<p><span id="more-1575"></span></p>
+<p>The <a href="https://en.wikipedia.org/wiki/Peripheral_Component_Interconnect">PCI</a> bus is the most popular way to connect high-speed peripheral inside a modern computer system. It&#8217;s a video and network adapters, sound cards, storage devices, etc. Some custom and special devices, some acquisition boards with ADC, or any other interface might be custom and special devices. Even your modern laptop uses this bus to connect internal devices to the CPU, even without actual physical connectors.<br />
+This bus is widely available on a different platforms, like x86 and ARM. These days, it&#8217;s quite common to use a PCI bus to connect a high-performance wireless chip to the SoC inside WiFi routers.</p>
+<p><a href="../../../../wp-content/uploads/2021/01/simple_pcie_wifi_router.png"><img fetchpriority="high" decoding="async" class="size-full wp-image-1586 aligncenter" src="../../../../wp-content/uploads/2021/01/simple_pcie_wifi_router.png" alt="" width="634" height="225" srcset="https://olegkutkov.me/wp-content/uploads/2021/01/simple_pcie_wifi_router.png 634w, https://olegkutkov.me/wp-content/uploads/2021/01/simple_pcie_wifi_router-400x142.png 400w" sizes="(max-width: 634px) 100vw, 634px" /></a></p>
+<h3>PCI and PCI Express</h3>
+<p>The original PCI bus was parallel with a lot of contacts and is currently obsolete. I will not focus on the obsolete PCI bus.<br />
+Modern and faster <strong>PCIe</strong> bus uses single or multiple (1-16) pairs of differential wires (lanes, one pair for TX, and one for RX). You can tell the number of differential lines by the bus name, x1, x4, and x16. More lanes give a bigger throughput. Another difference between the PCI Express bus and the older PCI is the bus topology; PCI uses a shared parallel bus architecture. PCI Express is based on point-to-point topology, with separate serial links connecting every device to the root complex controller that can be integrated into the CPU. The PCI host and all devices share a common set of address, data, and control lines. You can read an excellent architecture explanation in <a href="https://en.wikipedia.org/wiki/PCI_Express#Architecture">this</a> Wikipedia article.</p>
+<p>From the typical driver&#8217;s point of view, there is no difference between PCI and PCI Express. All differences are handled by the hardware and lower bus drivers of the Linux kernel. For the driver developer, API is the same.</p>
+<h3>Linux PCI subsystem</h3>
+<p>The operating system PCI subsystem reflects the actual hardware configuration and interconnections. There might be multiple PCI buses and multiple devices on those buses. Every bus and device is assigned a unique number, which allows identifying each module. Also, a PCI device might have different &#8220;functions&#8221; or &#8220;endpoints.&#8221; All those endpoints are also numbered. The full system path to the device might look like this: <strong>&lt;bus id&gt;:&lt;device id&gt;:&lt;function id&gt;</strong><br />
+Additionally, every PCI device contains factory-programmed Vendor and Device IDs. These IDs are also unique and assigned by the <a href="https://pcisig.com/">PCI regulatory consortium</a>.<br />
+The Linux kernel can properly identify a device and load the proper driver using these IDs. Of course, every driver should have ID verification routines.</p>
+<p>The primary userspace utility is <code>lspci</code> This command can show a lot of useful information.  Run this command with &#8220;<strong>-nn</strong>&#8221; argument to get all devices with IDs.</p>
+<p><a href="../../../../wp-content/uploads/2021/01/lspci_explain1_nr.jpg"><img decoding="async" class="aligncenter size-large wp-image-1607" src="../../../../wp-content/uploads/2021/01/lspci_explain1_nr-1024x760.jpg" alt="" width="850" height="631" srcset="https://olegkutkov.me/wp-content/uploads/2021/01/lspci_explain1_nr-1024x760.jpeg 1024w, https://olegkutkov.me/wp-content/uploads/2021/01/lspci_explain1_nr-400x297.jpeg 400w, https://olegkutkov.me/wp-content/uploads/2021/01/lspci_explain1_nr-768x570.jpeg 768w, https://olegkutkov.me/wp-content/uploads/2021/01/lspci_explain1_nr.jpeg 1102w" sizes="(max-width: 850px) 100vw, 850px" /></a></p>
+<p>You can see many internal PCIe devices here, bridges, USB controllers, Audio and Network controllers, etc. All this information can be obtained manually from the <strong>sysfs</strong>:</p>
+<blockquote><p>ls -la /sys/bus/pci/devices<br />
+lrwxrwxrwx 1 root root 0 Dec 21 14:05 0000:00:00.0 -&gt; ../../../devices/pci0000:00/0000:00:00.0<br />
+lrwxrwxrwx 1 root root 0 Dec 21 14:05 0000:00:00.2 -&gt; ../../../devices/pci0000:00/0000:00:00.2<br />
+lrwxrwxrwx 1 root root 0 Dec 21 14:05 0000:00:01.0 -&gt; ../../../devices/pci0000:00/0000:00:01.0<br />
+lrwxrwxrwx 1 root root 0 Dec 21 14:05 0000:00:01.2 -&gt; ../../../devices/pci0000:00/0000:00:01.2</p>
+<p>&#8230;</p></blockquote>
+<p>The human-readable strings are not taken from the hardware. This is a local database of the <code>lspci</code>: <strong>/usr/share/hwdata/pci.id</strong><br />
+You can always find the latest PCI ID database here: <a href="https://pci-ids.ucw.cz/">https://pci-ids.ucw.cz/</a><br />
+Or you can check the Vendor ID here: <a href="https://pcisig.com/membership/member-companies">https://pcisig.com/membership/member-companies</a></p>
+<p>The Linux kernel assigns special memory regions, &#8220;Base Address Registers&#8221; (BARs), to communicate with the hardware. These memory addresses (and region length) are written to the PCI controller hardware during the system boot.<br />
+You can find something like this In <code>dmesg</code>:</p>
+<blockquote><p>[ 0.959296] pci_bus 0001:00: root bus resource [bus 00-ff]<br />
+[ 0.964853] pci_bus 0001:00: root bus resource [io 0x10000-0x1ffff] (bus address [0x0000-0xffff])<br />
+[ 0.973943] pci_bus 0001:00: root bus resource [mem 0x4840000000-0x487fffffff] (bus address [0x40000000-0x7fffffff])<br />
+[ 0.999755] pci 0001:00:00.0: <strong>BAR</strong> 14: assigned [mem 0x4840000000-0x48402fffff]<br />
+[ 1.007107] pci 0001:00:00.0: <strong>BAR</strong> 6: assigned [mem 0x4840300000-0x48403007ff pref]<br />
+[ 1.014769] pci 0001:01:00.0: <strong>BAR</strong> 0: assigned [mem 0x4840000000-0x48401fffff 64bit]<br />
+[ 1.022579] pci 0001:01:00.0: <strong>BAR</strong> 6: assigned [mem 0x4840200000-0x484020ffff pref]<br />
+[ 1.030265] pci 0001:00:00.0: PCI bridge to [bus 01-ff]<br />
+[ 1.035563] pci 0001:00:00.0: bridge window [mem 0x4840000000-0x48402fffff]</p></blockquote>
+<p>There is no way to determine installed PCI hardware. So the bus must be enumerated. Bus enumeration is performed by attempting to read the vendor ID and device ID (VID/DID) register for each combination of the bus number and device number at the device&#8217;s function #0.</p>
+<p>The kernel can call the corresponding driver during the enumeration stage with a compatible VID/PID pair. Some devices (like PCI bridges) might be statically described in the device tree in an embedded system. The static hardware configuration is supported with &#8220;platform drivers&#8221;.</p>
+<p>Every PCI compliant device should implement a basic set of register &#8211; configuration registers.<br />
+The Linux kernel attempts to read these registers to identify and properly configure the device. All these registers are mapped to the memory and available for the driver developer for reading and writing.</p>
+<p>The first 64 bytes of the registers are mandatory and should be implemented (by the hardware vendor) in any case.</p>
+<p><a href="../../../../wp-content/uploads/2021/01/RECg6.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-1595" src="../../../../wp-content/uploads/2021/01/RECg6.png" alt="" width="705" height="400" srcset="https://olegkutkov.me/wp-content/uploads/2021/01/RECg6.png 705w, https://olegkutkov.me/wp-content/uploads/2021/01/RECg6-400x227.png 400w" sizes="(max-width: 705px) 100vw, 705px" /></a>The optional registers may contain zero values if there is nothing to provide from the hardware.</p>
+<blockquote><p>Please note that byte order is always little-endian. This might be important if you are working on some big-endian system.</p></blockquote>
+<p>Let&#8217;s dig into some registers deeply.</p>
+<p><strong>Vendor ID</strong> and <strong>Device ID</strong> are already well known and should contain valid identifiers of the hardware vendor.</p>
+<p><strong>Command</strong> registers define some capabilities. The operating system initializes these bits.</p>
+<p><a href="../../../../wp-content/uploads/2021/01/pci_command.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-1597" src="../../../../wp-content/uploads/2021/01/pci_command.png" alt="" width="563" height="324" srcset="https://olegkutkov.me/wp-content/uploads/2021/01/pci_command.png 709w, https://olegkutkov.me/wp-content/uploads/2021/01/pci_command-400x230.png 400w" sizes="(max-width: 563px) 100vw, 563px" /></a></p>
+<p><strong>Status</strong> register holds different events of the PCI bus and is filled by the hardware.</p>
+<p><a href="../../../../wp-content/uploads/2021/01/pci_status.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-1598" src="../../../../wp-content/uploads/2021/01/pci_status.png" alt="" width="563" height="333" srcset="https://olegkutkov.me/wp-content/uploads/2021/01/pci_status.png 735w, https://olegkutkov.me/wp-content/uploads/2021/01/pci_status-400x237.png 400w" sizes="(max-width: 563px) 100vw, 563px" /></a><strong>Class code </strong>defines a class of the device (Network adapter, for example). The full list of the class codes can be found here: <a href="https://wiki.osdev.org/PCI#Class_Codes">https://wiki.osdev.org/PCI#Class_Codes</a></p>
+<p><strong>Base Address Registers</strong> &#8211; &#8220;BAR&#8221; registers filled by the Linux kernel and used for the IO operations.</p>
+<p><strong>Subsystem Vendor ID</strong> and <strong>Subsystem</strong> <strong>Device ID </strong>&#8211; helps to differentiate specific board/device model. This is is optional, of course.</p>
+<p>The Linux kernel PCI implementation can be found in the kernel source tree <code>drivers/pci directory</code>.<br />
+For driver developers kernel provides a header file <code>include/linux/pci.h</code>. Here you can find all the required structures and functions.</p>
+<p>The main PCI driver structure is <a href="https://elixir.bootlin.com/linux/latest/source/include/linux/pci.h#L309"><code>struct pci_dev</code></a>. This is quite a big structure representing an actual device and can be used for the register&#8217;s access and IO operations. Typically you don&#8217;t need to remember all fields of the structure, only basic concepts.</p>
+<p>PCI driver entry point is <code>struct pci_driver</code>. The driver developer should initialize this structure (set callbacks) and pass it to the kernel.</p>
+<pre class="prettyprint">struct pci_driver {
+    struct list_head node;
+    const char *name;
+    const struct pci_device_id *id_table; /* Must be non-NULL for probe to be called */
+    int (*probe)(struct pci_dev *dev, const struct pci_device_id *id); /* New device inserted */
+    void (*remove)(struct pci_dev *dev); /* Device removed (NULL if not a hot-plug capable driver) */
+    int (*suspend)(struct pci_dev *dev, pm_message_t state); /* Device suspended */
+    int (*resume)(struct pci_dev *dev); /* Device woken up */
+    void (*shutdown)(struct pci_dev *dev);
+    int (*sriov_configure)(struct pci_dev *dev, int num_vfs); /* On PF */
+    const struct pci_error_handlers *err_handler;
+    const struct attribute_group **groups;
+    struct device_driver driver;
+    struct pci_dynids dynids;
+};</pre>
+<p>The structure field &#8220;id_table&#8221; should be initialized with the IDs array. Those IDs define compatible Vendor and Product IDs for devices. You can set here multiple pairs of VID/PID if your driver supports multiple devices. For example, declare support of <strong>VID</strong> = 0F1F + <strong>PID</strong> = 0F0E, and <strong>VID</strong> = 0F2F + <strong>PID</strong> = 0F0D:</p>
+<pre class="prettyprint">static struct pci_device_id my_driver_id_table[] = {
+    { PCI_DEVICE(0x0F1F, 0x0F0E) },
+    { PCI_DEVICE(0x0F2F, 0x0F0D) },
+    {0,}
+};</pre>
+<p>It&#8217;s important to end this array with a single zero value.</p>
+<p>Most drivers should export this table using <code>MODULE_DEVICE_TABLE(pci, ...)</code>.</p>
+<p>This macro is doing a few important things.<br />
+If your driver is built-in and compiled with the kernel, then the driver information (device IDs table) will be statically integrated into the global devices table. This allows the kernel to run your driver automatically when compatible hardware is found.<br />
+If your driver is built as a separate module, then the device table can be extracted with <code>depmod</code> utility. This information is added to a cache and automatically loads your driver kernel object when compatible hardware is found.</p>
+<p>Other important fields of the <code>struct pci_driver</code> are:</p>
+<p><strong>.name</strong> &#8211; unique driver name, this string will be displayed in <code>/sys/bus/pci/drivers</code><br />
+<strong>.probe</strong> &#8211; A callback function called by the kernel after the driver registration.<br />
+<strong>.remove</strong> &#8211; A callback function called by the kernel during the driver unloading.<br />
+<strong>.suspend</strong> &#8211; A callback function called by kernel when the system is going to suspend mode.<br />
+<strong>.resume</strong> &#8211; A callback function called when the system resumes after the suspend mode.</p>
+<p>Configured pci_driver should be registered and unregistered during the driver module loading and unloading. This allows the kernel to run your driver.</p>
+<pre class="prettyprint">pci_register_driver(struct pci_driver *);
+pci_unregister_driver(struct pci_driver *);</pre>
+<h3>Device access</h3>
+<p>To access PCI configuration registers kernel provides a set of functions:</p>
+<pre class="prettyprint">int pci_read_config_byte(const struct pci_dev *dev, int where, u8 *val);
+int pci_read_config_word(const struct pci_dev *dev, int where, u16 *val);
+int pci_read_config_dword(const struct pci_dev *dev, int where, u32 *val);
+int pci_write_config_byte(const struct pci_dev *dev, int where, u8 val);
+int pci_write_config_word(const struct pci_dev *dev, int where, u16 val);
+int pci_write_config_dword(const struct pci_dev *dev, int where, u32 val);</pre>
+<p>You can read and write 8, 16, and 32-bit data.</p>
+<p>The argument &#8220;where&#8221; specifies the actual register offset. All accessible values are defined in <code>linux/pci_regs.h</code></p>
+<p>For example, read PCI device <strong>Vendor ID</strong> and <strong>Product ID</strong>:</p>
+<pre class="prettyprint">#include &lt;linux/pci.h&gt;
+
+u16 vendor, device, revision;
+
+pci_read_config_word(dev, PCI_VENDOR_ID, &amp;vendor);
+pci_read_config_word(dev, PCI_DEVICE_ID, &amp;device);</pre>
+<p>Read the &#8220;Interrupt state&#8221; of the <strong>Status</strong> register:</p>
+<pre class="prettyprint">#include &lt;linux/pci.h&gt;
+
+u16 status_reg;
+
+pci_read_config_word(dev, PCI_STATUS, &amp;status_reg);
+
+/* Check the bit 3 */
+if ((status_reg &gt;&gt; 3) &amp; 0x1) {
+    printk("Interrupt bit is set\n");
+} else {
+    printk("Interrupt bit is not set\n");
+}</pre>
+<p>Sure, the kernel has many other functions, but we will not discuss them there.</p>
+<p>Actual device control and data communication is made through the mapped memory (BARs). It&#8217;s a little bit tricky.<br />
+Of course, it&#8217;s just a memory region(s). What to read and write is depends on the actual hardware. It&#8217;s required to get actual offsets, data types, and &#8220;magic&#8221; numbers somewhere. Typically this is done through the reverse engineering of the Windows driver. But this is outside the scope of this article.<br />
+Sometimes hardware vendors are kind enough to share their protocols and specifications.</p>
+<p>To access the device memory, we need to request the memory region, start and stop offsets and map this memory region to some local pointer.</p>
+<pre class="prettyprint">#include &lt;linux/pci.h&gt;
+
+int bar;
+unsigned long mmio_start, mmio_len;
+u8 __iomem *hwmem; /* Memory pointer for the I/O operations */
+
+struct pci_dev *pdev; /* Initialized pci_dev */
+
+...
+
+/* Request the I/O resource */
+bar = pci_select_bars(pdev, IORESOURCE_MEM);
+
+/* "enable" device memory */
+pci_enable_device_mem(pdev);
+
+/* Request the memory region */
+pci_request_region(pdev, bar, "My PCI driver");
+
+/* Get the start and stop memory positions */
+mmio_start = pci_resource_start(pdev, 0);
+mmio_len = pci_resource_len(pdev, 0);
+
+/* map provided resource to the local memory pointer */
+hwmem = ioremap(mmio_start, mmio_len);
+</pre>
+<p>Now it&#8217;s possible to use <code>hwmem</code> to read and write from/to the device. The only correct way is to use special kernel routines. The data can be read and written in the 8, 16, and 32-bit chunks.</p>
+<pre class="prettyprint">void iowrite8(u8 b, void __iomem *addr);
+void iowrite16(u16 b, void __iomem *addr);
+void iowrite32(u16 b, void __iomem *addr);
+
+unsigned int ioread8(void __iomem *addr);
+unsigned int ioread16(void __iomem *addr);
+unsigned int ioread32(void __iomem *addr);</pre>
+<p>You might note that there is an alternatively IO API that can be found in some drivers.</p>
+<pre class="prettyprint">#include &lt;linux/io.h&gt;
+
+unsigned readb(address);
+unsigned readw(address);
+unsigned readl(address);
+void writeb(unsigned value, address);
+void writew(unsigned value, address);
+void writel(unsigned value, address);</pre>
+<p>On x86 and ARM platforms, <code>ioreadX</code>/<code>iowriteX</code> functions are just inline wrappers around these <code>readX</code>/<code>writeX</code> functions. But for better portability and compatibility, it&#8217;s highly recommended to use <code>io*</code> functions.</p>
+<h3>PCI DMA</h3>
+<p>The high-performance device supports Direct Memory Access. This is implemented with bus mastering. Buse mastering is the capability of devices on the PCI bus to take control of the bus and perform transfers to the mapped memory directly.</p>
+<p>Bus mastering (if supported) can be enabled and disabled with the following functions:</p>
+<pre class="prettyprint">void pci_set_master(struct pci_dev *dev);
+void pci_clear_master(struct pci_dev *dev);</pre>
+<h3>PCI interrupts</h3>
+<p>Interrupt handling is critical in device drivers.<br />
+Hardware may generate an interrupt on data reception event, error, state changes, and so on. All interrupts should be handled most optimally.</p>
+<p>There are two types of PCI interrupts:</p>
+<ul>
+<li><strong>Pin-based (INTx)</strong> interrupts, an old and classic way</li>
+<li><strong>MSI/MSI-X</strong> interrupts, modern and more optimal way, introduced in PCI 2.2</li>
+</ul>
+<p>It&#8217;s highly recommended to use MSI interrupts when possible. There are a few reasons why using MSIs can be advantageous over traditional pin-based interrupts.</p>
+<p>Pin-based PCI interrupts are often shared amongst several devices. To support this, the kernel must call each interrupt handler associated with an interrupt, which leads to reduced performance for the system. MSIs are never shared, so this problem cannot arise.</p>
+<p>When a device writes data to memory, then raises a pin-based interrupt, the interrupt may arrive before all the data has arrived in memory (this becomes more likely with devices behind PCI-PCI bridges). The interrupt handler must read a register on the device that raised the interrupt to ensure that all the data has arrived in memory. PCI transaction ordering rules require that all the data arrive in memory before the value may be returned from the register. Using MSI&#8217;s avoids this problem as the interrupt-generating write cannot pass the data writes, so by the time the interrupt is raised, the driver knows that all the data has arrived in memory.</p>
+<p>Please note that not all machines support MSIs correctly.</p>
+<p>You can find information about currently allocated interrupts in /proc/interrupts<br />
+This information contains interrupt spreads over the CPU cores and interrupts types (MSI or pin-based).<br />
+Typically interrupts are dynamically set for the CPU cores. A special daemon tries to spread interrupts in the most optimal way on some systems.</p>
+<p>Also, you can manually select the CPU core for the selected interrupt. This might be helpful in some fine-tuning situations.<br />
+The core assignment can be done via the <strong>SMP affinity</strong> mechanism.<br />
+Just select required cores (in a binary pattern) and send this value (as HEX number) to <code>/proc/irq/X/smp_affinity</code>, where <strong>X</strong> is the interrupt number.<br />
+For example, put IRQ 44 to the first and third cores (set bits 0 and 2, from left to right):</p>
+<p><code>echo 5 &gt; /proc/irq/44/smp_affinity</code></p>
+<p>Now let&#8217;s see how to use both types of interrupts.</p>
+<p><strong>INTx interrupts</strong></p>
+<p>The classic pin-based interrupt can be requested with <code>request_threaded_irq()</code>and <code>request_irq()</code></p>
+<pre class="prettyprint">int request_threaded_irq( unsigned int irq,
+                          irq_handler_t handler,
+                          irq_handler_t thread_fn,
+                          unsigned long irqflags,
+                          const char * devname,
+                          void * dev_id);
+
+int request_irq( unsigned int irq,
+                 irqreturn_t handler,
+                 unsigned long irqflags,
+                 const char *devname,
+                 void *dev_id);</pre>
+<p>For the new drivers, it&#8217;s recommended to use <code>request_threaded_irq()</code></p>
+<p>The first parameter, <code>irq</code> specifies the interrupt number to allocate. For some devices, for example, legacy PC devices such as the system timer or keyboard, this value is typically hard-coded. It is probed or otherwise determined programmatically and dynamically for most other devices.</p>
+<p>The second parameter, <code>handler</code>Is the function to be called when the IRQ occurs.</p>
+<p><code>thread_fn</code> &#8211; Function called from the IRQ handler thread. If NULL &#8211; no IRQ thread is created.</p>
+<p><span class="term"><code>irqflags</code> &#8211; </span>Interrupt type flags; Possible values can be found <a href="https://elixir.bootlin.com/linux/latest/source/include/linux/interrupt.h#L42">here</a>.</p>
+<p><span class="term"><code>dev_name</code></span> &#8211; The string passed to request_irq is used in <code>/proc/interrupts</code> to show the owner of the <code>interrupt</code>.</p>
+<p><span class="term"><code>dev_id</code> &#8211; This pointer is used for shared interrupt lines. It is a unique identifier used when the interrupt line is freed, and the driver may also use that to point to its own private data area (to identify which device is interrupting).<br />
+</span></p>
+<p>In the end, all requested IRQs should be released with <code>free_irq()</code></p>
+<pre class="prettyprint">void free_irq ( unsigned int irq, void * dev_id);</pre>
+<p><strong>A simple example, install and use interrupt #42:</strong></p>
+<pre class="prettyprint">static irqreturn_t sample_irq(int irq, void *dev_id)
+{
+    printk("IRQ %d\n", irq);
+    return IRQ_HANDLED;
+}
+
+...
+
+if (request_irq(42, test_irq, 0, "test_irq", 0) &lt; 0) {
+    return -1;
+}</pre>
+<p>&nbsp;</p>
+<p><strong>MSI interrupts</strong></p>
+<p>In the case of MSI/MSIX interrupts, everything is almost the same, but it&#8217;s required to tell the PCI subsystem that we want to use MSI/MSIX interrupts.</p>
+<p>Use the following function:</p>
+<pre class="prettyprint">int pci_alloc_irq_vectors(struct pci_dev *dev, unsigned int min_vecs, unsigned int max_vecs, unsigned int flags);</pre>
+<p>This function allocates up to max_vecs interrupt vectors for a PCI device. It returns the number of vectors allocated or a negative error.</p>
+<p>The flags argument is used to specify which type of interrupt can be used by the device and the driver (<strong>PCI_IRQ_LEGACY</strong>, <strong>PCI_IRQ_MSI</strong>, <strong>PCI_IRQ_MSIX</strong>). A convenient short-hand (PCI_IRQ_ALL_TYPES) is also available to ask for any possible kind of interrupt. If the <strong>PCI_IRQ_AFFINITY</strong> flag is set, <code>pci_alloc_irq_vectors()</code> will spread the interrupts around the available CPUs.</p>
+<p>Of course, interrupt type (MSI/MSIX) and the number of MSI interrupts depend on your hardware.</p>
+<p>Free the allocated resources with:</p>
+<pre class="prettyprint">void pci_free_irq_vectors(struct pci_dev *dev);</pre>
+<h3></h3>
+<h3>PCI driver skeleton</h3>
+<p>I think it&#8217;s enough with boring theory.<br />
+This is an example of the PCI device driver. This driver can load and register for specified VID/PID pairs. Some basic operations (config registers read, memory read/write) are performed.</p>
+<pre class="prettyprint">/* Sample Linux PCI device driver */
+
+#include &lt;linux/init.h&gt;
+#include &lt;linux/module.h&gt;
+#include &lt;linux/pci.h&gt;
+
+#define MY_DRIVER "my_pci_driver"
+
+/* This sample driver supports device with VID = 0x010F, and PID = 0x0F0E*/
+static struct pci_device_id my_driver_id_table[] = {
+    { PCI_DEVICE(0x010F, 0x0F0E) },
+    {0,}
+};
+
+MODULE_DEVICE_TABLE(pci, my_driver_id_table);
+
+static int my_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent);
+static void my_driver_remove(struct pci_dev *pdev);
+
+/* Driver registration structure */
+static struct pci_driver my_driver = {
+    .name = MY_DRIVER,
+    .id_table = my_driver_id_table,
+    .probe = my_driver_probe,
+    .remove = my_driver_remove
+};
+
+/* This is a "private" data structure */
+/* You can store there any data that should be passed between driver's functions */
+struct my_driver_priv {
+    u8 __iomem *hwmem;
+};
+
+/* */
+
+static int __init mypci_driver_init(void)
+{
+    /* Register new PCI driver */
+    return pci_register_driver(&amp;my_driver);
+}
+
+static void __exit mypci_driver_exit(void)
+{
+    /* Unregister */
+    pci_unregister_driver(&amp;my_driver);
+}
+
+void release_device(struct pci_dev *pdev)
+{
+    /* Disable IRQ #42*/
+    free_irq(42, pdev);
+    /* Free memory region */
+    pci_release_region(pdev, pci_select_bars(pdev, IORESOURCE_MEM));
+    /* And disable device */
+    pci_disable_device(pdev);
+}
+
+/* */
+
+static irqreturn_t irq_handler(int irq, void *cookie)
+{
+   (void) cookie;
+   printk("Handle IRQ #%d\n", irq);
+   return IRQ_HANDLED;
+}
+
+/* Reqest interrupt and setup handler */
+int set_interrupts(struct pci_dev *pdev)
+{
+    /* We want MSI interrupt, 3 lines (just an example) */
+    int ret = pci_alloc_irq_vectors(pdev, 3, 3, PCI_IRQ_MSI);
+
+    if (ret &lt; 0) {
+        return ret;
+    }
+
+    /* Request IRQ #42 */
+    return request_threaded_irq(42, irq_handler, NULL, 0, "TEST IRQ", pdev);
+}
+
+/* Write some data to the device */
+void write_sample_data(struct pci_dev *pdev)
+{
+    int data_to_write = 0xDEADBEEF; /* Just a random trash */
+
+    struct my_driver_priv *drv_priv = (struct my_driver_priv *) pci_get_drvdata(pdev);
+
+    if (!drv_priv) {
+        return;
+    }
+
+    /* Write 32-bit data to the device memory */
+    iowrite32(data_to_write, drv_priv-&gt;hwmem);
+}
+
+/* This function is called by the kernel */
+static int my_driver_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+{
+    int bar, err;
+    u16 vendor, device;
+    unsigned long mmio_start,mmio_len;
+    struct my_driver_priv *drv_priv;
+
+    /* Let's read data from the PCI device configuration registers */
+    pci_read_config_word(pdev, PCI_VENDOR_ID, &amp;vendor);
+    pci_read_config_word(pdev, PCI_DEVICE_ID, &amp;device);
+
+    printk(KERN_INFO "Device vid: 0x%X pid: 0x%X\n", vendor, device);
+
+    /* Request IO BAR */
+    bar = pci_select_bars(pdev, IORESOURCE_MEM);
+
+    /* Enable device memory */
+    err = pci_enable_device_mem(pdev);
+
+    if (err) {
+        return err;
+    }
+
+    /* Request memory region for the BAR */
+    err = pci_request_region(pdev, bar, MY_DRIVER);
+
+    if (err) {
+        pci_disable_device(pdev);
+        return err;
+    }
+
+    /* Get start and stop memory offsets */
+    mmio_start = pci_resource_start(pdev, 0);
+    mmio_len = pci_resource_len(pdev, 0);
+
+    /* Allocate memory for the driver private data */
+    drv_priv = kzalloc(sizeof(struct my_driver_priv), GFP_KERNEL);
+
+    if (!drv_priv) {
+        release_device(pdev);
+        return -ENOMEM;
+    }
+
+    /* Remap BAR to the local pointer */
+    drv_priv-&gt;hwmem = ioremap(mmio_start, mmio_len);
+
+    if (!drv_priv-&gt;hwmem) {
+       release_device(pdev);
+       return -EIO;
+    }
+
+    /* Set driver private data */
+    /* Now we can access mapped "hwmem" from the any driver's function */
+    pci_set_drvdata(pdev, drv_priv);
+
+    write_sample_data(pdev);
+
+    return set_interrupts(pdev);
+}
+
+/* Clean up */
+static void my_driver_remove(struct pci_dev *pdev)
+{
+    struct my_driver_priv *drv_priv = pci_get_drvdata(pdev);
+
+    if (drv_priv) {
+        if (drv_priv-&gt;hwmem) {
+            iounmap(drv_priv-&gt;hwmem);
+        }
+
+        pci_free_irq_vectors(pdev);
+
+        kfree(drv_priv);
+    }
+
+    release_device(pdev);
+}
+
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Oleg Kutkov &lt;contact@olegkutkov.me&gt;");
+MODULE_DESCRIPTION("Test PCI driver");
+MODULE_VERSION("0.1");
+
+module_init(mypci_driver_init);
+module_exit(mypci_driver_exit);</pre>
+<p>And <strong>Makefile</strong>:</p>
+<pre class="prettyprint">BINARY     := test_pci_module
+KERNEL      := /lib/modules/$(shell uname -r)/build
+ARCH        := x86
+C_FLAGS     := -Wall
+KMOD_DIR    := $(shell pwd)
+
+OBJECTS := test_pci.o
+
+ccflags-y += $(C_FLAGS)
+
+obj-m += $(BINARY).o
+
+$(BINARY)-y := $(OBJECTS)
+
+$(BINARY).ko:
+    make -C $(KERNEL) M=$(KMOD_DIR) modules
+
+clean:
+    rm -f $(BINARY).ko</pre>
+<h3></h3>
+<h3>Real-life example</h3>
+<p>I worked in the Crimean Astrophysical observatory a few years ago and found a PCI interface board for 4 incremental linear or angular encoders. I decided to use this board, but there was no Linux driver.<br />
+I contacted the vendor and proposed to them to write an open-source driver for Linux. They were kind enough and proposed the full documentation.<br />
+This was a table with memory offsets and data sizes. Basically, at which offsets I can read sensor data and so on.</p>
+<p>I wrote <a href="https://github.com/olegkutkov/lir941_linux_driver">this driver</a>. The driver uses a <a href="../../../../2018/03/14/simple-linux-character-device-driver/index.html">character device</a> interface to interact with the user.<br />
+It&#8217;s quite simple and might be a good example to start PCI driver development.</p>
+<p>Thanks for reading</p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<span class="tags-links">Tagged <a href="../../../../tag/development/index.html" rel="tag">development</a>, <a href="../../../../tag/driver/index.html" rel="tag">driver</a>, <a href="../../../../tag/kernel/index.html" rel="tag">kernel</a>, <a href="../../../../tag/linux/index.html" rel="tag">linux</a>, <a href="../../../../tag/pci/index.html" rel="tag">pci</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a></h2>
+                                         <span class="posted-date">July 18, 2022</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2022/04/10/initial-analysis-of-the-starlink-router-gen2/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2022/04/10/initial-analysis-of-the-starlink-router-gen2/index.html">Initial analysis of the Starlink router gen2</a></h2>
+                                         <span class="posted-date">April 10, 2022</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../../../2020/12/15/satellite-lnb-controller-with-gui-interface/index.html" rel="prev">Satellite LNB controller with GUI interface</a></div><div class="nav-next"><a href="../../30/compact-and-powerful-dc-driver-using-irs2104/index.html" rel="next">Compact and powerful DC driver using IRS2104</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			11 thoughts on &ldquo;<span>Writing a PCI device driver for Linux</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-1028" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-1028" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d10562f2eee6038fb014a0f074ee10e4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/d10562f2eee6038fb014a0f074ee10e4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Hamed</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1028"><time datetime="2021-04-28T10:29:45+03:00">April 28, 2021 at 10:29 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello mR Oleg Kutkov,<br />
+Can you state the sources you used for the study?<br />
+Thanks</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexedef.html?replytocom=1028#respond' data-commentid="1028" data-postid="1575" data-belowelement="div-comment-1028" data-respondelement="respond" data-replyto="Reply to Hamed" aria-label='Reply to Hamed'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1029" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-1029" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1029"><time datetime="2021-04-29T23:15:19+03:00">April 29, 2021 at 11:15 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Sure. It&#8217;s Linux device drivers 3rd edition book,<br />
+Linux kernel PCI documentation: <a href="https://www.kernel.org/doc/html/latest/PCI/pci.html" rel="nofollow ugc">https://www.kernel.org/doc/html/latest/PCI/pci.html</a><br />
+And existing PCI device drivers, just as an example.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index2c55.html?replytocom=1029#respond' data-commentid="1029" data-postid="1575" data-belowelement="div-comment-1029" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1035" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-1035" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d10562f2eee6038fb014a0f074ee10e4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/d10562f2eee6038fb014a0f074ee10e4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Hamed</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1035"><time datetime="2021-05-06T13:47:58+03:00">May 6, 2021 at 1:47 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi,<br />
+Thanks for the reply .<br />
+How can I call the lirdev_read function at the user level in lir941_linux_driver?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index8cb1.html?replytocom=1035#respond' data-commentid="1035" data-postid="1575" data-belowelement="div-comment-1035" data-respondelement="respond" data-replyto="Reply to Hamed" aria-label='Reply to Hamed'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1037" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-1037" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1037"><time datetime="2021-05-06T14:49:54+03:00">May 6, 2021 at 2:49 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>This function is called on character device read.<br />
+For example <code>cat /dev/mydriver</code> will open your character device and call &#8216;read&#8217; function. In the case of my driver, <code>lirdev_read</code> is called.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexc44b.html?replytocom=1037#respond' data-commentid="1037" data-postid="1575" data-belowelement="div-comment-1037" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1036" class="comment even thread-even depth-1">
+			<article id="div-comment-1036" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/ec6f0ddbfff16cd8718abd45abcb1733?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/ec6f0ddbfff16cd8718abd45abcb1733?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">m.fkh</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1036"><time datetime="2021-05-06T14:12:03+03:00">May 6, 2021 at 2:12 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi,<br />
+I want to get the best performance of pcie device.<br />
+Can you guide me?</p>
+<p>Thanks</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index15bf.html?replytocom=1036#respond' data-commentid="1036" data-postid="1575" data-belowelement="div-comment-1036" data-respondelement="respond" data-replyto="Reply to m.fkh" aria-label='Reply to m.fkh'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1039" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-1039" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/f7fe3a392cffc580068a49b1fe344267?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/f7fe3a392cffc580068a49b1fe344267?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Alfred Wilkinson</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1039"><time datetime="2021-05-11T16:44:01+03:00">May 11, 2021 at 4:44 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Super helpful THANKS!!!!</p>
+<p>When I used this as a template I found that the MSI free routine at unload would seg fault.</p>
+<p>I debugged this down to two things&#8230; you should use pci_irq_vector() to get the actual assigned IRQ vector to assign to the handler.</p>
+<p>retval = pci_alloc_irq_vectors(dev, 1, 1, PCI_IRQ_MSI);<br />
+irq = pci_irq_vector(dev, 0);<br />
+retval = request_irq(irq, irq_fnc, 0, &#8220;name&#8221;, dev);</p>
+<p>and number two you need to free the IRQ before deallocating from the PCI layer.<br />
+release_device()<br />
+&#8230;<br />
+irq = pci_irq_vector(dev,0);<br />
+free_irq(irq, pdev);<br />
+pci_free_irq_vectors(pdev);</p>
+<p>Again thanks for documenting this SUPER helpful.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index0612.html?replytocom=1039#respond' data-commentid="1039" data-postid="1575" data-belowelement="div-comment-1039" data-respondelement="respond" data-replyto="Reply to Alfred Wilkinson" aria-label='Reply to Alfred Wilkinson'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1040" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-1040" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1040"><time datetime="2021-05-12T00:24:18+03:00">May 12, 2021 at 12:24 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>You&#8217;re welcome 🙂</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index6b36.html?replytocom=1040#respond' data-commentid="1040" data-postid="1575" data-belowelement="div-comment-1040" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1064" class="comment odd alt thread-even depth-1">
+			<article id="div-comment-1064" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/2c22e1183bbdf44f90e81b36dcf900d0?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/2c22e1183bbdf44f90e81b36dcf900d0?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Bernardo</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1064"><time datetime="2021-09-06T02:07:09+03:00">September 6, 2021 at 2:07 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Your blog is a great resource.</p>
+<p>I&#8217;m porting a pcie device driver and it used to call of_node_full_name() in the probe function. I need to read the device tree but every attempt to read has failed.</p>
+<p>Something like this:</p>
+<p>static int probe(struct pci_dev *pdev, const struct pci_device_id *id)<br />
+{<br />
+  pr_info(&#8220;Found PCI device: %s\n&#8221;, of_node_full_name(pdev-&gt;dev.of_node));<br />
+}</p>
+<p>Could you include some example how to?</p>
+<p>Thank you.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index7479.html?replytocom=1064#respond' data-commentid="1064" data-postid="1575" data-belowelement="div-comment-1064" data-respondelement="respond" data-replyto="Reply to Bernardo" aria-label='Reply to Bernardo'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1067" class="comment even thread-odd thread-alt depth-1">
+			<article id="div-comment-1067" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/3378dfca676e9ee018c11f2cb1049f35?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/3378dfca676e9ee018c11f2cb1049f35?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Gnanaguru Ganesan</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1067"><time datetime="2021-10-04T08:43:48+03:00">October 4, 2021 at 8:43 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi,</p>
+<p>I&#8217;ve gone through it and I&#8217;m planning to learn PCIe Card Reader. There I&#8217;ve understood that /drivers/misc/cardreader/rtsx_pci.ko (while rtsx_pci.ko = rtsx_pcr.o rts5209.o rts5229.o rtl8411.o rts5227.o rts5249.o rts5260.o rts5261.o rts5228.o) is the PCIe Card Reader Hardware that is available in Laptop and /drivers/mmc/host/rtsx_pci_sdmmc.ko is the MMC card interface via PCIe Card Reader.</p>
+<p>In that rtsx_pci.ko has used module_pci_driver, while rtsx_pci_sdmmc.ko uses module_platform_driver. Why is that so? What does it mean by Platform device driver? Why haven&#8217;t they used pci_register_driver directly?</p>
+<p>Kindly to clarify the doubt sir. I was unable to find answers anywhere.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index5274.html?replytocom=1067#respond' data-commentid="1067" data-postid="1575" data-belowelement="div-comment-1067" data-respondelement="respond" data-replyto="Reply to Gnanaguru Ganesan" aria-label='Reply to Gnanaguru Ganesan'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1675" class="comment odd alt thread-even depth-1">
+			<article id="div-comment-1675" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/dcab9b7b3618f4f6abd2a3a98b2b8125?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/dcab9b7b3618f4f6abd2a3a98b2b8125?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Paul</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1675"><time datetime="2023-05-26T10:12:47+03:00">May 26, 2023 at 10:12 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg,<br />
+Thank you for an excellent resource, it has been very helpful to me and encouraged me to experiment.<br />
+One thing I found, in the character driver the last parameter for unregister_chrdev_region(MKDEV(dev_major, 0), MINORMASK) should perhaps be MAXDEV?<br />
+Best regards<br />
+Paul</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexc4cc.html?replytocom=1675#respond' data-commentid="1675" data-postid="1575" data-belowelement="div-comment-1675" data-respondelement="respond" data-replyto="Reply to Paul" aria-label='Reply to Paul'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-4152" class="comment even thread-odd thread-alt depth-1">
+			<article id="div-comment-4152" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/a47aa5696a294a96e7c0f8e5e29047c2?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/a47aa5696a294a96e7c0f8e5e29047c2?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">sk</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-4152"><time datetime="2024-05-20T16:27:15+03:00">May 20, 2024 at 4:27 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Can you please give some insight for pcie hot plug details and it&#8217;s working.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexc8ac.html?replytocom=4152#respond' data-commentid="4152" data-postid="1575" data-belowelement="div-comment-4152" data-respondelement="respond" data-replyto="Reply to sk" aria-label='Reply to sk'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply to <a href="#comment-1029">Oleg Kutkov</a> <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='1575' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='1029' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="662394b4c0" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="31"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../../2020/06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index2c55.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_1827c9da4c86fc3ad9db01f6a6132235.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/?replytocom=1029 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:11:51 GMT -->
+</html>

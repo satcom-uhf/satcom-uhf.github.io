@@ -1,0 +1,1242 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2018/08/01/powerful-dc-motor-driver-using-ir2110/?replytocom=950 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:18:10 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>Powerful DC motor driver using IR2110 &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large, noindex, follow' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Powerful DC motor driver using IR2110 Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/588.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../indexc535.html?p=588' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embed5d3d.json?url=https%3A%2F%2Folegkutkov.me%2F2018%2F08%2F01%2Fpowerful-dc-motor-driver-using-ir2110%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embedf359?url=https%3A%2F%2Folegkutkov.me%2F2018%2F08%2F01%2Fpowerful-dc-motor-driver-using-ir2110%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index5077.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-588 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-588" class="post-588 post type-post status-publish format-standard hentry category-astro-tools category-electronics tag-dc-motor tag-driver tag-ir2210">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/astro-tools/index.html" rel="category tag">Astro tools</a>, <a href="../../../../category/electronics/index.html" rel="category tag">Electronics</a></span><h1 class="entry-title">Powerful DC motor driver using IR2110</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">August 1, 2018</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><img decoding="async" class="alignleft size-full wp-image-589" src="../../../../wp-content/uploads/2018/08/small_title.png" alt="" width="200" height="149" />To control the DC motor&#8217;s speed and rotation direction, we need some motor driver. One of the most popular schematics is <a href="https://en.wikipedia.org/wiki/H_bridge">H-Bridge</a>. For the low current and voltages, we can use some integral solutions like <a href="http://www.ti.com/lit/ds/symlink/l293.pdf">L293D</a> and so on. But if we need more power and reliability, we have to build some custom H-bridge using Mosfet transistors. This type of transistor requires careful and proper driving itself. One of the most popular integral solutions for driving MOSFETs is <a href="https://www.infineon.com/dgdl/ir2110.pdf?fileId=5546d462533600a4015355c80333167e">IR2110</a> from Infineon.<br />
+This article will discuss how to use this IC to build a powerful DC motor driver.</p>
+<p><span id="more-588"></span></p>
+<p>IR2110 is a high voltage (up to 500V) chip that is suitable for driving various MOSFET and IGBT types. This device contains both low-side and high-side half-bridge drivers.</p>
+<p>You can find pins description and other parameters in <a href="https://www.infineon.com/dgdl/ir2110.pdf?fileId=5546d462533600a4015355c80333167e">the datasheet</a>.</p>
+<p>Here is a typical schematic:</p>
+<p><a href="../../../../wp-content/uploads/2018/08/ir2110_typical_schematic_bw.png"><img fetchpriority="high" decoding="async" class="aligncenter size-full wp-image-1812" src="../../../../wp-content/uploads/2018/08/ir2110_typical_schematic_bw.png" alt="" width="894" height="653" srcset="https://olegkutkov.me/wp-content/uploads/2018/08/ir2110_typical_schematic_bw.png 894w, https://olegkutkov.me/wp-content/uploads/2018/08/ir2110_typical_schematic_bw-400x292.png 400w, https://olegkutkov.me/wp-content/uploads/2018/08/ir2110_typical_schematic_bw-768x561.png 768w" sizes="(max-width: 894px) 100vw, 894px" /></a></p>
+<p>This is a half-bridge driver, which means that <strong>LOAD</strong> pin can be connected to <strong>LOAD SUPPLY</strong> or <strong>AGND</strong>, depending on the input pins <strong>ENABLE HI</strong> and <strong>ENABLE LO</strong>. These signals can be a static voltage of the logic levels (3.3 to 5 volts) or some pulse signals like PWM.</p>
+<p>Controlling the Q2 MOSFET is very simple and doesn&#8217;t require extra schematics.<br />
+With Q1, all things are slightly more complicated since the SOURCE pin of this transistor is floating without a direct connection to the power supply negative line.<br />
+To enable this transistor, we need to create a &#8220;virtual&#8221; zero point, and additional power is required.<br />
+This problem can be solved using bootstrap circuitry.</p>
+<p>You can see diode D5 and two capacitors C1 and C2. When the low-side is active (Q2 is opened), both capacitors are charging through the diode from the IR2110 power supply (typically 12V). Then when the high-side becomes active, these capacitors are using to charge the Q1 gate and open this transistor.<br />
+The value of C1 depends on the switching frequency and duty cycle. Typically this value is in the range of 4.7 &#8211; 22 microfarads.<br />
+Of course, there is a formula that can be used to calculate a proper value. Please read<a href="https://www.infineon.com/dgdl/an-978.pdf?fileId=5546d462533600a40153559f7cf21200"> this appnote</a> if you want to know more about floating and bootstraps circuits.<br />
+But also, you can select the proper capacitor value experimentally. Proper value is guaranteed that the capacitor can discharge quickly enough to close the transistor and charge quickly enough to reach the required voltage value. Better to use tantalum capacitors, but the electrolyte is also Ok, but an additional ceramic bypass is required.</p>
+<p>Diodes D1 and D2 provide a quick discharge circuit so both transistors can be closed immediately.</p>
+<p>Diodes D7 and D9 protect MOSFETs from the large inductive loads and very necessary when driving motors.</p>
+<p>Two resistors R5 and R6, are used to limit the gates&#8217; charging current to protect transistors.<br />
+R2 and R1 is an additional protection circuit that prevents the Gate pin from floating and protects transistors from the enabling.</p>
+<p>When both transistors enabling at the same time &#8211; it&#8217;s a big problem called <strong>shoot through</strong>. This is equivalent to a short circuit that can destroy both MOSFETs and ruin your day.</p>
+<p>To avoid shoot-through of the MOSFETs, we need to ensure that ENABLE HI and ENABLE LO input pins are not activating simultaneously.</p>
+<p>One of the ways is to use a simple protection circuit that is placed near the IR2110 input pins:</p>
+<p><a href="../../../../wp-content/uploads/2018/08/ir2110_protection_schematic_bw.png"><img decoding="async" class="aligncenter size-full wp-image-1813" src="../../../../wp-content/uploads/2018/08/ir2110_protection_schematic_bw.png" alt="" width="544" height="678" srcset="https://olegkutkov.me/wp-content/uploads/2018/08/ir2110_protection_schematic_bw.png 544w, https://olegkutkov.me/wp-content/uploads/2018/08/ir2110_protection_schematic_bw-241x300.png 241w" sizes="(max-width: 544px) 100vw, 544px" /></a>74HC00N is a quad 2-input NAND gate that acts like a cross-locking circuit.<br />
+A by-product of this schematic is inverting the signal, so we need to invert the actual input signal before.<br />
+When IN HI is low (for example) &#8211; output pins 6 and 8 are in the high state, and pin 6 drives IR2110 ENABLE HI input.<br />
+Simultaneously, pin 8 activates the T2 transistor, which pulls down ENABLE LOW line, which protects this line from unauthorized activation.<br />
+Another part of the schematics with T1 works in the same way.</p>
+<h3>Full bridge driver.</h3>
+<p>To build a full H-bridge, we need two identical halves of the half-bridge.<br />
+In this case, ENABLE HI of the first IR2110 should be connected to the ENABLE LOW of the second IR2110 and vice versa.</p>
+<p>The load is connecting between LOAD terminals of both halves.</p>
+<p>Here is a full schematic of the driver, which I use for big 110 volt motors.<br />
+This device contains all protection circuits described above and provides galvanic isolation on inputs to safely connect the microcontroller as a PWM signal source.<br />
+This board requires two stabilized power supplies, 5 and 12 volts. The actual bridge is powering from a separate 110-volt source.<br />
+Also, you can find a current measurement circuit based on the hall-effect sensor <a href="https://www.sparkfun.com/datasheets/BreakoutBoards/0712.pdf">ACS712</a>. This part is not mandatory and is used in my current project.+</p>
+<p><a href="../../../../wp-content/uploads/2018/08/ir2110_dc_driver_schematic.png"><img loading="lazy" decoding="async" class="aligncenter  wp-image-1810" src="../../../../wp-content/uploads/2018/08/ir2110_dc_driver_schematic-1024x395.png" alt="" width="1024" height="395" srcset="https://olegkutkov.me/wp-content/uploads/2018/08/ir2110_dc_driver_schematic-1024x395.png 1024w, https://olegkutkov.me/wp-content/uploads/2018/08/ir2110_dc_driver_schematic-400x154.png 400w, https://olegkutkov.me/wp-content/uploads/2018/08/ir2110_dc_driver_schematic-768x296.png 768w, https://olegkutkov.me/wp-content/uploads/2018/08/ir2110_dc_driver_schematic-1536x593.png 1536w, https://olegkutkov.me/wp-content/uploads/2018/08/ir2110_dc_driver_schematic-2048x790.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></a></p>
+<p>Diodes D11 and D12 are highly recommended for reliability. This diode provides a path for possible reverse currents (in long lines between drivers board and controller) in bad EMI conditions. Even a small reverse current can damage optocouplers led.</p>
+<p>The values of the R9 and R10 should be selected for your variant of 74HC00. It may be or 570 ohms or 3.8 kiloohms. To debug this part, you need a scope that can help you control the form of the signal after 74HC00. But if you don&#8217;t have one &#8211; replace resistors till the schematic became working.</p>
+<p><a href="../../../../wp-content/uploads/2018/08/motor_driver_EAGLE_PROJECT.zip">IR2110 Eagle project files</a></p>
+<p><a href="../../../../wp-content/uploads/2018/08/motor_driver_GERBER.zip">IR2110 Gerber files for the PCB factory</a></p>
+<p>PCB images:</p>
+<p><a href="../../../../wp-content/uploads/2018/08/dc_driver_board.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-594" src="../../../../wp-content/uploads/2018/08/dc_driver_board-1024x659.png" alt="" width="840" height="541" srcset="https://olegkutkov.me/wp-content/uploads/2018/08/dc_driver_board-1024x659.png 1024w, https://olegkutkov.me/wp-content/uploads/2018/08/dc_driver_board-300x193.png 300w, https://olegkutkov.me/wp-content/uploads/2018/08/dc_driver_board-768x494.png 768w, https://olegkutkov.me/wp-content/uploads/2018/08/dc_driver_board.png 1052w" sizes="(max-width: 840px) 100vw, 840px" /></a>And both layers for DIY:</p>
+<p><a href="../../../../wp-content/uploads/2018/08/dc_driver_pcb_bottom.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-595" src="../../../../wp-content/uploads/2018/08/dc_driver_pcb_bottom-1024x659.png" alt="" width="840" height="541" srcset="https://olegkutkov.me/wp-content/uploads/2018/08/dc_driver_pcb_bottom-1024x659.png 1024w, https://olegkutkov.me/wp-content/uploads/2018/08/dc_driver_pcb_bottom-300x193.png 300w, https://olegkutkov.me/wp-content/uploads/2018/08/dc_driver_pcb_bottom-768x494.png 768w, https://olegkutkov.me/wp-content/uploads/2018/08/dc_driver_pcb_bottom.png 1102w" sizes="(max-width: 840px) 100vw, 840px" /></a> <a href="../../../../wp-content/uploads/2018/08/dc_driver_pcb_top.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-596" src="../../../../wp-content/uploads/2018/08/dc_driver_pcb_top-1024x659.png" alt="" width="840" height="541" srcset="https://olegkutkov.me/wp-content/uploads/2018/08/dc_driver_pcb_top-1024x659.png 1024w, https://olegkutkov.me/wp-content/uploads/2018/08/dc_driver_pcb_top-300x193.png 300w, https://olegkutkov.me/wp-content/uploads/2018/08/dc_driver_pcb_top-768x494.png 768w, https://olegkutkov.me/wp-content/uploads/2018/08/dc_driver_pcb_top.png 1102w" sizes="(max-width: 840px) 100vw, 840px" /></a></p>
+<p>Completed boards with medium power transistors.</p>
+<p><a href="../../../../wp-content/uploads/2018/08/wDgcFf4LCZs.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-599" src="../../../../wp-content/uploads/2018/08/wDgcFf4LCZs.jpg" alt="" width="800" height="498" srcset="https://olegkutkov.me/wp-content/uploads/2018/08/wDgcFf4LCZs.jpg 960w, https://olegkutkov.me/wp-content/uploads/2018/08/wDgcFf4LCZs-300x187.jpg 300w, https://olegkutkov.me/wp-content/uploads/2018/08/wDgcFf4LCZs-768x478.jpg 768w" sizes="(max-width: 800px) 100vw, 800px" /></a></p>
+<p><a href="../../../../wp-content/uploads/2018/08/sHKMAWiwiRo.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-597" src="../../../../wp-content/uploads/2018/08/sHKMAWiwiRo.jpg" alt="" width="720" height="960" srcset="https://olegkutkov.me/wp-content/uploads/2018/08/sHKMAWiwiRo.jpg 720w, https://olegkutkov.me/wp-content/uploads/2018/08/sHKMAWiwiRo-225x300.jpg 225w" sizes="(max-width: 720px) 100vw, 720px" /></a></p>
+<p>And another variant with big transistors on the radiator. This device can drive more than 2 kilowatts load.</p>
+<p><a href="../../../../wp-content/uploads/2018/08/5MHVwuMTA10.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-600" src="../../../../wp-content/uploads/2018/08/5MHVwuMTA10.jpg" alt="" width="800" height="600" srcset="https://olegkutkov.me/wp-content/uploads/2018/08/5MHVwuMTA10.jpg 960w, https://olegkutkov.me/wp-content/uploads/2018/08/5MHVwuMTA10-300x225.jpg 300w, https://olegkutkov.me/wp-content/uploads/2018/08/5MHVwuMTA10-768x576.jpg 768w" sizes="(max-width: 800px) 100vw, 800px" /></a></p>
+<p><a href="../../../../wp-content/uploads/2018/08/79-McXB8u5w.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-601" src="../../../../wp-content/uploads/2018/08/79-McXB8u5w.jpg" alt="" width="800" height="639" srcset="https://olegkutkov.me/wp-content/uploads/2018/08/79-McXB8u5w.jpg 914w, https://olegkutkov.me/wp-content/uploads/2018/08/79-McXB8u5w-300x240.jpg 300w, https://olegkutkov.me/wp-content/uploads/2018/08/79-McXB8u5w-768x613.jpg 768w" sizes="(max-width: 800px) 100vw, 800px" /></a></p>
+<p>As you can see, powerful MOSFETs are placed on radiators, away from the driver boards.<br />
+This is permissible, but wire between boards and transistors should be as short as possible. Also, it&#8217;s a good idea to twist the SOURCE and GATE line as a differential pair. This helps us to minimize inductance.<br />
+Protection resistors on these lines should be placed as close as possible to the transistors.<br />
+You can see everything in the photos above.</p>
+<p>Laboratory tests of this driver.<br />
+As a PWM signal source, I&#8217;m using a Siglent signal generator in Pulse mode. The frequency is 15 kHz, the duty cycle is changing, which is causes changes in motor rotation speed.</p>
+<p><iframe loading="lazy" title="Sintez power modules: 15 kHz test" width="850" height="478" src="https://www.youtube.com/embed/R5_OHjZ1qTY?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></p>
+<p>Thanks for reading!<br />
+I hope this material will be helpful.</p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<span class="tags-links">Tagged <a href="../../../../tag/dc-motor/index.html" rel="tag">dc motor</a>, <a href="../../../../tag/driver/index.html" rel="tag">driver</a>, <a href="../../../../tag/ir2210/index.html" rel="tag">ir2210</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a></h2>
+                                         <span class="posted-date">November 7, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a></h2>
+                                         <span class="posted-date">June 9, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../../06/07/autonomous-allsky-camera-with-raspberry-pi-part-3-shooting-night-sky-in-fits-using-qhy5-iim-camera/index.html" rel="prev">Autonomous Allsky camera with Raspberry PI. Part 3: shooting night sky in FITS using QHY5-IIM camera</a></div><div class="nav-next"><a href="../../../09/07/low-noise-and-low-cost-amplifier-for-radio-astronomy-21-cm-band/index.html" rel="next">Low noise and low cost amplifier for radio astronomy, 21 cm band</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			44 thoughts on &ldquo;<span>Powerful DC motor driver using IR2110</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-46" class="comment even thread-even depth-1">
+			<article id="div-comment-46" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/3a1082bf9174d8184d36967e5c698275?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/3a1082bf9174d8184d36967e5c698275?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Digital Sixtus</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-46"><time datetime="2019-03-07T10:35:00+02:00">March 7, 2019 at 10:35 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexb621.html?replytocom=46#respond' data-commentid="46" data-postid="588" data-belowelement="div-comment-46" data-respondelement="respond" data-replyto="Reply to Digital Sixtus" aria-label='Reply to Digital Sixtus'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-65" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-65" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/cb1526cda8f99c50f5b3bcd1fa607057?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/cb1526cda8f99c50f5b3bcd1fa607057?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="https://cryosphere.co/" class="url" rel="ugc external nofollow">Victor Zagorodnov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-65"><time datetime="2019-05-19T02:29:16+03:00">May 19, 2019 at 2:29 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Oleg, could you help with 400V, 15 A continuous, reversible (full H-bridge, &gt;20 kHz), PMDC brushed motor speed controller?  May be with LMG3410R070 or discrete transistors  STB42N65M5 . I need compact and well protected<br />
+controllers for glaciers research; although industrial servo amplifiers worked well in mountains.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index0c48.html?replytocom=65#respond' data-commentid="65" data-postid="588" data-belowelement="div-comment-65" data-respondelement="respond" data-replyto="Reply to Victor Zagorodnov" aria-label='Reply to Victor Zagorodnov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-67" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2 parent">
+			<article id="div-comment-67" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-67"><time datetime="2019-05-19T16:07:17+03:00">May 19, 2019 at 4:07 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello.<br />
+Yes, I think I can help you. Seems LMG3410R070 is a good solution, highly integrated and powerful enough. You need 4 IC, some additional circuits and MCU to control one motor.<br />
+Can I contact you via email to discuss this device?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index5602.html?replytocom=67#respond' data-commentid="67" data-postid="588" data-belowelement="div-comment-67" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1794" class="comment odd alt depth-3">
+			<article id="div-comment-1794" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/b01e2979af87a80d63739d47aaf64f74?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/b01e2979af87a80d63739d47aaf64f74?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">anwar</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1794"><time datetime="2023-07-09T14:19:18+03:00">July 9, 2023 at 2:19 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>hi oleg. can you please tell me what kind of mode you are driving this motor? i mean : is it locked anti phase or sign magnitude or drive/ coast mode ?</p>
+<p>\</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index9b9c.html?replytocom=1794#respond' data-commentid="1794" data-postid="588" data-belowelement="div-comment-1794" data-respondelement="respond" data-replyto="Reply to anwar" aria-label='Reply to anwar'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-75" class="comment even thread-even depth-1">
+			<article id="div-comment-75" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/cb1526cda8f99c50f5b3bcd1fa607057?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/cb1526cda8f99c50f5b3bcd1fa607057?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Victor Zagorodnov</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-75"><time datetime="2019-06-14T07:59:12+03:00">June 14, 2019 at 7:59 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Oleg, I was confused expecting your replay on my e-mail address. My fault.<br />
+I still need help with speed control of PMDC motor and that is why I get back<br />
+to your web site. But I am bit old for modern electronics.<br />
+If you are not disappointed with my response please send me e-mail and<br />
+I will provide you with details about my projects or/and we can talk over<br />
+Skype/phone.<br />
+Thank you.<br />
+Victor</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index7693.html?replytocom=75#respond' data-commentid="75" data-postid="588" data-belowelement="div-comment-75" data-respondelement="respond" data-replyto="Reply to Victor Zagorodnov" aria-label='Reply to Victor Zagorodnov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-228" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-228" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/320930f22074450e88d75bb9d228f53d?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/320930f22074450e88d75bb9d228f53d?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Emil Vasilev</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-228"><time datetime="2020-01-21T13:23:43+02:00">January 21, 2020 at 1:23 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello Oleg,</p>
+<p>May I ask for your opinion &#8211; I have big bulgarian DC permanent magnet servo motor &#8211; Model 25 &#8211;</p>
+<p>please see the table &#8230;</p>
+<p><a href="http://www.arteh-bg.com/pages/products/DC/3PI.html" rel="nofollow ugc">http://www.arteh-bg.com/pages/products/DC/3PI.html</a></p>
+<p>2.5 KW and 47 kg &#8230; 🙂 ..</p>
+<p>I want to use your h-bridge to drive this motor &#8211; can you suggest me proper N-channel mosfets to use in the H-bridge  ?</p>
+<p>Thank you in advance,</p>
+<p>Emil &#8211; <a href="mailto:emilvv@gmail.com">emilvv@gmail.com</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index9821.html?replytocom=228#respond' data-commentid="228" data-postid="588" data-belowelement="div-comment-228" data-respondelement="respond" data-replyto="Reply to Emil Vasilev" aria-label='Reply to Emil Vasilev'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-654" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-654" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/e6c92f45ec2c2c0ef4ebd585018df24c?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/e6c92f45ec2c2c0ef4ebd585018df24c?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">fatih kadoura</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-654"><time datetime="2020-05-20T01:01:32+03:00">May 20, 2020 at 1:01 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>thank you for this work<br />
+but! why did you use T1 &amp; T2??<br />
+many thanks!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexad0b.html?replytocom=654#respond' data-commentid="654" data-postid="588" data-belowelement="div-comment-654" data-respondelement="respond" data-replyto="Reply to fatih kadoura" aria-label='Reply to fatih kadoura'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-655" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-655" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-655"><time datetime="2020-05-20T01:08:07+03:00">May 20, 2020 at 1:08 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi!<br />
+I described this in the article. It&#8217;s just in case.<br />
+Protection circuit to prevent a shoot-through.<br />
+When &#8220;IN HI&#8221; is active T2 is pulling down &#8220;IN LOW&#8221; line so any signals on the &#8220;IN LOW&#8221; are blocked. And wise-versa.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index7f70.html?replytocom=655#respond' data-commentid="655" data-postid="588" data-belowelement="div-comment-655" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-940" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-940" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/4887dc3ba2dd629b4181de62b21cffbd?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/4887dc3ba2dd629b4181de62b21cffbd?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Utsav Khadka</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-940"><time datetime="2020-10-08T14:12:24+03:00">October 8, 2020 at 2:12 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Is there any way i can use this driver to control a 5kw brushed dc motor. I have bought all the components. I have replaced the mosfets with 60N60 600V 60A IGBT. I plan to use two igbts in parallel. Do i need to do any modifications? Is it okay if i boost the ir2110 output using external push-pull amplifier to get enough gate current?</p>
+<p>P.S The motor is 78V 5kw. We are making a electric bike for our final year engineering project.</p>
+<p>My email: <a href="mailto:khadkautsav639@gmail.com">khadkautsav639@gmail.com</a></p>
+<p>It will be really great if you would help me a little bit. Thank you.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index9520.html?replytocom=940#respond' data-commentid="940" data-postid="588" data-belowelement="div-comment-940" data-respondelement="respond" data-replyto="Reply to Utsav Khadka" aria-label='Reply to Utsav Khadka'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-941" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-941" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-941"><time datetime="2020-10-08T15:14:19+03:00">October 8, 2020 at 3:14 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello. I never tried to use IGBT here, but it should be Ok. IR2110 is suitable for IGBT driving with a boost circuit.<br />
+Here is Infineon&#8217;s example: <a href="https://www.infineon.com/cms/en/tools/landing/ifxdesignerhtmlfiles/power_IR2110_HB_IGBT_drive_neg_bias.html" rel="nofollow ugc">https://www.infineon.com/cms/en/tools/landing/ifxdesignerhtmlfiles/power_IR2110_HB_IGBT_drive_neg_bias.html</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index9d12.html?replytocom=941#respond' data-commentid="941" data-postid="588" data-belowelement="div-comment-941" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-946" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-946" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/4887dc3ba2dd629b4181de62b21cffbd?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/4887dc3ba2dd629b4181de62b21cffbd?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Utsav Khadka</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-946"><time datetime="2020-11-06T11:43:17+02:00">November 6, 2020 at 11:43 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Can i connect AGND and GND together? Or is it wrong?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index6eca.html?replytocom=946#respond' data-commentid="946" data-postid="588" data-belowelement="div-comment-946" data-respondelement="respond" data-replyto="Reply to Utsav Khadka" aria-label='Reply to Utsav Khadka'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-947" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-947" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-947"><time datetime="2020-11-06T13:28:58+02:00">November 6, 2020 at 1:28 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Yes. It&#8217;s safe. Those pins can be completely separated only when there are no voltage differences between the two lines.<br />
+Since its power and logic grounds, it&#8217;s better to connect both lines somewhere outside the high current paths, at one point. In my case, it was made inside the PSU that provides low and high voltages to the board. You can do it on the board. Just make sure that there is no strong current flow near the VSS pin.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index1b53.html?replytocom=947#respond' data-commentid="947" data-postid="588" data-belowelement="div-comment-947" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-949" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-949" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/b86842f1073fb2c2ddcae01b027b5ef5?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/b86842f1073fb2c2ddcae01b027b5ef5?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Mulia Pratama</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-949"><time datetime="2020-11-09T08:12:30+02:00">November 9, 2020 at 8:12 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg Kutkov&#8230; Thank You for sharing this project. I made one from the files you shared, but I have one problem that duty cycle only works for above 50%. When I try to lower it the motor fails to hold the speed and stall to 0 rpm&#8230; I wonder if you experienced the same problem? If there any suggestion I would very happy to see..thanks in advance .</p>
+<p>I use 110V dc motor from my old treadmill.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index3af1.html?replytocom=949#respond' data-commentid="949" data-postid="588" data-belowelement="div-comment-949" data-respondelement="respond" data-replyto="Reply to Mulia Pratama" aria-label='Reply to Mulia Pratama'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-950" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2 parent">
+			<article id="div-comment-950" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-950"><time datetime="2020-11-09T11:42:22+02:00">November 9, 2020 at 11:42 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello. Please try to play with C1 and C2 capacitors values. +- 10uF.<br />
+Also you can try to change your PWM frequency. But it&#8217;s better to select proper capacitors&#8217; values.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index5077.html?replytocom=950#respond' data-commentid="950" data-postid="588" data-belowelement="div-comment-950" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-960" class="comment even depth-3">
+			<article id="div-comment-960" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/b86842f1073fb2c2ddcae01b027b5ef5?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/b86842f1073fb2c2ddcae01b027b5ef5?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Mulia Pratama</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-960"><time datetime="2020-11-10T09:17:53+02:00">November 10, 2020 at 9:17 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thank You for the quick reply.. i&#8217;ll try it soon</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index77a9.html?replytocom=960#respond' data-commentid="960" data-postid="588" data-belowelement="div-comment-960" data-respondelement="respond" data-replyto="Reply to Mulia Pratama" aria-label='Reply to Mulia Pratama'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-951" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-951" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/4887dc3ba2dd629b4181de62b21cffbd?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/4887dc3ba2dd629b4181de62b21cffbd?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Utsav khadka</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-951"><time datetime="2020-11-09T15:03:17+02:00">November 9, 2020 at 3:03 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello oleg, thank you for the prompt replies.</p>
+<p>I have one more question, i have used pc817 optocouplers to isolate my arduino and the ir2110. Is this configuration okay?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index480f.html?replytocom=951#respond' data-commentid="951" data-postid="588" data-belowelement="div-comment-951" data-respondelement="respond" data-replyto="Reply to Utsav khadka" aria-label='Reply to Utsav khadka'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-952" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2 parent">
+			<article id="div-comment-952" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-952"><time datetime="2020-11-09T16:04:54+02:00">November 9, 2020 at 4:04 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>From the electrical point of view, yes, you can use this component. This optocoupler is quite old and has a frequency limit near 80 KHz, but probably even lower. So you can&#8217;t use it with high PWM rates.<br />
+But for low frequency (hundred of Hz), it&#8217;s ok.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index2de5.html?replytocom=952#respond' data-commentid="952" data-postid="588" data-belowelement="div-comment-952" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-953" class="comment odd alt depth-3 parent">
+			<article id="div-comment-953" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/4887dc3ba2dd629b4181de62b21cffbd?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/4887dc3ba2dd629b4181de62b21cffbd?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Utsav Khadka</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-953"><time datetime="2020-11-09T16:08:27+02:00">November 9, 2020 at 4:08 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I am intending to use it with arduino, the default pwm of arduino analogWrite(). Is it okay? Thank you.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexecf1.html?replytocom=953#respond' data-commentid="953" data-postid="588" data-belowelement="div-comment-953" data-respondelement="respond" data-replyto="Reply to Utsav Khadka" aria-label='Reply to Utsav Khadka'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-954" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-4 parent">
+			<article id="div-comment-954" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-954"><time datetime="2020-11-09T16:17:12+02:00">November 9, 2020 at 4:17 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I&#8217;m not using the Arduino language. But according to the documentation, it&#8217;s correct.<br />
+You can&#8217;t achieve the high PWM frequencies due to software manner and high overhead of the Arduino libraries. In this situation, your optocoupler looks okay.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexb757.html?replytocom=954#respond' data-commentid="954" data-postid="588" data-belowelement="div-comment-954" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-955" class="comment odd alt depth-5">
+			<article id="div-comment-955" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/4887dc3ba2dd629b4181de62b21cffbd?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/4887dc3ba2dd629b4181de62b21cffbd?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Utsav Khadka</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-955"><time datetime="2020-11-09T16:56:28+02:00">November 9, 2020 at 4:56 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thank you soo much for your help, it has been priceless.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-980" class="pingback even thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="../../../../2021/01/30/compact-and-powerful-dc-driver-using-irs2104/index.html" class="url" rel="ugc">Compact and powerful DC driver using IRS2104 &#8211; Oleg Kutkov personal blog</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-1052" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-1052" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/0c502947246d5ee2a29f7f8eaa9f29ef?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/0c502947246d5ee2a29f7f8eaa9f29ef?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Hassan Mahmood</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1052"><time datetime="2021-07-24T19:05:03+03:00">July 24, 2021 at 7:05 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello oleg, your work is owesom<br />
+can i drive a PMDC Treadmill Motor ( 180vdc-4800rpm-6.2amp) with the same circuit or with a little modification.<br />
+I want a PWM control e.g Arduino output or so</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index70f8.html?replytocom=1052#respond' data-commentid="1052" data-postid="588" data-belowelement="div-comment-1052" data-respondelement="respond" data-replyto="Reply to Hassan Mahmood" aria-label='Reply to Hassan Mahmood'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1053" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2 parent">
+			<article id="div-comment-1053" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1053"><time datetime="2021-07-24T20:48:59+03:00">July 24, 2021 at 8:48 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Yeah, It should do the job. Just consider about decent heatsink.<br />
+Also, you can check out this version of the DC motor driver: <a href="../../../../2021/01/30/compact-and-powerful-dc-driver-using-irs2104/index.html" rel="ugc">https://olegkutkov.me/2021/01/30/compact-and-powerful-dc-driver-using-irs2104/</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexe3b2.html?replytocom=1053#respond' data-commentid="1053" data-postid="588" data-belowelement="div-comment-1053" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1054" class="comment odd alt depth-3">
+			<article id="div-comment-1054" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/0c502947246d5ee2a29f7f8eaa9f29ef?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/0c502947246d5ee2a29f7f8eaa9f29ef?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Hassan Mahmood</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1054"><time datetime="2021-07-25T13:36:31+03:00">July 25, 2021 at 1:36 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>thank you very much for quick response, i&#8217;ll check the other one out and inform you about results.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index5c12.html?replytocom=1054#respond' data-commentid="1054" data-postid="588" data-belowelement="div-comment-1054" data-respondelement="respond" data-replyto="Reply to Hassan Mahmood" aria-label='Reply to Hassan Mahmood'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1055" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-1055" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/0c502947246d5ee2a29f7f8eaa9f29ef?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/0c502947246d5ee2a29f7f8eaa9f29ef?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Hassan Mahmood</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1055"><time datetime="2021-07-25T14:42:59+03:00">July 25, 2021 at 2:42 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>hey oleg , sorry to annoy you,</p>
+<p>A little confusion here , i want to drive the motor in one direction only, in half bridge configuration should i connect my motor<br />
+in between two mosfets or from load terminal to ground?<br />
+Incase of motor connected from load terminal to ground, do i need to keep the second mosfet?<br />
+can single HIGH/LOW side mosfet configuration will work as effective as two?</p>
+<p><a href="https://ibb.co/bdBFzNc" rel="nofollow ugc">https://ibb.co/bdBFzNc</a><br />
+<a href="https://ibb.co/XsVqwVC" rel="nofollow ugc">https://ibb.co/XsVqwVC</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexcc4c.html?replytocom=1055#respond' data-commentid="1055" data-postid="588" data-belowelement="div-comment-1055" data-respondelement="respond" data-replyto="Reply to Hassan Mahmood" aria-label='Reply to Hassan Mahmood'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1056" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-1056" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1056"><time datetime="2021-07-25T14:56:03+03:00">July 25, 2021 at 2:56 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Oh, in this case, you don&#8217;t need IR2110.<br />
+Just use a simple specialized low-side MOSFET driver: <a href="https://www.infineon.com/cms/en/product/power/gate-driver-ics/low-side-drivers/" rel="nofollow ugc">https://www.infineon.com/cms/en/product/power/gate-driver-ics/low-side-drivers/</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexc358.html?replytocom=1056#respond' data-commentid="1056" data-postid="588" data-belowelement="div-comment-1056" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1057" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-1057" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1057"><time datetime="2021-07-26T12:11:06+03:00">July 26, 2021 at 12:11 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Corrected broken link, sorry.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexeb1e.html?replytocom=1057#respond' data-commentid="1057" data-postid="588" data-belowelement="div-comment-1057" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1062" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-1062" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/eddda7ebee58dbb5719e56c278937bff?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/eddda7ebee58dbb5719e56c278937bff?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Александр Валерьевич Жандармов</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1062"><time datetime="2021-08-29T09:31:28+03:00">August 29, 2021 at 9:31 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Здравствуйте Олег. Поясните пожалуйста как работает логика управления двигателем. Я имею ввиду реверс например возможен?,</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index5ff8.html?replytocom=1062#respond' data-commentid="1062" data-postid="588" data-belowelement="div-comment-1062" data-respondelement="respond" data-replyto="Reply to Александр Валерьевич Жандармов" aria-label='Reply to Александр Валерьевич Жандармов'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1063" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2 parent">
+			<article id="div-comment-1063" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1063"><time datetime="2021-08-30T00:25:13+03:00">August 30, 2021 at 12:25 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Здравствуйте.<br />
+Да, разумеется возможен. Подаёте ШИМ сигнал на JP2 &#8211; двигатель вращается в одну сторону, подаёте на JP3 &#8211; вращается в обратную.<br />
+Если управление скоростью не требуется &#8211; можно вместо ШИМ подавать просто 5 вольт на соответствующий вход. В таком случае двигатель будет вращаться с максимальной скоростью.<br />
+Если подать сигнал сразу на JP2 и JP3 &#8211; вращение будет заблокировано.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexe065.html?replytocom=1063#respond' data-commentid="1063" data-postid="588" data-belowelement="div-comment-1063" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1100" class="comment odd alt depth-3 parent">
+			<article id="div-comment-1100" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/8e5bc30e7a2c2fcec6f486c42202f4af?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/8e5bc30e7a2c2fcec6f486c42202f4af?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Александр</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1100"><time datetime="2021-12-18T10:14:49+02:00">December 18, 2021 at 10:14 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Спасибо. Повторил схему. Ещё вопрос&#8230; Если у меня двигатель потребляет 30 ампер при 16 вольтах, будет ли корректно работать драйвер 2110, если я для увеличения мощности моста буду использовать параллельное включение мосфетов, например по 2 или 3 параллельно? Этот вопрос возник, потому что мне не удалось найти мосфеты, которые безопасно работали бы на таких токах и напряжениях сток-исток&#8230;</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index6814.html?replytocom=1100#respond' data-commentid="1100" data-postid="588" data-belowelement="div-comment-1100" data-respondelement="respond" data-replyto="Reply to Александр" aria-label='Reply to Александр'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1101" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-4">
+			<article id="div-comment-1101" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1101"><time datetime="2021-12-19T01:00:59+02:00">December 19, 2021 at 1:00 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>С драйвером 2110 проблем возникнуть не должно. В данном случае я бы переживал за сами транзисторы. Силовые мосфеты не рекомендуется включать таким образом. Дело в том, что все транзисторы немного отличаются друг от друга и через каждый будеть течь разный ток, возникнет дисбаланс и транзисторы могут выйти из строя.<br />
+Пожалуй единственным исключением явлюется технология HEXFET: <a href="https://www.rfwireless-world.com/Terminology/HEXFET-vs-MOSFET.html" rel="nofollow ugc">https://www.rfwireless-world.com/Terminology/HEXFET-vs-MOSFET.html</a><br />
+По сути это несколько мосфет тразнисторов, включенных параллельно, расположенных в одном корпусе, на одной подложке. Их параметры максимально идентичны, так что проблем с балансировкой токов не возникает.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index188f.html?replytocom=1101#respond' data-commentid="1101" data-postid="588" data-belowelement="div-comment-1101" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1256" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-1256" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/4a787e9892e79482f08db1f726632b53?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/4a787e9892e79482f08db1f726632b53?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Aytunc cagan</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1256"><time datetime="2022-04-07T02:06:37+03:00">April 7, 2022 at 2:06 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi,do you have a circuit design that will make me the input voltage 250v-450 v ac 220v-380 v?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index032b.html?replytocom=1256#respond' data-commentid="1256" data-postid="588" data-belowelement="div-comment-1256" data-respondelement="respond" data-replyto="Reply to Aytunc cagan" aria-label='Reply to Aytunc cagan'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1344" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-1344" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/7d7d46fd8765956a0c552419dee01c94?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/7d7d46fd8765956a0c552419dee01c94?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Ben Pauza</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1344"><time datetime="2022-07-08T02:05:26+03:00">July 8, 2022 at 2:05 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>what is the max current for this pcb?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index3404.html?replytocom=1344#respond' data-commentid="1344" data-postid="588" data-belowelement="div-comment-1344" data-respondelement="respond" data-replyto="Reply to Ben Pauza" aria-label='Reply to Ben Pauza'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1345" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2 parent">
+			<article id="div-comment-1345" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1345"><time datetime="2022-07-08T02:27:58+03:00">July 8, 2022 at 2:27 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>10-12 A</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index760c.html?replytocom=1345#respond' data-commentid="1345" data-postid="588" data-belowelement="div-comment-1345" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1346" class="comment even depth-3 parent">
+			<article id="div-comment-1346" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/7d7d46fd8765956a0c552419dee01c94?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/7d7d46fd8765956a0c552419dee01c94?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Ben Pauza</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1346"><time datetime="2022-07-08T05:05:49+03:00">July 8, 2022 at 5:05 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thank you. Could this design be scaled with larger traces and higher amp nfets?<br />
+My goal is 50a continuous and around 100 peak.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index2ed0.html?replytocom=1346#respond' data-commentid="1346" data-postid="588" data-belowelement="div-comment-1346" data-respondelement="respond" data-replyto="Reply to Ben Pauza" aria-label='Reply to Ben Pauza'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1348" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-4">
+			<article id="div-comment-1348" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1348"><time datetime="2022-07-08T12:11:21+03:00">July 8, 2022 at 12:11 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Sure. It&#8217;s all about traces and connectors. You can use the variant with big external FETs like in my photo.<br />
+Also, you can reinforce PCB traces with additional wires soldered over. I can recommend drilling extra holes to reinforce VIAs.<br />
+It would be great to replace connectors with something much more robust.<br />
+Then it should be good.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index5687.html?replytocom=1348#respond' data-commentid="1348" data-postid="588" data-belowelement="div-comment-1348" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1347" class="comment even depth-3">
+			<article id="div-comment-1347" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/7d7d46fd8765956a0c552419dee01c94?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/7d7d46fd8765956a0c552419dee01c94?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Ben Pauza</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1347"><time datetime="2022-07-08T06:14:20+03:00">July 8, 2022 at 6:14 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Is the limiting factor the trace size? If I make them wider and thicker copper, could this be scaled to 50 or 100 amps with the right NFETS?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index0f3a.html?replytocom=1347#respond' data-commentid="1347" data-postid="588" data-belowelement="div-comment-1347" data-respondelement="respond" data-replyto="Reply to Ben Pauza" aria-label='Reply to Ben Pauza'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1409" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-1409" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/473f9dcd7d66cd7706acbe1fdc66b352?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/473f9dcd7d66cd7706acbe1fdc66b352?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">fons</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1409"><time datetime="2023-01-11T14:49:45+02:00">January 11, 2023 at 2:49 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>to retrofit a late machine  i need a driver for the spindle  motor  DC 15kw  250V 75A<br />
+i&#8217;m not an electronic expert is it possible to diy  ? would be nice if i can controle it with puls direction<br />
+or where can i find  such a  driver  ready for use</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexa158.html?replytocom=1409#respond' data-commentid="1409" data-postid="588" data-belowelement="div-comment-1409" data-respondelement="respond" data-replyto="Reply to fons" aria-label='Reply to fons'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1422" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-1422" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/9bf88a3786396dc1cd88e3bcff67c629?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/9bf88a3786396dc1cd88e3bcff67c629?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Adrian</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1422"><time datetime="2023-02-14T14:04:49+02:00">February 14, 2023 at 2:04 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello Oleg, first of all I am grateful for sharing your circuit, I am going to try to replicate it, and I would like to ask you I am going to use a TL494 in push pull mode as a pwm generator. I understand from this that IC 74HC00N to protect against false triggers is not necessary ?<br />
+Another question C16 and C17, what values ​​does it have since it does not show it in your diagram?<br />
+Thank you very much, I await your kind reply</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index2a16.html?replytocom=1422#respond' data-commentid="1422" data-postid="588" data-belowelement="div-comment-1422" data-respondelement="respond" data-replyto="Reply to Adrian" aria-label='Reply to Adrian'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1423" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-1423" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1423"><time datetime="2023-02-14T20:58:20+02:00">February 14, 2023 at 8:58 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello Adrian,</p>
+<blockquote>
+<blockquote><p>
+    IC 74HC00N to protect against false triggers is not necessary?
+  </p></blockquote>
+</blockquote>
+<p>Yes, that&#8217;s correct.</p>
+<blockquote>
+<blockquote><p>
+    C16 and C17<br />
+    Those caps are optional, but you can use 100nF high-voltage ceramic
+  </p></blockquote>
+</blockquote>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index2e47.html?replytocom=1423#respond' data-commentid="1423" data-postid="588" data-belowelement="div-comment-1423" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-2015" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-2015" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/0dce4e12f22ff0e86ad83ece937dc234?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/0dce4e12f22ff0e86ad83ece937dc234?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Pranav K</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2015"><time datetime="2024-02-05T18:02:23+02:00">February 5, 2024 at 6:02 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hey, How are you braking the motors? How are you created path for current created by the motor coils ?. I don&#8217;t see any logic to close both upper/lower mosfets together ? .Thanks !</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexe26f.html?replytocom=2015#respond' data-commentid="2015" data-postid="588" data-belowelement="div-comment-2015" data-respondelement="respond" data-replyto="Reply to Pranav K" aria-label='Reply to Pranav K'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-2049" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-2049" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2049"><time datetime="2024-02-12T20:25:25+02:00">February 12, 2024 at 8:25 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello. Braking was not provided for in that project. You can modify the schematic to remove the protection.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexe2e5.html?replytocom=2049#respond' data-commentid="2049" data-postid="588" data-belowelement="div-comment-2049" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-2028" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-2028" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/89faa7dbd69f0a87f260e4247abd6f6d?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/89faa7dbd69f0a87f260e4247abd6f6d?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Ashley</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2028"><time datetime="2024-02-08T12:28:29+02:00">February 8, 2024 at 12:28 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Is there any way i can use this driver to control a 2.6 kw brushless dc motor. Do i need to do any modifications? Is it okay if i boost the ir2110 output using external push-pull amplifier to get enough gate current?</p>
+<p>P.S The motor is 64V 2.6kw. We are making a electric vehicle for our engineering project.<br />
+Thank you</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexf10d.html?replytocom=2028#respond' data-commentid="2028" data-postid="588" data-belowelement="div-comment-2028" data-respondelement="respond" data-replyto="Reply to Ashley" aria-label='Reply to Ashley'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-2052" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-2052" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2052"><time datetime="2024-02-12T20:30:04+02:00">February 12, 2024 at 8:30 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello. Unfortunately not. It&#8217;s better to use a proper 3-phase motor driver IC.<br />
+For example: <a href="https://www.monolithicpower.com/en/mp6539.html" rel="nofollow ugc">https://www.monolithicpower.com/en/mp6539.html</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index3f66.html?replytocom=2052#respond' data-commentid="2052" data-postid="588" data-belowelement="div-comment-2052" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply to <a href="#comment-950">Oleg Kutkov</a> <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='588' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='950' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="6b22b724d9" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="71"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../../2020/06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index5077.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_1827c9da4c86fc3ad9db01f6a6132235.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2018/08/01/powerful-dc-motor-driver-using-ir2110/?replytocom=950 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:18:10 GMT -->
+</html>

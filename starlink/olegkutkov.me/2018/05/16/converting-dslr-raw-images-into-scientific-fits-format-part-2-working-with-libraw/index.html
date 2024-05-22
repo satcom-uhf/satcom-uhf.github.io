@@ -1,0 +1,717 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2018/05/16/converting-dslr-raw-images-into-scientific-fits-format-part-2-working-with-libraw/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:09:13 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>Converting DSLR RAW images into scientific FITS format. Part 2: working with LIBRAW &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Converting DSLR RAW images into scientific FITS format. Part 2: working with LIBRAW Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/496.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../index0a18.html?p=496' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embedd553.json?url=https%3A%2F%2Folegkutkov.me%2F2018%2F05%2F16%2Fconverting-dslr-raw-images-into-scientific-fits-format-part-2-working-with-libraw%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embed964e?url=https%3A%2F%2Folegkutkov.me%2F2018%2F05%2F16%2Fconverting-dslr-raw-images-into-scientific-fits-format-part-2-working-with-libraw%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-496 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-496" class="post-496 post type-post status-publish format-standard hentry category-astro-tools category-software tag-fits tag-libraw tag-raw2fits">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/astro-tools/index.html" rel="category tag">Astro tools</a>, <a href="../../../../category/software/index.html" rel="category tag">Software</a></span><h1 class="entry-title">Converting DSLR RAW images into scientific FITS format. Part 2: working with LIBRAW</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">May 16, 2018</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><a href="../../../../wp-content/uploads/2018/05/images_bayer.png"><img decoding="async" class="alignleft wp-image-515" src="../../../../wp-content/uploads/2018/05/images_bayer.png" alt="" width="239" height="155" /></a>In the <a href="../../../../2017/11/02/converting-dslr-raw-images-scientific-fits-format-part-1-ui/index.html">previous</a> article, I&#8217;m started to describe my Raw2Fits converter. It was a brief note about GTK user interface development.<br />
+Now I want to talk about the LibRaw library. This is a great library for reading RAW files from digital photo cameras (CRW/CR2, NEF, RAF, DNG, and others).</p>
+<p>Take a look at the <a href="https://www.libraw.org/">LibRaw</a> project web page and official documentation.</p>
+<p>I highly recommend using the latest stable release from this site instead of the precompiled version from Linux distros.</p>
+<p><span id="more-496"></span></p>
+<h3>Getting and installing the library</h3>
+<p>Download and build the latest STABLE version of the LibRaw from the project <a href="https://www.libraw.org/download">downloads</a> page.</p>
+<p>For example, <a href="https://www.libraw.org/data/LibRaw-0.18.11.tar.gz">LibRaw-0.18.11.tar.gz</a> as for 15 May 2018.</p>
+<pre class="prettyprint"># Download archive
+$ wget https://www.libraw.org/data/LibRaw-0.18.11.tar.gz
+
+# Extract
+$ tar -xvf LibRaw-0.18.11.tar.gz 
+
+# Remove downloaded file
+$ rm LibRaw-0.18.11.tar.gz
+
+# Go to extracted directory
+$ cd LibRaw-0.18.11
+
+# Run configure script
+$ ./configure</pre>
+<p>After compilation, this library will be installed in <strong>/usr/local/lib</strong>. If you want to use standard <strong>/usr/lib</strong> configure script as follows:</p>
+<pre class="prettyprint">./configure --prefix=/usr</pre>
+<p>But don&#8217;t forget to remove some previous/repository installation of the library!</p>
+<p>Now build and install:</p>
+<pre class="prettyprint">$ make
+$ sudo make install</pre>
+<p>These steps should be done without any errors. If problems check out the error messages and fix your environment, you can lack some required package, for example.</p>
+<p>To use LibRaw, add the following parameters to the compiler call (when building your own projects):</p>
+<ul>
+<li>Path to include-files: -I/usr/local/include</li>
+<li>Path to libraries: -L/usr/local/lib</li>
+<li>Library: -lraw (ordinary version) or -lraw_r (thread-safe version).</li>
+</ul>
+<p>If you configured the library for another path (/usr/lib) &#8211; correct these params to your own.</p>
+<h3>Library usage</h3>
+<p>There are two API&#8217;s available &#8211; C++ and pure C. They are quite similar by concepts and functions/methods naming. Of course, the C++ version uses objects and methods but C only structs and function calls.</p>
+<p>In my project, I&#8217;m using the C version of the API, so we will use this language in the following examples. It is straightforward to switch to the C++ API after learning the basic concept of this library.</p>
+<p>Everything we need is available only in one header file, so don&#8217;t forget to include the library at the beginning of your source file.</p>
+<pre class="prettyprint">#include &lt;libraw/libraw.h&gt;</pre>
+<p>The library is accessed through <a href="https://www.libraw.org/docs/API-datastruct.html#libraw_data_t">libraw_data_t</a> structure, which holds all library internals structures during program execution.</p>
+<p>This structure must be initialized before usage:</p>
+<pre class="prettyprint">libraw_data_t *rawdata = libraw_init(0);</pre>
+<p>And closed in the end:</p>
+<pre class="prettyprint">libraw_close(rawdata);</pre>
+<p>The initialization method returns NULL in case of error, a pointer to the structure in all other cases. Some LibRaw methods may return integer error codes. You can convert these codes to human-readable strings using libraw_strerror() method.</p>
+<p>Now we ready to load our RAW image from the file (picture.cr2, for example).</p>
+<pre class="prettyprint">int err = libraw_open_file(rawdata, "picture.cr2");
+
+if (err != LIBRAW_SUCCESS) {
+    printf("libraw_open_file failed! Error: %s\n", libraw_strerror(err));
+    libraw_close(rawdata);
+}</pre>
+<p>Here you can see proper error checking and usage of the <strong>libraw_strerror()</strong>.</p>
+<p>libraw_open_file is very fast since these methods only access the file without any data loading and decoding.</p>
+<p>After the file&#8217;s successful opening, we can unpack RAW data to get access to the image meta tags and actual image data.</p>
+<pre class="prettyprint">err = libraw_unpack(rawdata);
+
+if (err != LIBRAW_SUCCESS) {
+    printf("libraw_unpack! Error: %s\n", libraw_strerror(err));
+    libraw_close(rawdata);
+}</pre>
+<p>This operation may require some time, depending on the file size and your computer resources.</p>
+<p>We can get some visualization of the unpacking progress by setting progress handlers.</p>
+<pre class="prettyprint">int decoder_progress_callback(void *arg, enum LibRaw_progress p,int iteration, int expected)
+{
+    printf("%s, step %i/%i\n", libraw_strprogress(p), iteration + 1, expected);
+    return 0;
+}
+
+void *arg;
+libraw_set_progress_handler(rawdata, &amp;decoder_progress_callback, arg);</pre>
+<p>Arg is a pointer to custom data. You can put here everything you want to use in decoder_progress_callback.</p>
+<p>This callback may terminate current image processing by returning a non-zero value. In such cases, all processing will be canceled immediately.</p>
+<p>decoder_progress_callback must be called before actual data unpacking and decoding.</p>
+<p>Unpacked images must be released at the end of the processing.</p>
+<pre class="prettyprint">libraw_recycle(rawdata);</pre>
+<h5>Accessing meta information</h5>
+<p>At this point, we can get some useful information from our RAW file: camera model, lenses, exposure, and other params. Note that depending on the camera vendor/model, some of the data may not be available.</p>
+<p>There are few data structures available in <strong>libraw_data_t</strong>:</p>
+<ul>
+<li><strong>libraw_iparams_t</strong> &#8211; The structure describes the main image parameters retrieved from the RAW file.<br />
+Most useful fields of this structure:</li>
+</ul>
+<pre><strong>char</strong> <strong>make</strong>[64] - Camera manufacturer.
+<strong>char</strong> <strong>model</strong>[64] - Camera model.
+<strong>char</strong> <strong>software</strong>[64] - Softwary name/version
+<strong>unsigned</strong> <strong>raw_count</strong> - Number of RAW images in file</pre>
+<ul>
+<li><strong>libraw_image_sizes_t sizes</strong> -The structure describes the geometrical parameters of the image.<br />
+Fields of this structure:<strong>ushort</strong> <strong>raw_height</strong>,<strong> raw_width</strong> &#8211; Full size of a RAW image (including the frame) in pixels<br />
+<strong>ushort</strong> <strong>height</strong>, <strong>width</strong> &#8211; Size of visible (&#8220;meaningful&#8221;) part of the image (without the frame)<br />
+<strong>ushort</strong> <strong>top_margin</strong>, <strong>left_margin</strong> &#8211; Coordinates of the top left corner of the frame (the second corner is calculated from the full size of the image and size of its visible part)<br />
+<strong>ushort</strong> <strong>iheight</strong>, <strong>iwidth</strong> &#8211; Size of the output image (may differ from height/width for cameras that require image rotation or have non-square pixels)<br />
+<strong>double</strong> <strong>pixel_aspect</strong> &#8211; Pixel width/height ratio<br />
+<strong>int</strong> <strong>flip</strong> &#8211; Image orientation (0 if does not require rotation; 3 if requires 180-deg rotation; 5 if 90 deg counterclockwise, 6 if 90 deg clockwise)</li>
+<li><strong>libraw_lensinfo_t lens</strong> &#8211; The structure describes the lens used for the shot. Read the official documentation about this huge structure.</li>
+<li><strong>libraw_imgother_t other</strong> &#8211; A data structure for information purposes.<br />
+Fields:<strong>float iso_speed</strong> &#8211; ISO sensitivity<br />
+<strong>float shutter</strong> &#8211; Shutter speed<br />
+<strong>float aperture</strong> &#8211; Aperture<br />
+<strong>float focal_len</strong> &#8211; Focal length<br />
+<strong>time_t timestamp</strong> &#8211; Date of shooting<br />
+<strong>unsigned shot_order</strong> &#8211; Serial number of image<br />
+<strong>unsigned gpsdata</strong>[32] &#8211; GPS data (unparsed block, to write to output as is)<br />
+libraw_gps_info_t parsed_gps &#8211; Parsed GPS-data: longtitude/lattitude/altitude and time stamp<br />
+<strong>char desc</strong>[512] &#8211; Image description<br />
+<strong>char artist</strong>[64] &#8211; Author of image<br />
+<strong>float FlashEC</strong> &#8211; Flash exposure compensation</li>
+</ul>
+<p>Reading meta information.</p>
+<pre class="prettyprint">// Camera &amp; user information
+printf("Camera vendor: %s\n", rawdata-&gt;idata.make);
+printf("Camera model: %s\n", rawdata-&gt;idata.model);
+printf("Camera owner: %s\n", rawdata-&gt;other.artist);
+
+// Date of shooting
+char time_buf[25];
+struct tm *utc_tm = gmtime(&amp;rawdata-&gt;other.timestamp);
+strftime(time_buf, 25, "%Y-%m-%dT%H:%M:%S", utc_tm);
+printf("Date of shooting: %s\n", time_buf);
+
+// Shooting params
+printf("Exposure: %d\n", rawdata-&gt;other.shutter);
+printf("Aperture: %d\n", rawdata-&gt;other.aperture);
+</pre>
+<h5>Getting image</h5>
+<p>You can get a RAW image buffer from the library to do all post-processing by yourself. But in this case, you have to deal with Bayer RGB filters.</p>
+<p>Bayer color filter array is a popular format for the digital acquisition of color images. The pattern of the color filters is shown below. Half of the total number of pixels are green (G), while a quarter of the total number is assigned to both red (R) and blue (B).</p>
+<p><a href="../../../../wp-content/uploads/2018/05/bayer-pattern.gif"><img fetchpriority="high" decoding="async" class="aligncenter size-full wp-image-508" src="../../../../wp-content/uploads/2018/05/bayer-pattern.gif" alt="" width="360" height="300" /></a>The color image sensor is covered with either a red, a green, or a blue filter in a repeating pattern to obtain this color information. This pattern, or sequence, of filters, can vary, but the widely adopted “Bayer” pattern, invented at Kodak, is a repeating 2&#215;2 arrangement.</p>
+<p>Note that different cameras may have different patterns of this filter and even non-square pixels. You should know all the information about your camera sensor if you want to process this image manually.</p>
+<p>To convert an image from the Bayer format to an RGB per pixel format, we need to interpolate the two missing color values in each pixel. Several standard interpolation methods (nearest neighbor, linear, cubic, cubic spline, etc.) exist.</p>
+<p>Getting raw buffer from the LibRaw, you actually getting three buffers: RED, GREEN, and BLUE. All buffers have the same sizes (size of the image) but with &#8220;holes&#8221; in the place of other colors pixels.</p>
+<p><a href="../../../../wp-content/uploads/2018/05/bayer-simulation2.png"><img decoding="async" class="aligncenter size-full wp-image-509" src="../../../../wp-content/uploads/2018/05/bayer-simulation2.png" alt="" width="500" height="300" srcset="https://olegkutkov.me/wp-content/uploads/2018/05/bayer-simulation2.png 500w, https://olegkutkov.me/wp-content/uploads/2018/05/bayer-simulation2-300x180.png 300w" sizes="(max-width: 500px) 100vw, 500px" /></a>Now you can apply some Bayer Interpolation algorithm to mix these image matrices to get a proper RGB image. You still have to do with three separate buffers for colors, but now every point, this buffer is filled with proper mixed value, without any &#8220;holes&#8221;. Also, at this point can be applied several corrections to the image: white balance, brightness, and so on.</p>
+<p>Likely LibRaw can do for us everything of this! 🙂</p>
+<p>This is a separate subset of API for simulating <a href="https://en.wikipedia.org/wiki/Dcraw">dcraw</a> functionality.</p>
+<p>Getting an RGB image is required a few simple steps.</p>
+<pre class="prettyprint">err = libraw_raw2image(rawdata);
+
+if (err != LIBRAW_SUCCESS) {
+    printf("libraw_raw2image failed! Error: %s", libraw_strerror(err));
+    libraw_recycle(rawdata);
+    libraw_close(rawdata);
+}
+
+err = libraw_dcraw_process(rawdata);
+
+if (err != LIBRAW_SUCCESS) {
+    printf("libraw_dcraw_process failed! Error: %s", libraw_strerror(err));
+    libraw_free_image(rawdata);
+    libraw_recycle(rawdata);
+    libraw_close(rawdata);
+}
+
+libraw_processed_image_t *proc_img = libraw_dcraw_make_mem_image(rawdata, &amp;err);
+
+libraw_free_image(rawdata);
+
+if (!proc_img) {
+    printf("libraw_dcraw_make_mem_image failed! Error: %s", libraw_strerror(err));
+    libraw_recycle(rawdata);
+    libraw_close(rawdata);
+}
+
+// At this point we got processed image in proc_img
+// This image can be accessed by proc_img-&gt;data field
+
+//////
+
+printf("Image decoded, size = %ix%i, bits = %i, colors = %i\n",
+        proc_img-&gt;width, proc_img-&gt;height, proc_img-&gt;bits, proc_img-&gt;colors);
+
+libraw_recycle(rawdata);
+libraw_close(rawdata);
+
+libraw_dcraw_clear_mem(proc_img);</pre>
+<p>In this example, you can find a new data structure &#8211; <a href="https://www.libraw.org/docs/API-datastruct-eng.html#libraw_processed_image_t"><strong>libraw_processed_image_t</strong></a>. This structure is holding a processed image.</p>
+<p>RGB image can be accessed by proc_img-&gt;data field.</p>
+<p>This field is just a byte array holding every pixel of the image in the following pattern: RGBRGBRGBRGB&#8230;. where every R, G, and B is a pixel luminosity value after the &#8220;debayering&#8221; process.</p>
+<p>So to read every image pixel RGB value, you can do something like this:</p>
+<pre class="prettyprint">int i, k = 0;
+long rgb[3];
+
+for (i = 0; i &lt; proc_img-&gt;width * proc_img-&gt;height; i++) {
+    rgb[0] = proc_img-&gt;data[k];
+    rgb[1] = proc_img-&gt;data[k + 1];
+    rgb[2] = proc_img-&gt;data[k + 2];
+
+    /////
+
+    k += 3;
+}</pre>
+<p>Here on every cycle iteration we get red value in rgb[0], green value in rgb[1] and blue value in rgb[2].</p>
+<p>We can do with these values everything we want, copy to separate buffers for future processing or mix up to grayscale.</p>
+<p>Conversion to grayscale is also very simple:</p>
+<pre class="prettyprint">long gray_pixel = (rgb[0] + rgb[1] + rgb[2]) / 3;</pre>
+<p>In my Raw2Fits converter, I&#8217;m using these pixel values to store the image into the FITS file. In the next article, I will describe this in detail. But you can discover this <a href="https://github.com/olegkutkov/Raw2Fits/blob/master/src/raw2fits.c">source</a> file.</p>
+<h3>Complete example</h3>
+<p>In this article, I can show you another example. Let&#8217;s convert RAW images into standard JPEG!</p>
+<p>We need one more library &#8211; libjpeg.</p>
+<p>The following example contains all code from the above and uses the libjpeg to store the compressed RAW image.</p>
+<pre class="prettyprint">#include &lt;stdio.h&gt;
+#include &lt;time.h&gt;
+#include &lt;libraw/libraw.h&gt;
+#include &lt;jpeglib.h&gt;
+
+int decoder_progress_callback(void *arg, enum LibRaw_progress p,int iteration, int expected)
+{
+    printf("%s, step %i/%i\n", libraw_strprogress(p), iteration + 1, expected);
+    return 0; 
+}
+
+int main(int argc, char* argv[])
+{
+    if (argc != 3) {
+        printf("Usage: ./raw_test in.raw (cr2, nef, etc) out.jpg\n");
+        return -1;
+    }
+
+    libraw_data_t *rawdata = libraw_init(0);
+
+    int err = libraw_open_file(rawdata, argv[1]);
+
+    if (err != LIBRAW_SUCCESS) { 
+        printf("libraw_open_file failed! Error: %s\n", libraw_strerror(err));
+        libraw_close(rawdata);
+        return -1;
+    }
+
+    libraw_set_progress_handler(rawdata, &amp;decoder_progress_callback, NULL);
+    
+    err = libraw_unpack(rawdata);
+
+    if (err != LIBRAW_SUCCESS) {
+        printf("libraw_unpack! Error: %s\n", libraw_strerror(err));
+        libraw_close(rawdata);
+        return -1;
+    }
+
+    // Camera &amp; user information 
+    printf("Camera vendor: %s\n", rawdata-&gt;idata.make);
+    printf("Camera model: %s\n", rawdata-&gt;idata.model);
+    printf("Camera owner: %s\n", rawdata-&gt;other.artist);
+
+    // Date of shooting
+    char time_buf[25]; 
+    struct tm *utc_tm = gmtime(&amp;rawdata-&gt;other.timestamp); 
+    strftime(time_buf, 25, "%Y-%m-%dT%H:%M:%S", utc_tm);
+    printf("Date of shooting: %s\n", time_buf);
+
+    // Shooting params
+    printf("Exposure: %d\n", rawdata-&gt;other.shutter);
+    printf("Aperture: %d\n", rawdata-&gt;other.aperture);
+
+    err = libraw_raw2image(rawdata);
+
+    if (err != LIBRAW_SUCCESS) {
+        printf("libraw_raw2image failed! Error: %s", libraw_strerror(err));
+        libraw_recycle(rawdata);
+        libraw_close(rawdata);
+        return -1;
+    }
+
+    err = libraw_dcraw_process(rawdata);
+
+    if (err != LIBRAW_SUCCESS) {
+        printf("libraw_dcraw_process failed! Error: %s", libraw_strerror(err));
+        libraw_free_image(rawdata);
+        libraw_recycle(rawdata);
+        libraw_close(rawdata);
+        return -1;
+    }
+
+    libraw_processed_image_t *proc_img = libraw_dcraw_make_mem_image(rawdata, &amp;err);
+
+    libraw_free_image(rawdata);
+
+    if (!proc_img) {
+        printf("libraw_dcraw_make_mem_image failed! Error: %s", libraw_strerror(err));
+        libraw_recycle(rawdata);
+        libraw_close(rawdata);
+        return -1;
+    }
+
+    printf("Image decoded, size = %ix%i, bits = %i, colors = %i\n", proc_img-&gt;width, proc_img-&gt;height, proc_img-&gt;bits, proc_img-&gt;colors);
+
+    libraw_recycle(rawdata);
+    libraw_close(rawdata);
+
+    ////
+    // Save decoded RAW image as JPEG file
+
+    // open file for writing
+    FILE *out_jpeg = fopen(argv[2], "wb");
+
+    if (out_jpeg == NULL) {
+        printf("Failed to open %s for writing\n", argv[2]);
+    }
+
+    // initialize libjpeg structures
+    struct jpeg_compress_struct cinfo;
+    struct jpeg_error_mgr jerr;
+    cinfo.err = jpeg_std_error(&amp;jerr);
+    jpeg_create_compress(&amp;cinfo);
+
+    // set output data stream
+    jpeg_stdio_dest(&amp;cinfo, out_jpeg);
+
+    cinfo.image_width = proc_img-&gt;width;
+    cinfo.image_height = proc_img-&gt;height;
+
+    // set image params - 3 components, RGB
+    cinfo.input_components = 3;
+    cinfo.in_color_space = JCS_RGB;
+
+    int quality = 85;
+
+    // configure decoder
+    jpeg_set_defaults(&amp;cinfo);
+    jpeg_set_quality(&amp;cinfo, quality, 1);
+    jpeg_start_compress(&amp;cinfo, 1);
+
+    JSAMPROW row_pointer;
+    int row_stride = cinfo.image_width * 3;
+
+    // write jpeg rows
+    while (cinfo.next_scanline &lt; cinfo.image_height) {
+        // get data from our proc_img-&gt;data buffer
+        row_pointer = (JSAMPROW) &amp;proc_img-&gt;data[cinfo.next_scanline * row_stride];
+        jpeg_write_scanlines(&amp;cinfo, &amp;row_pointer, 1);
+    }
+
+    // cleanup
+    jpeg_finish_compress(&amp;cinfo);
+    jpeg_destroy_compress(&amp;cinfo);
+
+    fclose(out_jpeg);
+
+    ///
+
+    return 0;
+}</pre>
+<p>Build and run:</p>
+<pre class="prettyprint">$ gcc main.c -I/usr/local/include -L/usr/local/lib -lraw -ljpeg -std=c99 -o raw_test
+
+$ ./raw_test RAW_CANON600D.CR2 test.jpg
+Reading RAW data, step 1/2
+Reading RAW data, step 2/2
+Camera vendor: Canon
+Camera model: EOS 600D
+Camera owner: 
+Date of shooting: 2015-03-27T01:57:57
+Exposure: 0
+Aperture: 0
+Scaling colors, step 1/2
+Scaling colors, step 2/2
+Pre-interpolating, step 1/2
+Pre-interpolating, step 2/2
+Interpolating, step 1519/3458
+Interpolating, step 2025/3458
+Converting to RGB, step 1/2
+Converting to RGB, step 2/2
+Image decoded, size = 5202x3465, bits = 8, colors = 3
+</pre>
+<p>And results.</p>
+<p>Original RAW file (opened with Darktable):</p>
+<p><a href="../../../../wp-content/uploads/2018/05/darktable_raw.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-511" src="../../../../wp-content/uploads/2018/05/darktable_raw-1024x624.png" alt="" width="840" height="512" srcset="https://olegkutkov.me/wp-content/uploads/2018/05/darktable_raw-1024x624.png 1024w, https://olegkutkov.me/wp-content/uploads/2018/05/darktable_raw-300x183.png 300w, https://olegkutkov.me/wp-content/uploads/2018/05/darktable_raw-768x468.png 768w, https://olegkutkov.me/wp-content/uploads/2018/05/darktable_raw-1200x731.png 1200w, https://olegkutkov.me/wp-content/uploads/2018/05/darktable_raw.png 1603w" sizes="(max-width: 840px) 100vw, 840px" /></a>Generated test.jpg:</p>
+<h5><a href="../../../../wp-content/uploads/2018/05/test.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-513" src="../../../../wp-content/uploads/2018/05/test.jpg" alt="" width="800" height="533" srcset="https://olegkutkov.me/wp-content/uploads/2018/05/test.jpg 1000w, https://olegkutkov.me/wp-content/uploads/2018/05/test-300x200.jpg 300w, https://olegkutkov.me/wp-content/uploads/2018/05/test-768x511.jpg 768w" sizes="(max-width: 800px) 100vw, 800px" /></a>Additional image tuning</h5>
+<p>LibRaw allows us to configure some decoding params. We can disable interpolation, apply auto bright, and so on.</p>
+<p>Let&#8217;s apply auto bright to see how it works. Add following code before <strong>libraw_dcraw_process</strong>():</p>
+<pre class="prettyprint">rawdata-&gt;params.no_auto_bright = 1;</pre>
+<p>Run the code again and check the result. Generated images should be darker and more natural.</p>
+<p>Try to disable interpolation with &#8220;rawdata-&gt;params.no_interpolation = 1&#8221; and check the result 🙂</p>
+<h5>Dealing with different LibRaw versions</h5>
+<p>Using different versions of LibRaw, you can found that some functionality is not implemented yet or not working properly. Using special library macros, we can check the LibRaw version at compilation time and disable some code.</p>
+<pre class="prettyprint">#if (LIBRAW_COMPILE_CHECK_VERSION_NOTLESS(0,17))
+    rawdata-&gt;params.no_auto_bright = 1;
+#else
+    #pragma message ("LibRaw version is to old, unable to use image autobright")
+#endif</pre>
+<p>&nbsp;</p>
+<p>Thanks for reading</p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<span class="tags-links">Tagged <a href="../../../../tag/fits/index.html" rel="tag">fits</a>, <a href="../../../../tag/libraw/index.html" rel="tag">libraw</a>, <a href="../../../../tag/raw2fits/index.html" rel="tag">raw2fits</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a></h2>
+                                         <span class="posted-date">July 18, 2022</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2022/04/10/initial-analysis-of-the-starlink-router-gen2/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2022/04/10/initial-analysis-of-the-starlink-router-gen2/index.html">Initial analysis of the Starlink router gen2</a></h2>
+                                         <span class="posted-date">April 10, 2022</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../10/isolated-usb-to-rs485-adapter/index.html" rel="prev">Isolated USB to RS485 adapter</a></div><div class="nav-next"><a href="../../../06/07/autonomous-allsky-camera-with-raspberry-pi-part-3-shooting-night-sky-in-fits-using-qhy5-iim-camera/index.html" rel="next">Autonomous Allsky camera with Raspberry PI. Part 3: shooting night sky in FITS using QHY5-IIM camera</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			1 thought on &ldquo;<span>Converting DSLR RAW images into scientific FITS format. Part 2: working with LIBRAW</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-16" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="../../../../2017/11/02/converting-dslr-raw-images-scientific-fits-format-part-1-ui/index.html" class="url" rel="ugc">Converting DSLR RAW images into scientific FITS format. Part 1: UI - Oleg Kutkov personal blog</a> 			</div>
+		</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='496' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="7204e86712" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="43"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../../2020/06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_1827c9da4c86fc3ad9db01f6a6132235.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2018/05/16/converting-dslr-raw-images-into-scientific-fits-format-part-2-working-with-libraw/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 19:10:21 GMT -->
+</html>
