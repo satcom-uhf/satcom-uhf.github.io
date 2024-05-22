@@ -1,0 +1,599 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2018/06/07/autonomous-allsky-camera-with-raspberry-pi-part-3-shooting-night-sky-in-fits-using-qhy5-iim-camera/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:48:52 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>Autonomous Allsky camera with Raspberry PI. Part 3: shooting night sky in FITS using QHY5-IIM camera &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Autonomous Allsky camera with Raspberry PI. Part 3: shooting night sky in FITS using QHY5-IIM camera Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/534.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../index6ca3.html?p=534' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embed8c77.json?url=https%3A%2F%2Folegkutkov.me%2F2018%2F06%2F07%2Fautonomous-allsky-camera-with-raspberry-pi-part-3-shooting-night-sky-in-fits-using-qhy5-iim-camera%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embed26dd?url=https%3A%2F%2Folegkutkov.me%2F2018%2F06%2F07%2Fautonomous-allsky-camera-with-raspberry-pi-part-3-shooting-night-sky-in-fits-using-qhy5-iim-camera%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-534 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-534" class="post-534 post type-post status-publish format-standard hentry category-allsky-camera category-astro-tools category-electronics category-software">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/allsky-camera/index.html" rel="category tag">Allsky camera</a>, <a href="../../../../category/astro-tools/index.html" rel="category tag">Astro tools</a>, <a href="../../../../category/electronics/index.html" rel="category tag">Electronics</a>, <a href="../../../../category/software/index.html" rel="category tag">Software</a></span><h1 class="entry-title">Autonomous Allsky camera with Raspberry PI. Part 3: shooting night sky in FITS using QHY5-IIM camera</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">June 7, 2018</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><img decoding="async" class="alignleft size-thumbnail wp-image-492" src="../../../../wp-content/uploads/2018/03/cam1-1-150x150.jpg" alt="" width="150" height="150" />This is the third part of the Allsky cycle.</p>
+<p>Please read previous articles to get complete information about this project:</p>
+<p><a href="../../../03/20/autonomous-allsky-camera-with-raspberry-pi-part-1-overview/index.html">Part 1. Autonomous Allsky camera with Raspberry PI: an overview.</a><br />
+<a href="../../../03/22/autonomous-allsky-camera-with-raspberry-pi-part-2-powering-and-lightning-protection/index.html">Part 2. Autonomous Allsky camera with Raspberry PI: powering and lightning protection</a></p>
+<p>This time I will show my utility and script for shooting the night sky and processing the images.</p>
+<p><span id="more-534"></span></p>
+<h3>Camera module and iris control</h3>
+<p><img fetchpriority="high" decoding="async" class="aligncenter wp-image-410" src="../../../../wp-content/uploads/2018/03/cam_modules-300x160.png" alt="" width="519" height="277" srcset="https://olegkutkov.me/wp-content/uploads/2018/03/cam_modules-300x160.png 300w, https://olegkutkov.me/wp-content/uploads/2018/03/cam_modules-768x409.png 768w, https://olegkutkov.me/wp-content/uploads/2018/03/cam_modules.png 1016w" sizes="(max-width: 519px) 100vw, 519px" /></p>
+<p>In this project, I&#8217;m using a popular and cheap QHY5-IIM CMOS camera.<br />
+An aluminum ring holds this camera (came with the camera).<br />
+Optics &#8211; CCTV, &#8220;Сomputar 1.8-3.6mm 1.6&#8221; with motorized iris. This helps to protect the CMOS sensor in the daytime. Also, we can shoot special calibration images &#8211; darks and biases. The calibration process will be described below.</p>
+<p>To able to control this iris, I did a little research on lens electronics. The motor is controlled with few operational amplifiers. I found that pulling down one of the opamp inputs causes closing the iris (default state is open). Adding a simple NPN transistor key can control this iris with GPIO signals from the Raspberry.</p>
+<p><a href="../../../../wp-content/uploads/2018/06/iris_mod_schem.png"><img decoding="async" class="aligncenter wp-image-537" src="../../../../wp-content/uploads/2018/06/iris_mod_schem-300x231.png" alt="" width="397" height="306" srcset="https://olegkutkov.me/wp-content/uploads/2018/06/iris_mod_schem-300x231.png 300w, https://olegkutkov.me/wp-content/uploads/2018/06/iris_mod_schem.png 752w" sizes="(max-width: 397px) 100vw, 397px" /></a>Diode D1 is used as a protection circuit for the GPIO. C1 is a bypass capacitor that helps to protect whole circuits from possible voltage transients.</p>
+<p><img loading="lazy" decoding="async" class="aligncenter wp-image-536" src="../../../../wp-content/uploads/2018/06/iris_motor_mod-300x200.jpg" alt="" width="501" height="334" srcset="https://olegkutkov.me/wp-content/uploads/2018/06/iris_motor_mod-300x200.jpg 300w, https://olegkutkov.me/wp-content/uploads/2018/06/iris_motor_mod-768x512.jpg 768w, https://olegkutkov.me/wp-content/uploads/2018/06/iris_motor_mod.jpg 1024w" sizes="(max-width: 501px) 100vw, 501px" /></p>
+<p>This controlling circuit is connected to the Raspberry GPIO pin 16 (but you can use any free pin). The software is straightforward.</p>
+<p>To easily access the GPIO, I&#8217;m using the popular bcm2835 library. One of the versions is the in-camera <a href="https://github.com/olegkutkov/allsky/tree/master/3rd/bcm2835-1.52">GitHub repository</a>. You need to compile and install this library.</p>
+<pre class="prettyprint">#include <span class="pl-s"><span class="pl-pds">&lt;</span>stdio.h<span class="pl-pds">&gt;</span></span>
+#include <span class="pl-s"><span class="pl-pds">&lt;</span>bcm2835.h<span class="pl-pds">&gt;</span></span>
+#include <span class="pl-s"><span class="pl-pds">&lt;</span>unistd.h<span class="pl-pds">&gt;</span></span>
+
+#define IRIS_PIN RPI_GPIO_P1_16
+
+int main(int argc, char **argv)
+{
+    if (argc == 1) {
+        return 1;
+    }
+
+    if (!bcm2835_init()) {
+        fprintf(stderr, "Failed to initialize bcm2835\n");
+        return 1;
+    }
+
+    bcm2835_gpio_fsel(IRIS_PIN, BCM2835_GPIO_FSEL_OUTP);
+
+    char arg = *argv[1];
+
+    switch (arg) {
+        case 'o':
+            printf("IRIS - open\n");
+            bcm2835_gpio_write(IRIS_PIN, LOW);
+            break;
+
+        case 'c':
+            printf("IRIS - close\n");
+            bcm2835_gpio_write(IRIS_PIN, HIGH);
+            break;
+
+        default:
+            break;
+    }
+
+    bcm2835_close();
+
+    return 0;
+}
+</pre>
+<p>Compilation</p>
+<pre class="prettyprint">gcc -Wall -std=gnu99 main.c -l bcm2835 -lrt -o iris_control
+</pre>
+<p>Now we can open and close our iris with commands<strong> iris_control 0</strong> and <strong>iris_close c</strong>, respectively.</p>
+<h3>QHY5-IIM camera software</h3>
+<p>The source code of the camera utility is written in C++ and also available on <a href="https://github.com/olegkutkov/allsky/tree/master/src/skycam">GitHub</a>. This program is doing shots with selected gain/exposure time params. Results are saving as FITS files.</p>
+<p>FITS is an open standard defining a digital file format useful for storing, transmitting, and processing scientific and other images. FITS is the most commonly used digital file format in astronomy. Unlike many image formats, FITS is designed specifically for scientific data and hence includes many provisions for describing photometric and spatial calibration information, together with image origin metadata. Image data in the FITS is uncompressed, which is very good for the next processing steps.</p>
+<p>The core of this program is a QHYCCD protocol taken from the official repository of the vendor (now this source is removed for some reason). You can find protocol implementation in a <strong>qhy5ii.cpp</strong> file.</p>
+<p>Communication with the camera is made through <strong>libusb</strong>.</p>
+<p>Here is interface claiming and initialization. All we need is a VID and PID of the device.</p>
+<pre class="prettyprint">#define QHY5II_VENDOR_ID   0x1618
+#define QHY5II_PRODUCT_ID 0x0921
+
+struct libusb_device_handle *handle = libusb_open_device_with_vid_pid(NULL, QHY5II_VENDOR_ID, QHY5II_PRODUCT_ID);
+
+if (!handle) {
+    return QHYCCD_ERROR_NO_DEVICE;
+}
+
+if( libusb_kernel_driver_active(handle, 0)) {
+       libusb_detach_kernel_driver(handle, 0);
+}
+
+int open_status = libusb_set_configuration(handle, 1);
+
+if (libusb_claim_interface(handle, 0) != 0) {
+    return QHYCCD_ERROR_INITRESOURCE;
+}
+</pre>
+<p>Now we got libusb handle and can send commands and data requests to the device using <strong>libusb_control_transfer</strong></p>
+<pre class="prettyprint">int libusb_control_transfer    (   libusb_device_handle *      dev_handle,
+        uint8_t     bmRequestType,
+        uint8_t     bRequest,
+        uint16_t    wValue,
+        uint16_t    wIndex,
+        unsigned char *     data,
+        uint16_t    wLength,
+        unsigned int    timeout 
+    )   
+</pre>
+<p>All we need to know is a vendor&#8217;s &#8220;magic&#8221; numbers for the commands and options. You can find everything in source files. Check out functions <a href="https://github.com/olegkutkov/allsky/blob/master/src/skycam/src/qhy5ii.cpp#L462">CtrlMsg</a> and <a href="https://github.com/olegkutkov/allsky/blob/master/src/skycam/src/qhy5ii.cpp#L479">EepromRead</a>, for example.</p>
+<p>The whole exposure flow is also simple:</p>
+<ol>
+<li>open device</li>
+<li>set resolution</li>
+<li>set gain</li>
+<li>set exposure time</li>
+<li>prepare buffer for the image</li>
+<li>start expositions process</li>
+<li>wait for data</li>
+<li>verify data</li>
+<li>stop expositions process</li>
+<li>close device</li>
+</ol>
+<p>You can find functions in my source for each of these steps. The function&#8217;s names are corresponding to what they are doing.</p>
+<p>The frame buffer is an unsigned char array with the size of the image width * height. This array is holding a 2d matrix of the image, line by line. Every byte represents one pixel with a value from 0 (black) to 255 (white). In this way, data is writing into the FITS file.</p>
+<p>Writing and reading FITS files are made using the cfitsio library. I wrote a little wrapper C++ class <a href="https://github.com/olegkutkov/allsky/blob/master/src/skycam/src/fits_handler.cpp">FitsHandler</a>. This class is holding an image buffer and can write this buffer to the new FITS file and load it from some existing file. Also, can be set FITS header data.</p>
+<p>Opening existing and creating new FITS files:</p>
+<pre class="prettyprint">fitsfile *fhandle;
+int status = 0;
+
+// opening existing FITS
+fits_open_file(&amp;fhandle, "old_image.fits", READONLY, &amp;status);
+
+///
+// creating new FITS
+<span class="pl-c1">fits_create_file</span>(&amp;fhandle, "new_image.fits", &amp;status);
+
+if (status != 0) {
+    // error
+}
+</pre>
+<p><em>Important note!</em><br />
+<em>Never try to call<strong> fits_create_file()</strong> on existing file. This function doesn&#8217;t support overwriting, and errors will be raised.</em><br />
+<em>Existing file must be removed (with <a href="http://man7.org/linux/man-pages/man2/unlink.2.html"><strong>unlink()</strong></a>, for example) before calling <strong>fits_create_file()</strong>.</em></p>
+<p>Getting image size and loading image data as uint16_t array from the FITS file:</p>
+<pre class="prettyprint">int status = 0;
+int bitpix;
+long anaxes[2] = { 1, 1 };
+
+fits_get_img_size(fhandle, 2, anaxes, &amp;status);
+
+int image_width = anaxes[0];
+int image_height = anaxes[1];
+
+fits_get_img_type(fhandle, &amp;bitpix, &amp;status);
+
+if (status != 0) {
+    /// error
+}
+
+long firstpix[2] = { 1, 1 };
+size_t numpix = image_width * image_height;
+
+uint16_t *imagebuf = new uint16_t(numpix);
+
+fits_read_pix(fhandle, TUSHORT, firstpix, numpix, NULL, imagebuf-&gt;Raw(), NULL, &amp;status);
+
+/// image processing
+
+delete[] imagebuf;
+</pre>
+<p>TUSHORT specifies the data type of our buffer, possible values are:</p>
+<pre>  TBYTE     unsigned char
+  TSBYTE    signed char
+  TSHORT    signed short
+  TUSHORT   unsigned short
+  TINT      signed int
+  TUINT     unsigned int
+  TLONG     signed long
+  TLONGLONG signed 8-byte integer
+  TULONG    unsigned long
+  TFLOAT    float
+  TDOUBLE   double</pre>
+<p>The correct type of data can be chosen by <strong>bitpix</strong> value, which was initialized with <strong>fits_get_img_type().</strong></p>
+<p>Writing image buffer to the FITS file:</p>
+<pre class="prettyprint">unsigned int naxis = 2;
+long naxes[2] = { image_width, image_height };
+long fpx[2] = { 1L, 1L };
+int status = 0;
+
+fits_create_img(fhandle, bitpixel, naxis, naxes, &amp;status);
+fits_write_pix(fhandle, TUSHORT, fpx, image_width * image_height, imagebuf, &amp;status);
+</pre>
+<p>imagebuf can be filled with data from the actual device.</p>
+<p>Always check status. Non-zero values mean that something goes wrong.</p>
+<p>An additional and handy feature of this class is the subtraction of the images. This method subtracts one image matrix from another. Simple arithmetic method.</p>
+<pre class="prettyprint">for (long i = 0; i &lt; imgwidth * imgheight; ++i) {
+    imagebuf_a[i] -= imagebuf_b[i];
+}
+</pre>
+<p>Both image buffers must be the same size.</p>
+<p>By subtracting frames, we can remove CMOS matrix noise and amplifier noise.<br />
+This can be done by using special calibration files &#8211; dark and bias.<br />
+This is a regular FITS file shooted with this QHY utility.</p>
+<p>The dark file is shooting with closed iris and with long exposure and big gain, just like a normal exposition.<br />
+The resulting image contains only hot pixels and matrix noise on dark background.</p>
+<p>Typical dark:<br />
+<a href="../../../../wp-content/uploads/2018/06/dark.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-550" src="../../../../wp-content/uploads/2018/06/dark-300x187.png" alt="" width="340" height="212" srcset="https://olegkutkov.me/wp-content/uploads/2018/06/dark-300x187.png 300w, https://olegkutkov.me/wp-content/uploads/2018/06/dark.png 711w" sizes="(max-width: 340px) 100vw, 340px" /></a></p>
+<p>Bias is the same, but the only gain is high. Exposure is the fastest as possible &#8211; 1ms, for example.<br />
+The resulting image contains only the noise of the amplifier (and ADC probably).</p>
+<p>Typical bias:<a href="../../../../wp-content/uploads/2018/06/bias.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-551" src="../../../../wp-content/uploads/2018/06/bias-300x224.png" alt="" width="347" height="259" srcset="https://olegkutkov.me/wp-content/uploads/2018/06/bias-300x224.png 300w, https://olegkutkov.me/wp-content/uploads/2018/06/bias.png 733w" sizes="(max-width: 347px) 100vw, 347px" /></a></p>
+<p>By subtracting the dark/bias matrix, we can remove all these pixel values and get a clearer image of the sky.</p>
+<p>It&#8217;s always a good idea to subtract the bias from the image itself and the dark image.</p>
+<p>Fits header is a simple key-value pair in ASCII (usually). Typical content is file creation date, object, coordinates, conditions, and additional technical information.</p>
+<p>FITS header data row can be written with function:</p>
+<pre class="prettyprint">int fits_write_key(fitsfile *fptr, int datatype, char *keyname, DTYPE *value, char *comment, int *status)
+</pre>
+<p>Writing FITS creation date and time (in a standardized way), for example:</p>
+<pre class="prettyprint">#include &lt;time.h&gt;
+#include &lt;string.h&gt;
+
+int status = 0;
+char time_now[25];
+time_t lt = time(NULL);
+struct tm *utc_tm = gmtime(&amp;lt);
+
+strftime(time_now, 25, "%Y-%m-%dT%H:%M:%S", utc_tm);
+
+fits_write_key(fhandle, TSTRING, "DATE", time_now, "Fits creation date, UTC", &amp;status);
+</pre>
+<p>Calibration files and fits header data is passed to the QHY program as arguments. Please refer <a href="https://github.com/olegkutkov/allsky/blob/master/src/skycam/src/main.cpp#L281">main.cpp</a> to see how all this logic works.</p>
+<p>Usage of the QHY utility (30 is gain and 30000 is exposure time in ms):</p>
+<pre class="prettyprint">iris_control c
+qhy_camera -m qhy5ii -e 1 -g 30 -o bias.fits
+qhy_camera -m qhy5ii -e 30000 -g 30 -o dark.fits
+iris_control o
+qhy_camera -m qhy5ii -e 30000 -g 30 -o image.fits -b bias.fits -k dark.fits -x fits_header.dat
+</pre>
+<p>Example of the fits_header.dat:</p>
+<pre>CREATOR Allsky camera
+INSTRUME QHY5-IIM
+EXPTIME 30.0
+TEMPERAT 16.07
+HUMIDITY 84.41
+SKYTEMP -2.12
+OBSERVAT Crimean astrophysical observatory
+SITENAME Nauchniy, Crimea
+SITELAT 44.727007
+SITELONG 34.013173
+SITEELEV 600</pre>
+<p>The left column is a key, and the right is a value.</p>
+<p>Let&#8217;s check our resulting fits:</p>
+<pre>$ hexdump -e '80/1 "%_p" "\n"' image.fits | head -n22
+SIMPLE = T / file does conform to FITS standard 
+BITPIX = 8 / number of bits per data pixel 
+NAXIS = 2 / number of data axes 
+NAXIS1 = 1280 / length of data axis 1 
+NAXIS2 = 960 / length of data axis 2 
+EXTEND = T / FITS dataset may contain extensions 
+COMMENT FITS (Flexible Image Transport System) format is defined in 'Astronomy
+COMMENT and Astrophysics', volume 376, page 359; bibcode: 2001A&amp;A...376..359H 
+DATE = '2018-06-06T22:34:57' / Fits creation date, UTC 
+CREATOR = 'Allsky camera' 
+INSTRUME= 'QHY5-IIM' 
+EXPTIME = '30.0 ' 
+TEMPERAT= '16.07 ' 
+HUMIDITY= '84.41 ' 
+SKYTEMP = '-2.12 ' 
+OBSERVAT= 'Crimean astrophysical observatory' 
+SITENAME= 'Nauchniy, Crimea' 
+SITELAT = '44.727007' 
+SITELONG= '34.013173' 
+SITEELEV= '600 ' 
+END</pre>
+<p>Below this header is the binary data of the image.</p>
+<p>In the next article, I will describe astrocamera script where most of the camera logic is done.</p>
+<p>Thanks for reading!</p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a></h2>
+                                         <span class="posted-date">November 7, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a></h2>
+                                         <span class="posted-date">June 9, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../../05/16/converting-dslr-raw-images-into-scientific-fits-format-part-2-working-with-libraw/index.html" rel="prev">Converting DSLR RAW images into scientific FITS format. Part 2: working with LIBRAW</a></div><div class="nav-next"><a href="../../../08/01/powerful-dc-motor-driver-using-ir2110/index.html" rel="next">Powerful DC motor driver using IR2110</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			1 thought on &ldquo;<span>Autonomous Allsky camera with Raspberry PI. Part 3: shooting night sky in FITS using QHY5-IIM camera</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-21" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="../../../03/20/autonomous-allsky-camera-with-raspberry-pi-part-1-overview/index.html" class="url" rel="ugc">Autonomous Allsky camera with Raspberry PI. Part 1: overview. - Oleg Kutkov personal blog</a> 			</div>
+		</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='534' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="de0a86efc8" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="83"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../../2020/06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_1827c9da4c86fc3ad9db01f6a6132235.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2018/06/07/autonomous-allsky-camera-with-raspberry-pi-part-3-shooting-night-sky-in-fits-using-qhy5-iim-camera/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:49:47 GMT -->
+</html>

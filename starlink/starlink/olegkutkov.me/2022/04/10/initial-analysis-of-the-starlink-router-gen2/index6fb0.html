@@ -1,0 +1,978 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2022/04/10/initial-analysis-of-the-starlink-router-gen2/?replytocom=3563 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:22:24 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>Initial analysis of the Starlink router gen2 &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large, noindex, follow' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Initial analysis of the Starlink router gen2 Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/2499.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../index726a.html?p=2499' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embeddbe6.json?url=https%3A%2F%2Folegkutkov.me%2F2022%2F04%2F10%2Finitial-analysis-of-the-starlink-router-gen2%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embed3fa6?url=https%3A%2F%2Folegkutkov.me%2F2022%2F04%2F10%2Finitial-analysis-of-the-starlink-router-gen2%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index6fb0.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-2499 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-2499" class="post-2499 post type-post status-publish format-standard hentry category-electronics category-firmware category-hardware category-networking category-reverse-engineering category-software">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/electronics/index.html" rel="category tag">Electronics</a>, <a href="../../../../category/firmware/index.html" rel="category tag">Firmware</a>, <a href="../../../../category/hardware/index.html" rel="category tag">hardware</a>, <a href="../../../../category/networking/index.html" rel="category tag">Networking</a>, <a href="../../../../category/reverse-engineering/index.html" rel="category tag">Reverse engineering</a>, <a href="../../../../category/software/index.html" rel="category tag">Software</a></span><h1 class="entry-title">Initial analysis of the Starlink router gen2</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">April 10, 2022</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><img decoding="async" class="alignleft size-full wp-image-2500" src="../../../../wp-content/uploads/2022/03/starlink_router2_re_thumb.png" alt="" width="150" height="134" /></p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div>It was fun to do reverse engineering of the <a href="../../../../2021/12/25/analysis-and-reverse-engineering-of-the-original-starlink-router/index.html">original</a> Starlink router. The article was also well received.<br />
+Sure, it would be great to do the same thing with the new Starlink router gen2. It&#8217;s not easy to get new hardware, but why should this stop the fun?</div>
+<p><span id="more-2499"></span></p>
+<p>&nbsp;</p>
+<h3>Do I have the new Starlink router?</h3>
+<p>Unfortunately, I don&#8217;t have the new router yet. But I have a photo of the router!</p>
+<p><img fetchpriority="high" decoding="async" class="aligncenter wp-image-2507" src="../../../../wp-content/uploads/2022/03/starlink_router_pirate.jpg" alt="" width="703" height="485" srcset="https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router_pirate.jpg 848w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router_pirate-400x276.jpg 400w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router_pirate-768x530.jpg 768w" sizes="(max-width: 703px) 100vw, 703px" /></p>
+<p>Big thanks to Phil from the <a href="https://www.youtube.com/c/Ingineerix/videos">Ingineerix</a> channel! He was kind enough to disassemble his Starlink router and take many photos for me of the router&#8217;s internals.</p>
+<p>Also, many thanks to SpaceX for <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2">releasing</a> the GPL part of the router firmware. Let&#8217;s see what we can get from photos and the code repository.</p>
+<h3>Router overview</h3>
+<div>The new design combines router hardware and power supply with a proprietary Dishy connector.<br />
+There is no built-in Ethernet port, which is not the best solution. Users should use an external Ethernet adapter. I made a <a href="../../../03/07/reverse-engineering-of-the-starlink-ethernet-adapter/index.html">detailed review</a> and analysis of this adapter.</div>
+<div></div>
+<div>The router&#8217;s front panel is made of glass and glued to a housing. It seems that the router is intended to be outdoor-ish. The Dishy and Power connectors on the bottom are also moisture-proof. It&#8217;s IP54 rated.</div>
+<div></div>
+<div><a href="../../../../wp-content/uploads/2022/03/starlink_router2_re_front_panel.jpg"><img decoding="async" class="aligncenter size-full wp-image-2521" src="../../../../wp-content/uploads/2022/03/starlink_router2_re_front_panel.jpg" alt="" width="950" height="600" srcset="https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_re_front_panel.jpg 950w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_re_front_panel-400x253.jpg 400w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_re_front_panel-768x485.jpg 768w" sizes="(max-width: 950px) 100vw, 950px" /></a></div>
+<div>Also, there is a drawing of the orbital transfer ellipse from Earth to Mars on the front. Nice art 🙂<br />
+Reported that it&#8217;s tough to remove the front glass panel.</div>
+<div></div>
+<h3>Power supply</h3>
+<div>
+<p>Under the front panel, we can find the mainboard, power supply, and heatsink plate.<br />
+Here is router internals with the mainboard removed.</p>
+<p><a href="../../../../wp-content/uploads/2022/03/starlink_router2_psu.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2526" src="../../../../wp-content/uploads/2022/03/starlink_router2_psu.jpg" alt="" width="561" height="745" srcset="https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_psu.jpg 975w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_psu-226x300.jpg 226w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_psu-771x1024.jpg 771w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_psu-768x1020.jpg 768w" sizes="(max-width: 561px) 100vw, 561px" /></a></p>
+<p>The power supply is made by Chicony and produces <strong>50V 2.4A</strong> for the Dishy and <strong>12V 1.25A</strong> for the router itself.<br />
+The massive metal plate cools the router CPU and radio.</p>
+</div>
+<h3>Mainboard</h3>
+<p>All router components are placed on a single side of the PCB.<br />
+The PCB has an odd shape to fit inside the housing with the power supply. I&#8217;m not sure that this positively affects production costs and the amount of waste.</p>
+<div><a href="../../../../wp-content/uploads/2022/03/starlink_router2_pcb.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-2532" src="../../../../wp-content/uploads/2022/03/starlink_router2_pcb.png" alt="" width="950" height="700" srcset="https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_pcb.png 950w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_pcb-400x295.png 400w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_pcb-768x566.png 768w" sizes="(max-width: 950px) 100vw, 950px" /></a></div>
+<div>But, the number of components was significantly reduced compared to the <a href="../../../../2021/12/25/analysis-and-reverse-engineering-of-the-original-starlink-router/index.html">first-gen</a> router. The total BOM cost is definitely lower.</div>
+<h3>MT7629 SoC</h3>
+<div>The heart of the new system is MediaTek MT7629 SoC.<br />
+It&#8217;s hard to find detailed information about this chip, but we can get some information from the <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/blob/main/openwrt/target/linux/mediatek/files/arch/arm64/boot/dts/mediatek/mt7622-mt7531-ac4300-nmbm-sb.dts">sources</a> repository and <a href="https://www.cnx-software.com/2019/04/26/mediatek-mt7629-dual-core-arm-processor-ac1900-wifi-routers/">Google</a>.<br />
+MT7629 it&#8217;s a dual-core ARM Cortex-A7 + <a href="https://www.mediatek.com/products/broadband-wifi/mt7615">MT7615</a>-compatible 3-chain radio. Plus built-in 1G Ethernet PHY and two SGMII interfaces for external PHYs/switch.</div>
+<div></div>
+<div>Simplified diagram of the SoC:</div>
+<div><a href="../../../../wp-content/uploads/2022/03/mt7629_simple_block_diagram.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-2536" src="../../../../wp-content/uploads/2022/03/mt7629_simple_block_diagram.png" alt="" width="615" height="531" srcset="https://olegkutkov.me/wp-content/uploads/2022/03/mt7629_simple_block_diagram.png 672w, https://olegkutkov.me/wp-content/uploads/2022/03/mt7629_simple_block_diagram-348x300.png 348w" sizes="(max-width: 615px) 100vw, 615px" /></a></div>
+<div>Where did I get information about the mt7615 radio? The source code <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2">repository</a> contains a lot of information.<br />
+WiFi up/down script: <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/blob/main/openwrt/package/mtk/drivers/wifi-profile/files/mt7615e.lua">openwrt/package/mtk/drivers/wifi-profile/files/mt7615e.lua</a><br />
+Radio calibration data: <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/tree/main/openwrt/package/mtk/drivers/wifi-profile/files/mt7629">openwrt/package/mtk/drivers/wifi-profile/files/mt7629</a></div>
+<div>Plus, build <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/blob/main/openwrt/spacex-mtk-openwrt.config">configuration</a>:</div>
+<pre>3938 CONFIG_first_card_name="MT7629"
+3939 CONFIG_first_card_profile_path="/etc/wireless/mediatek/mt7629.1.b0.2g.dat;/etc/wireless/mediatek/mt7629.1.b1.5g.dat"
+3940 CONFIG_first_card_init_script="/lib/wifi/mt7615e.lua;/lib/wifi/mt7615e.lua"
+3941 CONFIG_first_card_init_compatible="mt7615e;mt7615e"</pre>
+<div>Initially, I thought there were two external radio ICs under the RF shields. But this would be too expensive a solution, and there is no room for PCIe radio ICs.<br />
+Plus, MediaTek declares this SoC as an inexpensive all-in-one solution for WiFi routers.</div>
+<h3>RF front end</h3>
+<div>Let&#8217;s look at the antenna design and RF front end.<br />
+It&#8217;s unknown what exactly is under those RF shields. But since the SoC contains a fully integrated <a href="https://en.wikipedia.org/wiki/Wireless_LAN">WLAN</a>, there are nothing more than <strong>P</strong>ower <strong>A</strong>mplifiers, <strong>L</strong>ow <strong>N</strong>oise <strong>A</strong>mplifiers, Filters, and Switches inside cans.</div>
+<div><a href="../../../../wp-content/uploads/2022/03/starlink_router2_rf_front.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2549" src="../../../../wp-content/uploads/2022/03/starlink_router2_rf_front.jpg" alt="" width="850" height="421" srcset="https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_rf_front.jpg 1200w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_rf_front-400x198.jpg 400w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_rf_front-1024x508.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_rf_front-768x381.jpg 768w" sizes="(max-width: 850px) 100vw, 850px" /></a></div>
+<div></div>
+<p>&nbsp;</p>
+<p><strong>Ch0</strong> and <strong>Ch2</strong> antennas design was derived from the original router.<br />
+But this is a 3&#215;3 (3 TX, 3 RX) <a href="https://en.wikipedia.org/wiki/MIMO">MIMO</a> radio. That&#8217;s why we have a third <strong>CH1</strong> antenna here. It&#8217;s a simple patch antenna.<br />
+The new antenna layout helps to create spatial diversity for the optimal MIMO operation. This is definitely better than it was in the original router.</p>
+<div>Marked square elements are RF diplexers, like <a href="https://media.digikey.com/pdf/Data Sheets/Walsin Technology PDFs/KFDIP2004L197B1U.pdf">this</a> one. These elements allow the connection of the 2.4 GHz and 5 GHz lines to the single antenna.</div>
+<div></div>
+<div>It&#8217;s a typical layout of the dual-band WiFi router.<br />
+Three identical channels:</div>
+<div></div>
+<div><a href="../../../../wp-content/uploads/2022/03/starlink_router2_rf_front_block_diagram.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2557" src="../../../../wp-content/uploads/2022/03/starlink_router2_rf_front_block_diagram.jpg" alt="" width="850" height="405" srcset="https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_rf_front_block_diagram.jpg 1063w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_rf_front_block_diagram-400x190.jpg 400w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_rf_front_block_diagram-1024x487.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_rf_front_block_diagram-768x366.jpg 768w" sizes="(max-width: 850px) 100vw, 850px" /></a></div>
+<div>Interestingly, CH1 2.4 GHz components are located under the first shield, and 5 GHz is under the second.</div>
+<div></div>
+<div></div>
+<p>WiFi characteristics of the system:</p>
+<p><strong>2.4 GHz 802.11n 3&#215;3 MIMO<br />
+</strong>Channel bandwidth, MHz: 20, 40</p>
+<p><strong>5 GHz 802.11ac 3&#215;3 MU-MIMO<br />
+</strong>Channel bandwidth, MHz: 20, 40, 80</p>
+<div><strong>Max clients (802.11n + 802.11ac):</strong> 255<br />
+Please note that this is just a MAC table size of the chip. This means that this Access Point can hold up to 255 connected clients simultaneously. But this doesn&#8217;t mean that all 255 clients will work effectively. Of course, they don&#8217;t.</div>
+<p>&nbsp;</p>
+<p><strong>Tx power and sensitivity</strong></p>
+<div>
+<p>The SoC built-in integrated PA can output up to 23.5 dBm at 5GHz.<br />
+RX sensitivity is around -94 dB.</p>
+<p>It&#8217;s unknown what&#8217;s under those RF cans, so we don&#8217;t know the real characteristics of the RF front. I expect higher output power around 25-27 dBm and a similar (or less) RX sensitivity around -94 -90 dB.</p>
+<p>In general, it&#8217;s a good and modern WiFi access point.</p>
+</div>
+<h3>Ethernet</h3>
+<p>There are two Ethernet lines. The first one is WAN, and it&#8217;s used for the Dishy connection. The WAN interface uses SoC built-in Ethernet PHY. The only external components are powerful PoE magnetics and capacitors.<br />
+Additional external PHY <a href="https://www.marvell.com/content/dam/marvell/en/public-collateral/transceivers/marvell-phys-transceivers-alaska-88e1510-88e1518-product-brief-2011-10.pdf">88E1512</a> supports the LAN interface. This is the Alaska-series PHY from Marvell. There is no Ethernet magnetics on the board.<br />
+This PHY drives the transformer inside the external Ethernet adapter.</p>
+<div></div>
+<p><a href="../../../../wp-content/uploads/2022/03/starlink_router2_phy.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2560" src="../../../../wp-content/uploads/2022/03/starlink_router2_phy.jpg" alt="" width="526" height="492" srcset="https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_phy.jpg 650w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_phy-321x300.jpg 321w" sizes="(max-width: 526px) 100vw, 526px" /></a></p>
+<div>The device is connected to one of the SGMII lines of the SoC.</div>
+<h3>Dishy PoE controller</h3>
+<div>There is a good question on Starlink <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2#Jobs">GitHub</a>.</div>
+<div></div>
+<div><a href="../../../../wp-content/uploads/2022/03/starlink_router2_spacex_question_poe.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2569" src="../../../../wp-content/uploads/2022/03/starlink_router2_spacex_question_poe.jpg" alt="" width="882" height="370" srcset="https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_spacex_question_poe.jpg 1023w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_spacex_question_poe-400x168.jpg 400w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_spacex_question_poe-768x322.jpg 768w" sizes="(max-width: 882px) 100vw, 882px" /></a></div>
+<div></div>
+<div>Let&#8217;s figure this out! 🙂</div>
+<div></div>
+<p>Here is a close-up mosaic photo of this area:</p>
+<div></div>
+<p><a href="../../../../wp-content/uploads/2022/03/starlink_router2_dishy_poe_orig.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2572" src="../../../../wp-content/uploads/2022/03/starlink_router2_dishy_poe_orig.jpg" alt="" width="779" height="267" srcset="https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_dishy_poe_orig.jpg 1900w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_dishy_poe_orig-400x137.jpg 400w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_dishy_poe_orig-1024x351.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_dishy_poe_orig-768x263.jpg 768w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_dishy_poe_orig-1536x526.jpg 1536w" sizes="(max-width: 779px) 100vw, 779px" /></a></p>
+<div></div>
+<div>What we can see here it&#8217;s a <a href="https://www.mccsemi.com/pdf/Products/MCU20P10(DPAK).pdf">MOSFET</a> for switching Dishy power on and off. Little QFN IC should be the PoE controller.</div>
+<div>50V and 2A power supply means that Starlink uses 4-pair <a href="https://www.analog.com/en/technical-articles/jumpstarting-ieee-802-3bts-poe.html">802.3bt PoE</a>. This is the latest PoE <a href="https://ieeexplore.ieee.org/document/8632920">standard</a>. I&#8217;m not sure that SpaceX 100% follows the standard here.</div>
+<p>Unfortunately, I couldn&#8217;t find any information about the PoE PSE controller. I suspect that it might be something from the LTC lineup. It might be even <a href="https://www.analog.com/en/technical-articles/ltpoe-extends-poe-to-90w-with-reliable-and-easy-to-use-standard.html">LTPoE++</a>. Not sure.</p>
+<p><a href="../../../../wp-content/uploads/2022/03/starlink_router2_unknown_pse.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2585" src="../../../../wp-content/uploads/2022/03/starlink_router2_unknown_pse.jpg" alt="" width="522" height="369" srcset="https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_unknown_pse.jpg 700w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_unknown_pse-400x283.jpg 400w" sizes="(max-width: 522px) 100vw, 522px" /></a></p>
+<p>On the right, there is an <a href="https://www.onsemi.com/pdf/datasheet/ncs333-d.pdf">operational amplifier</a> and many transistors.<br />
+A big 0.05 Ohm SMD resistor, it&#8217;s a definitely current shunt. This means that the operational amplifier it&#8217;s a current measurement circuit.<br />
+Basically, the operational amplifier measures voltage difference across the shunt terminals. Due to high impedance, there is no current flow to the operational amplifier input. It&#8217;s all about only the voltage difference.</p>
+<p>Typically, the current shunt is connected to the PoE controller directly. But, in this case, they decided to use an external amplifier for some reason. It might be the requirements of the PoE controller IC.<br />
+Or, all of this might be an effect of the chip shortage 🙂</p>
+<p><a href="../../../../wp-content/uploads/2022/03/starlink_router2_current_measure_cr.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2577" src="../../../../wp-content/uploads/2022/03/starlink_router2_current_measure_cr.jpg" alt="" width="587" height="370" srcset="https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_current_measure_cr.jpg 644w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_current_measure_cr-400x252.jpg 400w" sizes="(max-width: 587px) 100vw, 587px" /></a></p>
+<p>Interesting to note that the Vss pin of the operational amplifier is not connected to the ground directly. An additional circuit that &#8220;lifts&#8221; the ground for about 0.5 V allows the amplifier to measure lower values, down to 0 V.</p>
+<p><a href="../../../../wp-content/uploads/2022/03/starlink_router2_current_measure_opamp_vss.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-2588" src="../../../../wp-content/uploads/2022/03/starlink_router2_current_measure_opamp_vss.jpg" alt="" width="357" height="295" /></a></p>
+<p>Please excuse the crudity of these schematics. I didn&#8217;t have time to build it to scale or paint it.</p>
+<div>I tried to recreate the schematic of this area.<br />
+Sure, there are a lot of unknowns. I don&#8217;t have the board, so I can&#8217;t trace all the lines. Also, I couldn&#8217;t identify some components. Plus, there might be incorrectly identified components.</div>
+<div></div>
+<div>
+<figure id="attachment_2622" aria-describedby="caption-attachment-2622" style="width: 855px" class="wp-caption aligncenter"><a href="../../../../wp-content/uploads/2022/03/starlink_router2_poe_circuit_schematic.png"><img loading="lazy" decoding="async" class="wp-image-2622" src="../../../../wp-content/uploads/2022/03/starlink_router2_poe_circuit_schematic.png" alt="" width="855" height="479" srcset="https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_poe_circuit_schematic.png 2074w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_poe_circuit_schematic-400x224.png 400w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_poe_circuit_schematic-1024x574.png 1024w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_poe_circuit_schematic-768x430.png 768w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_poe_circuit_schematic-1536x861.png 1536w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_poe_circuit_schematic-2048x1147.png 2048w" sizes="(max-width: 855px) 100vw, 855px" /></a><figcaption id="caption-attachment-2622" class="wp-caption-text">Click on the image for the full resolution.</figcaption></figure>
+<p>I marked unknown lines and questionable components with the &#8220;?&#8221; symbol.<br />
+<strong>Q1</strong> MOSFET switches 50V supply for the Dishy. There is a driver circuit on two transistors. It&#8217;s always important to drive power MOSFET properly.<br />
+&#8220;Dishy PWR ON&#8221; should be connected to the PoE controller, so the 50V is applied only when the controller detects the connected PD controller on the other side (Dishy).<br />
+The operational amplifier channel 1 measures Dishy current on <strong>0.05 Ohm</strong> shunt.<br />
+I don&#8217;t know what the second opamp channel is doing. Its non-inverting input is connected somewhere.</p>
+<p>Both channels&#8217; outputs are connected to the transistors. This circuit looks like an emitter follower. I couldn&#8217;t identify two components marked as &#8220;ST&#8221;. It might be some MOSFET, so the emitter follower regulates the current flowing through those MOSFETs.<br />
+Finally, this circuit should be connected to the PoE controller. It&#8217;s hardware protection against short circuits and other problems with Dishy.<br />
+Sure, some lines may be connected to the SoC to monitor the voltage/current from the software.</p>
+</div>
+<h3>STSAFE</h3>
+<p>There is one more question in the Starlink <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2#Jobs">repository</a>:</p>
+<pre>What the device at I2C address 0x20 does.</pre>
+<p>We know from the <a href="../../../../2021/12/25/analysis-and-reverse-engineering-of-the-original-starlink-router/index.html">previous</a> article that this device is a STSAFE-A110 security/auth chip.  This chip is doing the same job in the new router, plus now it&#8217;s a <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/blob/main/ATF/plat/mediatek/mt7629/include/spacex_stsafe.icc.c">part of the boot process.</a></p>
+<pre>The STSAFE, besides providing the cert and signing capabilities that
+authenticates our device as a genuine SpaceX device, also has extra zones. 
+We have repurposed zone 6 to store a 32bit boot counter. This counter is used to
+determine whether to boot set 0 or 1 of our FIPs and Kernels. This builds in
+redundancy in the event one set is inoperable. The parity of the counter is
+used to determine the side. The boot counter is also communicated to the next
+boot loader (U-boot) by storing it in the TRANSFER_LEN register of the i2c
+MMIO (this store now happens right after select_boot_partition() returns).
+This was the easiest way to pass the parameter with minor modifications to
+how ATF crawls the bootloader chain.
+
+Zones 7 and 8 of the STSAFE contain built-in decrementing counters. These
+counters are used for anti-rollback functionality (the rest of the system
+treats the anti-rollback counter as incrementing, so the revoked version is
+"flipped" by subtracting itself from 500,000, the initial value of the
+STSAFE's decrementing counters).</pre>
+<h3>Router block diagram</h3>
+<p>There might be some inaccuracies, but overall it looks like this.</p>
+<p><a href="../../../../wp-content/uploads/2022/03/starlink_router2_block_diagram.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-2629" src="../../../../wp-content/uploads/2022/03/starlink_router2_block_diagram.png" alt="" width="816" height="577" srcset="https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_block_diagram.png 1123w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_block_diagram-400x283.png 400w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_block_diagram-1024x724.png 1024w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_block_diagram-768x543.png 768w" sizes="(max-width: 816px) 100vw, 816px" /></a></p>
+<h3>Firmware</h3>
+<p>The new firmware is based on <a href="https://openwrt.org/releases/17.01/start">LEDE</a> (OpenWrt) 17.01 and MediaTek SDK. SpaceX team claimed that they are trying to remain as close as possible to upstream OpenWrt.</p>
+<p>GitHub <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2">repository</a> contains almost everything except for proprietary MediaTek drivers and some tools. Also, some of the SpaceX code remains closed, but binaries are <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/tree/main/payload/bazel-out/armv7l-opt-clang-12/bin/spacex/ux/wifi/wifi_control">there</a>.</p>
+<p>Also, this time we have Docker and some additional scripts. Thanks 🙂<br />
+But this doesn&#8217;t help to build the repository. Some OpenWrt files are missing. Plus, there is a problem with the bootloader signature.<br />
+Starlink router uses secure boot, so a certificate is required to build with bootloader binaries. Of course, there is no SpaceX certificate in the repository. But the build system expects this file. This breaks the build process.<br />
+I decided to introduce an additional flag, <code>BUILD_BOOTLOADERS</code>, to solve this issue. This flag disables the compilation of the bootloaders.<br />
+Both issues are solved in my commits <a href="https://github.com/olegkutkov/starlink-wifi-gen2/commit/aabbda684df21506c935abe62a8aa8b05a7f6385">here</a> and <a href="https://github.com/olegkutkov/starlink-wifi-gen2/commit/2af2c6065ab1c10674e987f8dfc43c6de968d01e">there</a>.</p>
+<p>System boots from the single NAND chip. The first stage bootloader is burned inside the SoC ROM.<br />
+The NAND contains a second-stage bootloader, u-boot, two copies of the Linux kernel, and two operating system copies. Plus a few additional partitions.</p>
+<p>Flash <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/blob/main/openwrt/target/linux/mediatek/files/arch/arm/boot/dts/spacex-v2-1.dtsi">layout</a>:</p>
+
+<table id="tablepress-15" class="tablepress tablepress-id-15">
+<thead>
+<tr class="row-1 odd">
+	<th class="column-1">Partition name</th><th class="column-2">Start offset</th><th class="column-3">Length</th>
+</tr>
+</thead>
+<tbody class="row-hover">
+<tr class="row-2 even">
+	<td class="column-1">BL2</td><td class="column-2">0x00000</td><td class="column-3">0x0080000</td>
+</tr>
+<tr class="row-3 odd">
+	<td class="column-1">InactiveFIP</td><td class="column-2">0x80000</td><td class="column-3">0x0200000</td>
+</tr>
+<tr class="row-4 even">
+	<td class="column-1">ActiveFIP</td><td class="column-2">0x280000</td><td class="column-3">0x0200000</td>
+</tr>
+<tr class="row-5 odd">
+	<td class="column-1">Config</td><td class="column-2">0x480000</td><td class="column-3">0x0080000</td>
+</tr>
+<tr class="row-6 even">
+	<td class="column-1">Factory</td><td class="column-2">0x500000</td><td class="column-3">0x0200000</td>
+</tr>
+<tr class="row-7 odd">
+	<td class="column-1">InactiveKernel</td><td class="column-2">0x2000000</td><td class="column-3">0x2000000</td>
+</tr>
+<tr class="row-8 even">
+	<td class="column-1">ActiveKernel</td><td class="column-2">0x4000000</td><td class="column-3">0x2000000</td>
+</tr>
+<tr class="row-9 odd">
+	<td class="column-1">Storage</td><td class="column-2">0x6000000</td><td class="column-3">0x1800000</td>
+</tr>
+</tbody>
+</table>
+<!-- #tablepress-15 from cache -->
+<p><code>BL2</code> it&#8217;s the second-stage bootloader that starts with the SoC ROM.<br />
+This bootloader performs initialization of the hardware: CPU, Memory, and security.<br />
+The next stage is <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/tree/main/uboot">u-boot</a> in the <a href="https://github.com/ARM-software/arm-trusted-firmware/blob/master/docs/design/firmware-design.rst#firmware-image-package-fip">FIP</a> container. <code>BL2</code> selects one of the <code>FIP</code> instances from <code>InactiveFIP</code> or <code>ActiveFIP</code>. The logic is described above in the STSAFE chapter. At this stage, BL2 verifies the signature of the FIP image. Invalid or unsigned FIP images are not booted.</p>
+<p>U-boot performs vendor-specific initialization and routines like recovery and booting of the operating system.</p>
+<p>Partitions <code>InactiveKernel</code> and <code>ActiveKernel</code> contain squashfs images of the OpenWrt operating system. One is booting, and the second is a backup of the previous version. Perhaps these partition names were derived from the MediaTek SDK.</p>
+<p>The <code>Storage</code> partition contains a UBI image with two UBIFS partitions.</p>
+
+<table id="tablepress-16" class="tablepress tablepress-id-16">
+<thead>
+<tr class="row-1">
+	<th class="column-1">Partition name</th><th class="column-2">Filesystem</th><th class="column-3">Size</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-2">
+	<td class="column-1">config</td><td class="column-2">UBIFS</td><td class="column-3">2 MiB</td>
+</tr>
+<tr class="row-3">
+	<td class="column-1">log</td><td class="column-2">UBIFS</td><td class="column-3">2 MiB</td>
+</tr>
+</tbody>
+</table>
+<!-- #tablepress-16 from cache -->
+<p>Here is the UBI <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/blob/main/storage/cfg.ini">configuration</a> file. Both partitions are <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/blob/main/openwrt/package/base-files/files/etc/init.d/boot#L29">mounted</a> at runtime as rw.</p>
+<p>The system starts as a regular OpenWrt system.<br />
+SpaceX-specific tasks are defined at the end of <code>etc/init.d/boot</code><br />
+First, a <a href="https://tldp.org/HOWTO/Adv-Routing-HOWTO/lartc.kernel.rpf.html">reverse filter</a> is disabled:</p>
+<pre># OpenWrt defaults leaves reverse path filters disabled by default, which
+# allows LAN clients to spoof WAN addresses and vice versa. Enable on all
+# interfaces for security and sanity.
+for interface in /proc/sys/net/ipv4/conf/*/rp_filter; do
+    echo 1 &gt; ${interface}
+done</pre>
+<p>The next step applies <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/blob/main/openwrt/package/base-files/files/sbin/setup_iptables.sh">tons</a> of firewall filters.</p>
+<p>In the last stage, <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/blob/main/openwrt/package/base-files/files/sbin/configure_ephy.sh">configures</a> the Marvell Ethernet PHY.</p>
+<p>Also, we have a new cool login banner:</p>
+<p><a href="../../../../wp-content/uploads/2022/03/starlink_router2_banner.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-2649" src="../../../../wp-content/uploads/2022/03/starlink_router2_banner.jpg" alt="" width="685" height="373" srcset="https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_banner.jpg 685w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_banner-400x218.jpg 400w" sizes="(max-width: 685px) 100vw, 685px" /></a></p>
+<p>And even a <a href="https://raw.githubusercontent.com/SpaceExplorationTechnologies/starlink-wifi-gen2/f592948af9cfd7c2a8c85cfcfa973b2b821419e2/openwrt/package/base-files/files/etc/banner.ua">special version</a> for Ukraine. <strong>Thanks</strong>, SpaceX, for the support!</p>
+<h4>wifi_control</h4>
+<p>As in the previous router, all the router operation is controlled by the proprietary <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/tree/main/payload/bazel-out/armv7l-opt-clang-12/bin/spacex/ux/wifi/wifi_control">wifi_control</a> daemon written in the Go language.</p>
+<p>Driver WiFi configuration is stored in <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/blob/main/openwrt/package/mtk/drivers/wifi-profile/files/mt7629/mt7629.1.b1.5g.dat">plain text</a> format. The file format is typical for the MediaTek platform.<br />
+I&#8217;m not sure that wifi_control binary configuration is used this time, but probably yes.</p>
+<p>Is it possible to run the new wifi_control on the Raspberry PI with the &#8220;old&#8221; STSAFE chip? Sure!</p>
+<p><a href="../../../../wp-content/uploads/2022/03/starlink_router2_wifi_control_rpi.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2643" src="../../../../wp-content/uploads/2022/03/starlink_router2_wifi_control_rpi.jpg" alt="" width="828" height="478" srcset="https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_wifi_control_rpi.jpg 800w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_wifi_control_rpi-400x231.jpg 400w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_wifi_control_rpi-768x444.jpg 768w" sizes="(max-width: 828px) 100vw, 828px" /></a></p>
+<p>wifi_control properly detects the first-gen platform and tries to configure the IPQ401x system.<br />
+(Look at the <code>Reboot reason</code> 🙂 )</p>
+<p>Interestingly, the whole router operation is controlled by a single file <code>/tmp/enable_bypass_mode</code><br />
+When this file is present, the router switches to the bypass mode: <code>wifi_control</code> is not running at all, and firewall rules are <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/blob/main/openwrt/package/base-files/files/sbin/setup_iptables.sh#L103">cleared</a> except for outbound traffic.</p>
+<p>Also, the wifi_control daemon runs a built-in web server. This webserver is implemented on the &#8220;HTML template&#8221; standard Go <a href="https://pkg.go.dev/html/template">library</a>.</p>
+<p><a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/tree/main/payload/spacex/ux/wifi/wifi_control/templates">Here</a> are all the HTML templates files. JS code and CSS are in the <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/tree/main/payload/spacex/ux/wifi/wifi_control/static">neighborhood</a> directory.</p>
+<p>All these files are placed into the OpenWrt squashfs path <code>/etc/www/templates/</code>. We can find a lot of interesting there.<br />
+For example, the router configuration page. It looks like a factory/maintenance mode page that is not available for regular users:</p>
+<p><a href="../../../../wp-content/uploads/2022/03/starlink_router2_cfg_page_s.jpg"><img loading="lazy" decoding="async" class=" wp-image-2646" src="../../../../wp-content/uploads/2022/03/starlink_router2_cfg_page_s.jpg" alt="" width="1018" height="484" srcset="https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_cfg_page_s.jpg 1500w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_cfg_page_s-400x190.jpg 400w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_cfg_page_s-1024x487.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_cfg_page_s-768x365.jpg 768w" sizes="(max-width: 1018px) 100vw, 1018px" /></a></p>
+<p>You can see Go templates instead of real data.</p>
+<p>But the most interesting it&#8217;s a <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/blob/main/payload/spacex/ux/wifi/wifi_control/templates/mesh_topology.html">mesh topology</a> page.<br />
+It looks like SpaceX is implementing WiFi mesh technology. This means that they gonna separately sell routers or their variants.<br />
+I guess it&#8217;s not a big secret <a href="https://www.reddit.com/r/Starlink/comments/totnwi/starlink_mesh_router/">anymore</a>, plus everything is in the open repository. That&#8217;s why I&#8217;m writing about this.</p>
+<p>It looks like the whole page is just a Work In Progress. Sure, this page displays nothing if opened in the browser.<br />
+We need to provide data to see something.<br />
+I analyzed the JS <a href="../../../../../github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/blob/main/payload/spacex/ux/wifi/wifi_control/static/js/topology-visualizer.html">code</a> and found that the page expects JSON in a specific format to display <a href="https://en.wikipedia.org/wiki/IEEE_1905">IEEE 1905</a> topology.</p>
+<p>The primary data source is <code>topoJSON</code> object in <a href="../../../../../github.com/SpaceExplorationTechnologies/starlink-wifi-gen2/blob/main/payload/spacex/ux/wifi/wifi_control/static/js/topology-merger.html">topology-merger.js</a></p>
+<p>Let&#8217;s add some random data:</p>
+<pre>const topoJSON = [ 
+{ 
+"topology information": 
+    [ 
+        { 
+            'Device role': 1,
+            'AL MAC': "58:d5:6e:3e:05:f7",
+            'Distance from controller': 0,
+            'Upstream 1905 device': "58:d5:6e:3e:05:f7",
+            'Radio Info': 
+                    [
+                        {
+                            'channel': 142,
+                            'BSSINFO':
+                                [
+                                    {
+                                    'SSID': "Starlink Mesh Client 1",
+                                    'connected sta info': [{ 'STA MAC address': "58:d5:6e:3e:05:f7" }]
+
+                                    }
+                                ]
+                        },
+                        {
+                            'channel': 147,
+                            'BSSINFO':
+                                [
+                                    {
+                                    'SSID': "Starlink Mesh Client 2",
+                                    'connected sta info': [{ 'STA MAC address': "58:d5:6e:3e:05:de"}]
+                                    }
+                                ]
+                        }
+                    ],
+            'Other Clients Info': [ { 'Client Address': "dc:a6:32:02:76:76", 'Medium': "Ethernet" } ],
+            'BH Info': []
+        },
+        { 
+            'Device role': 2,
+            'AL MAC': "32:f5:ee:3e:05:f8",
+            'Distance from controller': 4,
+            'Upstream 1905 device': "58:d5:6e:3e:05:f7",
+            'Radio Info': 
+                    [
+                        {
+                            'channel': 16,
+                            'BSSINFO': []
+                        }
+                    ],
+            'Other Clients Info': [],
+            'BH Info': []
+        }
+    ]
+} 
+];
+</pre>
+<p>And the result:</p>
+<p><a href="../../../../wp-content/uploads/2022/03/starlink_router2_mesh_page.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2652" src="../../../../wp-content/uploads/2022/03/starlink_router2_mesh_page.jpg" alt="" width="747" height="668" srcset="https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_mesh_page.jpg 948w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_mesh_page-335x300.jpg 335w, https://olegkutkov.me/wp-content/uploads/2022/03/starlink_router2_mesh_page-768x687.jpg 768w" sizes="(max-width: 747px) 100vw, 747px" /></a></p>
+<p>This is a fun page to play. All objects are floating, and it&#8217;s possible to drag everything.</p>
+<p>Well, I guess that&#8217;s all. I hope to write more when I will get the new router.<br />
+In the next articles, I will try to answer more questions from the SpaceX repository 😉</p>
+<p>Thanks for reading!</p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a></h2>
+                                         <span class="posted-date">November 7, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a></h2>
+                                         <span class="posted-date">June 9, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../../03/07/reverse-engineering-of-the-starlink-ethernet-adapter/index.html" rel="prev">Reverse engineering of the Starlink Ethernet adapter</a></div><div class="nav-next"><a href="../../28/eqmod-adapter-for-telescopes-version-2/index.html" rel="next">EQMOD adapter for telescopes. Version 2</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			14 thoughts on &ldquo;<span>Initial analysis of the Starlink router gen2</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-1272" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="../../01/how-to-add-ethernet-port-to-the-gen-2-starlink-router/index.html" class="url" rel="ugc">How to add Ethernet port to the Gen 2 Starlink router &#8211; Oleg Kutkov personal blog</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-1341" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-1341" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/65c56b6acbf9a28bc5abb60b8829e69f?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/65c56b6acbf9a28bc5abb60b8829e69f?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Mansour</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1341"><time datetime="2022-07-03T19:01:58+03:00">July 3, 2022 at 7:01 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<blockquote><p>
+  The PCB has an odd shape to fit inside the housing with the power supply. I’m not sure that this positively affects production costs and the amount of waste.
+</p></blockquote>
+<p>If you duplicate and rotate the board 180 degrees, it fits like a puzzle inside the other, thus saving quite a bit of PCB, and hence cost.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index76df.html?replytocom=1341#respond' data-commentid="1341" data-postid="2499" data-belowelement="div-comment-1341" data-respondelement="respond" data-replyto="Reply to Mansour" aria-label='Reply to Mansour'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1342" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-1342" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1342"><time datetime="2022-07-03T22:03:50+03:00">July 3, 2022 at 10:03 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Agree</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexae40.html?replytocom=1342#respond' data-commentid="1342" data-postid="2499" data-belowelement="div-comment-1342" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1431" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-1431" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/6b5e71b5b2048aa7c94525cd8fa2f24d?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/6b5e71b5b2048aa7c94525cd8fa2f24d?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://www.project-center.pl/" class="url" rel="ugc external nofollow">Marcin</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1431"><time datetime="2023-02-27T18:33:53+02:00">February 27, 2023 at 6:33 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello,</p>
+<p>Sorry, but I&#8217;m a complete layman, self-taught&#8230;</p>
+<p>How can I change the standard IP of the router management page (192.168.100.1)?<br />
+The IP of the router is 192.168.1.1 and it&#8217;s OK. I want to change 192.168.100.1</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexa369.html?replytocom=1431#respond' data-commentid="1431" data-postid="2499" data-belowelement="div-comment-1431" data-respondelement="respond" data-replyto="Reply to Marcin" aria-label='Reply to Marcin'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1432" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2 parent">
+			<article id="div-comment-1432" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1432"><time datetime="2023-02-27T19:23:58+02:00">February 27, 2023 at 7:23 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello,</p>
+<p>Sorry, but it&#8217;s impossible. 192.168.100.1 it&#8217;s the IP of Starlink Dishy. It&#8217;s fixed and can&#8217;t be changed.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index5bea.html?replytocom=1432#respond' data-commentid="1432" data-postid="2499" data-belowelement="div-comment-1432" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1433" class="comment odd alt depth-3 parent">
+			<article id="div-comment-1433" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/6b5e71b5b2048aa7c94525cd8fa2f24d?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/6b5e71b5b2048aa7c94525cd8fa2f24d?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://www.project-center.pl/" class="url" rel="ugc external nofollow">Marcin</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1433"><time datetime="2023-02-28T10:54:06+02:00">February 28, 2023 at 10:54 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>So to get the average bread eater access to the panel &#8220;Configure wifi router&#8221; which shows a few photos above is not so easy&#8230;?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index2843.html?replytocom=1433#respond' data-commentid="1433" data-postid="2499" data-belowelement="div-comment-1433" data-respondelement="respond" data-replyto="Reply to Marcin" aria-label='Reply to Marcin'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1435" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-4">
+			<article id="div-comment-1435" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1435"><time datetime="2023-03-02T22:25:21+02:00">March 2, 2023 at 10:25 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Yes. It&#8217;s just for development or factory process.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexad07.html?replytocom=1435#respond' data-commentid="1435" data-postid="2499" data-belowelement="div-comment-1435" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1831" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-1831" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/c02eeab4d754599a1ab096791a16ce06?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/c02eeab4d754599a1ab096791a16ce06?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">ian</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1831"><time datetime="2023-09-13T03:40:08+03:00">September 13, 2023 at 3:40 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi, my SL gen 2 is dead, white light indicator on bottom not showing. Can you please show how to repair it?<br />
+Thank you.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexf504.html?replytocom=1831#respond' data-commentid="1831" data-postid="2499" data-belowelement="div-comment-1831" data-respondelement="respond" data-replyto="Reply to ian" aria-label='Reply to ian'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1891" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-1891" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/2838dd7edd7907c25b751467f7830f80?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/2838dd7edd7907c25b751467f7830f80?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Matt</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1891"><time datetime="2023-11-28T01:35:46+02:00">November 28, 2023 at 1:35 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi, it looks like there are 3x RF connectors that could be utilised for external antennas. Do you know what the connector type is?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexb837.html?replytocom=1891#respond' data-commentid="1891" data-postid="2499" data-belowelement="div-comment-1891" data-respondelement="respond" data-replyto="Reply to Matt" aria-label='Reply to Matt'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1892" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-1892" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1892"><time datetime="2023-11-28T01:45:02+02:00">November 28, 2023 at 1:45 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>These connectors are for factory calibration/tests. But you can connect external antennas.<br />
+Connector type is MHF-SW23: <a href="https://www.i-pex.com/product/mhf-sw23" rel="nofollow ugc">https://www.i-pex.com/product/mhf-sw23</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexce2e.html?replytocom=1892#respond' data-commentid="1892" data-postid="2499" data-belowelement="div-comment-1892" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1995" class="comment even thread-odd thread-alt depth-1">
+			<article id="div-comment-1995" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/0347c338966f7d1904d2d31f5bb56383?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/0347c338966f7d1904d2d31f5bb56383?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">scott</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1995"><time datetime="2024-01-22T07:40:03+02:00">January 22, 2024 at 7:40 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hey great read! I was wondering, why does switching to bypass mode cause the router to add that ip tables rule</p>
+<p><code># If bypass mode is enabled, drop all outbound traffic<br />
+    ipt -P OUTPUT DROP<br />
+</code></p>
+<p>What exactly does this mean? Does the router forward L2 or something?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index03ce.html?replytocom=1995#respond' data-commentid="1995" data-postid="2499" data-belowelement="div-comment-1995" data-respondelement="respond" data-replyto="Reply to scott" aria-label='Reply to scott'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-3502" class="comment odd alt thread-even depth-1">
+			<article id="div-comment-3502" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d803b16c509f206b8296cc4f5b477812?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/d803b16c509f206b8296cc4f5b477812?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://brasil/" class="url" rel="ugc external nofollow">Gustavo Gonçalves Silveira</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3502"><time datetime="2024-04-23T17:49:34+03:00">April 23, 2024 at 5:49 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello, I would like to know how I can power the router only by injecting 12v voltage, my intention is to connect the entire circuit only to the car&#8217;s 12v without needing a 48v inverter, is there any way?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index44af.html?replytocom=3502#respond' data-commentid="3502" data-postid="2499" data-belowelement="div-comment-3502" data-respondelement="respond" data-replyto="Reply to Gustavo Gonçalves Silveira" aria-label='Reply to Gustavo Gonçalves Silveira'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-3562" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-3562" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/68ff0bcfae5038fc25ae61115cd5d37f?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/68ff0bcfae5038fc25ae61115cd5d37f?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">leachim</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3562"><time datetime="2024-04-26T14:13:49+03:00">April 26, 2024 at 2:13 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Does anyone have an Idea whats the max Voltage of 50V could I supply it directly by a 16S Lifepo4 55,2V max. ?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexeae9.html?replytocom=3562#respond' data-commentid="3562" data-postid="2499" data-belowelement="div-comment-3562" data-respondelement="respond" data-replyto="Reply to leachim" aria-label='Reply to leachim'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3563" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-3563" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3563"><time datetime="2024-04-26T15:06:32+03:00">April 26, 2024 at 3:06 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Starlink tolerates up to 70V</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index6fb0.html?replytocom=3563#respond' data-commentid="3563" data-postid="2499" data-belowelement="div-comment-3563" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply to <a href="#comment-3563">Oleg Kutkov</a> <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='2499' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='3563' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="458f494623" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="112"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../../2020/06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index6fb0.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_1827c9da4c86fc3ad9db01f6a6132235.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2022/04/10/initial-analysis-of-the-starlink-router-gen2/?replytocom=3563 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:22:24 GMT -->
+</html>

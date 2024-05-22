@@ -1,0 +1,523 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2018/02/21/htu21d-raspberry-pi/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:18:08 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>Connecting HTU21D temperature/humidity sensor to the Raspberry PI using simple C i2c interface &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Connecting HTU21D temperature/humidity sensor to the Raspberry PI using simple C i2c interface Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/318.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../indexcb8c.html?p=318' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embeddabb.json?url=https%3A%2F%2Folegkutkov.me%2F2018%2F02%2F21%2Fhtu21d-raspberry-pi%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embed3ffb?url=https%3A%2F%2Folegkutkov.me%2F2018%2F02%2F21%2Fhtu21d-raspberry-pi%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-318 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-318" class="post-318 post type-post status-publish format-standard hentry category-allsky-camera category-electronics category-linux-system-development tag-htu21d tag-linux tag-raspberry-pi tag-sensor">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/allsky-camera/index.html" rel="category tag">Allsky camera</a>, <a href="../../../../category/electronics/index.html" rel="category tag">Electronics</a>, <a href="../../../../category/linux-system-development/index.html" rel="category tag">Linux system development</a></span><h1 class="entry-title">Connecting HTU21D temperature/humidity sensor to the Raspberry PI using simple C i2c interface</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">February 21, 2018</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><img decoding="async" class="size-thumbnail wp-image-320 alignleft" src="../../../../wp-content/uploads/2018/02/SKU207382-1-150x150.jpg" alt="" width="150" height="150" srcset="https://olegkutkov.me/wp-content/uploads/2018/02/SKU207382-1-150x150.jpg 150w, https://olegkutkov.me/wp-content/uploads/2018/02/SKU207382-1-300x300.jpg 300w, https://olegkutkov.me/wp-content/uploads/2018/02/SKU207382-1.jpg 361w" sizes="(max-width: 150px) 100vw, 150px" />Previously in my projects, I&#8217;m always used well-known DHT22 (AM2302) temperature/humidity sensors. But I found that these sensors are not very stable and subject to hung. In my case, this device is worked for about two weeks and then stops responding until the power is rebooted. This is absolutely unacceptable on some distant and autonomous devices. After some googling, I found that I&#8217;m not alone, and some peoples also experienced such a problem.<br />
+I&#8217;ve decided to replace these sensors with something more reliable and more accurate. My choice fell on HTU21D from the Measurement Specialties. HTU21D is a reliable and precise sensor, much newer than DHT, and uses a standard i2c bus instead of some 1-wire protocol. I want to describe the connection of this device to the Raspberry PI in detail.</p>
+<p><span id="more-318"></span></p>
+<p>In one of my <a href="../../../../2017/08/10/mlx90614-raspberry/index.html">previous</a> articles, I&#8217;ve already described interfacing with I2C/SMBus devices. In the current case, everything is much simpler, but some concepts are the same.</p>
+<p>Let&#8217;s check out the device <a href="https://cdn-shop.adafruit.com/datasheets/1899_HTU21D.pdf">datasheet</a> first.<br />
+The document says that we can send these commands to trigger some actions and then get the result:</p>
+
+<table id="tablepress-2" class="tablepress tablepress-id-2">
+<thead>
+<tr class="row-1 odd">
+	<th class="column-1"><strong>Command</strong></th><th class="column-2"><strong>Code</strong></th><th class="column-3"><strong>Comment</strong></th>
+</tr>
+</thead>
+<tbody class="row-hover">
+<tr class="row-2 even">
+	<td class="column-1">Trigger Temperature Measurement</td><td class="column-2">0xE3</td><td class="column-3">Hold master</td>
+</tr>
+<tr class="row-3 odd">
+	<td class="column-1">Trigger Humidity Measurement</td><td class="column-2">0xE5</td><td class="column-3">Hold master</td>
+</tr>
+<tr class="row-4 even">
+	<td class="column-1">Trigger Temperature Measurement</td><td class="column-2">0xF3</td><td class="column-3">No Hold master</td>
+</tr>
+<tr class="row-5 odd">
+	<td class="column-1">Trigger Humidity Measurement</td><td class="column-2">0xF5</td><td class="column-3">No Hold master</td>
+</tr>
+<tr class="row-6 even">
+	<td class="column-1">Write user register</td><td class="column-2">0xE6</td><td class="column-3"></td>
+</tr>
+<tr class="row-7 odd">
+	<td class="column-1">Read user register</td><td class="column-2">0xE7</td><td class="column-3"></td>
+</tr>
+<tr class="row-8 even">
+	<td class="column-1">Soft Reset</td><td class="column-2">0xFE</td><td class="column-3"></td>
+</tr>
+</tbody>
+</table>
+<!-- #tablepress-2 from cache -->
+<p>&nbsp;</p>
+<p>Since the driver covers all low-level I2C level, we don&#8217;t worry about clocks and start/stop sequences.  Please read the <a href="../../../../2017/08/10/mlx90614-raspberry/index.html">MLX90614</a> article if you want to know details about this communication protocol.</p>
+<p>In the first case, the SCK line is blocked (controlled by the HTU21D sensor) during the measurement process, while in the second case, the SCK line remains open for other communication while the sensor is processing the measurement.</p>
+<p>The first variant is faster &#8211; you can get a result at once as measurements are made.<br />
+In the case of the second variant &#8211; you have to poll the device with some timeout, waiting for the status &#8220;done&#8221;. Of course, a persistent request is not a good idea because you can flood the i2c line.</p>
+<p>I have multiple devices on the I2C bus in my device, so I chose the second variant with a 50 ms polling.</p>
+<h3><strong>Connecting to the Raspberry Pi.</strong></h3>
+<p><img decoding="async" class="alignleft wp-image-330" src="../../../../wp-content/uploads/2018/02/measurement-spec-htu21d-pic.png-300x230.jpg" alt="" width="120" height="92" srcset="https://olegkutkov.me/wp-content/uploads/2018/02/measurement-spec-htu21d-pic.png-300x230.jpeg 300w, https://olegkutkov.me/wp-content/uploads/2018/02/measurement-spec-htu21d-pic.png.jpeg 592w" sizes="(max-width: 120px) 100vw, 120px" /></p>
+<p>HUT21D is supplied in the small DFN package. This is good but may cause trouble with soldering.<br />
+Fortunately, It&#8217;s easy to buy a breakout board with an already mounted HTU21D device and all required extra components.</p>
+<p>The connection of this board is also straightforward.</p>
+<p><a href="../../../../wp-content/uploads/2018/02/connection_to_rpi.png"><img fetchpriority="high" decoding="async" class="aligncenter wp-image-331" src="../../../../wp-content/uploads/2018/02/connection_to_rpi.png" alt="" width="600" height="489" srcset="https://olegkutkov.me/wp-content/uploads/2018/02/connection_to_rpi.png 776w, https://olegkutkov.me/wp-content/uploads/2018/02/connection_to_rpi-300x245.png 300w, https://olegkutkov.me/wp-content/uploads/2018/02/connection_to_rpi-768x626.png 768w" sizes="(max-width: 600px) 100vw, 600px" /></a></p>
+<p>The sensor is ready to use.</p>
+<h3 lang="en-US"><strong>Programming</strong></h3>
+<p>There are many options to work with this sensor, using different libraries and programming languages. But in the current example, we will use a pure Linux i2c interface in C. This is the clearest and faster way to use our device.</p>
+<p>First of all, we need to load i2c_bcm2708 kernel module. We can do it with a <strong>modprobe</strong> command: <em>sudo modprobe i2c_bcm2708</em></p>
+<p>For automatically loading this module on every boot, add the module name to the end of the <em><span lang="ru-RU">/</span>etc<span lang="ru-RU">/</span>modules</em> file.</p>
+<p>After successful module loading you can find two new devices: <span lang="ru-RU">/</span>dev<span lang="ru-RU">/</span>i<span lang="ru-RU">2</span>c<span lang="ru-RU">-0 and /</span>dev<span lang="ru-RU">/</span>i<span lang="ru-RU">2</span>c<span lang="ru-RU">-1. There are two separate i2c buses, and in the case of the first generation of the Raspberry – only i2c-1 is available on the GPIO header (GPIO2 and GPIO3). i2c-0 is available for manual soldering. In later Raspberry’s models, both buses are available on the GPIO header.</span></p>
+<p>To check that the HTU21D device is properly connected and worked, run this command: <em>i<span lang="ru-RU">2</span>cdetect<span lang="ru-RU"> –</span>y </em><span lang="ru-RU"><em>1</em> (1 means /dev/i2c-1 device). This utility is available in the i2c-tools package.<br />
+</span></p>
+<p>HTU21 address is 0x40 and cannot be changed. And if everything is OK and the HTU device is lonely on the bus – you can see such output:</p>
+<p><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-333" src="../../../../wp-content/uploads/2018/02/htu21_i2c.png" alt="" width="424" height="159" srcset="https://olegkutkov.me/wp-content/uploads/2018/02/htu21_i2c.png 424w, https://olegkutkov.me/wp-content/uploads/2018/02/htu21_i2c-300x113.png 300w" sizes="(max-width: 424px) 100vw, 424px" /></p>
+<blockquote><p>Note: if you want to connect two sensor simultaneously the only way to do this is connect them to separate i2c buses which is available on the Raspberry board.</p></blockquote>
+<p>Now we ready to write code.</p>
+<p>Here is an initialization of the I2C interface for HTU21D, nothing extra:</p>
+<pre class="prettyprint">#include &lt;sys/ioctl.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;string.h&gt;
+#include &lt;linux/i2c-dev.h&gt;
+
+
+int fdev = open("/dev/i2c-1", O_RDWR); // open i2c bus
+
+if (fdev &lt; 0) {
+    fprintf(stderr, "Failed to open I2C interface %s Error: %s\n", dev_path, strerror(errno));
+    return -1;
+}
+
+unsigned char i2c_addr = 0x40;
+
+// set slave device address 0x40
+if (ioctl(fdev, I2C_SLAVE, i2c_addr) &lt; 0) {
+    fprintf(stderr, "Failed to select I2C slave device! Error: %s\n", strerror(errno));
+    return -1;
+}</pre>
+<p>We got a regular file descriptor in dev, and we can send requests and read responses.</p>
+<p>The previous article communication protocol is complex and used SMBus transactions with structures and <strong>ioctl</strong>() calls.<br />
+Now, all we need is just a write() and read().</p>
+<p>According to the datasheet, to trigger the temperature measurements (in blocking mode), we need to send 0xE3, so let&#8217;s do this.</p>
+<pre class="prettyprint">uint8_t buf[1];
+buf[0] = 0xE3;
+
+write(fdev, buf, 1);</pre>
+<p>That&#8217;s all. Now we ready to get device response with <strong>read</strong>().<br />
+Because we used <strong>0xE3</strong> command, we can just read on the descriptor, and this call will be blocked while measurements are in progress.</p>
+<p>But how many bytes we should read, and what we are actually reading?<br />
+Again, let&#8217;s check out the device datasheet, page 11.</p>
+<blockquote><p>Measured data are transferred in two byte packages, i.e. in frames of 8-bit length where the most significant bit (MSB) is transferred first (left aligned). Each byte is followed by an acknowledge bit.</p>
+<p>Since the maximum resolution of the measurement is 14 bits, the two last least significant bits (LSBs, bits 43 and 44) are used for transmitting status information. Bit 1 of the two LSBs indicates the measurement type (‘0’: temperature, ‘1’: humidity). Bit 0 is currently not assigned.</p></blockquote>
+<p><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-334" src="../../../../wp-content/uploads/2018/02/htu21_protocol.png" alt="" width="782" height="318" srcset="https://olegkutkov.me/wp-content/uploads/2018/02/htu21_protocol.png 782w, https://olegkutkov.me/wp-content/uploads/2018/02/htu21_protocol-300x122.png 300w, https://olegkutkov.me/wp-content/uploads/2018/02/htu21_protocol-768x312.png 768w" sizes="(max-width: 782px) 100vw, 782px" /></p>
+<p>Sensor data is split into three 8-bit parts, so we need to read three bytes: data1, data2, and checksum.</p>
+<pre class="prettyprint">// device response, 14-bit ADC value:
+//  first 8 bit part ACK  second 8 bit part        CRC
+// [0 1 2 3 4 5 6 7] [8] [9 10 11 12 13 14 15 16] [17 18 19 20 21 22 23 24]
+// bit 15 - measurement type (‘0’: temperature, ‘1’: humidity)
+// bit 16 - currently not assigned
+
+uint8_t buf[3] = { 0 };
+
+read(fdev, buf, 3);</pre>
+<p>We can combine the first and second bytes into one 16 bit value, skipping two last least significant bits.</p>
+<pre class="prettyprint">uint16_t sensor_data = (buf [0] &lt;&lt; 8 | buf [1]) &amp; 0xFFFC;</pre>
+<p>What next? Using this value, we can calculate actual temperature or humidity using some formulas (page 15 of the device datasheet).</p>
+<pre class="prettyprint">// temperature
+double sensor_tmp = sensor_data / 65536.0;
+double result = -46.85 + (175.72 * sensor_tmp);
+
+printf("Temperature: %.2f C\n", result);
+
+
+// humidity
+result = -6.0 + (125.0 * sensor_tmp);
+
+printf("Humidity: %.2f %%\n", result);</pre>
+<p>Little note about the checksum.<br />
+In some simple applications, you can skip verification of the checksum and use data as is. But it would be best if you always remembered that sometimes you could get an error. This error may be caused by some malfunction with a sensor or some Interference on the i2c line.<br />
+So it better to use some simple algorithm to calculate and verify crc8. You can found a lot of examples and ready-to-use functions.<br />
+In my &#8220;production&#8221; application below, you can find such verification.</p>
+<h5>No hold master mode</h5>
+<p>This mode is preferred when you have multiple devices on your bus, so blocking this bus with one device may be bad.</p>
+<p>Temperature and humidity measurement operations can be triggered with 0xF3 and 0xF5 commands, and you can&#8217;t just call read() and wait. This call will return immediately with invalid data in the buffer.<br />
+Correct behavior here is polling with some timeout. Typically this timeout is 50 ms.<br />
+So you need to do read() every 50 ms and check how many actually bytes were read.<br />
+If this count is less than 3 &#8211; try again after the timeout.<br />
+Some moderate values can limit retry count, but typically one 50 ms timeout is enough.</p>
+<pre class="prettyprint">uint8_t buf[3] = { 0 };
+int counter = 0;
+
+while (1) {
+    usleep(50000); // 50 ms
+    counter++;
+
+    if (read(fdev, buf, 3) != 3) {
+        if (counter &gt;= 5) {
+            break;
+        }
+
+        continue;
+    }
+
+    break;
+}</pre>
+<p>If you are interested, which is the difference in reading time between the two modes &#8211; it is quite noticeable but not critical.</p>
+<p><strong>No hold master.</strong></p>
+<pre class="prettyprint">$ time ./read_htu21d 
+temp=18.99 humidity=33.06
+
+real    0m0.130s
+user    0m0.000s
+sys 0m0.000s
+</pre>
+<p><strong>Hold master.</strong></p>
+<pre class="prettyprint">$ time ./read_htu21d -l
+temp=19.00 humidity=33.05
+
+real    0m0.087s
+user    0m0.000s
+sys 0m0.010s
+</pre>
+<p>Of course, it might be critical for some hard real-time applications.</p>
+<h5>Soft reset.</h5>
+<p>It&#8217;s recommended to perform the software reset of the sensors before any measurements.<br />
+A soft reset can be done by sending <strong>0xFE</strong> command. After this, you should wait at least 15 ms. This time is required for the correct and full startup of the device.</p>
+<p>Full source code of the HTU21D utility you can find on my <a href="https://github.com/olegkutkov/allsky/tree/master/src/utils/htu21d">GitHub here</a>.</p>
+<p>Compilation and usage are pretty simple and described in a README.</p>
+<p><strong>P.S.</strong></p>
+<p>There is another variant of this sensor &#8211; SHT21 from the Sensirion.<br />
+This sensor has the same pinout as HTU21D and uses the same protocol, even the same I2C address. So this code can be used with both types of sensors without any modifications.</p>
+<p>Thanks for reading!</p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<span class="tags-links">Tagged <a href="../../../../tag/htu21d/index.html" rel="tag">htu21d</a>, <a href="../../../../tag/linux/index.html" rel="tag">linux</a>, <a href="../../../../tag/raspberry-pi/index.html" rel="tag">raspberry pi</a>, <a href="../../../../tag/sensor/index.html" rel="tag">sensor</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a></h2>
+                                         <span class="posted-date">November 7, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a></h2>
+                                         <span class="posted-date">June 9, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../14/isolated-eqmod-adapter-telescope-control/index.html" rel="prev">Isolated eqmod adapter for the telescope control</a></div><div class="nav-next"><a href="../../../03/14/simple-linux-character-device-driver/index.html" rel="next">Simple Linux character device driver</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			1 thought on &ldquo;<span>Connecting HTU21D temperature/humidity sensor to the Raspberry PI using simple C i2c interface</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-8" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="../../../03/20/autonomous-allsky-camera-with-raspberry-pi-part-1-overview/index.html" class="url" rel="ugc">Autonomous Allsky camera with Raspberry PI. Part 1: overview. - Oleg Kutkov personal blog</a> 			</div>
+		</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='318' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="c3e14330f5" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="175"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../../2020/06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+jQuery(function($){
+var DT_language={"en_US":{}};
+$('#tablepress-2').DataTable({"language":DT_language["en_US"],"stripeClasses":["even","odd"],"ordering":false,"paging":false,"searching":false,"info":false});
+});
+</script>
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_8f0f8bdb533439f628e39f9d214bd723.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2018/02/21/htu21d-raspberry-pi/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:18:26 GMT -->
+</html>

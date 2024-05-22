@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>
+	Comments on: Getting Linux routing table using netlink	</title>
+	<atom:link href="https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/feed/" rel="self" type="application/rss+xml" />
+	<link>https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/</link>
+	<description>Programming, electronics and diy projects</description>
+	<lastBuildDate>Sat, 25 Mar 2023 11:41:32 +0000</lastBuildDate>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.5.3</generator>
+	<item>
+		<title>
+		By: Baa		</title>
+		<link>https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/#comment-1455</link>
+
+		<dc:creator><![CDATA[Baa]]></dc:creator>
+		<pubDate>Sat, 25 Mar 2023 11:41:32 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=821#comment-1455</guid>
+
+					<description><![CDATA[Hi,
+I have change the code to send request IPv4/IPv6 in main, like below
+
+int main()
+{
+    int nl_sock = open_netlink();
+
+&lt;code&gt;if (do_route_dump_requst(nl_sock, AF_INET) &#060; 0) {
+    perror(&quot;Failed to perfom request&quot;);
+    close(nl_sock);
+    return -1;
+}
+
+get_route_dump_response(nl_sock);
+
+if (do_route_dump_requst(nl_sock, AF_INET6) &#060; 0) {
+    perror(&quot;Failed to perfom request&quot;);
+    close(nl_sock);
+    return -1;
+}
+
+get_route_dump_response(nl_sock);
+
+
+close (nl_sock);
+
+return 0;
+&lt;/code&gt;
+
+}
+
+and change int do_route_dump_requst(int sock) to 
+int do_route_dump_requst(int sock, int family)
+{
+...
+int do_route_dump_requst(int sock, int family)
+...
+}
+
+but the IPv6 always show &quot;Wrong message length: No error information&quot;
+if I change AF_INET to AF_UNSPEC , it&#039;s will working fine.
+
+Can you give me some comment?
+Thanks]]></description>
+			<content:encoded><![CDATA[<p>Hi,<br />
+I have change the code to send request IPv4/IPv6 in main, like below</p>
+<p>int main()<br />
+{<br />
+    int nl_sock = open_netlink();</p>
+<p><code>if (do_route_dump_requst(nl_sock, AF_INET) &lt; 0) {<br />
+    perror("Failed to perfom request");<br />
+    close(nl_sock);<br />
+    return -1;<br />
+}</p>
+<p>get_route_dump_response(nl_sock);</p>
+<p>if (do_route_dump_requst(nl_sock, AF_INET6) &lt; 0) {<br />
+    perror("Failed to perfom request");<br />
+    close(nl_sock);<br />
+    return -1;<br />
+}</p>
+<p>get_route_dump_response(nl_sock);</p>
+<p>close (nl_sock);</p>
+<p>return 0;<br />
+</code></p>
+<p>}</p>
+<p>and change int do_route_dump_requst(int sock) to<br />
+int do_route_dump_requst(int sock, int family)<br />
+{<br />
+&#8230;<br />
+int do_route_dump_requst(int sock, int family)<br />
+&#8230;<br />
+}</p>
+<p>but the IPv6 always show &#8220;Wrong message length: No error information&#8221;<br />
+if I change AF_INET to AF_UNSPEC , it&#8217;s will working fine.</p>
+<p>Can you give me some comment?<br />
+Thanks</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Ort		</title>
+		<link>https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/#comment-1120</link>
+
+		<dc:creator><![CDATA[Ort]]></dc:creator>
+		<pubDate>Wed, 26 Jan 2022 08:06:27 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=821#comment-1120</guid>
+
+					<description><![CDATA[Hi Oleg,
+Thanks for the useful information!
+
+Is there any way to know if a specific route exists in the routing table? For example to use RTM_GETROUTE but also to specify the ip address of the route we&#039;re searching? I don&#039;t want all the entries in the routing table, only a specific entry.
+Thanks!]]></description>
+			<content:encoded><![CDATA[<p>Hi Oleg,<br />
+Thanks for the useful information!</p>
+<p>Is there any way to know if a specific route exists in the routing table? For example to use RTM_GETROUTE but also to specify the ip address of the route we&#8217;re searching? I don&#8217;t want all the entries in the routing table, only a specific entry.<br />
+Thanks!</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Oleg Kutkov		</title>
+		<link>https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/#comment-959</link>
+
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Mon, 09 Nov 2020 21:31:24 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=821#comment-959</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/#comment-958&quot;&gt;Sandy&lt;/a&gt;.
+
+Hello. It&#039;s no problem.
+This code is just adopted for the IPv4, you can easily switch to IPv6.
+Just replace everywhere AF_INET to AF_INET6 + remove the address length check at line 119:
+
+&lt;code&gt;if ((r-&gt;rtm_dst_len != 24) &#038;&#038; (r-&gt;rtm_dst_len != 16)) {
+    return;
+}&lt;/code&gt;
+
+This code just skips your IPv6 addresses due to IPv6  rtm_dst_len == 128.
+Without this check IPv6 table can be printed without any problems:
+
+&lt;code&gt;$ ./print_route 
+Main routing table IPv6
+::1/128  dev lo
+fe80::/64  dev enp4s0
+::1/128  dev lo
+fe80::d448:77d5:68fa:bf6b/128  dev enp4s0
+ff00::/8  dev enp4s0&lt;/code&gt;
+
+You can completely remove this check or better adopt it to the 128 bit address lengths.]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/#comment-958">Sandy</a>.</p>
+<p>Hello. It&#8217;s no problem.<br />
+This code is just adopted for the IPv4, you can easily switch to IPv6.<br />
+Just replace everywhere AF_INET to AF_INET6 + remove the address length check at line 119:</p>
+<p><code>if ((r->rtm_dst_len != 24) &amp;&amp; (r->rtm_dst_len != 16)) {<br />
+    return;<br />
+}</code></p>
+<p>This code just skips your IPv6 addresses due to IPv6  rtm_dst_len == 128.<br />
+Without this check IPv6 table can be printed without any problems:</p>
+<p><code>$ ./print_route<br />
+Main routing table IPv6<br />
+::1/128  dev lo<br />
+fe80::/64  dev enp4s0<br />
+::1/128  dev lo<br />
+fe80::d448:77d5:68fa:bf6b/128  dev enp4s0<br />
+ff00::/8  dev enp4s0</code></p>
+<p>You can completely remove this check or better adopt it to the 128 bit address lengths.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Sandy		</title>
+		<link>https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/#comment-958</link>
+
+		<dc:creator><![CDATA[Sandy]]></dc:creator>
+		<pubDate>Mon, 09 Nov 2020 20:57:05 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=821#comment-958</guid>
+
+					<description><![CDATA[This code is not working for IPV6 if I change family to AF_INET6 as specified above.
+nl_request.rtm.rtm_family = AF_INET6
+
+Please help]]></description>
+			<content:encoded><![CDATA[<p>This code is not working for IPV6 if I change family to AF_INET6 as specified above.<br />
+nl_request.rtm.rtm_family = AF_INET6</p>
+<p>Please help</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Digvijay		</title>
+		<link>https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/#comment-939</link>
+
+		<dc:creator><![CDATA[Digvijay]]></dc:creator>
+		<pubDate>Wed, 23 Sep 2020 12:24:29 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=821#comment-939</guid>
+
+					<description><![CDATA[Very useful. Nicely coded.
+I think there should be a return statement in the following block otherwise it can crash:
+
+&lt;code&gt;    if (h-&#062;nlmsg_type == NLMSG_ERROR) {
+        perror(&quot;netlink reported error&quot;);
+        free(buf);
+    }
+&lt;/code&gt;]]></description>
+			<content:encoded><![CDATA[<p>Very useful. Nicely coded.<br />
+I think there should be a return statement in the following block otherwise it can crash:</p>
+<p><code>    if (h-&gt;nlmsg_type == NLMSG_ERROR) {<br />
+        perror("netlink reported error");<br />
+        free(buf);<br />
+    }<br />
+</code></p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Oleg Kutkov		</title>
+		<link>https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/#comment-930</link>
+
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Tue, 18 Aug 2020 20:05:48 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=821#comment-930</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/#comment-929&quot;&gt;Savva&lt;/a&gt;.
+
+Hello!
+Can you repeat your tests with command &lt;strong&gt;ip r&lt;/strong&gt; ?
+This command is also based on netlink. Command &quot;&lt;strong&gt;route -n&lt;/strong&gt;&quot; uses old-style ioctl requests.]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/#comment-929">Savva</a>.</p>
+<p>Hello!<br />
+Can you repeat your tests with command <strong>ip r</strong> ?<br />
+This command is also based on netlink. Command &#8220;<strong>route -n</strong>&#8221; uses old-style ioctl requests.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Savva		</title>
+		<link>https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/#comment-929</link>
+
+		<dc:creator><![CDATA[Savva]]></dc:creator>
+		<pubDate>Tue, 18 Aug 2020 02:38:49 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=821#comment-929</guid>
+
+					<description><![CDATA[Hey Oleg, thanks for the post! Very useful. I&#039;m using this code on an ad-hoc network (with olsrd). I am seeing at least a 20 second delay between an ip address appearing among the results of the &quot;route -n&quot; command and the same ip address appearing among the outputs of the get_route_dump_response() function. Any insights as to why this might be happening?]]></description>
+			<content:encoded><![CDATA[<p>Hey Oleg, thanks for the post! Very useful. I&#8217;m using this code on an ad-hoc network (with olsrd). I am seeing at least a 20 second delay between an ip address appearing among the results of the &#8220;route -n&#8221; command and the same ip address appearing among the outputs of the get_route_dump_response() function. Any insights as to why this might be happening?</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Modifying Linux network routes using netlink - Oleg Kutkov personal blog		</title>
+		<link>https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/#comment-76</link>
+
+		<dc:creator><![CDATA[Modifying Linux network routes using netlink - Oleg Kutkov personal blog]]></dc:creator>
+		<pubDate>Wed, 28 Aug 2019 23:14:21 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=821#comment-76</guid>
+
+					<description><![CDATA[[&#8230;] time we talked about getting Linux routing table with simple Netlink code. Now it&#8217;s time to do more [&#8230;]]]></description>
+			<content:encoded><![CDATA[<p>[&#8230;] time we talked about getting Linux routing table with simple Netlink code. Now it&#8217;s time to do more [&#8230;]</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Oleg Kutkov		</title>
+		<link>https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/#comment-74</link>
+
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Mon, 03 Jun 2019 07:59:22 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=821#comment-74</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/#comment-73&quot;&gt;Mike B&lt;/a&gt;.
+
+Thanks!
+New article is upcoming. Stay tuned.]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/#comment-73">Mike B</a>.</p>
+<p>Thanks!<br />
+New article is upcoming. Stay tuned.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Mike B		</title>
+		<link>https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/#comment-73</link>
+
+		<dc:creator><![CDATA[Mike B]]></dc:creator>
+		<pubDate>Sun, 02 Jun 2019 20:14:45 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=821#comment-73</guid>
+
+					<description><![CDATA[very useful, waiting for next articles about netlink]]></description>
+			<content:encoded><![CDATA[<p>very useful, waiting for next articles about netlink</p>
+]]></content:encoded>
+		
+			</item>
+	</channel>
+</rss>

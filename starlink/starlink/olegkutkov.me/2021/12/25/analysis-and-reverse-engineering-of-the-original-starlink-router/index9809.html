@@ -1,0 +1,1053 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2021/12/25/analysis-and-reverse-engineering-of-the-original-starlink-router/?replytocom=1103 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:22:37 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>Analysis and reverse-engineering of the original Starlink router &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large, noindex, follow' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Analysis and reverse-engineering of the original Starlink router Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/2215.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../indexfb4d.html?p=2215' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embed2bd9.json?url=https%3A%2F%2Folegkutkov.me%2F2021%2F12%2F25%2Fanalysis-and-reverse-engineering-of-the-original-starlink-router%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embed1fcd?url=https%3A%2F%2Folegkutkov.me%2F2021%2F12%2F25%2Fanalysis-and-reverse-engineering-of-the-original-starlink-router%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index9809.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-2215 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-2215" class="post-2215 post type-post status-publish format-standard hentry category-electronics category-firmware category-hardware category-linux-kernel category-networking category-reverse-engineering">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/electronics/index.html" rel="category tag">Electronics</a>, <a href="../../../../category/firmware/index.html" rel="category tag">Firmware</a>, <a href="../../../../category/hardware/index.html" rel="category tag">hardware</a>, <a href="../../../../category/linux-kernel/index.html" rel="category tag">Linux kernel</a>, <a href="../../../../category/networking/index.html" rel="category tag">Networking</a>, <a href="../../../../category/reverse-engineering/index.html" rel="category tag">Reverse engineering</a></span><h1 class="entry-title">Analysis and reverse-engineering of the original Starlink router</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">December 25, 2021</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><img decoding="async" class="size-full wp-image-2216 alignleft" src="../../../../wp-content/uploads/2021/12/starlink_router_thumb.jpg" alt="" width="150" height="149" /></p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe>While waiting for my Dishy, I decided to find and buy the Starlink router separately.<br />
+Sure, it might be just a WiFi router, but it was very curious what&#8217;s inside. Spoiler: there are some interesting implementation details.<br />
+Lucky enough, I found the router on eBay. It&#8217;s the first generation of the router. Currently, it&#8217;s impossible to buy (separately) the second generation of the router since it was presented a month ago.</div>
+<div></div>
+<p><span id="more-2215"></span></p>
+<p>Honestly, I love the design of this thing. It reminds me of something from the good old sci-fi.</p>
+<div></div>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_header_pict.jpg"><img fetchpriority="high" decoding="async" class="aligncenter size-full wp-image-2220" src="../../../../wp-content/uploads/2021/12/starlink_router_header_pict.jpg" alt="" width="800" height="606" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_header_pict.jpg 800w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_header_pict-396x300.jpg 396w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_header_pict-768x582.jpg 768w" sizes="(max-width: 800px) 100vw, 800px" /></a></p>
+<div></div>
+<p>The whole device looks rock solid and right-balanced. It&#8217;s a shame that this enclosure is not designed to be easily opened. There is no glue, but there are no screws also.</p>
+<p>Six hooks hold metal and plastic parts of the router together, three on each side. To open this thing, you need to push the hooks somehow. This damages plastic and even aluminum. But it&#8217;s better than nothing, I guess.</p>
+<div></div>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_hooks.jpg"><img decoding="async" class="aligncenter size-full wp-image-2228" src="../../../../wp-content/uploads/2021/12/starlink_router_hooks.jpg" alt="" width="750" height="404" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_hooks.jpg 750w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_hooks-400x215.jpg 400w" sizes="(max-width: 750px) 100vw, 750px" /></a></p>
+<h3>Router internals</h3>
+<p>The whole metal part of the housing works as a heat sink:</p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_first_open1.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2235" src="../../../../wp-content/uploads/2021/12/starlink_router_first_open1.jpg" alt="" width="808" height="606" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_first_open1.jpg 900w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_first_open1-400x300.jpg 400w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_first_open1-768x576.jpg 768w" sizes="(max-width: 808px) 100vw, 808px" /></a></p>
+<p>A relatively simple single board.</p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_first_open2.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2236" src="../../../../wp-content/uploads/2021/12/starlink_router_first_open2.jpg" alt="" width="808" height="606" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_first_open2.jpg 900w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_first_open2-400x300.jpg 400w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_first_open2-768x576.jpg 768w" sizes="(max-width: 808px) 100vw, 808px" /></a></p>
+<h3>PCB</h3>
+<p>The heart of the router is a popular Qualcomm <a href="https://www.qualcomm.com/products/ipq4018">IPQ4018</a> SoC: quad-core ARM Cortex A-7, 802.11ac WiFi 5GHz, and 2.4 GHz support, two channels both. Additionally, this SoC integrates a crypto engine and switch engine with hardware NAT and traffic steering.</p>
+<p>Here are all components of the board with a brief description:</p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_pcb_top.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2249" src="../../../../wp-content/uploads/2021/12/starlink_router_pcb_top.jpg" alt="" width="854" height="477" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_pcb_top.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_pcb_top-400x223.jpg 400w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_pcb_top-768x428.jpg 768w" sizes="(max-width: 854px) 100vw, 854px" /></a></p>
+<p><a href="https://www.ti.com/lit/ds/symlink/tps2378.pdf">TPS2378</a> implements IEEE802.3at PoE standard and could handle up to 100V input.</p>
+<p><a href="https://www.winbond.com/hq/product/code-storage-flash-memory/qspinand-flash/?__locale=en&amp;partNo=W25N01GV">W25N01GV</a> it&#8217;s a serial NAND Flash IC. The router operating system is stored on this chip.</p>
+<p>Honestly, I&#8217;m not impressed by these dual-band antennas. Sure, they can cover a small apartment or a few rooms, but nothing more.</p>
+<p>Here is what under the RF cans covers:</p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_rf_can.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2254" src="../../../../wp-content/uploads/2021/12/starlink_router_rf_can-1024x471.jpg" alt="" width="765" height="352" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_rf_can-1024x471.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_rf_can-400x184.jpg 400w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_rf_can-768x354.jpg 768w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_rf_can.jpg 1184w" sizes="(max-width: 765px) 100vw, 765px" /></a></p>
+<p><a href="https://www.skyworksinc.com/en/Products/Front-end-Modules/SKY85333-11">SKY8533-11</a> and <a href="https://www.skyworksinc.com/en/Products/Front-end-Modules/SKY85743-21">SKY85743-21</a> are WiFi RF frontends, implementing LNA, PA, and switches.</p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_pcb_bottom.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2259" src="../../../../wp-content/uploads/2021/12/starlink_router_pcb_bottom-1024x513.jpg" alt="" width="812" height="407" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_pcb_bottom-1024x513.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_pcb_bottom-400x200.jpg 400w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_pcb_bottom-768x385.jpg 768w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_pcb_bottom.jpg 1122w" sizes="(max-width: 812px) 100vw, 812px" /></a></p>
+<p>The main voltage converter is <a href="https://www.ti.com/lit/ds/symlink/lm5116.pdf">LM5116</a>. Starlink PoE is 56 volts, but the router could run fine at 24 volts from a network switch.</p>
+<p>The Ethernet switch is <a href="https://content.codico.com/fileadmin/media/download/datasheets/qualcomm/qualcomm_qca8072.pdf">QCA8072</a> &#8211; dual-port, 10/100/1000 Mbps tri-speed Ethernet PHY. IPQ807x it&#8217;s a typical solution for the IPQ40xx platform.</p>
+<p><a href="https://datasheetspdf.com/pdf/796156/GigaDevice/GD25Q128B/1">GD25Q128B</a> it&#8217;s an SPI NOR flash with Qualcomm bootloader, u-boot, and some additional data.</p>
+<p>The most interesting part is the <a href="https://www.st.com/content/st_com/en/products/embedded-software/secure-mcu-software/stsw-stsa110-ssl.html">STSAFE-A</a> chip. This special MCU provides secure storage, authentication, and some cryptographic functions, fully supported by the OpenSSL. The MCU is used to store board configuration and certificates. I&#8217;ll cover this below.</p>
+<p>Recreated router block diagram:</p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_block_diagram3.png"><img loading="lazy" decoding="async" class="wp-image-2286 aligncenter" src="../../../../wp-content/uploads/2021/12/starlink_router_block_diagram3-1024x724.png" alt="" width="798" height="564" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_block_diagram3-1024x724.png 1024w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_block_diagram3-400x283.png 400w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_block_diagram3-768x543.png 768w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_block_diagram3.png 1123w" sizes="(max-width: 798px) 100vw, 798px" /></a></p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_uart_pins.jpg"><img loading="lazy" decoding="async" class="alignleft wp-image-2279" src="../../../../wp-content/uploads/2021/12/starlink_router_uart_pins.jpg" alt="" width="264" height="173" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_uart_pins.jpg 500w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_uart_pins-400x263.jpg 400w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_uart_pins-345x225.jpg 345w" sizes="(max-width: 264px) 100vw, 264px" /></a>Unfortunately, I couldn&#8217;t trace the UART interface. I know where is the corresponding CPU pins, but it looks like those pins are not used for the serial console. Plus TX pin is almost buried under the CPU, and it&#8217;s tough to get to it.</p>
+<p>There are a few test points on the board. Some of them related to the NAND and NOR. Some are voltages control and so on.<br />
+I checked all the test pads and got nothing. Anyway, it&#8217;s not a big deal.</p>
+<h3>Firmware</h3>
+<p>Both NOR and NAND were removed from the board and dumped. All the data below were found with <a href="https://github.com/ReFirmLabs/binwalk">binwalk</a> and hex editor.<br />
+It&#8217;s not a secret that the router firmware is based on the OpenWRT. Here is the official SpaceX repository: <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi">https://github.com/SpaceExplorationTechnologies/starlink-wifi</a><br />
+Sure, the GitHub repository contains only GPL code without any SpaceX proprietary components that drive the router.</p>
+<p>Analyzing the dumps, I found that SpaceX is followed a typical QCA pattern, with a few minor differences.<br />
+The system starts from a Primary bootloader (PBL) burnt into the SoC. That PBL is looking for a Secondary bootloader (SBL) at zero address of the NOR flash. The SBL initializes the hardware (CPU, DDR) and starts the Main bootloader (u-boot).<br />
+The purpose of u-boot is to support system-specific tasks like boot environment, firmware recovery, and operating system boot.</p>
+<p>Here is a simplified layout of the Starlink NOR:</p>
+
+<table id="tablepress-13" class="tablepress tablepress-id-13">
+<thead>
+<tr class="row-1 odd">
+	<th class="column-1">Partition</th><th class="column-2">Offset, bytes</th><th class="column-3">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-2 even">
+	<td class="column-1">SBL</td><td class="column-2">0</td><td class="column-3">QCA Secondary bootloader</td>
+</tr>
+<tr class="row-3 odd">
+	<td class="column-1">MIBIB</td><td class="column-2">0x40000</td><td class="column-3">Partition table</td>
+</tr>
+<tr class="row-4 even">
+	<td class="column-1">TZ</td><td class="column-2">0x60000</td><td class="column-3">Trust Zone firmware</td>
+</tr>
+<tr class="row-5 odd">
+	<td class="column-1">CDT</td><td class="column-2">0x140000</td><td class="column-3">Platform memory configuration</td>
+</tr>
+<tr class="row-6 even">
+	<td class="column-1">UENV_0</td><td class="column-2">0x180000</td><td class="column-3">u-boot environment variables 0</td>
+</tr>
+<tr class="row-7 odd">
+	<td class="column-1">UBOOT_0</td><td class="column-2">0x190000</td><td class="column-3">u-boot ELF binary 0</td>
+</tr>
+<tr class="row-8 even">
+	<td class="column-1">UENV_1</td><td class="column-2">0x290000</td><td class="column-3">u-boot environment variables 1</td>
+</tr>
+<tr class="row-9 odd">
+	<td class="column-1">UBOOT_1</td><td class="column-2">0x2D0000</td><td class="column-3">u-boot ELF binary 1</td>
+</tr>
+</tbody>
+</table>
+<!-- #tablepress-13 from cache -->
+<p>Trust Zone firmware protects the boot process. This means that only a &#8220;valid&#8221; signed bootloader and Linux kernel are allowed. Each bootloader contains a security certificate. Those certificates could be extracted with a simple <code>dd</code> command. The u-boot certificate, for example:</p>
+<pre>dd if=GD25Q128B@WSON8.BIN of=cert0.der bs=1 skip=4002248 count=1165</pre>
+<p><a href="../../../../wp-content/uploads/2021/12/u-boot-cert.jpg"><img loading="lazy" decoding="async" class=" wp-image-2304 aligncenter" src="../../../../wp-content/uploads/2021/12/u-boot-cert.jpg" alt="" width="538" height="446" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/u-boot-cert.jpg 734w, https://olegkutkov.me/wp-content/uploads/2021/12/u-boot-cert-362x300.jpg 362w" sizes="(max-width: 538px) 100vw, 538px" /></a></p>
+<p>Also, there are multiple u-boot binaries with separate environments. It could be done for redundancy or different modes. I&#8217;m not sure.<br />
+The u-boot sources are here: <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi/tree/master/qca/src/uboot-1.0">https://github.com/SpaceExplorationTechnologies/starlink-wifi/tree/master/qca/src/uboot-1.0</a></p>
+<p>It seems that the first u-boot uses some default environment. Env variables at offset <strong>0x180000</strong>:</p>
+<pre>baudrate=115200
+bootcmd=bootipq
+bootdelay=2
+ipaddr=192.168.1.11
+burn-fail=0
+burn-in=0
+count=0
+</pre>
+<p>Also, this bootloader loads the default environment as defined <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi/blob/master/qca/src/uboot-1.0/common/sysinfo_common.c#L58">there</a>.</p>
+<pre>bootcmd=bootipq
+bootdelay=2
+baudrate=115200
+ipaddr=192.168.1.11
+serial_number=WISNEW-200600011
+default_password=Starlink-pass-111
+default_ssid=Starlink_00000000
+eth_mac_addr=94:10:3E:E9:7F:D5
+wps_device_pin=28680758</pre>
+<p>In contrast, the secondary u-boot contains a Factory configuration at offset <strong>0x290000</strong>.</p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_network_id_sysconf.jpg"><img loading="lazy" decoding="async" class="size-full wp-image-2298 aligncenter" src="../../../../wp-content/uploads/2021/12/starlink_router_network_id_sysconf.jpg" alt="" width="906" height="422" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_network_id_sysconf.jpg 906w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_network_id_sysconf-400x186.jpg 400w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_network_id_sysconf-768x358.jpg 768w" sizes="(max-width: 906px) 100vw, 906px" /></a></p>
+<p>Additionally, the NOR flash contains WiFi calibration data, a.k.a. &#8220;ART&#8221; partition. The QCA WiFi driver uses this data; I&#8217;m not covering this in the current article.</p>
+<h3>NAND image</h3>
+<p>The NAND flash contains the Linux kernel image and rootfs. But it&#8217;s somewhat tricky to get a usable image of the NAND.<br />
+OOB (Out Of Band) data &#8211; it&#8217;s a spare area adjacent to a page of data. Generally, OOB exists in NAND Flash to enable ECC (Error Correction Code) and bad block management.<br />
+Let&#8217;s check the <a href="https://www.winbond.com/resource-files/W25N01GV Rev Q 051721.pdf">W25N01GV</a> NAND datasheet.</p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_nand_page.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2319" src="../../../../wp-content/uploads/2021/12/starlink_router_nand_page.jpg" alt="" width="595" height="602" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_nand_page.jpg 923w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_nand_page-296x300.jpg 296w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_nand_page-768x778.jpg 768w" sizes="(max-width: 595px) 100vw, 595px" /></a></p>
+<p>This means that each 2048 data page contains an additional tail of 64 bytes. Those OOB chunks should be separated from actual data and processed correctly.<br />
+Initially, I tried to use this Python script:</p>
+<pre>import sys
+
+NAND_PAGE_SIZE = 0x800 # 2048 bytes
+NAND_PAGE_BLK = 64 # 64 pages per block
+NAND_SECTOR_PER_PAGE = 4 # 4 sectors in page
+NAND_SECTOR_SIZE = NAND_PAGE_SIZE/NAND_SECTOR_PER_PAGE
+OOBLEN = 64
+
+inf = open(sys.argv[1] , "rb")
+of = open(sys.argv[2], "wb")
+
+def page2off(pgno):
+    return pgno * 0x840 # (NAND_PAGE_SIZE + NAND_SECTOR_PER_PAGE*OOBLEN)
+
+def read_page(inf, blkno, pgno):
+    blklen = page2off(NAND_PAGE_BLK)
+    fileoff = blklen * blkno + page2off(pgno)
+
+    print "reading block %d page %d: offset %08X" % (blkno, pgno, fileoff)
+
+    inf.seek(fileoff, 0)
+    block = inf.read(blklen)
+    buf = ""
+
+    for i in range(NAND_PAGE_SIZE):
+        buf += block[i]
+
+   return s
+
+for blkn in range(1024):
+    for pagen in range(64):
+        res = read_page(inf, blkn, pagen)
+        of.write(res)</pre>
+<p>Page size, sectors count, and block count were taken from the datasheet.</p>
+<p>Run and test result:</p>
+<pre>$ python oob_strip.py W25N01GV@WSON8.BIN test_nand_out.bin
+
+$ file test_out.bin 
+test_out.bin: UBI image, version 1</pre>
+<p>Alright, we have a <a href="http://www.linux-mtd.infradead.org/doc/ubi.html">UBI</a>. Quite a reasonable solution for the NAND.<br />
+Let&#8217;s try to analyze and extract this image with a <a href="https://github.com/jrspruitt/ubi_reader">ubi_reader:</a></p>
+<pre>$ ubireader_display_info test_out.bin 
+UBI File
+---------------------
+    Min I/O: 2048
+    LEB Size: 126976
+    PEB Size: 131072
+    Total Block Count: 1024
+    Data Block Count: 407
+    Layout Block Count: 4
+    Internal Volume Block Count: 0
+    Unknown Block Count: 613
+    First UBI PEB Number: 0
+
+    Image: 1911121817
+    ---------------------
+        Image Sequence Num: 1911121817
+        Volume Name:kernel
+        Volume Name:ubi_rootfs
+        Volume Name:rootfs_data
+        PEB Range: 512 - 1023
+
+        Volume: kernel
+        ---------------------
+        Volume: ubi_rootfs
+        ---------------------
+        Volume: rootfs_data
+        ---------------------
+******
+    Image: 1899964099
+    ---------------------
+        Image Sequence Num: 1899964099
+        Volume Name:kernel
+        Volume Name:ubi_rootfs
+        Volume Name:rootfs_data
+        PEB Range: 0 - 511
+
+        Volume: kernel
+        ---------------------
+        Volume: ubi_rootfs
+        ---------------------
+        Volume: rootfs_data
+        ---------------------</pre>
+<p>Great result. Here we have two images with three volumes in each image.</p>
+<p>Unfortunately, it&#8217;s impossible to extract undamaged volume in this way. Typical NAND could always contain some amount of bad sectors or flipped bits. Those errors could be corrected with the OOB, and typically it&#8217;s done by the NAND controller.</p>
+<p>The proper solution is to use some real hardware NAND controller or <a href="http://manpages.ubuntu.com/manpages/bionic/man4/nandsim.4freebsd.html">nandsim</a> (NAND Flash simulator driver).<br />
+My thanks to <a href="https://twitter.com/james_hilliard">James Hillard</a> for figuring out the correct params for the nandsim and helping me at this stage.</p>
+<pre>sudo modprobe nandsim id_bytes=0x98,0xd1,0x90,0x15,0x76,0x14,0x01,0x00 parts=512,512
+sudo nandwrite -k -a -o --input-skip=69206016 /dev/mtd1 'W25N01GV@WSON8.BIN'
+sudo modprobe ubi mtd=/dev/mtd1,2048,0,2
+sudo mount -t ubifs /dev/ubi2_2 /mnt/ubi2_2</pre>
+<p>Now it&#8217;s possible to read the data. Thus the simplified NAND layout is:</p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_nand_layout1.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-2327" src="../../../../wp-content/uploads/2021/12/starlink_router_nand_layout1.png" alt="" width="891" height="363" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_nand_layout1.png 891w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_nand_layout1-400x163.png 400w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_nand_layout1-768x313.png 768w" sizes="(max-width: 891px) 100vw, 891px" /></a><br />
+Two identical images are used for redundancy and easy firmware upgrade procedure.</p>
+<p><strong>Volume 0</strong> contains the Linux kernel <a href="https://www.thegoodpenguin.co.uk/blog/u-boot-fit-image-overview/">FIT image</a> with signature.<br />
+<strong>Volume 1</strong> it&#8217;s a <a href="https://tldp.org/HOWTO/SquashFS-HOWTO/whatis.html">squashfs</a> rootfs image with OpenWRT operating system and SpaceX software.<br />
+<strong>Volume 2</strong> is quite interesting. It&#8217;s an r/w <a href="http://www.linux-mtd.infradead.org/doc/ubifs.html">ubifs</a> image with the router configuration files:</p>
+<pre>nand_extract/ubi2_2
+├── etc
+│   └── config
+│   └── WifiConfig
+├── upper
+│   └── etc
+│   ├── config
+│   │   ├── dhcp
+│   │   ├── dropbear
+│   │   ├── ecm
+│   │   ├── macsec
+│   │   ├── network
+│   │   ├── nss
+│   │   ├── ripd
+│   │   ├── skb_recycler
+│   │   ├── ssid-steering
+│   │   ├── system
+│   │   ├── thermal
+│   │   ├── ubootenv
+│   │   ├── upnpd
+│   │   ├── WifiConfig
+│   │   └── wireless
+│   ├── conntrackd
+│   │   └── conntrackd.conf
+│   ├── crontabs
+│   │   └── root
+│   ├── dnsmasq.conf
+│   ├── dropbear
+│   │   ├── authorized_keys
+│   │   └── dropbear_rsa_host_key
+
+***</pre>
+<p>This volume is part of the OpenWrt <a href="https://openwrt.org/docs/guide-user/additional-software/extroot_configuration">Extroot</a> and mounted as <a href="https://en.wikipedia.org/wiki/OverlayFS">/overlay</a></p>
+<p><strong>/etc/config/WifiConfig</strong> it&#8217;s a binary file used by the SpaceX proprietary software.<br />
+It&#8217;s interesting that this file is protected by a set of permissions. No one can read it except the owner.</p>
+<p>Sure, the file format is unknown, but it looks quite straightforward.<br />
+This is what I figured out:<br />
+This file is used to generate OpenWrt <a href="https://openwrt.org/docs/guide-user/network/wifi/basic">uci wireless config</a> at runtime.</p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_wifi_config_binary_format_fix.jpg"><img loading="lazy" decoding="async" class="aligncenter  wp-image-2387" src="../../../../wp-content/uploads/2021/12/starlink_router_wifi_config_binary_format_fix.jpg" alt="" width="861" height="618" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_wifi_config_binary_format_fix.jpg 900w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_wifi_config_binary_format_fix-400x287.jpg 400w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_wifi_config_binary_format_fix-768x551.jpg 768w" sizes="(max-width: 861px) 100vw, 861px" /></a></p>
+<h3>Kernel</h3>
+<p>The <strong>FIT image</strong> contains multiple device tree blobs, Linux kernel, and Starlink Router Attest Certs.</p>
+<pre>$ binwalk kernel-starlink
+
+DECIMAL HEXADECIMAL DESCRIPTION
+--------------------------------------------------------------------------------
+40 0x28 device tree image (dtb)
+268 0x10C gzip compressed data, maximum compression, has original file name: "Image", from Unix, last modified: 2021-06-11 21:41:35
+3754412 0x3949AC device tree image (dtb)
+3779480 0x39AB98 device tree image (dtb)
+3798724 0x39F6C4 device tree image (dtb)
+3818016 0x3A4220 device tree image (dtb)
+3839952 0x3A97D0 device tree image (dtb)
+3865044 0x3AF9D4 device tree image (dtb)
+3889968 0x3B5B30 device tree image (dtb)
+3917528 0x3BC6D8 device tree image (dtb)
+3936928 0x3C12A0 device tree image (dtb)
+3961960 0x3C7468 device tree image (dtb)
+3983688 0x3CC948 device tree image (dtb)
+4003052 0x3D14EC device tree image (dtb)
+4033728 0x3D8CC0 device tree image (dtb)
+4058660 0x3DEE24 device tree image (dtb)
+4083428 0x3E4EE4 Certificate in DER format (x509 v3), header length: 4, sequence length: 1161
+4084593 0x3E5371 Certificate in DER format (x509 v3), header length: 4, sequence length: 947
+4085544 0x3E5728 Certificate in DER format (x509 v3), header length: 4, sequence length: 945
+4089868 0x3E680C Certificate in DER format (x509 v3), header length: 4, sequence length: 1161
+4091033 0x3E6C99 Certificate in DER format (x509 v3), header length: 4, sequence length: 947
+4091984 0x3E7050 Certificate in DER format (x509 v3), header length: 4, sequence length: 945</pre>
+<p>The secure boot chain uses those certs to verify the validity of the kernel.</p>
+<p>Why are there so many dtb sections? The single platform requires a single dtb. Those dtb&#8217;s are support for different QCA reference platforms.<br />
+It&#8217;s just a typical solution. It looks like SpaceX didn&#8217;t change anything in the OpenWrt build system.</p>
+<p>The Linux kernel image is gzip-compressed, and it&#8217;s elementary to extract build configuration:</p>
+<pre>$ binwalk kernel-starlink | grep Image -A1
+<strong>268</strong> 0x10C gzip compressed data, maximum compression, has original file name: "Image", from Unix, last modified: 2021-06-11 21:41:35
+<strong>3754412</strong> 0x3949AC device tree image (dtb)</pre>
+<p>Image size: <strong>3754412 &#8211; 268</strong> = <strong>3754144</strong></p>
+<p>Image extraction:</p>
+<pre>dd if=kernel-starlink of=linux_image.gz bs=1 skip=268 count=3754144
+
+gzip -d linux_image.gz</pre>
+<p>The config is also gzip-compressed. Let&#8217;s find it.</p>
+<pre>$ binwalk linux_image | grep gzip -A1 -B1
+5236966 0x4FE8E6 MPEG transport stream data
+<strong>5949576 0x5AC888 gzip</strong> compressed data, maximum compression, from Unix, last modified: 1970-01-01 00:00:00 (null date)
+6174471 0x5E3707 xz compressed data
+--
+7370351 0x70766F LZMA compressed data, properties: 0xC0, dictionary size: 0 bytes, uncompressed size: 64 bytes
+<strong>7392936 0x70CEA8 gzip</strong> compressed data, maximum compression, from Unix, last modified: 1970-01-01 00:00:00 (null date)
+7761920 0x767000 ELF, 32-bit LSB shared object, ARM, version 1 (SYSV)
+
+</pre>
+<p>The first one at <strong>0x5AC888</strong>:</p>
+<pre>dd if=linux_image of=kernel_config.gz bs=1 skip=5949576 count=224895
+
+gzip -d kernel_config.gz
+
+$ head -n10 kernel_config 
+#
+# Automatically generated file; DO NOT EDIT.
+# Linux/arm 4.4.60 Kernel Configuration
+#
+CONFIG_ARM=y
+CONFIG_ARM_HAS_SG_CHAIN=y
+CONFIG_MIGHT_HAVE_PCI=y
+CONFIG_SYS_SUPPORTS_APM_EMULATION=y
+CONFIG_HAVE_PROC_CPU=y
+CONFIG_STACKTRACE_SUPPORT=y</pre>
+<p>Linux kernel 4.4.60!</p>
+<h3>Rootfs</h3>
+<p>The basic system is not so different from &#8220;vanilla&#8221; OpenWrt. Except for one big thing.<br />
+I could find a few SpaceX-related customizations in scripts. Some of them contain fancy code and comments:</p>
+<pre># SpaceX: As a failsafe, we limit the uptime of our devices to 20 days. After 20 days
+# this script will stop petting the watchdog, which will lead to it rebooting after
+# about 2 minutes. To do this, we first take manual control of the watchdog from
+# procd, using the ubus commands.
+<strong>pet_watchdog</strong>() {
+    # Wait one minute to let ubus system fully boot
+    sleep 60
+
+    echo "Start Petting Watchdog"
+    ubus call system watchdog '{"magicclose": true}'
+    ubus call system watchdog '{"stop": true}'
+
+    # Pet every 10 seconds for 20 days (1,728,000 seconds)
+    for var in `seq 1 172800`; do echo 1 ; sleep 10; done &gt; /dev/watchdog
+}</pre>
+<p>So, Starlink internet is down for ~1 minute every 20 days? 🙂</p>
+<p>But the most interesting binary is <code>/usr/sbin/wifi_control</code></p>
+<p>It&#8217;s a giant application that controls everything, the whole router operation. This app is written in <a href="https://go.dev/">Go</a>, and it&#8217;s really hard to disassemble.<br />
+I can tell that wifi_control is responsible for (at least):</p>
+<ol>
+<li>LAN configuration</li>
+<li>iptables firewall configuration</li>
+<li>WiFi configuration</li>
+<li>Thermal management</li>
+<li>Stats and Telemetry management</li>
+<li>Captive portal</li>
+<li>Interaction with mobile application</li>
+</ol>
+<p>It seems that many params like IP addresses and URLs are just hardcoded in the application.</p>
+<p>This wifi_control initially starts from <code>/etc/init.d/boot</code> script:</p>
+<pre>wifi_control --board=$(cat /etc/board) --early_init</pre>
+<p>This creates initial configuration in /etc/config and wifi_control exits.<br />
+The wifi_control daemon application starts from a separate init script <code>/etc/init.d/wifi_control</code><br />
+There are additional calls from crontab, reset and sysupgrade scripts.</p>
+<p>Also, I could find a lot of interesting strings:</p>
+<pre>rx_beam_state
+tx_beam_state
+modulation
+snow_active_override
+auto_power_snow_melt_enabled
+signal_strength
+signal_level_dbm</pre>
+<p>It looks like it&#8217;s possible to get a lot of cool statistics from the Dishy.</p>
+<p>Now it&#8217;s time to run some software.</p>
+<h3>Booting up</h3>
+<p>Lack of the UART makes no fun. I decided to use 3rd-party hardware and run the Starlink router software.<br />
+It&#8217;s good that ipq40xx is so popular, so there are <a href="https://openwrt.org/docs/techref/targets/ipq40xx#devices_with_this_target">plenty of routers</a> for experiments. I decided to use the IPQ4019 reference board AP.dk04 that I happen to have. IPQ4019 it&#8217;s a <em>slightly</em> different SoC from the upper range that shares the same CPU core and basic modules. This means it&#8217;s almost fully compatible and could be used.</p>
+<p>There are two significant differences:<br />
+&#8211; 5-port Ethernet switch QCA8075 instead of 2-ports QCA8072<br />
+&#8211; Parallel NAND instead of serial.</p>
+<p>But it&#8217;s not an issue.</p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_dk04.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2315" src="../../../../wp-content/uploads/2021/12/starlink_router_dk04.jpg" alt="" width="618" height="434" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_dk04.jpg 900w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_dk04-400x281.jpg 400w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_dk04-768x540.jpg 768w" sizes="(max-width: 618px) 100vw, 618px" /></a></p>
+<p>Is it possible to run Starlink&#8217;s u-boot on a different board? Yes, it&#8217;s possible.<br />
+But it&#8217;s not so fun. Bootloader verifies flash JEDEC id and looks for security chip.</p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_uboot-_run.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-2334" src="../../../../wp-content/uploads/2021/12/starlink_router_uboot-_run.jpg" alt="" width="801" height="765" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_uboot-_run.jpeg 801w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_uboot-_run-314x300.jpeg 314w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_uboot-_run-768x733.jpeg 768w" sizes="(max-width: 801px) 100vw, 801px" /></a><br />
+Interesting note that the first u-boot image is the 2012 version, and the second is 2016.</p>
+<p>I decided to build the u-boot and Linux kernel from the SpaceX GitHub repository and boot with Starlink rootfs</p>
+<h3>Building the Starlink OpenWrt</h3>
+<p>The <a href="https://github.com/SpaceExplorationTechnologies/starlink-wifi">SpaceX repository</a> is based on quite ancient <a href="https://openwrt.org/releases/15.05/start">OpenWrt 15.05.1</a> &#8220;Chaos Calmer&#8221; release.</p>
+<p>I couldn&#8217;t compile the repo on my Linux Mint 20.2, so I decided to use <a href="https://www.docker.com/">Docker</a> with Ubuntu 16.04 (LTS) environment. I will not cover the installation and initial configuration of the Docker.</p>
+<p>This is my <code>Dockerfile</code>:</p>
+<pre>FROM ubuntu:16.04
+
+ARG UID=1000
+ARG GID=1000
+
+# OpenWRT's dl directory.
+ENV DLDIR /opt/dl
+
+RUN apt-get update &amp;&amp; apt-get install -y \
+        apt-utils \
+        build-essential \
+        curl \
+        ocaml \
+        device-tree-compiler \
+        iputils-ping \
+        file \
+        gawk \
+        git \
+        less \
+        libjansson-dev \
+        libncurses5-dev \
+        libssl-dev \
+        nodejs \
+        python-m2crypto \
+        python-minimal \
+        sharutils \
+        subversion \
+        unzip \
+        vim \
+        squashfs-tools \
+        wget
+
+RUN groupadd -g $GID user &amp;&amp; \
+useradd --create-home --gid $GID --uid $UID user
+
+WORKDIR /var/build/starlink-wifi</pre>
+<p>Put the Dockerfile to the Starlink repository top dir and run:</p>
+<pre>docker build . -t starlink-wifi-build -f Dockerfile</pre>
+<p>Run the Docker:</p>
+<pre>src_root=$(realpath "$(dirname $0)")
+
+docker run -i $(tty -s &amp;&amp; echo -t) \
+    -v ${src_root}:/var/build/starlink-wifi \
+    -v /opt/dl \
+    -v ~/.gitconfig:/etc/gitconfig \
+    -u $(id -u):$(id -g) \
+    starlink-wifi-build "$@"</pre>
+<p>Now it&#8217;s time to build the firmware:</p>
+<pre>./scripts/feeds update -a
+./scripts/feeds install -a
+cp spacex_openwrt.config .config
+make oldconfig</pre>
+<p>Run<code>make menuconfig</code> and go to <code>Boot Loaders ---&amp;gt;</code><br />
+Make sure that <code>uboot-ipq40xx........................ U-boot for ipq40xx based platforms</code> is selected, and everything other is not selected.</p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_repo_uboot_select.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-2355" src="../../../../wp-content/uploads/2021/12/starlink_router_repo_uboot_select.png" alt="" width="642" height="249" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_repo_uboot_select.png 642w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_repo_uboot_select-400x155.png 400w" sizes="(max-width: 642px) 100vw, 642px" /></a><br />
+Then:</p>
+<pre>cp nand_extracted_kernel_config target/linux/ipq806x/config-4.4
+make V=s -jN</pre>
+<p>Where <code>N</code> is required, threads count. Typically, this value equals the number of the CPU cores.<br />
+If the build is failed re-run with -j1 to see the error.</p>
+<p>In my case, the correct Linux kernel is bin/ipq806x/openwrt-ipq806x-qcom-ipq4019-ap.dk04.1-c1-fit-uImage.itb since I&#8217;m running on AP.DK04<br />
+Technically, those .itb files are Linux kernel + device tree blob + optional initramfs</p>
+<h3>Running the firmware</h3>
+<p>I decided to use a single NOR flash and made up with the following layout: <code>896k(SBL),64k(u-boot-env),600k(u-boot),20m(rootfs)</code><br />
+It&#8217;s better to align those sizes. That&#8217;s why I had to put 111496 bytes between u-boot and rootfs.</p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_madeup_nor.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2359" src="../../../../wp-content/uploads/2021/12/starlink_router_madeup_nor.jpg" alt="" width="631" height="365" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_madeup_nor.jpg 707w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_madeup_nor-400x231.jpg 400w" sizes="(max-width: 631px) 100vw, 631px" /></a></p>
+<p>SBL and u-boot env were borrowed from the original DK04 QSDK firmware.</p>
+<pre>dd if=/dev/zero of=111496_zero.bin bs=1 count=111496
+cat qca_bootloader_only.bin u-boot.bin 111496_zero.bin nand_extract/squashfs-starlink &gt; starlink_nor.bin</pre>
+<p>There is no kernel. I decided to boot it up over the network. Why not?<br />
+I put my <code>openwrt-ipq806x-qcom-ipq4019-ap.dk04.1-c1-fit-uImage.itb</code> to a local <a href="https://linuxhint.com/install_tftp_server_ubuntu/">TFTP</a> server directory.</p>
+<p>Resulting starlink_nor.bin was burned to a spare NOR flash.</p>
+<p>After the board start, some configuration is required in the u-boot console:</p>
+<pre>setenv serverip 192.168.1.150
+set mtdparts "mtdparts=78b5000.spi:896k(QCA-bootloader),64k(u-boot-env),600k(u-boot),20m(rootfs)"
+setenv bootargs "rootfstype=squashfs root=/dev/mtdblock3 ro noinitrd init=/init console=ttyMSM0,115200 mtdparts=spi0.0:896k(QCA-bootloader),64k(u-boot-env),600k(u-boot),20m(rootfs)"
+saveenv</pre>
+<p>192.168.1.150 it&#8217;s the address of my TFTP server.</p>
+<p>Now it&#8217;s time to boot the operating system:</p>
+<pre>tftpboot 84000000 openwrt-ipq806x-qcom-ipq4019-ap.dk04.1-c1-fit-uImage.itb
+bootm</pre>
+<p>The kernel is booting and should mount&amp;run Starlink&#8217;s rootfs.</p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_console_motd.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-2360" src="../../../../wp-content/uploads/2021/12/starlink_router_console_motd.png" alt="" width="768" height="438" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_console_motd.png 768w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_console_motd-400x228.png 400w" sizes="(max-width: 768px) 100vw, 768px" /></a>Yay!</p>
+<p>It&#8217;s possible to configure the network and internet access:</p>
+<pre>brctl addbr br-lan
+brctl addif br-lan eth0
+ip addr add 192.168.1.21/24 broadcast 192.168.1.255 dev eth0
+ip link set dev eth0 up
+ip route add default via 192.168.1.1</pre>
+<p>Half of these commands should have been executed automatically, but something went wrong.</p>
+<p>Ok, now the internet is working, but what about the wifi_control?</p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_first_run_ping.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2361" src="../../../../wp-content/uploads/2021/12/starlink_router_first_run_ping-1024x248.jpg" alt="" width="936" height="227" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_first_run_ping-1024x248.jpeg 1024w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_first_run_ping-400x97.jpeg 400w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_first_run_ping-768x186.jpeg 768w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_first_run_ping.jpeg 1352w" sizes="(max-width: 936px) 100vw, 936px" /></a></p>
+<p>Sure! It tries to access the security chip and fails because there is no such chip on my board 🙂</p>
+<p>I think it&#8217;s time to check out that security chip.</p>
+<h3 class="st-h3" data-page-title-en="STSAFE-A110">STSAFE-A110 auth chip</h3>
+<p>The STSAFE-A110 is in UFDFPN8 2&#215;3 mm package. I decided to build an adapter for easy connection.</p>
+<div class="st-stage-product__tags">
+<div class="st-badge st-tooltip st-tooltip--badge js-st-tooltip st-badge--active st-tooltip--right" data-tooltip-text="Product is in volume production."><a href="../../../../wp-content/uploads/2021/12/STSAFE-A110_adapter.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-2364" src="../../../../wp-content/uploads/2021/12/STSAFE-A110_adapter.jpg" alt="" width="900" height="561" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/STSAFE-A110_adapter.jpg 900w, https://olegkutkov.me/wp-content/uploads/2021/12/STSAFE-A110_adapter-400x249.jpg 400w, https://olegkutkov.me/wp-content/uploads/2021/12/STSAFE-A110_adapter-768x479.jpg 768w" sizes="(max-width: 900px) 100vw, 900px" /></a></div>
+</div>
+<p>&nbsp;</p>
+<p>Also, there is a minimum required set of components: bypass capacitor and Reset circuit.</p>
+<p><a href="../../../../wp-content/uploads/2021/12/stsafe_adapter_schematic.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-2365" src="../../../../wp-content/uploads/2021/12/stsafe_adapter_schematic.png" alt="" width="950" height="402" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/stsafe_adapter_schematic.png 950w, https://olegkutkov.me/wp-content/uploads/2021/12/stsafe_adapter_schematic-400x169.png 400w, https://olegkutkov.me/wp-content/uploads/2021/12/stsafe_adapter_schematic-768x325.png 768w" sizes="(max-width: 950px) 100vw, 950px" /></a>C2 and R3 generate a Reset signal of the required length. Check out the <a href="file:///home/oleg/Documents/Datasheets/stm32/stsafe-a110.pdf">datasheet</a> on page 26.</p>
+<p>The device connected to the Raspberry Pi I2C bus:</p>
+<p><a href="../../../../wp-content/uploads/2021/12/stsafe_connected_to_raspberry.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2368" src="../../../../wp-content/uploads/2021/12/stsafe_connected_to_raspberry.jpg" alt="" width="563" height="469" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/stsafe_connected_to_raspberry.jpg 800w, https://olegkutkov.me/wp-content/uploads/2021/12/stsafe_connected_to_raspberry-360x300.jpg 360w, https://olegkutkov.me/wp-content/uploads/2021/12/stsafe_connected_to_raspberry-768x640.jpg 768w" sizes="(max-width: 563px) 100vw, 563px" /></a></p>
+<p>Quick test:</p>
+<pre>$ i2cdetect -y 1
+0 1 2 3 4 5 6 7 8 9 a b c d e f
+00: -- -- -- -- -- -- -- -- -- -- -- -- -- 
+10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+20: 20 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --</pre>
+<p>It&#8217;s alive! 0x20 it&#8217;s the correct address for STSAFE</p>
+<p>There is an official ST library and toolset for the STSAFE-A110: <a href="https://www.st.com/en/embedded-software/stsw-stsa110-ssl.html">https://www.st.com/en/embedded-software/stsw-stsa110-ssl.html</a><br />
+Content of the package:<br />
+<strong>Documentation</strong> &#8211; docs, really useful<br />
+<strong>src</strong> and <strong>lib</strong> &#8211; device interface library<br />
+<strong>Examples</strong> &#8211; example tools and test suite</p>
+<p>This library could be compiled on the Raspberry Pi. Just OpenSSL headers are required.<br />
+Download and extract the package. Then go to STSAFE-A_OpenSSL_Engine_V1.2.0</p>
+<p>Open make.in and edit OpenSSL paths. In the case of a standard SSL installation, this should look like this:</p>
+<pre>OPENSSL_INC = /usr/include/openssl
+OPENSSL_LIB = /usr/lib
+OPENSSL_BIN = /usr/bin</pre>
+<p>Then run:</p>
+<pre>make
+sudo make install
+sudo ldconfig</pre>
+<p>Next create file <code>openssl.conf.stsafe</code> with the following content:</p>
+<pre>openssl_conf = openssl_def
+
+[openssl_def]
+engines = engine_section
+
+[engine_section]
+Stsafe = Stsafe_section
+
+[Stsafe_section]
+dynamic_path = /usr/lib/engines-1.1/Stsafe.so
+engine_id = Stsafe
+default_algorithms = ALL
+init = 1</pre>
+<p>Now we ready for test:</p>
+<p><code>OPENSSL_CONF=./openssl.conf.stsafe openssl engine Stsafe</code></p>
+<p>There should be a successful pairing at the command output:</p>
+<pre>Main : Now let's pair ... 
+About to call StSafeA_LocalEnvelopeKeySlotQuery: 0x2907d0, 0x2907e0, 0x2907f0 
+StSafeA_LocalEnvelopeKeySlotQuery: StatusCode=0 slot 0: presence flag =1 
+StSafeA_LocalEnvelopeKeySlotQuery: StatusCode=0 slot 1: presence flag =1 
+StatusCode=0 ---HostKeySlot = 0xbef11ccc, pStSafeA-&gt;InOutBuffer.LV.Data = 0xb6ab2430
+HostKeySlot-&gt;HostKeyPresenceFlag: 1 
+Main : stsafe_pairing success</pre>
+<p>The next step is to run the <code>test suit</code> to get some useful output.</p>
+<pre>cd Examples/stsafe_engine_test_suite/</pre>
+<p>Please note that some tests might fail. I commented those failed tests in <code>test_stsafe_engine.c</code></p>
+<p>Build and run the tool:</p>
+<pre>make
+./test_stsafe_engine</pre>
+<p>This is what I got:</p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_stsafe_test_suit.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-2374" src="../../../../wp-content/uploads/2021/12/starlink_router_stsafe_test_suit.jpg" alt="" width="730" height="843" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_stsafe_test_suit.jpg 730w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_stsafe_test_suit-260x300.jpg 260w" sizes="(max-width: 730px) 100vw, 730px" /></a></p>
+<p>Sorry for the blurred parts 🙂</p>
+<p>Those hex data could be copied to a text file and then converted to a valid <code>pem</code> file:</p>
+<pre>cat device_cert.txt | xxd -r -p | openssl x509 -inform DER -out device_cert.pem -outform PEM</pre>
+<p>Result:</p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_dev_pem.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-2372" src="../../../../wp-content/uploads/2021/12/starlink_router_dev_pem.png" alt="" width="556" height="457" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_dev_pem.png 556w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_dev_pem-365x300.png 365w" sizes="(max-width: 556px) 100vw, 556px" /></a></p>
+<p>What&#8217;s about <code>wifi_control</code>? Let&#8217;s run it on Raspberry!<br />
+Is it even possible? Sure, both Starlink router and Raspberry Pi use the &#8220;same&#8221; 32-bit ARM CPU core.<br />
+Plus, the Go binaries are pretty self-contain since there is built-in runtime.</p>
+<p>Make some preparations first.</p>
+<pre># echo "v1 &gt; /etc/board
+# echo "2021.19.0.mr2666-prod" &gt; /etc/version    # or version of your firmware
+# ln -s /bin/true /usr/local/bin/devinfo_access</pre>
+<p>Copy <code>WifiConfig</code> from the real system to your Raspberry <code>/etc/</code></p>
+<p>Raspberry Pi uses the second I2C bus /dev/i2c-1<br />
+But wifi_control is looking for /dev/i2c-0<br />
+It&#8217;s easy to fix with udev alias. Create <code>/etc/udev/rules.d/99_sr0.rules</code> with the following content: <code>KERNEL=="i2c-1", SYMLINK+="i2c-0"</code></p>
+<p>Then run <code>sudo udevadm control --reload-rules; sudo udevadm trigger</code>.<br />
+Now we are good to go.</p>
+<p><a href="../../../../wp-content/uploads/2021/12/starlink_router_wifi_control_on_rpi.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-2377" src="../../../../wp-content/uploads/2021/12/starlink_router_wifi_control_on_rpi.jpg" alt="" width="933" height="367" srcset="https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_wifi_control_on_rpi.jpeg 1007w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_wifi_control_on_rpi-400x157.jpeg 400w, https://olegkutkov.me/wp-content/uploads/2021/12/starlink_router_wifi_control_on_rpi-768x302.jpeg 768w" sizes="(max-width: 933px) 100vw, 933px" /></a></p>
+<p>A lot of interesting things are going on here!<br />
+First of all, wifi_control creates many files in <code>/etc/config/</code>.<br />
+Then it starts telemetry threads and connecting to one of the Starlink servers.<br />
+Also, I can see the creation of two gRPC servers. I can tell that this process is trying to access another gRPC server at Dishy (192.168.1.100).<br />
+It looks like <a href="https://grpc.io/">gRPC</a>, and protobuf it&#8217;s the <a href="https://hackaday.com/2021/12/17/this-week-in-security-log4j-pdf-cpu-and-i-hack-starlink/">primary API/communication protocol</a> in the Starlink world.</p>
+<p>Now I&#8217;m trying to reverse the I2C communication protocol to understand how wifi_control interacts with STSAFE. There is a lot of data traffic on this bus.<br />
+Also, I would like to figure out how all those certs are working. And how to communicate with the Starlink servers. It would be great to request a firmware update file or something.</p>
+<p>Stay tuned!</p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a></h2>
+                                         <span class="posted-date">November 7, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a></h2>
+                                         <span class="posted-date">June 9, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../../11/29/hackrf-supercluster/index.html" rel="prev">HackRF SuperCluster</a></div><div class="nav-next"><a href="../../../../2022/03/07/reverse-engineering-of-the-starlink-ethernet-adapter/index.html" rel="next">Reverse engineering of the Starlink Ethernet adapter</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			10 thoughts on &ldquo;<span>Analysis and reverse-engineering of the original Starlink router</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-1103" class="comment even thread-even depth-1">
+			<article id="div-comment-1103" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/923d10bc97028030e8e67e7db62658d1?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/923d10bc97028030e8e67e7db62658d1?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">someone</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1103"><time datetime="2022-01-04T00:34:27+02:00">January 4, 2022 at 12:34 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p><a href="https://www.esat.kuleuven.be/cosic/blog/dumping-and-extracting-the-spacex-starlink-user-terminal-firmware/" rel="nofollow ugc">https://www.esat.kuleuven.be/cosic/blog/dumping-and-extracting-the-spacex-starlink-user-terminal-firmware/</a></p>
+<p>The ST security chip is also used in the dish. I wonder what did u dump from the chip? Is it public key only, or you can also dump some private key? The private key is probably used to authenticate the dishy when talking to satellite. So if u dump the private key, you will be able to create a fully customized client to poke the satellite, in theory.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index9809.html?replytocom=1103#respond' data-commentid="1103" data-postid="2215" data-belowelement="div-comment-1103" data-respondelement="respond" data-replyto="Reply to someone" aria-label='Reply to someone'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1193" class="pingback odd alt thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="https://best-technologies.info/tech/ukraine-engineer-talks-testing-spacexs-new-starlink-service/" class="url" rel="ugc external nofollow">Ukraine engineer talks testing SpaceX’s new Starlink service - Best Technologies</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-1194" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="https://techosmo.com/the-verge/ukraine-engineer-talks-testing-spacexs-new-starlink-service/" class="url" rel="ugc external nofollow">Ukraine engineer talks testing SpaceX’s new Starlink service &#8211; TECHOSMO</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-1195" class="pingback odd alt thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="https://techreviewjournals.com/2022/03/01/ukraine-engineer-talks-testing-spacexs-new-starlink-service/" class="url" rel="ugc external nofollow">Ukraine engineer talks testing SpaceX’s new Starlink service &#8211; TechReviewJournals</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-1196" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="https://vervetimes.com/ukraine-engineer-talks-testing-spacexs-new-starlink-service/" class="url" rel="ugc external nofollow">Ukraine engineer talks testing SpaceX’s new Starlink service - Verve times</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-1197" class="pingback odd alt thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="https://reporterdoor.com/2022/03/01/ukraine-engineer-talks-testing-spacexs-new-starlink-service/" class="url" rel="ugc external nofollow">Ukraine engineer talks testing SpaceX’s new Starlink service - Reporter Door</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-1198" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="https://gamesvot.com/2022/03/01/ukraine-engineer-talks-testing-spacexs-new-starlink-service/" class="url" rel="ugc external nofollow">Ukraine engineer talks testing SpaceX’s new Starlink service - GamesVot</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-1199" class="pingback odd alt thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="https://techscurry.com/general/ukraine-engineer-talks-testing-spacexs-new-starlink-service/46711/" class="url" rel="ugc external nofollow">Ukraine engineer talks testing SpaceX’s new Starlink service - Tech Scurry - The Latest Tech News Of The World</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-1200" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="https://silverrtech.com/ukraine-engineer-talks-testing-spacexs-new-starlink-service/" class="url" rel="ugc external nofollow">Ukraine engineer talks testing SpaceX’s new Starlink service</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-1259" class="pingback odd alt thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="../../../../2022/03/01/initial-analysis-of-the-starlink-router-gen2/index.html" class="url" rel="ugc">Initial analysis of the Starlink router gen2 &#8211; Oleg Kutkov personal blog</a> 			</div>
+		</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply to <a href="#comment-1103">someone</a> <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='2215' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='1103' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="b84f88293d" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="39"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../../2020/06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index9809.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_1827c9da4c86fc3ad9db01f6a6132235.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2021/12/25/analysis-and-reverse-engineering-of-the-original-starlink-router/?replytocom=1103 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:22:37 GMT -->
+</html>

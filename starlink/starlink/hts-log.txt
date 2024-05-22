@@ -1,0 +1,43 @@
+HTTrack3.49-2+htsswf+htsjava launched on Wed, 22 May 2024 23:06:53 at https://olegkutkov.me +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "ru, en, *" https://olegkutkov.me -O1 "C:\projects\satcom\starlink\starlink" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+23:07:02	Error: 	"Method Not Allowed" (405) at link https://olegkutkov.me/xmlrpc.php (from https://olegkutkov.me/)
+23:12:33	Error: 	"Not Found" (404) at link olegkutkov.me/wp-content/themes/blog-way/assets/third-party/fonts/glyphicons-halflings-regular.eot (from https://olegkutkov.me/wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css)
+23:12:38	Warning: 	Moved Permanently for https://olegkutkov.me/?p=2855
+23:12:38	Warning: 	File has moved from https://olegkutkov.me/?p=2855 to https://olegkutkov.me/starlink-repairs-archive/
+23:12:40	Warning: 	Moved Permanently for https://olegkutkov.me/?p=3133
+23:12:40	Warning: 	File has moved from https://olegkutkov.me/?p=3133 to https://olegkutkov.me/license/
+23:12:41	Warning: 	Moved Permanently for https://olegkutkov.me/?p=27
+23:12:41	Warning: 	File has moved from https://olegkutkov.me/?p=27 to https://olegkutkov.me/about-me/
+23:13:07	Warning: 	file not stored in cache due to bogus state (incomplete type with OK (200), size 10537): olegkutkov.me/wp-content/uploads/2019/11/h_sym_with_measures.png
+23:17:12	Warning: 	Moved Permanently for https://olegkutkov.me/?p=3256
+23:17:12	Warning: 	File has moved from https://olegkutkov.me/?p=3256 to https://olegkutkov.me/2024/02/12/starlink-terminal-revision-4-overview-and-tests/
+23:17:22	Warning: 	Moved Permanently for https://olegkutkov.me/?p=3155
+23:17:22	Warning: 	File has moved from https://olegkutkov.me/?p=3155 to https://olegkutkov.me/2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/
+23:17:33	Warning: 	Moved Permanently for https://olegkutkov.me/?p=3094
+23:17:33	Warning: 	File has moved from https://olegkutkov.me/?p=3094 to https://olegkutkov.me/2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/
+23:17:46	Warning: 	Moved Permanently for https://olegkutkov.me/?p=3050
+23:17:46	Warning: 	File has moved from https://olegkutkov.me/?p=3050 to https://olegkutkov.me/2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/
+23:18:32	Warning: 	Moved Permanently for https://olegkutkov.me/?p=2776
+23:18:32	Warning: 	File has moved from https://olegkutkov.me/?p=2776 to https://olegkutkov.me/2022/07/18/data-logger-for-uni-t-ut800-multimeters/
+23:18:55	Warning: 	Moved Permanently for https://olegkutkov.me/?p=2695
+23:18:55	Warning: 	File has moved from https://olegkutkov.me/?p=2695 to https://olegkutkov.me/2022/04/30/how-to-add-ethernet-port-to-the-gen-2-starlink-router/
+23:18:56	Warning: 	Moved Permanently for https://olegkutkov.me/?p=2661
+23:18:56	Warning: 	File has moved from https://olegkutkov.me/?p=2661 to https://olegkutkov.me/2022/04/28/eqmod-adapter-for-telescopes-version-2/
+23:21:05	Warning: 	Moved Permanently for https://olegkutkov.me/?p=2499
+23:21:05	Warning: 	File has moved from https://olegkutkov.me/?p=2499 to https://olegkutkov.me/2022/04/10/initial-analysis-of-the-starlink-router-gen2/
+23:22:11	Warning: 	Moved Permanently for https://olegkutkov.me/2022/04/01/how-to-add-ethernet-port-to-the-gen-2-starlink-router/
+23:22:11	Warning: 	File has moved from https://olegkutkov.me/2022/04/01/how-to-add-ethernet-port-to-the-gen-2-starlink-router/ to https://olegkutkov.me/2022/04/30/how-to-add-ethernet-port-to-the-gen-2-starlink-router/
+23:22:24	Warning: 	Moved Permanently for https://olegkutkov.me/?p=2413
+23:22:24	Warning: 	File has moved from https://olegkutkov.me/?p=2413 to https://olegkutkov.me/2022/03/07/reverse-engineering-of-the-starlink-ethernet-adapter/
+23:22:37	Warning: 	Moved Permanently for https://olegkutkov.me/?p=2215
+23:22:37	Warning: 	File has moved from https://olegkutkov.me/?p=2215 to https://olegkutkov.me/2021/12/25/analysis-and-reverse-engineering-of-the-original-starlink-router/
+23:22:42	Warning: 	Moved Permanently for https://olegkutkov.me/2022/03/01/initial-analysis-of-the-starlink-router-gen2/
+23:22:42	Warning: 	File has moved from https://olegkutkov.me/2022/03/01/initial-analysis-of-the-starlink-router-gen2/ to https://olegkutkov.me/2022/04/10/initial-analysis-of-the-starlink-router-gen2/
+23:43:00	Warning: 	file not stored in cache due to bogus state (broken size, expected 7699587 got 7399080): olegkutkov.me/wp-content/uploads/2018/03/IMG_9481.jpg
+23:54:00	Warning: 	file not stored in cache due to bogus state (broken size, expected 7835800 got 7329640): olegkutkov.me/wp-content/uploads/2017/11/MG_9943.jpg

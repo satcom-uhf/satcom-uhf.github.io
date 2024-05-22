@@ -1,0 +1,717 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2019/08/29/modifying-linux-network-routes-using-netlink/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:14:16 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>Modifying Linux network routes using netlink &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Modifying Linux network routes using netlink Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/919.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../index6f5e.html?p=919' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embedafb2.json?url=https%3A%2F%2Folegkutkov.me%2F2019%2F08%2F29%2Fmodifying-linux-network-routes-using-netlink%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embed71f5?url=https%3A%2F%2Folegkutkov.me%2F2019%2F08%2F29%2Fmodifying-linux-network-routes-using-netlink%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-919 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-919" class="post-919 post type-post status-publish format-standard hentry category-linux-kernel category-linux-system-development category-networking category-software tag-linux tag-netlink tag-network tag-routes">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/linux-kernel/index.html" rel="category tag">Linux kernel</a>, <a href="../../../../category/linux-system-development/index.html" rel="category tag">Linux system development</a>, <a href="../../../../category/networking/index.html" rel="category tag">Networking</a>, <a href="../../../../category/software/index.html" rel="category tag">Software</a></span><h1 class="entry-title">Modifying Linux network routes using netlink</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">August 29, 2019</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><img decoding="async" class="alignleft wp-image-920" src="../../../../wp-content/uploads/2019/08/route_add_del_logo.png" alt="" width="101" height="135" srcset="https://olegkutkov.me/wp-content/uploads/2019/08/route_add_del_logo.png 300w, https://olegkutkov.me/wp-content/uploads/2019/08/route_add_del_logo-225x300.png 225w" sizes="(max-width: 101px) 100vw, 101px" /></p>
+<p>Last time we <a href="../../../03/24/getting-linux-routing-table-using-netlink/index.html">talked</a> about getting a Linux routing table with a simple Netlink code.<br />
+Now it&#8217;s time to do more interesting stuff. Let&#8217;s add and delete some routes using the power of the Netlink!<span id="more-919"></span></p>
+<p>At the end of this article, we will create a command-line utility with syntax similar to <strong>ip route</strong> command, which can add and delete custom routes.</p>
+<p>Like in previous examples, everything starts with a Netlink socket.</p>
+<pre class="prettyprint">/* Open netlink socket */
+int open_netlink()
+{
+    int sock = socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE);
+
+    if (sock &lt; 0) {
+        perror("Failed to open netlink socket");
+        return -1;
+    }
+
+    return sock;
+}</pre>
+<p>And that&#8217;s it!<br />
+We don&#8217;t need to bind to the socket or do some other things. All we have to do is to build a special message and send it to the Netlink socket.</p>
+<p>Let&#8217;s describe the message structure.</p>
+<pre class="prettyprint">struct {
+    struct nlmsghdr n;
+    struct rtmsg r;
+    char buf[4096];
+} nl_request;</pre>
+<p>Now we need to configure some fields of <strong>nlmsghdr</strong> and <strong>rtmsg</strong>.<br />
+Some of them are basic and used both in &#8220;add&#8221; and &#8220;delete&#8221; requests, but some contain actual command of what to do.</p>
+<p>Basic initialization:</p>
+<pre class="prettyprint">nl_request.n.nlmsg_len = NLMSG_LENGTH(sizeof(struct rtmsg));
+nl_request.r.rtm_table = RT_TABLE_MAIN;
+nl_request.r.rtm_scope = RT_SCOPE_NOWHERE;
+nl_request.n.nlmsg_flags = 0;</pre>
+<p>Let&#8217;s specify what we want to do &#8211; add or remove the route.<br />
+To add a new route, specify <strong>nlmsg_type</strong> as <strong>RTM_NEWROUTE</strong></p>
+<pre class="prettyprint">nl_request.n.nlmsg_type = RTM_NEWROUTE;</pre>
+<p>And <strong>RTM_DELROUTE</strong> in case of deleting</p>
+<pre class="prettyprint">nl_request.n.nlmsg_type = RTM_DELROUTE;</pre>
+<p>Additionally, we can specify flags for the &#8220;add&#8221; operation, combining with <strong>NLM_F_REQUEST</strong> flag.</p>
+<blockquote>
+<p style="padding-left: 40px;">NLM_F_REPLACE Replace existing matching object.<br />
+NLM_F_EXCL Don&#8217;t replace if the object already exists.<br />
+NLM_F_CREATE Create object if it doesn&#8217;t already exist.<br />
+NLM_F_APPEND Add to the end of the object list.</p>
+</blockquote>
+<p>Create a new routing table entry and don&#8217;t replace already existing record:</p>
+<pre class="prettyprint">nl_request.n.nlmsg_flags = NLM_F_REQUEST | NLM_F_CREATE | NLM_F_EXCL</pre>
+<p>Also, we need to specify the route type in case of adding a new one.</p>
+<blockquote>
+<p style="padding-left: 40px;">RTN_UNSPEC unknown route<br />
+RTN_UNICAST a gateway or direct route<br />
+RTN_LOCAL a local interface route<br />
+RTN_BROADCAST a local broadcast route (sent as a broadcast)<br />
+RTN_ANYCAST a local broadcast route (sent as a unicast)<br />
+RTN_MULTICAST a multicast route<br />
+RTN_BLACKHOLE a packet dropping route<br />
+RTN_UNREACHABLE an unreachable destination<br />
+RTN_PROHIBIT a packet rejection route<br />
+RTN_THROW continue routing lookup in another table<br />
+RTN_NAT a network address translation rule</p>
+</blockquote>
+<p>In simple cases, we can use <strong>RTN_UNICAST</strong>:</p>
+<pre class="prettyprint">if (nl_request.n.nlmsg_type != RTM_DELROUTE) {
+    nl_request.r.rtm_type = RTN_UNICAST;
+}</pre>
+<p>Now the most interesting part &#8211; adding route details. It may vary depending on what we want. We can specify the target network, gateway, network interface, or just gateway.</p>
+<p>According to these details &#8211; protocol family, scope, and address length should be set.</p>
+<p>Let&#8217;s describe a simple case with the IPv4 route.</p>
+<pre class="prettyprint">nl_request.r.rtm_family = AF_INET;
+nl_request.r.rtm_scope = RT_SCOPE_LINK;</pre>
+<p>If we add a route to some network, not a default gateway &#8211; we also need to specify destination address length in Bits. It&#8217;s simply 32 for IPv4 and 128 for IPv6.<!--?prettify linenums=true?--></p>
+<pre class="prettyprint">nl_request.r.rtm_dst_len = 32;</pre>
+<p>Typically IP addresses are represented in human-readable text forms, but Netlink accepts only binary format.</p>
+<p>To deal with this, we can use <strong>inet_pton</strong> function from <strong>arpa/inet.h.</strong><br />
+This function supports converting both IPv4 and IPv6 into binary form.</p>
+<p>Conversion of the <strong>AF_INET</strong> (IPv4) address 192.168.1.0 into binary form and put it to <strong>data</strong> buffer:</p>
+<pre class="prettyprint">#include &lt;arpa/inet.h&gt;
+
+unsigned char data[sizeof(struct in6_addr)];
+
+inet_pton(AF_INET, "192.168.1.0", data);</pre>
+<p>In some cases, we also need to specify the outgoing network interface.<br />
+User-friendly names like &#8220;eth0&#8221; should also be converted to numeric indexes. Here we can use <strong>if_nametoindex</strong> from <strong>net/if.h.</strong></p>
+<pre class="prettyprint">#include &lt;net/if.h&gt;
+
+int if_idx = if_nametoindex("eth0");</pre>
+<p>To add IP addresses data and interface index to our Netlink request, we need to use a special function that actually acts as a reverse of the <strong>parse_rtattr</strong> from the <a href="../../../03/24/getting-linux-routing-table-using-netlink/index.html">previous</a> articles.</p>
+<pre class="prettyprint">/* Add new data to rtattr */
+int rtattr_add(struct nlmsghdr *n, int maxlen, int type, const void *data, int alen)
+{
+    int len = RTA_LENGTH(alen);
+    struct rtattr *rta;
+
+    if (NLMSG_ALIGN(n-&gt;nlmsg_len) + RTA_ALIGN(len) &gt; maxlen) {
+        fprintf(stderr, "rtattr_add error: message exceeded bound of %d\n", maxlen);
+        return -1;
+    }
+
+    rta = NLMSG_TAIL(n);
+    rta-&gt;rta_type = type;
+    rta-&gt;rta_len = len; 
+
+    if (alen) {
+        memcpy(RTA_DATA(rta), data, alen);
+    }
+
+    n-&gt;nlmsg_len = NLMSG_ALIGN(n-&gt;nlmsg_len) + RTA_ALIGN(len);
+
+    return 0;
+}</pre>
+<p>And here is how to use this function and add network interface-id to our <strong>nl_request</strong> structure:</p>
+<pre class="prettyprint">rtattr_add(&amp;nl_request.n, sizeof(nl_request), RTA_OIF, &amp;if_idx, sizeof(int));</pre>
+<p>Add gateway:</p>
+<pre class="prettyprint">rtattr_add(&amp;nl_request.n, sizeof(nl_request), RTA_GATEWAY, gw_bin_data, 16);</pre>
+<p><strong>gw_bin_data</strong> is IP address binary data acquired with inet_pton, and 16 is IPv4 address length in bytes (not a bit in this case), for IPv6 use 16.</p>
+<p>We can use attribute type RTA_DST or RTA_NEWDST on the newest Linux kernels to add a destination network. Just check what&#8217;s available on your system.</p>
+<pre class="prettyprint">rtattr_add(&amp;nl_request.n, sizeof(nl_request), /*RTA_NEWDST*/ RTA_DST, dst_net_bin_data, 16);</pre>
+<p>Please note that there are some rules with a combination of these attributes. For the default gateway, we DON&#8217;T need to specify the destination network and even network interface id. The kernel can figure it out by itself.</p>
+<p>Now send this message to the socket.</p>
+<pre class="prettyprint">send(sock, &amp;nl_request, sizeof(nl_request), 0);</pre>
+<p>A complete example is below.<br />
+I decided to write a program with quite a complex command-line interface that can act as the <strong>ip route</strong> tool. All arguments parsing is implemented withing <strong>main()</strong> function, parser requires strict order of the params.<br />
+This program might be buggy and imperfect, but this is just an example that can do the job 🙂</p>
+<pre class="prettyprint">/*
+ *
+ */
+
+#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;net/if.h&gt;
+#include &lt;arpa/inet.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;linux/rtnetlink.h&gt;
+
+/* Open netlink socket */
+int open_netlink()
+{
+    struct sockaddr_nl saddr;
+
+    int sock = socket(AF_NETLINK, SOCK_RAW, NETLINK_ROUTE);
+
+    if (sock &lt; 0) {
+        perror("Failed to open netlink socket");
+        return -1;
+    }
+
+    memset(&amp;saddr, 0, sizeof(saddr));
+
+    return sock;
+}
+
+/* Helper structure for ip address data and attributes */
+typedef struct {
+    char family;
+    char bitlen;
+    unsigned char data[sizeof(struct in6_addr)];
+} _inet_addr;
+
+/* */
+
+#define NLMSG_TAIL(nmsg) \
+    ((struct rtattr *) (((void *) (nmsg)) + NLMSG_ALIGN((nmsg)-&gt;nlmsg_len)))
+
+/* Add new data to rtattr */
+int rtattr_add(struct nlmsghdr *n, int maxlen, int type, const void *data, int alen)
+{
+    int len = RTA_LENGTH(alen);
+    struct rtattr *rta;
+
+    if (NLMSG_ALIGN(n-&gt;nlmsg_len) + RTA_ALIGN(len) &gt; maxlen) {
+        fprintf(stderr, "rtattr_add error: message exceeded bound of %d\n", maxlen);
+        return -1;
+    }
+
+    rta = NLMSG_TAIL(n);
+    rta-&gt;rta_type = type;
+    rta-&gt;rta_len = len; 
+
+    if (alen) {
+        memcpy(RTA_DATA(rta), data, alen);
+    }
+
+    n-&gt;nlmsg_len = NLMSG_ALIGN(n-&gt;nlmsg_len) + RTA_ALIGN(len);
+
+    return 0;
+}
+
+int do_route(int sock, int cmd, int flags, _inet_addr *dst, _inet_addr *gw, int def_gw, int if_idx)
+{
+    struct {
+        struct nlmsghdr n;
+        struct rtmsg r;
+        char buf[4096];
+    } nl_request;
+
+    /* Initialize request structure */
+    nl_request.n.nlmsg_len = NLMSG_LENGTH(sizeof(struct rtmsg));
+    nl_request.n.nlmsg_flags = NLM_F_REQUEST | flags;
+    nl_request.n.nlmsg_type = cmd;
+    nl_request.r.rtm_family = dst-&gt;family;
+    nl_request.r.rtm_table = RT_TABLE_MAIN;
+    nl_request.r.rtm_scope = RT_SCOPE_NOWHERE;
+
+    /* Set additional flags if NOT deleting route */
+    if (cmd != RTM_DELROUTE) {
+        nl_request.r.rtm_protocol = RTPROT_BOOT;
+        nl_request.r.rtm_type = RTN_UNICAST;
+    }
+
+    nl_request.r.rtm_family = dst-&gt;family;
+    nl_request.r.rtm_dst_len = dst-&gt;bitlen;
+
+    /* Select scope, for simplicity we supports here only IPv6 and IPv4 */
+    if (nl_request.r.rtm_family == AF_INET6) {
+        nl_request.r.rtm_scope = RT_SCOPE_UNIVERSE;
+    } else {
+        nl_request.r.rtm_scope = RT_SCOPE_LINK;
+    }
+
+    /* Set gateway */
+    if (gw-&gt;bitlen != 0) {
+        rtattr_add(&amp;nl_request.n, sizeof(nl_request), RTA_GATEWAY, &amp;gw-&gt;data, gw-&gt;bitlen / 8);
+        nl_request.r.rtm_scope = 0;
+        nl_request.r.rtm_family = gw-&gt;family;
+    }
+
+    /* Don't set destination and interface in case of default gateways */
+    if (!def_gw) {
+        /* Set destination network */
+        rtattr_add(&amp;nl_request.n, sizeof(nl_request), /*RTA_NEWDST*/ RTA_DST, &amp;dst-&gt;data, dst-&gt;bitlen / 8);
+
+        /* Set interface */
+        rtattr_add(&amp;nl_request.n, sizeof(nl_request), RTA_OIF, &amp;if_idx, sizeof(int));
+    }
+
+    /* Send message to the netlink */
+    return send(sock, &amp;nl_request, sizeof(nl_request), 0);
+}
+
+/* Simple parser of the string IP address
+ */
+int read_addr(char *addr, _inet_addr *res)
+{
+    if (strchr(addr, ':')) {
+        res-&gt;family = AF_INET6;
+        res-&gt;bitlen = 128;
+    } else {
+        res-&gt;family = AF_INET;
+        res-&gt;bitlen = 32;
+    }
+
+    return inet_pton(res-&gt;family, addr, res-&gt;data);
+}
+
+#define NEXT_CMD_ARG() do { argv++; if (--argc &lt;= 0) exit(-1); } while(0)
+
+int main(int argc, char **argv)
+{
+    int default_gw = 0;
+    int if_idx = 0;
+    int nl_sock;
+    _inet_addr to_addr = { 0 };
+    _inet_addr gw_addr = { 0 };
+
+    int nl_cmd;
+    int nl_flags;
+
+    /* Parse command line arguments */
+    while (argc &gt; 0) {
+        if (strcmp(*argv, "add") == 0) {
+            nl_cmd = RTM_NEWROUTE;
+            nl_flags = NLM_F_CREATE | NLM_F_EXCL;
+
+        } else if (strcmp(*argv, "del") == 0) {
+            nl_cmd = RTM_DELROUTE;
+            nl_flags = 0;
+
+        } else if (strcmp(*argv, "to") == 0) {
+            NEXT_CMD_ARG(); /* skip "to" and jump to the actual destination addr */
+
+            if (read_addr(*argv, &amp;to_addr) != 1) {
+                fprintf(stderr, "Failed to parse destination network %s\n", *argv);
+                exit(-1);
+            }
+
+        } else if (strcmp(*argv, "dev") == 0) {
+            NEXT_CMD_ARG(); /* skip "dev" */
+
+            if_idx = if_nametoindex(*argv);
+
+        } else if (strcmp(*argv, "via") == 0) {
+            NEXT_CMD_ARG(); /* skip "via"*/
+
+            /* Instead of gw address user can set here keyword "default" */
+            /* Try to read this keyword and jump to the actual gateway addr */
+            if (strcmp(*argv, "default") == 0) {
+                default_gw = 1;
+                NEXT_CMD_ARG();
+            }
+
+            if (read_addr(*argv, &amp;gw_addr) != 1) {
+                fprintf(stderr, "Failed to parse gateway address %s\n", *argv);
+                exit(-1);
+            }
+        }
+
+        argc--; argv++;
+    }
+
+    nl_sock = open_netlink();
+
+    if (nl_sock &lt; 0) {
+        exit(-1);
+    }
+
+    do_route(nl_sock, nl_cmd, nl_flags, &amp;to_addr, &amp;gw_addr, default_gw, if_idx);
+
+    close (nl_sock);
+
+    return 0;
+}
+</pre>
+<p>Before testing, let&#8217;s print the current routing table:</p>
+<blockquote><p>$ ip route<br />
+default via 192.168.8.1 dev eth0<br />
+192.168.8.0/24 dev eth0 proto kernel scope link src 192.168.8.2</p></blockquote>
+<p>Now compile our program.</p>
+<blockquote><p>gcc set_route.c -o set_route</p></blockquote>
+<p>Add a new route to network 192.168.1.0 via eth0:</p>
+<blockquote><p>$ sudo ./set_route add to 192.168.1.0 dev eth0</p>
+<p>$ ip route<br />
+default via 192.168.8.1 dev eth0<br />
+192.168.1.0 dev eth0 proto none scope link<br />
+192.168.8.0/24 dev eth0 proto kernel scope link src 192.168.8.2</p></blockquote>
+<p>Works!</p>
+<p>Delete this route:</p>
+<blockquote><p>$ sudo ./set_route del to 192.168.1.0 dev eth0</p>
+<p>$ ip route<br />
+default via 192.168.8.1 dev eth0<br />
+192.168.8.0/24 dev eth0 proto kernel scope link src 192.168.8.2</p></blockquote>
+<p>More examples.</p>
+<p>Add route to 192.168.1.0 using eth0 and 192.168.8.1 gateway: <b>sudo ./set_route add to 192.168.8.0 dev eth0 via 192.168.8.1</b><br />
+Delete this route: <b>sudo ./set_route del to 192.168.8.0 dev eth0 via 192.168.8.1</b></p>
+<p>To add default gateway via 192.168.8.1 just: <b>sudo ./set_route add via default 192.168.8.1</b></p>
+<p>Thanks for reading!</p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<span class="tags-links">Tagged <a href="../../../../tag/linux/index.html" rel="tag">linux</a>, <a href="../../../../tag/netlink/index.html" rel="tag">netlink</a>, <a href="../../../../tag/network/index.html" rel="tag">network</a>, <a href="../../../../tag/routes/index.html" rel="tag">routes</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a></h2>
+                                         <span class="posted-date">June 9, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a></h2>
+                                         <span class="posted-date">March 18, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../03/hello-https/index.html" rel="prev">Hello HTTPS!</a></div><div class="nav-next"><a href="../../../10/17/printing-sk_buff-data/index.html" rel="next">Printing sk_buff data</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			2 thoughts on &ldquo;<span>Modifying Linux network routes using netlink</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-81" class="comment even thread-even depth-1">
+			<article id="div-comment-81" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d6dd959f2244e7078d7fe2f824c34f39?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/d6dd959f2244e7078d7fe2f824c34f39?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' decoding='async'/>						<b class="fn">Abhishek Sagar</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-81"><time datetime="2019-11-24T01:46:18+02:00">November 24, 2019 at 1:46 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Delete route is not working.</p>
+<p>I have the following entry in Routing table :<br />
+192.168.8.7     192.168.117.2   255.255.255.255 UGH   0      0        0 ens33</p>
+<p>sudo ./set_route del to 192.168.8.7 dev ens33<br />
+The above entry continue to exist.</p>
+<p>Even addition case, sometimes it dont work.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexdb5d.html?replytocom=81#respond' data-commentid="81" data-postid="919" data-belowelement="div-comment-81" data-respondelement="respond" data-replyto="Reply to Abhishek Sagar" aria-label='Reply to Abhishek Sagar'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1034" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-1034" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/73e448a5d161cd4f29f096960c01cdbe?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/73e448a5d161cd4f29f096960c01cdbe?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Venkateswaran</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1034"><time datetime="2021-05-05T11:35:45+03:00">May 5, 2021 at 11:35 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>It&#8217;s source specific routing</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexc7dd.html?replytocom=1034#respond' data-commentid="1034" data-postid="919" data-belowelement="div-comment-1034" data-respondelement="respond" data-replyto="Reply to Venkateswaran" aria-label='Reply to Venkateswaran'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='919' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="184a33ad67" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="98"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../../2020/06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_1827c9da4c86fc3ad9db01f6a6132235.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2019/08/29/modifying-linux-network-routes-using-netlink/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:14:25 GMT -->
+</html>

@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>
+	Comments on: C++ in Linux kernel	</title>
+	<atom:link href="https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/feed/" rel="self" type="application/rss+xml" />
+	<link>https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/</link>
+	<description>Programming, electronics and diy projects</description>
+	<lastBuildDate>Mon, 05 Jun 2023 16:48:52 +0000</lastBuildDate>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.5.3</generator>
+	<item>
+		<title>
+		By: Johannes		</title>
+		<link>https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1713</link>
+
+		<dc:creator><![CDATA[Johannes]]></dc:creator>
+		<pubDate>Mon, 05 Jun 2023 16:48:52 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=1017#comment-1713</guid>
+
+					<description><![CDATA[Hi Oleg,
+
+it&#039;s been quite a while since I did my last tests with this, but now I decided to give it again a chance and now I&#039;m facing some problems with the include directories and include files used in my cpp files. For example I wanted to use a spinlock_t in my C++ class but I always get &quot;error: ‘spinlock_t’ does not name a type&quot;. But the spinlock works inside the same project when used in a c file. Do you have any idea how I could adjust the include directories for those kernel header files to also work for C++ files?
+
+Best regards,
+Johannes]]></description>
+			<content:encoded><![CDATA[<p>Hi Oleg,</p>
+<p>it&#8217;s been quite a while since I did my last tests with this, but now I decided to give it again a chance and now I&#8217;m facing some problems with the include directories and include files used in my cpp files. For example I wanted to use a spinlock_t in my C++ class but I always get &#8220;error: ‘spinlock_t’ does not name a type&#8221;. But the spinlock works inside the same project when used in a c file. Do you have any idea how I could adjust the include directories for those kernel header files to also work for C++ files?</p>
+<p>Best regards,<br />
+Johannes</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Oleg Kutkov		</title>
+		<link>https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1400</link>
+
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Wed, 07 Dec 2022 23:17:36 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=1017#comment-1400</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1399&quot;&gt;Johannes&lt;/a&gt;.
+
+Thanks!]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1399">Johannes</a>.</p>
+<p>Thanks!</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Johannes		</title>
+		<link>https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1399</link>
+
+		<dc:creator><![CDATA[Johannes]]></dc:creator>
+		<pubDate>Wed, 07 Dec 2022 17:12:08 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=1017#comment-1399</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1398&quot;&gt;Oleg Kutkov&lt;/a&gt;.
+
+Hi Oleg, perfect! Thanks a lot. And all the best for your country ...]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1398">Oleg Kutkov</a>.</p>
+<p>Hi Oleg, perfect! Thanks a lot. And all the best for your country &#8230;</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Oleg Kutkov		</title>
+		<link>https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1398</link>
+
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Wed, 07 Dec 2022 16:44:32 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=1017#comment-1398</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1397&quot;&gt;Johannes&lt;/a&gt;.
+
+Hello! Sorry for the late reply, and thank you for your patch.
+To get rid of the warning, you need to use different cxx-selected-flags.
+
+I updated my example, so it should compile fine now]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1397">Johannes</a>.</p>
+<p>Hello! Sorry for the late reply, and thank you for your patch.<br />
+To get rid of the warning, you need to use different cxx-selected-flags.</p>
+<p>I updated my example, so it should compile fine now</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Johannes		</title>
+		<link>https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1397</link>
+
+		<dc:creator><![CDATA[Johannes]]></dc:creator>
+		<pubDate>Wed, 07 Dec 2022 15:45:02 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=1017#comment-1397</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1396&quot;&gt;Johannes&lt;/a&gt;.
+
+OK, I think I found it. I had to add one line in the Makefile at the end of the %.cpp.o: target in order to build the .0.cmd files. Now the complete target in my Makefile looks like this:
+
+%.cpp.o: %.cpp
+    @echo $(cxx-prefix)$@
+    @$(HOSTCXX) $(cxxflags) -c $&#060; -o $@
+    @echo -n &#062; $$(dirname $@)/.$$(basename $@).cmd
+
+Now I&#039;m still seeing these compiler warnings but the Kernel Module is built and I can laod/unload it and I see the same output as you in my dmesg :-)]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1396">Johannes</a>.</p>
+<p>OK, I think I found it. I had to add one line in the Makefile at the end of the %.cpp.o: target in order to build the .0.cmd files. Now the complete target in my Makefile looks like this:</p>
+<p>%.cpp.o: %.cpp<br />
+    @echo $(cxx-prefix)$@<br />
+    @$(HOSTCXX) $(cxxflags) -c $&lt; -o $@<br />
+    @echo -n &gt; $$(dirname $@)/.$$(basename $@).cmd</p>
+<p>Now I&#8217;m still seeing these compiler warnings but the Kernel Module is built and I can laod/unload it and I see the same output as you in my dmesg 🙂</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Johannes		</title>
+		<link>https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1396</link>
+
+		<dc:creator><![CDATA[Johannes]]></dc:creator>
+		<pubDate>Fri, 02 Dec 2022 16:31:39 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=1017#comment-1396</guid>
+
+					<description><![CDATA[Hi Oleg,
+
+thanks for your tutorial. I tried to follow it but I don&#039;t get it compiled with Ubuntu 22.10.
+
+First I had to change some minor things i.e. #include &#060;stdarg.h&#062; =&#062; #include &#060;linux/stdarg.h&#062;
+And I think in
+
+void *operator new(size_t sz) throw ()
+{
+    kmalloc(sz);
+    return kcmalloc(sz);
+}
+
+the line calling kmalloc(sz); is not valid anymore and should be removed?
+
+But my biggest problem is that I wnd up with a linker error. Here&#039;s the complete output on my test machine:
+
+clean
+make -C /lib/modules/5.19.0-26-generic/build M=/home/johannes/KernelCPP clean
+make[1]: Entering directory &#039;/usr/src/linux-headers-5.19.0-26-generic&#039;
+make[1]: Leaving directory &#039;/usr/src/linux-headers-5.19.0-26-generic&#039;
+building module
+make -C /lib/modules/5.19.0-26-generic/build M=/home/johannes/KernelCPP modules
+make[1]: Entering directory &#039;/usr/src/linux-headers-5.19.0-26-generic&#039;
+warning: the compiler differs from the one used to build the kernel
+  The kernel was built by: x86_64-linux-gnu-gcc-12 (Ubuntu 12.2.0-3ubuntu1) 12.2.0
+  You are using:           gcc (Ubuntu 12.2.0-3ubuntu1) 12.2.0
+  CC [M]  /home/johannes/KernelCPP/module.o
+  CC [M]  /home/johannes/KernelCPP/kern_lib.o
+  CC [M]  /home/johannes/KernelCPP/logger.o
+ g++ [M]  /home/johannes/KernelCPP/cpp_support.cpp.o
+cc1plus: warning: ?-Werror=? argument ?-Werror=strict-prototypes? is not valid for C++
+cc1plus: warning: ?-Werror=? argument ?-Werror=implicit-function-declaration? is not valid for C++
+cc1plus: warning: ?-Werror=? argument ?-Werror=implicit-int? is not valid for C++
+cc1plus: warning: ?-Werror=? argument ?-Werror=incompatible-pointer-types? is not valid for C++
+cc1plus: warning: ?-Werror=? argument ?-Werror=designated-init? is not valid for C++
+cc1plus: warning: command-line option ?-std=gnu11? is valid for C/ObjC but not for C++
+ g++ [M]  /home/johannes/KernelCPP/cpp_module.cpp.o
+cc1plus: warning: ?-Werror=? argument ?-Werror=strict-prototypes? is not valid for C++
+cc1plus: warning: ?-Werror=? argument ?-Werror=implicit-function-declaration? is not valid for C++
+cc1plus: warning: ?-Werror=? argument ?-Werror=implicit-int? is not valid for C++
+cc1plus: warning: ?-Werror=? argument ?-Werror=incompatible-pointer-types? is not valid for C++
+cc1plus: warning: ?-Werror=? argument ?-Werror=designated-init? is not valid for C++
+cc1plus: warning: command-line option ?-std=gnu11? is valid for C/ObjC but not for C++
+  LD [M]  /home/johannes/KernelCPP/cpp_kernel.o
+  MODPOST /home/johannes/KernelCPP/Module.symvers
+/home/johannes/KernelCPP/.cpp_support.cpp.o.cmd: No such file or directory
+make[2]: *** [scripts/Makefile.modpost:128: /home/johannes/KernelCPP/Module.symvers] Error 1
+make[1]: *** [Makefile:1765: modules] Error 2
+make[1]: Leaving directory &#039;/usr/src/linux-headers-5.19.0-26-generic&#039;
+make: *** [Makefile:44: cpp_kernel.ko] Error 2
+
+Those .*.o.cmd files seem to be built only for c sources?
+
+Any idea what I could do here?
+
+Thanks and best regards,
+Johannes]]></description>
+			<content:encoded><![CDATA[<p>Hi Oleg,</p>
+<p>thanks for your tutorial. I tried to follow it but I don&#8217;t get it compiled with Ubuntu 22.10.</p>
+<p>First I had to change some minor things i.e. #include &lt;stdarg.h&gt; =&gt; #include &lt;linux/stdarg.h&gt;<br />
+And I think in</p>
+<p>void *operator new(size_t sz) throw ()<br />
+{<br />
+    kmalloc(sz);<br />
+    return kcmalloc(sz);<br />
+}</p>
+<p>the line calling kmalloc(sz); is not valid anymore and should be removed?</p>
+<p>But my biggest problem is that I wnd up with a linker error. Here&#8217;s the complete output on my test machine:</p>
+<p>clean<br />
+make -C /lib/modules/5.19.0-26-generic/build M=/home/johannes/KernelCPP clean<br />
+make[1]: Entering directory &#8216;/usr/src/linux-headers-5.19.0-26-generic&#8217;<br />
+make[1]: Leaving directory &#8216;/usr/src/linux-headers-5.19.0-26-generic&#8217;<br />
+building module<br />
+make -C /lib/modules/5.19.0-26-generic/build M=/home/johannes/KernelCPP modules<br />
+make[1]: Entering directory &#8216;/usr/src/linux-headers-5.19.0-26-generic&#8217;<br />
+warning: the compiler differs from the one used to build the kernel<br />
+  The kernel was built by: x86_64-linux-gnu-gcc-12 (Ubuntu 12.2.0-3ubuntu1) 12.2.0<br />
+  You are using:           gcc (Ubuntu 12.2.0-3ubuntu1) 12.2.0<br />
+  CC [M]  /home/johannes/KernelCPP/module.o<br />
+  CC [M]  /home/johannes/KernelCPP/kern_lib.o<br />
+  CC [M]  /home/johannes/KernelCPP/logger.o<br />
+ g++ [M]  /home/johannes/KernelCPP/cpp_support.cpp.o<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=strict-prototypes? is not valid for C++<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=implicit-function-declaration? is not valid for C++<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=implicit-int? is not valid for C++<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=incompatible-pointer-types? is not valid for C++<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=designated-init? is not valid for C++<br />
+cc1plus: warning: command-line option ?-std=gnu11? is valid for C/ObjC but not for C++<br />
+ g++ [M]  /home/johannes/KernelCPP/cpp_module.cpp.o<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=strict-prototypes? is not valid for C++<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=implicit-function-declaration? is not valid for C++<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=implicit-int? is not valid for C++<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=incompatible-pointer-types? is not valid for C++<br />
+cc1plus: warning: ?-Werror=? argument ?-Werror=designated-init? is not valid for C++<br />
+cc1plus: warning: command-line option ?-std=gnu11? is valid for C/ObjC but not for C++<br />
+  LD [M]  /home/johannes/KernelCPP/cpp_kernel.o<br />
+  MODPOST /home/johannes/KernelCPP/Module.symvers<br />
+/home/johannes/KernelCPP/.cpp_support.cpp.o.cmd: No such file or directory<br />
+make[2]: *** [scripts/Makefile.modpost:128: /home/johannes/KernelCPP/Module.symvers] Error 1<br />
+make[1]: *** [Makefile:1765: modules] Error 2<br />
+make[1]: Leaving directory &#8216;/usr/src/linux-headers-5.19.0-26-generic&#8217;<br />
+make: *** [Makefile:44: cpp_kernel.ko] Error 2</p>
+<p>Those .*.o.cmd files seem to be built only for c sources?</p>
+<p>Any idea what I could do here?</p>
+<p>Thanks and best regards,<br />
+Johannes</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Oleg Kutkov		</title>
+		<link>https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1360</link>
+
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Mon, 15 Aug 2022 18:32:08 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=1017#comment-1360</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1359&quot;&gt;Pat&lt;/a&gt;.
+
+Hello. Make sure that you have your Linux kernel headers installed.
+Check your running kernel version with &lt;code&gt;uname -r&lt;/code&gt; and install the headers package according to your distributive.]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1359">Pat</a>.</p>
+<p>Hello. Make sure that you have your Linux kernel headers installed.<br />
+Check your running kernel version with <code>uname -r</code> and install the headers package according to your distributive.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Pat		</title>
+		<link>https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1359</link>
+
+		<dc:creator><![CDATA[Pat]]></dc:creator>
+		<pubDate>Mon, 15 Aug 2022 17:26:31 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=1017#comment-1359</guid>
+
+					<description><![CDATA[Hello,
+Thanks for the tutorial, it&#039;s super nice.
+I followed your tutorial, I had at the end the list of the following files:
+
+cpp_kernel.cpp
+cpp_module.cpp
+cpp_module.h
+cpp_support.cpp
+kern_lib.c
+kern_lib.h
+ kern_log.c
+ logger.h
+Makefile
+
+When I run the command: &quot;make clean &#038;&#038; make&quot;
+
+I have the following error:
+
+clean
+make -C /lib/modules/5.10.0-16-amd64/build M=/home/mrzk/src/kernel_c_cpp clean
+make[1]: enter the directory &quot;/usr/src/linux-headers-5.10.0-16-amd64&quot;
+make[1]: leave the directory &quot;/usr/src/linux-headers-5.10.0-16-amd64&quot;
+building-module
+make -C /lib/modules/5.10.0-16-amd64/build M=/home/mrzk/src/kernel_c_cpp modules
+make[1]: enter the directory &quot;/usr/src/linux-headers-5.10.0-16-amd64&quot;
+make[3]: *** No rule to make target &#039;/home/mrzk/src/kernel_c_cpp/module.o&#039;, needed for &#039;/home/mrzk/src/kernel_c_cpp/cpp_kernel.o&#039;. Stop.
+make[2]: *** [/usr/src/linux-headers-5.10.0-16-common/Makefile:1846:/home/mrzk/src/kernel_c_cpp] Error 2
+make[1]: *** [/usr/src/linux-headers-5.10.0-16-common/Makefile:185:__sub-make] Error 2
+make[1]: leave the directory &quot;/usr/src/linux-headers-5.10.0-16-amd64&quot;
+make: *** [Makefile:44:cpp_kernel.ko] Error 2]]></description>
+			<content:encoded><![CDATA[<p>Hello,<br />
+Thanks for the tutorial, it&#8217;s super nice.<br />
+I followed your tutorial, I had at the end the list of the following files:</p>
+<p>cpp_kernel.cpp<br />
+cpp_module.cpp<br />
+cpp_module.h<br />
+cpp_support.cpp<br />
+kern_lib.c<br />
+kern_lib.h<br />
+ kern_log.c<br />
+ logger.h<br />
+Makefile</p>
+<p>When I run the command: &#8220;make clean &amp;&amp; make&#8221;</p>
+<p>I have the following error:</p>
+<p>clean<br />
+make -C /lib/modules/5.10.0-16-amd64/build M=/home/mrzk/src/kernel_c_cpp clean<br />
+make[1]: enter the directory &#8220;/usr/src/linux-headers-5.10.0-16-amd64&#8221;<br />
+make[1]: leave the directory &#8220;/usr/src/linux-headers-5.10.0-16-amd64&#8221;<br />
+building-module<br />
+make -C /lib/modules/5.10.0-16-amd64/build M=/home/mrzk/src/kernel_c_cpp modules<br />
+make[1]: enter the directory &#8220;/usr/src/linux-headers-5.10.0-16-amd64&#8221;<br />
+make[3]: *** No rule to make target &#8216;/home/mrzk/src/kernel_c_cpp/module.o&#8217;, needed for &#8216;/home/mrzk/src/kernel_c_cpp/cpp_kernel.o&#8217;. Stop.<br />
+make[2]: *** [/usr/src/linux-headers-5.10.0-16-common/Makefile:1846:/home/mrzk/src/kernel_c_cpp] Error 2<br />
+make[1]: *** [/usr/src/linux-headers-5.10.0-16-common/Makefile:185:__sub-make] Error 2<br />
+make[1]: leave the directory &#8220;/usr/src/linux-headers-5.10.0-16-amd64&#8221;<br />
+make: *** [Makefile:44:cpp_kernel.ko] Error 2</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Oleg Kutkov		</title>
+		<link>https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1042</link>
+
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Tue, 18 May 2021 16:56:13 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=1017#comment-1042</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1041&quot;&gt;Linux kernel monule on c++ &#8211; Windows Questions&lt;/a&gt;.
+
+Hello. Can you share details of what&#039;s not working?]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1041">Linux kernel monule on c++ &#8211; Windows Questions</a>.</p>
+<p>Hello. Can you share details of what&#8217;s not working?</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Linux kernel monule on c++ &#8211; Windows Questions		</title>
+		<link>https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comment-1041</link>
+
+		<dc:creator><![CDATA[Linux kernel monule on c++ &#8211; Windows Questions]]></dc:creator>
+		<pubDate>Tue, 18 May 2021 16:39:56 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=1017#comment-1041</guid>
+
+					<description><![CDATA[[&#8230;] day. I need to write linux kernel module using c++. I&#8217;ve found this tutorial https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/, but code from it doesn&#8217;t work ;( I&#8217;d like to find any example of c++ kernel module [&#8230;]]]></description>
+			<content:encoded><![CDATA[<p>[&#8230;] day. I need to write linux kernel module using c++. I&#8217;ve found this tutorial <a href="https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/" rel="ugc">https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/</a>, but code from it doesn&#8217;t work ;( I&#8217;d like to find any example of c++ kernel module [&#8230;]</p>
+]]></content:encoded>
+		
+			</item>
+	</channel>
+</rss>

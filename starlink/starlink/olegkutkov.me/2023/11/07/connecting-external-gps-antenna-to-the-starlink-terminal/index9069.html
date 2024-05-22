@@ -1,0 +1,1404 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/?replytocom=3445 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:17:25 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>Connecting external GPS antenna to the Starlink terminal &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large, noindex, follow' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Connecting external GPS antenna to the Starlink terminal Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/3155.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../index58e9.html?p=3155' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embed043c.json?url=https%3A%2F%2Folegkutkov.me%2F2023%2F11%2F07%2Fconnecting-external-gps-antenna-to-the-starlink-terminal%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embed906d?url=https%3A%2F%2Folegkutkov.me%2F2023%2F11%2F07%2Fconnecting-external-gps-antenna-to-the-starlink-terminal%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index9069.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-3155 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-3155" class="post-3155 post type-post status-publish format-standard hentry category-electronics category-hardware category-radio-antennas tag-antenna tag-dishy tag-gps tag-starlink">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/electronics/index.html" rel="category tag">Electronics</a>, <a href="../../../../category/hardware/index.html" rel="category tag">hardware</a>, <a href="../../../../category/radio-antennas/index.html" rel="category tag">Radio &amp; antennas</a></span><h1 class="entry-title">Connecting external GPS antenna to the Starlink terminal</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">November 7, 2023</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><a href="../../../../wp-content/uploads/2023/11/starlink_gps_thumb.png"><img decoding="async" class="alignleft size-full wp-image-3156" src="../../../../wp-content/uploads/2023/11/starlink_gps_thumb.png" alt="" width="150" height="161" /></a>In this article, I would like to discuss Starlink GPS implementation, potential problems, and ways to improve.<br />
+Let’s agree that the paper will focus on GNSS in general, but for convenience, I will call it GPS.</p>
+<p>But first&#8230;</p>
+<p>&nbsp;</p>
+<p><span id="more-3155"></span></p>
+<h3>Why does Starlink need GPS?</h3>
+<p>To successfully communicate with satellites, the Starlink terminal requires the position of each satellite with the ability to predict this position. The Starlink antenna is not moving much but uses a phased array to steer a narrow RF beam electronically and point to the required satellite in the sky.<br />
+It&#8217;s relatively easy to calculate a given satellite position with <a href="https://celestrak.org/NORAD/documentation/tle-fmt.php">TLE</a> data. You only need the latest TLE data, station coordinates, and precise time. And that&#8217;s where GPS comes into play.<br />
+Starlink uses a built-in GPS receiver as a source of coordinates and time to calculate the position of the satellites in the sky. Also, GPS provides a stable time pulse (1PPS) to discipline clocks. The correct clock is crucial since Starlink uses <a href="https://en.wikipedia.org/wiki/Time-division_multiple_access">time-division</a> access and provides a schedule for all terminals in a given cell.</p>
+<p>After turning on and booting, the Starlink terminal starts the &#8220;sky search&#8221; procedure. Basically, it scans the whole sky, looking for familiar signal bursts. Then, after successful network entry, Starlink can download the latest TLE from the &#8220;constellation&#8221; data server (which is unavailable on the internet). From this moment, it&#8217;s possible to calculate the precise position of all Starlink satellites and support stable sessions based on the network schedule.</p>
+<p>Thus, Starlink should acquire GPS position and time (GPS fix) before the &#8220;sky search&#8221; procedure. If the fix is not available, Starlink will stuck in the &#8220;booting&#8221; state.</p>
+<p><a href="../../../../wp-content/uploads/2023/11/starlink_gps_booting.jpg"><img fetchpriority="high" decoding="async" class="aligncenter size-full wp-image-3172" src="../../../../wp-content/uploads/2023/11/starlink_gps_booting.jpg" alt="" width="860" height="294" srcset="https://olegkutkov.me/wp-content/uploads/2023/11/starlink_gps_booting.jpg 860w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_gps_booting-400x137.jpg 400w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_gps_booting-768x263.jpg 768w" sizes="(max-width: 860px) 100vw, 860px" /></a><br />
+This state is somehow misleading. The Starlink terminal is fully booted but stuck on some top-level initialization procedure. It might be a lack of the GPS Fix or some problem with the antenna array (failed self-calibration). Always check &#8220;debug data&#8221; to find what&#8217;s gone wrong.</p>
+<p><a href="../../../../wp-content/uploads/2023/11/starlink_simplified_boot_flow.png"><img decoding="async" class="aligncenter size-full wp-image-3197" src="../../../../wp-content/uploads/2023/11/starlink_simplified_boot_flow.png" alt="" width="780" height="590" srcset="https://olegkutkov.me/wp-content/uploads/2023/11/starlink_simplified_boot_flow.png 780w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_simplified_boot_flow-397x300.png 397w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_simplified_boot_flow-768x581.png 768w" sizes="(max-width: 780px) 100vw, 780px" /></a></p>
+<h3>Starlink without GPS</h3>
+<p>It&#8217;s <a href="https://spectrum.ieee.org/an-alternative-to-gps">not a secret</a> that the Starlink constellation could be used for navigation. Starlink terminal can be switched from using GPS data to its constellation data. There is a special switch in the Starlink mobile app.</p>
+<p><a href="../../../../wp-content/uploads/2023/11/starlink_gps_no_gps_switch.jpg"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-3174" src="../../../../wp-content/uploads/2023/11/starlink_gps_no_gps_switch-1024x492.jpg" alt="" width="850" height="408" srcset="https://olegkutkov.me/wp-content/uploads/2023/11/starlink_gps_no_gps_switch-1024x492.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_gps_no_gps_switch-400x192.jpg 400w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_gps_no_gps_switch-768x369.jpg 768w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_gps_no_gps_switch.jpg 1179w" sizes="(max-width: 850px) 100vw, 850px" /></a></p>
+<p>This option is super helpful when you don&#8217;t have a stable GPS reception or GPS data is not trustworthy. Civilian GPS is vulnerable and could be jammed or spoofed in some locations. Or the GPS receiver could be broken. Using Starlink constellation allows using Starlink in such conditions.<br />
+But everything comes with a cost. Calculating position based on Starlink constellation requires more resources, and it&#8217;s not so fast. Plus, It can&#8217;t be used correctly in motion. Accumulated errors may be so significant that Starlink will not be able to work.</p>
+<h3>Starlink GPS implementation</h3>
+<p>All versions of the Starlink terminal use an automotive-grade Teseo GNSS receiver from the ST.<br />
+This is a multisystem GPS/Galileo/GLONASS/BeiDou/QZSS receiver. It&#8217;s pretty reliable and feature-packed. But of course, it&#8217;s jammable, plus it&#8217;s relatively easy to damage built-in LNA with a strong enough RF signal. So, <strong>never</strong> try to radiate your Starlink terminal from a short distance with a GPS jammer/spoofer.</p>
+<p>On the original round Dishy (rev1_), SpaceX used a much more powerful <a href="https://www.st.com/en/automotive-infotainment-and-telematics/sta8090exga.html">STA8090</a> with an external flash memory. Then, they switched to a cheaper solution with <a href="https://www.st.com/en/automotive-infotainment-and-telematics/sta8089gat.html">STA8089</a>.</p>
+<p><a href="../../../../wp-content/uploads/2023/11/starlink_gnss_receivers_type.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-3183" src="../../../../wp-content/uploads/2023/11/starlink_gnss_receivers_type.jpg" alt="" width="850" height="346" srcset="https://olegkutkov.me/wp-content/uploads/2023/11/starlink_gnss_receivers_type.jpg 850w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_gnss_receivers_type-400x163.jpg 400w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_gnss_receivers_type-768x313.jpg 768w" sizes="(max-width: 850px) 100vw, 850px" /></a></p>
+<p>Both ICs have a similar NMEA interface and could be configured to provide specific data for different GNSS constellation usage. In this article, I will not share the exact configuration Starlink uses.</p>
+<p>Antennas also differ. Some users noticed that round UTs (rev1 and rev2) are getting GPS faster, even in bad conditions. This is not surprising.<br />
+Round Starlink terminal (rev1 and rev2) was much bigger with plenty of space. Thus, there, we can see a quarter wavelength patch antenna. The gain is unknown.</p>
+<p><a href="../../../../wp-content/uploads/2023/11/starlink_rev12_gnss_antenna.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3185" src="../../../../wp-content/uploads/2023/11/starlink_rev12_gnss_antenna.jpg" alt="" width="815" height="458" srcset="https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev12_gnss_antenna.jpg 900w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev12_gnss_antenna-400x225.jpg 400w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev12_gnss_antenna-768x432.jpg 768w" sizes="(max-width: 815px) 100vw, 815px" /></a></p>
+<p>On the most common square terminal (rev3), SpaceX switched to a compact ceramic chip antenna. There are two known versions of this antenna.</p>
+<p><a href="../../../../wp-content/uploads/2023/11/starlink_rev3_gnss_antenna.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3187" src="../../../../wp-content/uploads/2023/11/starlink_rev3_gnss_antenna.jpg" alt="" width="827" height="422" srcset="https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_gnss_antenna.jpg 900w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_gnss_antenna-400x204.jpg 400w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_gnss_antenna-768x392.jpg 768w" sizes="(max-width: 827px) 100vw, 827px" /></a></p>
+<p>This is a low-gain (~3 dB) omnidirectional antenna. They don&#8217;t have a lot of free space on the rev3 PCB, so I guess this cheap antenna was the best choice. It works in most cases.</p>
+<p>The main problem with the Starlink GPS antenna is not the low gain but the radiation pattern that allows this antenna to &#8220;hear&#8221; everything: satellites in the sky and possible jamming/spoofing sources nearby.</p>
+<p>Also, both antennas are linearly polarized, but GNSS signals are circularly polarized. Thus, the Starlink antenna loses some fraction of the useful signal. At the same time, it might be more sensitive to a jam signal that propagates in the same polarization plane.</p>
+<p><a href="../../../../wp-content/uploads/2023/11/starlink_rev3_ant_radiation_pattern_jam.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-3189" src="../../../../wp-content/uploads/2023/11/starlink_rev3_ant_radiation_pattern_jam.jpg" alt="" width="900" height="459" srcset="https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_ant_radiation_pattern_jam.jpg 900w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_ant_radiation_pattern_jam-400x204.jpg 400w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_ant_radiation_pattern_jam-768x392.jpg 768w" sizes="(max-width: 900px) 100vw, 900px" /></a></p>
+<p>Typically, this leads to a forever &#8220;booting&#8221; state or damaging the STA8089 IC in the worst-case scenario.<br />
+Fortunately, many issues could be fixed with a proper external GPS antenna or even a <a href="https://www.gpsworld.com/anti-jam-technology-demystifying-the-crpa/">CRPA</a> antenna (if there are some special requirements).</p>
+<h3>Alternative antenna</h3>
+<p>It&#8217;s possible to connect both passive and active patch-antenna. Circular polarized directional patch Antenna could provide better protection from jamming signals and faster GPS lock. In the case of jamming protection, I mean sources that are placed somewhere far from the main lobe of the antenna. Actual sidelobe suppression depends on antenna type. As an example, I will use the rev3_prot2 user terminal.</p>
+<p>The external antenna cable could be connected directly to the Starlink PCB instead of the chip antenna. There is a convenient 50-ohm feed line.<br />
+First, remove the chip antenna. Second, solder coaxial cable directly to the PCB. It&#8217;s convenient to solder cable shielding to the bottom ground pin.<br />
+Please try to secure the cable somehow to avoid the pads ripping off.</p>
+<p><a href="../../../../wp-content/uploads/2023/11/starlink_rev3_proto2_external_coax_conn.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3201" src="../../../../wp-content/uploads/2023/11/starlink_rev3_proto2_external_coax_conn.jpg" alt="" width="816" height="416" srcset="https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_proto2_external_coax_conn.jpg 900w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_proto2_external_coax_conn-400x204.jpg 400w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_proto2_external_coax_conn-768x392.jpg 768w" sizes="(max-width: 816px) 100vw, 816px" /></a></p>
+<p>The cable could be connected directly to a passive external antenna or to Bias-T to power an active antenna. It&#8217;s possible to use Bias-T with the passive antenna. Just be careful and don&#8217;t short it to the ground.</p>
+<p><a href="../../../../wp-content/uploads/2023/11/starlink_rev3_proto2_external_navi_conn_simple.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3203" src="../../../../wp-content/uploads/2023/11/starlink_rev3_proto2_external_navi_conn_simple.jpg" alt="" width="843" height="430" srcset="https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_proto2_external_navi_conn_simple.jpg 900w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_proto2_external_navi_conn_simple-400x204.jpg 400w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_proto2_external_navi_conn_simple-768x392.jpg 768w" sizes="(max-width: 843px) 100vw, 843px" /></a></p>
+<p>It&#8217;s convenient to get 3.3 volts from the Dishy PCB. There is a voltage regulator nearby. It&#8217;s capable of providing enough power for one more little device.</p>
+<p><a href="../../../../wp-content/uploads/2023/11/starlink_rev3_proto2_3_3_v.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3204" src="../../../../wp-content/uploads/2023/11/starlink_rev3_proto2_3_3_v.jpg" alt="" width="710" height="404" srcset="https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_proto2_3_3_v.jpg 900w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_proto2_3_3_v-400x228.jpg 400w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_proto2_3_3_v-768x437.jpg 768w" sizes="(max-width: 710px) 100vw, 710px" /></a></p>
+<p>I used a popular and cheap <a href="https://www.amazon.com/10MHz-6GHz-Broadband-Frequency-Microwave-Amplifier/dp/B07Q7HKWZZ">Bias-T</a> module. It&#8217;s good enough and works nicely on 1575 MHz. It&#8217;s possible to glue this module directly to the Dishy heatsink. The position was adjusted, so it&#8217;s still possible to install a back cover of the user terminal. Sitting on the top side, this module doesn&#8217;t affect the heatsink performance much.</p>
+<p><a href="../../../../wp-content/uploads/2023/11/starlink_rev3_proto2_bias_t_mounted.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-3206" src="../../../../wp-content/uploads/2023/11/starlink_rev3_proto2_bias_t_mounted.jpg" alt="" width="850" height="470" srcset="https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_proto2_bias_t_mounted.jpg 850w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_proto2_bias_t_mounted-400x221.jpg 400w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_proto2_bias_t_mounted-768x425.jpg 768w" sizes="(max-width: 850px) 100vw, 850px" /></a></p>
+<p>In this design, an additional water-proof SMA connecter was mounted to the backside. This allows easy disconnect and swaps of GPS antennas.</p>
+<p><a href="../../../../wp-content/uploads/2023/11/starlink_rev3_proto2_gps_sock_mounted1.jpg"><img loading="lazy" decoding="async" class="wp-image-3208 alignleft" src="../../../../wp-content/uploads/2023/11/starlink_rev3_proto2_gps_sock_mounted1.jpg" alt="" width="357" height="194" srcset="https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_proto2_gps_sock_mounted1.jpg 900w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_proto2_gps_sock_mounted1-400x217.jpg 400w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_proto2_gps_sock_mounted1-768x417.jpg 768w" sizes="(max-width: 357px) 100vw, 357px" /></a> <a href="../../../../wp-content/uploads/2023/11/starlink_rev3_proto2_gps_sock_mounted2.jpg"><img loading="lazy" decoding="async" class="wp-image-3209 alignleft" src="../../../../wp-content/uploads/2023/11/starlink_rev3_proto2_gps_sock_mounted2.jpg" alt="" width="360" height="193" srcset="https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_proto2_gps_sock_mounted2.jpg 900w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_proto2_gps_sock_mounted2-400x215.jpg 400w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_proto2_gps_sock_mounted2-768x412.jpg 768w" sizes="(max-width: 360px) 100vw, 360px" /></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>I run tests with three GPS antennas. Numbers 2 and 3 are very similar inside. Test conditions were intentionally non-optimal, with a partially blocked sky.</p>
+<p><a href="../../../../wp-content/uploads/2023/11/starlink_gps_antennas_numerated.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3218" src="../../../../wp-content/uploads/2023/11/starlink_gps_antennas_numerated.jpg" alt="" width="736" height="382" srcset="https://olegkutkov.me/wp-content/uploads/2023/11/starlink_gps_antennas_numerated.jpg 896w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_gps_antennas_numerated-400x208.jpg 400w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_gps_antennas_numerated-768x399.jpg 768w" sizes="(max-width: 736px) 100vw, 736px" /></a></p>
+<p>Here are the results in comparison to the standard chip antenna:</p>
+
+<table id="tablepress-18" class="tablepress tablepress-id-18">
+<thead>
+<tr class="row-1 odd">
+	<th class="column-1">Antenna</th><th class="column-2">Uptime to GPS Fix</th><th class="column-3">Number of satellites</th><th class="column-4">GPS valid (sky search started)</th>
+</tr>
+</thead>
+<tbody class="row-hover">
+<tr class="row-2 even">
+	<td class="column-1">Built-in chip</td><td class="column-2">3 minutes</td><td class="column-3">5</td><td class="column-4">Yes</td>
+</tr>
+<tr class="row-3 odd">
+	<td class="column-1">1</td><td class="column-2">30 seconds</td><td class="column-3">10</td><td class="column-4">Yes</td>
+</tr>
+<tr class="row-4 even">
+	<td class="column-1">2</td><td class="column-2">30 seconds</td><td class="column-3">10</td><td class="column-4">Yes</td>
+</tr>
+<tr class="row-5 odd">
+	<td class="column-1">3</td><td class="column-2">45 seconds</td><td class="column-3">13</td><td class="column-4">Yes</td>
+</tr>
+</tbody>
+</table>
+<!-- #tablepress-18 from cache -->
+<p>As you can see, all external active antennas provide faster startup time and more satellites, which might be important in some cases.</p>
+<p>My friends helped to test this modification in the area with constant suppression of the GPS bands. Thanks, Team 14 😉<br />
+In addition to signal suppression, the test site wasn&#8217;t optimal with additional obstacles.<br />
+Two devices took part in the testing: an unmodified one and one with an external active antenna. The results are below.</p>
+
+<table id="tablepress-19" class="tablepress tablepress-id-19">
+<thead>
+<tr class="row-1 odd">
+	<th class="column-1">User terminal type</th><th class="column-2">Uptime</th><th class="column-3">Number of satellites</th><th class="column-4">Online</th>
+</tr>
+</thead>
+<tbody class="row-hover">
+<tr class="row-2 even">
+	<td class="column-1">Unmodified</td><td class="column-2">2 minutes</td><td class="column-3">0</td><td class="column-4">No</td>
+</tr>
+<tr class="row-3 odd">
+	<td class="column-1">Unmodified</td><td class="column-2">5 minutes</td><td class="column-3">0</td><td class="column-4">No</td>
+</tr>
+<tr class="row-4 even">
+	<td class="column-1">Unmodified</td><td class="column-2">30 minutes</td><td class="column-3">0</td><td class="column-4">No</td>
+</tr>
+<tr class="row-5 odd">
+	<td class="column-1">Modified, active GPS antnenna</td><td class="column-2">2 minutes</td><td class="column-3">13</td><td class="column-4">Yes</td>
+</tr>
+<tr class="row-6 even">
+	<td class="column-1">Modified, active GPS antnenna</td><td class="column-2">5 minutes</td><td class="column-3">17</td><td class="column-4">Yes</td>
+</tr>
+<tr class="row-7 odd">
+	<td class="column-1">Modified, active GPS antnenna</td><td class="column-2">30 minutes</td><td class="column-3">15</td><td class="column-4">Yes</td>
+</tr>
+</tbody>
+</table>
+<!-- #tablepress-19 from cache -->
+<p>Additionally, it&#8217;s possible to integrate a small passive patch antenna into Dishy in the case of custom (automotive) housing.<br />
+This antenna has a relatively small gain, but it still provides good enough amplification and directivity.</p>
+<p><a href="../../../../wp-content/uploads/2023/11/starlink_small_passive_gps_patch.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3225" src="../../../../wp-content/uploads/2023/11/starlink_small_passive_gps_patch.jpg" alt="" width="721" height="385" srcset="https://olegkutkov.me/wp-content/uploads/2023/11/starlink_small_passive_gps_patch.jpg 850w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_small_passive_gps_patch-400x214.jpg 400w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_small_passive_gps_patch-768x410.jpg 768w" sizes="(max-width: 721px) 100vw, 721px" /></a></p>
+<p>It looks scary, but it&#8217;s safe to cut PCB here to fit the antenna carefully.</p>
+<p><a href="../../../../wp-content/uploads/2023/11/starlink_rev3_prot2_passive_gps_mounted.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3226" src="../../../../wp-content/uploads/2023/11/starlink_rev3_prot2_passive_gps_mounted.jpg" alt="" width="781" height="434" srcset="https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_prot2_passive_gps_mounted.jpg 900w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_prot2_passive_gps_mounted-400x222.jpg 400w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_prot2_passive_gps_mounted-768x427.jpg 768w" sizes="(max-width: 781px) 100vw, 781px" /></a></p>
+<p>Result &#8211; 11 satellites and Online in less than a minute:</p>
+<p><a href="../../../../wp-content/uploads/2023/11/starlink_rev3_prot2_passive_gps_test.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-3227" src="../../../../wp-content/uploads/2023/11/starlink_rev3_prot2_passive_gps_test.jpg" alt="" width="900" height="529" srcset="https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_prot2_passive_gps_test.jpg 900w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_prot2_passive_gps_test-400x235.jpg 400w, https://olegkutkov.me/wp-content/uploads/2023/11/starlink_rev3_prot2_passive_gps_test-768x451.jpg 768w" sizes="(max-width: 900px) 100vw, 900px" /></a></p>
+<p>Thanks for reading!</p>
+<span class="tags-links">Tagged <a href="../../../../tag/antenna/index.html" rel="tag">antenna</a>, <a href="../../../../tag/dishy/index.html" rel="tag">dishy</a>, <a href="../../../../tag/gps/index.html" rel="tag">gps</a>, <a href="../../../../tag/starlink/index.html" rel="tag">starlink</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a></h2>
+                                         <span class="posted-date">June 9, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a></h2>
+                                         <span class="posted-date">March 18, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../../06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html" rel="prev">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a></div><div class="nav-next"><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html" rel="next">Starlink terminal revision 4: overview and tests</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			51 thoughts on &ldquo;<span>Connecting external GPS antenna to the Starlink terminal</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-1869" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-1869" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/f74037b426fe550eedf5cc86b787b15b?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/f74037b426fe550eedf5cc86b787b15b?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Denis Berger</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1869"><time datetime="2023-11-07T04:27:53+02:00">November 7, 2023 at 4:27 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thank you so much for this timely new addition to your excellent Starlink hack series.  Since doing the direct-to-12-volts modifications, and the flat mounting, I  have had major issues with booting, in large part because I initially used an aluminium sheet to close the bottom of the dishy. The aluminum prevented proper operation of the gps antenna. After realizing the source of the problem, and cutting away near the chip, it started working better, but long connecting times remained a serious issue for my automotive installation. Your latest hack is exactly what I  needed! I owe you a beer, or two! Do you have a support mean for donation?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index72e3.html?replytocom=1869#respond' data-commentid="1869" data-postid="3155" data-belowelement="div-comment-1869" data-respondelement="respond" data-replyto="Reply to Denis Berger" aria-label='Reply to Denis Berger'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1870" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-1870" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1870"><time datetime="2023-11-07T10:53:09+02:00">November 7, 2023 at 10:53 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>You&#8217;re always welcome 🙂 Happy to share useful information.</p>
+<p>You can do a PayPal transfer to my email <a href="mailto:contact@olegkutkov.me">contact@olegkutkov.me</a> if you wish to donate 🙂</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index8af8.html?replytocom=1870#respond' data-commentid="1870" data-postid="3155" data-belowelement="div-comment-1870" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1959" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-1959" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/52a77f3d9f396c3378aa6b434ee6990f?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/52a77f3d9f396c3378aa6b434ee6990f?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">5031</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1959"><time datetime="2024-01-06T11:45:12+02:00">January 6, 2024 at 11:45 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Велике спасибі за дослідження! Але я хочу знати, який чіп завершується модуляцією/демодуляцією користувацького терміналу? Я довго шукав і не знав, де це було.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index8e76.html?replytocom=1959#respond' data-commentid="1959" data-postid="3155" data-belowelement="div-comment-1959" data-respondelement="respond" data-replyto="Reply to 5031" aria-label='Reply to 5031'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1960" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-1960" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1960"><time datetime="2024-01-06T12:55:44+02:00">January 6, 2024 at 12:55 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Modem is inside the SoC, not a separate chip.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexdb71.html?replytocom=1960#respond' data-commentid="1960" data-postid="3155" data-belowelement="div-comment-1960" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1979" class="comment even thread-even depth-1">
+			<article id="div-comment-1979" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/b932dfbee232fce4c6148f678f53b406?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/b932dfbee232fce4c6148f678f53b406?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Rene</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1979"><time datetime="2024-01-15T10:46:18+02:00">January 15, 2024 at 10:46 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello. I have the Problem that my dishy says now for days invalid GPS. gpsStats&#8221;: {<br />
+        &#8220;gpsValid&#8221;: false,<br />
+        &#8220;gpsSats&#8221;: 0,<br />
+        &#8220;noSatsAfterTtff&#8221;: true,<br />
+        &#8220;inhibitGps&#8221;: true</p>
+<p>So ist Not working in Motion now. We are on nepale in a Road Trip with our Campervan and i have No Chance to get a new dishy. Reset was Not helping. It&#8217;s gen 2 dishy the square. I ASK myself is the antenna the Problem or the GPS Chip. Thanks for your work. My e-mail ist <a href="mailto:renekreher@googlemail.com">renekreher@googlemail.com</a>.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexcea2.html?replytocom=1979#respond' data-commentid="1979" data-postid="3155" data-belowelement="div-comment-1979" data-respondelement="respond" data-replyto="Reply to Rene" aria-label='Reply to Rene'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-1980" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-1980" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/85654f477b07063b71f16eded6cb50b6?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/85654f477b07063b71f16eded6cb50b6?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">David</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1980"><time datetime="2024-01-15T17:28:21+02:00">January 15, 2024 at 5:28 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>One Web terminal ready for external GNSS connection: <a href="https://www.satellitetoday.com/technology/2023/09/11/onewebs-new-military-and-emergency-response-terminal-can-fit-inside-a-backpack" rel="nofollow ugc">https://www.satellitetoday.com/technology/2023/09/11/onewebs-new-military-and-emergency-response-terminal-can-fit-inside-a-backpack</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index3069.html?replytocom=1980#respond' data-commentid="1980" data-postid="3155" data-belowelement="div-comment-1980" data-respondelement="respond" data-replyto="Reply to David" aria-label='Reply to David'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-2010" class="comment even thread-even depth-1">
+			<article id="div-comment-2010" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/6fd5fa173e831c4a64c7bbe5e869af20?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/6fd5fa173e831c4a64c7bbe5e869af20?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Ben</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2010"><time datetime="2024-02-05T02:37:09+02:00">February 5, 2024 at 2:37 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Is there a way to hack starlink’s ability to see in-motion and /or fix geo location.  Having issue with the 100mph cap on starlink high performance flat dish.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index9355.html?replytocom=2010#respond' data-commentid="2010" data-postid="3155" data-belowelement="div-comment-2010" data-respondelement="respond" data-replyto="Reply to Ben" aria-label='Reply to Ben'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-2038" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-2038" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/b88369e957b77d57f43fcb58d799c5fd?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/b88369e957b77d57f43fcb58d799c5fd?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Pasha</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2038"><time datetime="2024-02-11T19:22:18+02:00">February 11, 2024 at 7:22 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Дуже дякую за статтю.<br />
+Ви пишете що без gps термінал не завантажується Але До мене в руки попав Starlink 2 який успішно працює без GPS.<br />
+Я не можу зрозуміти це випадковість чи термінал обновився і тепер термінал може працювати з пошкодженим gps</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index975b.html?replytocom=2038#respond' data-commentid="2038" data-postid="3155" data-belowelement="div-comment-2038" data-respondelement="respond" data-replyto="Reply to Pasha" aria-label='Reply to Pasha'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-2047" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2 parent">
+			<article id="div-comment-2047" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2047"><time datetime="2024-02-12T20:20:45+02:00">February 12, 2024 at 8:20 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Якщо там GPS взагалі не працює &#8211; термінал може стартанути и без нього. Особливо краще з цим стало з новими прошивками.<br />
+Але він у вас, скоріш за все, не зможе працювати у русі.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexb516.html?replytocom=2047#respond' data-commentid="2047" data-postid="3155" data-belowelement="div-comment-2047" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-2056" class="comment odd alt depth-3">
+			<article id="div-comment-2056" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/b88369e957b77d57f43fcb58d799c5fd?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/b88369e957b77d57f43fcb58d799c5fd?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Pasha</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2056"><time datetime="2024-02-13T14:11:30+02:00">February 13, 2024 at 2:11 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Дякую за відповідь.<br />
+На даний момент моя думка по цьому терміналу змінилась так як при сонячній погоді він все ж таки показав GPS  в Debug Data скоріш за все він все ж стартує як тільки хоть на якийсь момент зловив GPS а потім працює і без нього…<br />
+Прошу порадити з чого почати ремонт даного терміналі (перепаяти антену з донору)?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexf7c7.html?replytocom=2056#respond' data-commentid="2056" data-postid="3155" data-belowelement="div-comment-2056" data-respondelement="respond" data-replyto="Reply to Pasha" aria-label='Reply to Pasha'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-3367" class="comment even depth-3 parent">
+			<article id="div-comment-3367" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/cc4478b781bd8bb5ffc94c7830e82571?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/cc4478b781bd8bb5ffc94c7830e82571?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Viktor</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3367"><time datetime="2024-04-15T00:43:33+03:00">April 15, 2024 at 12:43 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Ремонтирую понемногу терминалы, иногда приходят с мертвым GPS (возможно после РЭБ). И вот в чем вопроc &#8211; не получается заменить GPS чип ST8089 с донора! Все равно не видит спутники. Толи я их успешно убиваю при пересадке (хотя BGA паяю профессионально, в т.ч. Бимформеры), толи прошивка 8089 как-то привязана к серийнику антенны? Смотрел на обмен проца с ним &#8211; вначале проц &#8220;договаривается&#8221; с ним, отсылает кучу каких-то конфигурационных данных и потом ждет обычный ответ NMEA в виде $GPGSA,A,1,,,,,,,,,,,,,99.0,99.0,99.0*00. Но почему всегда 0 спутников? А иногда помогает просто пропайка  ST8089 без замены&#8230; Или может то вовсе не выбитые РЭБом чипы, а искать что-то еще? Эмулировать NMEA неужели нельзя?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index60b0.html?replytocom=3367#respond' data-commentid="3367" data-postid="3155" data-belowelement="div-comment-3367" data-respondelement="respond" data-replyto="Reply to Viktor" aria-label='Reply to Viktor'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3368" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-4 parent">
+			<article id="div-comment-3368" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3368"><time datetime="2024-04-15T00:51:54+03:00">April 15, 2024 at 12:51 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Прошивка STA8089 никак не привязана. Более того, можно ставить чипы добытые не только из старлинка.<br />
+Мертвые GPS чипы &#8211; это очень распространенная проблема. В том числе они иногда бывают мертвыми с завода 🙂 Бывают и проблемы с пропайкой, да.<br />
+Скорее всего у вас на доноре уже спаленный чип. Тоже нередко приходится их перепаивать, иногда приходится перебрать несколько чипов, пока не заработает.<br />
+Если чип заводится, но сообщает 0 спутников &#8211; значит у него что-то с RF фронтом, или встроенный LNA сгорел (чаще всего) или проблема с фильтром/антенной. Проверяйте внимательно, что ничего не поплыло и что на антенне, на пинах, нет &#8220;мостика&#8221; из припоя или флюса.<br />
+Эмуляция NMEA &#8211; отдельная большая тема, которую я бы не очень хотел тут обсуждать 🙂</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexd1bd.html?replytocom=3368#respond' data-commentid="3368" data-postid="3155" data-belowelement="div-comment-3368" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3373" class="comment even depth-5">
+			<article id="div-comment-3373" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/cc4478b781bd8bb5ffc94c7830e82571?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/cc4478b781bd8bb5ffc94c7830e82571?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Viktor</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3373"><time datetime="2024-04-15T08:45:06+03:00">April 15, 2024 at 8:45 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Антену и мелочевку по входу тоже пересаживал (правда только на одной) &#8211; не помогло.<br />
+STA8089 брал штук 4-5 с разных доноров, теоретически хоть пару да работать должны были. может паяльником при лужении убиваю LNA &#8211; не заземлена станция. Попробую в след. раз заземлить все что можно&#8230;</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-3374" class="comment odd alt depth-5">
+			<article id="div-comment-3374" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/cc4478b781bd8bb5ffc94c7830e82571?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/cc4478b781bd8bb5ffc94c7830e82571?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Viktor</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3374"><time datetime="2024-04-15T09:02:35+03:00">April 15, 2024 at 9:02 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>“мостика” из припоя &#8211; всмысле КЗ на пинах 8089? Пара раз сажал на свинец, аккуратно. И немного не доганяю конструкцию антенны &#8211; контакты 1 и 2 у нее это один большой вывод (там где точка на синей антенне), как у всех компонентов типоразмера 1206. Почему ж тогда контакты 1,2 разделены на плате?</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-3657" class="comment even depth-4">
+			<article id="div-comment-3657" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/8659da6861adbb7eb50db67ac8bd2a3e?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/8659da6861adbb7eb50db67ac8bd2a3e?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Mkar</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3657"><time datetime="2024-05-01T17:10:13+03:00">May 1, 2024 at 5:10 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Та же фигня уже пару заменил результат никакой!!!!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index306f.html?replytocom=3657#respond' data-commentid="3657" data-postid="3155" data-belowelement="div-comment-3657" data-respondelement="respond" data-replyto="Reply to Mkar" aria-label='Reply to Mkar'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-2068" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-2068" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/240a7f3ea57d28412470421e224914b1?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/240a7f3ea57d28412470421e224914b1?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Bau</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2068"><time datetime="2024-02-16T00:00:44+02:00">February 16, 2024 at 12:00 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello. Thank for all informations. I have much dishy whit a same problem. GPS.<br />
+I think send nmea data using ublox module. But i don&#8217;t sniff the serial port to discovery the serial rate and nmea messages to use. What you think about this ?<br />
+Att. Bau</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexe74b.html?replytocom=2068#respond' data-commentid="2068" data-postid="3155" data-belowelement="div-comment-2068" data-respondelement="respond" data-replyto="Reply to Bau" aria-label='Reply to Bau'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-2069" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-2069" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2069"><time datetime="2024-02-16T01:03:01+02:00">February 16, 2024 at 1:03 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello. You can&#8217;t do it directly. STA8089 has proprietary NMEA extensions that Starlink relies on.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexf5c6.html?replytocom=2069#respond' data-commentid="2069" data-postid="3155" data-belowelement="div-comment-2069" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-2099" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-2099" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/e31fe0947c866a7d2b2c8cda616a1217?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/e31fe0947c866a7d2b2c8cda616a1217?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Kevin</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2099"><time datetime="2024-02-24T12:41:43+02:00">February 24, 2024 at 12:41 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I have a stationary Starlink setup, and it works well.</p>
+<p>However, GPS isn’t pinpoint accurate, could this impact performance? Would the Starlink constellation be more accurate and better for a stationary setup? Or would the downsides outweigh any benefits?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index3f6c.html?replytocom=2099#respond' data-commentid="2099" data-postid="3155" data-belowelement="div-comment-2099" data-respondelement="respond" data-replyto="Reply to Kevin" aria-label='Reply to Kevin'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-2114" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-2114" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2114"><time datetime="2024-02-28T10:24:20+02:00">February 28, 2024 at 10:24 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello,</p>
+<p>No, GPS does not affect performance during the Stationary Starlink operation. It is only required on boot and in motion.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index93a4.html?replytocom=2114#respond' data-commentid="2114" data-postid="3155" data-belowelement="div-comment-2114" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-2112" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-2112" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/64a07edb5390394254ed1184c30f0022?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/64a07edb5390394254ed1184c30f0022?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">JOAO ROBERTO MARQUES SILVA</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2112"><time datetime="2024-02-28T03:20:53+02:00">February 28, 2024 at 3:20 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello friend, thank you very much for all the information, the GPS on my rev3 is not operating normally after putting it in a vehicle adaptation, I found some internal antennas in Brazil for sale, could you tell me if any of these 2 would be suitable for exchange, very grateful.<br />
+<a href="https://produto.mercadolivre.com.br/MLB-3111735866-antena-glonas-topgnss-gps-28db-conector-ipx-287mm-_JM" rel="nofollow ugc">https://produto.mercadolivre.com.br/MLB-3111735866-antena-glonas-topgnss-gps-28db-conector-ipx-287mm-_JM</a></p>
+<p><a href="https://loja.smartcore.com.br/antena-gnss-gps-glonas-patch-ceramica-ativa-25x25mm-cabo-100mm-conector-ufl-angnss-ia-25-100mm-ufl-js" rel="nofollow ugc">https://loja.smartcore.com.br/antena-gnss-gps-glonas-patch-ceramica-ativa-25x25mm-cabo-100mm-conector-ufl-angnss-ia-25-100mm-ufl-js</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index4802.html?replytocom=2112#respond' data-commentid="2112" data-postid="3155" data-belowelement="div-comment-2112" data-respondelement="respond" data-replyto="Reply to JOAO ROBERTO MARQUES SILVA" aria-label='Reply to JOAO ROBERTO MARQUES SILVA'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-2115" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-2115" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2115"><time datetime="2024-02-28T10:26:18+02:00">February 28, 2024 at 10:26 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello,</p>
+<p>You can use both antennas. But you will need the bias-t board to provide power for the antenna. There is LNA inside.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index3d02.html?replytocom=2115#respond' data-commentid="2115" data-postid="3155" data-belowelement="div-comment-2115" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-2152" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-2152" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/ed00f30470d6b5f873d2f98ef73e263b?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/ed00f30470d6b5f873d2f98ef73e263b?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Daniel Baron</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2152"><time datetime="2024-03-01T13:50:02+02:00">March 1, 2024 at 1:50 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Mr. Oleg thanks for your contribution!</p>
+<p>I&#8217;m on the go and I&#8217;m unable to get a replacement for my Dish 2. I&#8217;ve a GPS not valid in the debug.<br />
+After removing the chip antenna, the center conductor of the GPS&#8217;s cable must be connected in the input PIN.</p>
+<p>My question is, the conducting shield of the cable, must be soldered to both the second PIN and ground PIN?</p>
+<p>Thank you<br />
+Regads<br />
+Daniel</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexc88b.html?replytocom=2152#respond' data-commentid="2152" data-postid="3155" data-belowelement="div-comment-2152" data-respondelement="respond" data-replyto="Reply to Daniel Baron" aria-label='Reply to Daniel Baron'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-2153" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2 parent">
+			<article id="div-comment-2153" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2153"><time datetime="2024-03-01T14:12:26+02:00">March 1, 2024 at 2:12 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello,</p>
+<p>There are only center/signal and ground pins. Both second and third pins are GND. You can connect at your convenience.<br />
+But typically, GPS is not working due to poor soldering of the GPS chip under the metal can.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexc301.html?replytocom=2153#respond' data-commentid="2153" data-postid="3155" data-belowelement="div-comment-2153" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-2154" class="comment odd alt depth-3">
+			<article id="div-comment-2154" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/ed00f30470d6b5f873d2f98ef73e263b?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/ed00f30470d6b5f873d2f98ef73e263b?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Daniel Baron</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2154"><time datetime="2024-03-01T14:38:29+02:00">March 1, 2024 at 2:38 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I see.. So this fix won&#8217;t be the solution for the GPS not valid error.</p>
+<p>It&#8217;s a GPS chip problem, not the antenna.</p>
+<p>Thanks for your explanation</p>
+<p>Regards<br />
+Daniel</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexdafa.html?replytocom=2154#respond' data-commentid="2154" data-postid="3155" data-belowelement="div-comment-2154" data-respondelement="respond" data-replyto="Reply to Daniel Baron" aria-label='Reply to Daniel Baron'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-2276" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="https://www.mistvista.com/uncategorized/gps-antenna-mods-make-starlink-terminal-immune-to-jammers/" class="url" rel="ugc external nofollow">GPS Antenna Mods Make Starlink Terminal Immune To Jammers &#8211; Mist Vista</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-2841" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-2841" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/c70caebefdde8135e19b461389d12747?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/c70caebefdde8135e19b461389d12747?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Олександр</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2841"><time datetime="2024-03-26T16:12:49+02:00">March 26, 2024 at 4:12 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Доброго дня. Скажить  будь ласка, який пасивний GPS краще встановити ? Дякую за Вашу працю i допомогу.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index7b6f.html?replytocom=2841#respond' data-commentid="2841" data-postid="3155" data-belowelement="div-comment-2841" data-respondelement="respond" data-replyto="Reply to Олександр" aria-label='Reply to Олександр'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3013" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-3013" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3013"><time datetime="2024-04-01T00:42:18+03:00">April 1, 2024 at 12:42 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Вітаю. Будь яка патч антена, накшталт: <a href="http://www.kosmodrom.com.ua/el.php?name=BY-GPS-GLONASS-254-PCB" rel="nofollow ugc">http://www.kosmodrom.com.ua/el.php?name=BY-GPS-GLONASS-254-PCB</a><br />
+Проблема в тому, що пасивні дуже важко знайти, хіба що взяти дешеву активну, та припаяти кабель напряму на патч, прибравши підсилювач (якщо потрібна саме пасивна).</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index9907.html?replytocom=3013#respond' data-commentid="3013" data-postid="3155" data-belowelement="div-comment-3013" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-3011" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-3011" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/fee45eb9511ea94a66bfc98af247f705?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/fee45eb9511ea94a66bfc98af247f705?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://linuxguidance.net/" class="url" rel="ugc external nofollow">Mark</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3011"><time datetime="2024-04-01T00:36:20+03:00">April 1, 2024 at 12:36 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello Oleg I am having issues with my GPS not being valid, and I&#8217;m suspicious it&#8217;s bad soldering what is the chance of success if I open my dish and reheat the solder for the antenna?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index7522.html?replytocom=3011#respond' data-commentid="3011" data-postid="3155" data-belowelement="div-comment-3011" data-respondelement="respond" data-replyto="Reply to Mark" aria-label='Reply to Mark'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3012" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2 parent">
+			<article id="div-comment-3012" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3012"><time datetime="2024-04-01T00:39:12+03:00">April 1, 2024 at 12:39 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello. You need to rework the GPS chip under the metal can (near the GPS antenna).</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexdc8d.html?replytocom=3012#respond' data-commentid="3012" data-postid="3155" data-belowelement="div-comment-3012" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3015" class="comment odd alt depth-3 parent">
+			<article id="div-comment-3015" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/fee45eb9511ea94a66bfc98af247f705?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/fee45eb9511ea94a66bfc98af247f705?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://linuxguidance.net/" class="url" rel="ugc external nofollow">Mark</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3015"><time datetime="2024-04-01T00:46:36+03:00">April 1, 2024 at 12:46 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>How can I safely remove the metal can because it looks like it&#8217;s riveted in, not screwed it?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index4120.html?replytocom=3015#respond' data-commentid="3015" data-postid="3155" data-belowelement="div-comment-3015" data-respondelement="respond" data-replyto="Reply to Mark" aria-label='Reply to Mark'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3016" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-4 parent">
+			<article id="div-comment-3016" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3016"><time datetime="2024-04-01T00:48:45+03:00">April 1, 2024 at 12:48 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Use a hot air gun and a scalpel (or sharp knife) to pry and lift the can from one of the edges. Do it slowly and carefully.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexf98a.html?replytocom=3016#respond' data-commentid="3016" data-postid="3155" data-belowelement="div-comment-3016" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3017" class="comment odd alt depth-5 parent">
+			<article id="div-comment-3017" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/fee45eb9511ea94a66bfc98af247f705?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/fee45eb9511ea94a66bfc98af247f705?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Mark</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3017"><time datetime="2024-04-01T00:52:36+03:00">April 1, 2024 at 12:52 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thank you, I have one last question what do you use to seal the dish back up?</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-3018" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-5">
+			<article id="div-comment-3018" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3018"><time datetime="2024-04-01T00:55:59+03:00">April 1, 2024 at 12:55 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I use gray automotive sealant (for headlights).</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-3111" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-3111" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d4d41a437eec20a8aa033ed1ebd2fbf1?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/d4d41a437eec20a8aa033ed1ebd2fbf1?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Hassan</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3111"><time datetime="2024-04-03T05:59:39+03:00">April 3, 2024 at 5:59 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg,<br />
+I accidentally ripped off the gps antenna input pad 🙁  is there another place i can pick up the connection?  Ty</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexe18b.html?replytocom=3111#respond' data-commentid="3111" data-postid="3155" data-belowelement="div-comment-3111" data-respondelement="respond" data-replyto="Reply to Hassan" aria-label='Reply to Hassan'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-3377" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-3377" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/b8edc798d85075f7e8c0e7740be9c616?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/b8edc798d85075f7e8c0e7740be9c616?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Greg</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3377"><time datetime="2024-04-15T21:01:30+03:00">April 15, 2024 at 9:01 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Oleg, this is a great project. I&#8217;m also interested in what application you&#8217;re using to see the gps statistics in the final picture. I&#8217;ve got the starlink app on my phone but it doesn&#8217;t provide those metrics, also it appears that starlink are now deprecating the web browser interface. Could you tell me more about the application please?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index6c35.html?replytocom=3377#respond' data-commentid="3377" data-postid="3155" data-belowelement="div-comment-3377" data-respondelement="respond" data-replyto="Reply to Greg" aria-label='Reply to Greg'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3380" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2 parent">
+			<article id="div-comment-3380" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3380"><time datetime="2024-04-15T21:58:24+03:00">April 15, 2024 at 9:58 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>It&#8217;s the Ukrainian app StarDebug:<br />
+Android: <a href="https://play.google.com/store/apps/details?id=com.stardebug&amp;hl=uk&amp;gl=US" rel="nofollow ugc">https://play.google.com/store/apps/details?id=com.stardebug&#038;hl=uk&#038;gl=US</a><br />
+iOS: <a href="https://apps.apple.com/ua/app/star-debug/id6449881082" rel="nofollow ugc">https://apps.apple.com/ua/app/star-debug/id6449881082</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index9a40.html?replytocom=3380#respond' data-commentid="3380" data-postid="3155" data-belowelement="div-comment-3380" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3391" class="comment even depth-3">
+			<article id="div-comment-3391" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/b8edc798d85075f7e8c0e7740be9c616?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/b8edc798d85075f7e8c0e7740be9c616?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Greg</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3391"><time datetime="2024-04-16T09:07:12+03:00">April 16, 2024 at 9:07 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thank you.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index1249.html?replytocom=3391#respond' data-commentid="3391" data-postid="3155" data-belowelement="div-comment-3391" data-respondelement="respond" data-replyto="Reply to Greg" aria-label='Reply to Greg'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-3441" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-3441" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/c5b06945609d060ea912a1a987ed0ad0?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/c5b06945609d060ea912a1a987ed0ad0?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Bruce</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3441"><time datetime="2024-04-18T15:36:41+03:00">April 18, 2024 at 3:36 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hey Oleg, would this work to change out GPs location to a neighbouring country. In my southern African country, Starlink is not approved and starlink recently said that roaming would be end for countries that are not approved. However, our neighbour country is approved for starlink. </p>
+<p>Would this be possible ?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index70db.html?replytocom=3441#respond' data-commentid="3441" data-postid="3155" data-belowelement="div-comment-3441" data-respondelement="respond" data-replyto="Reply to Bruce" aria-label='Reply to Bruce'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3442" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-3442" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3442"><time datetime="2024-04-18T15:45:19+03:00">April 18, 2024 at 3:45 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Bruce,</p>
+<p>Unfortunately not. Your Starlink will only work somewhere near the border with that country.<br />
+It&#8217;s not about GPS. It&#8217;s just that Starlink satellites block all connections from disabled cells on the ground. The satellite knows where it is flying now and which cell is forbidden. It doesn&#8217;t care about the terminal&#8217;s GPS state.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index88ba.html?replytocom=3442#respond' data-commentid="3442" data-postid="3155" data-belowelement="div-comment-3442" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-3443" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-3443" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/2396ba8b923dcb8c4e7fcbbf3dc5c570?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/2396ba8b923dcb8c4e7fcbbf3dc5c570?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Bruce</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3443"><time datetime="2024-04-18T15:55:27+03:00">April 18, 2024 at 3:55 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello Oleg, ah bugger. Well it was worth a shot. Is there any idea how close to the border ones needs to be?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexca11.html?replytocom=3443#respond' data-commentid="3443" data-postid="3155" data-belowelement="div-comment-3443" data-respondelement="respond" data-replyto="Reply to Bruce" aria-label='Reply to Bruce'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3445" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2 parent">
+			<article id="div-comment-3445" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3445"><time datetime="2024-04-18T16:03:19+03:00">April 18, 2024 at 4:03 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>It depends on the blurring of the satellite&#8217;s spot. It could be hundreds of meters, sometimes a kilometer or two.<br />
+<img src="../../../../wp-content/uploads/2024/04/South_Africa_Starlink_cells.jpg" alt="" /></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index9069.html?replytocom=3445#respond' data-commentid="3445" data-postid="3155" data-belowelement="div-comment-3445" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3446" class="comment odd alt depth-3 parent">
+			<article id="div-comment-3446" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/2396ba8b923dcb8c4e7fcbbf3dc5c570?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/2396ba8b923dcb8c4e7fcbbf3dc5c570?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">bruce</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3446"><time datetime="2024-04-18T16:12:11+03:00">April 18, 2024 at 4:12 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hey Oleg interesting, do you have the cells map for Zimbabwe/Mozambique?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexba05.html?replytocom=3446#respond' data-commentid="3446" data-postid="3155" data-belowelement="div-comment-3446" data-respondelement="respond" data-replyto="Reply to bruce" aria-label='Reply to bruce'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3447" class="comment even depth-4 parent">
+			<article id="div-comment-3447" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/2396ba8b923dcb8c4e7fcbbf3dc5c570?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/2396ba8b923dcb8c4e7fcbbf3dc5c570?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">bruce</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3447"><time datetime="2024-04-18T16:13:23+03:00">April 18, 2024 at 4:13 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Ah okay, so it won´t be like 50 kms from the border? Needs to be very close like within 1-2 km at most</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index3d22.html?replytocom=3447#respond' data-commentid="3447" data-postid="3155" data-belowelement="div-comment-3447" data-respondelement="respond" data-replyto="Reply to bruce" aria-label='Reply to bruce'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3450" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-5">
+			<article id="div-comment-3450" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3450"><time datetime="2024-04-18T16:18:51+03:00">April 18, 2024 at 4:18 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Yep. Cell size is 22 km. Some cells overlap countries&#8217; borders. Plus, there is some natural blurring of the satellite’s spot. So, they can&#8217;t magically disable the signal on the border.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-3448" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-4">
+			<article id="div-comment-3448" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3448"><time datetime="2024-04-18T16:17:35+03:00">April 18, 2024 at 4:17 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>You can use starlink.sx to get the cell&#8217;s map.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index62e1.html?replytocom=3448#respond' data-commentid="3448" data-postid="3155" data-belowelement="div-comment-3448" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-3449" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-3449" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/2396ba8b923dcb8c4e7fcbbf3dc5c570?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/2396ba8b923dcb8c4e7fcbbf3dc5c570?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Bruce</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3449"><time datetime="2024-04-18T16:18:35+03:00">April 18, 2024 at 4:18 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Legndary, thanks Oleg. Keep up the great work</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index92d4.html?replytocom=3449#respond' data-commentid="3449" data-postid="3155" data-belowelement="div-comment-3449" data-respondelement="respond" data-replyto="Reply to Bruce" aria-label='Reply to Bruce'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-3567" class="comment even thread-even depth-1">
+			<article id="div-comment-3567" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/8214c81563cb11605576b119c27ae5f0?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/8214c81563cb11605576b119c27ae5f0?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">John</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3567"><time datetime="2024-04-26T19:17:04+03:00">April 26, 2024 at 7:17 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello Oleg can you please tell me what temperature and flow I would need to set on my heat gun to remove the metal can in front of the GPS chip and what temperature and flow I would need to set, so I can rework the GPS chip also do I need to reattach the metal can afterward or is it not necessary?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index9066.html?replytocom=3567#respond' data-commentid="3567" data-postid="3155" data-belowelement="div-comment-3567" data-respondelement="respond" data-replyto="Reply to John" aria-label='Reply to John'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-3641" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-3641" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/6119fba14073072c6d9ff4a9148c91a7?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/6119fba14073072c6d9ff4a9148c91a7?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Haroon Alakhali</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3641"><time datetime="2024-04-30T01:48:23+03:00">April 30, 2024 at 1:48 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello Oleg i have a starlink v2 works in may area for about a month with no problem and then suddenly stoped,I figure out the problem in gps has locked, then i moved to anthor area 20km distance from my home , it works again, can you help me, how can hack the Gps chip and make it sending a fixed location data<br />
+I am an electronics engineer<br />
+You have a huge experience on that<br />
+This is my email <a href="mailto:Ha.alkahali@gmail.com">Ha.alkahali@gmail.com</a></p>
+<p>Thank you for you informations</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index18ea.html?replytocom=3641#respond' data-commentid="3641" data-postid="3155" data-belowelement="div-comment-3641" data-respondelement="respond" data-replyto="Reply to Haroon Alakhali" aria-label='Reply to Haroon Alakhali'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3642" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-3642" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3642"><time datetime="2024-04-30T01:52:48+03:00">April 30, 2024 at 1:52 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello.</p>
+<p>Starlink terminal is not sending anything, and satellites don&#8217;t care about the terminal&#8217;s local data. The satellite knows its position.<br />
+Please read the comments above. I explained why it happens (and why it&#8217;s ~20 km).</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index91b7.html?replytocom=3642#respond' data-commentid="3642" data-postid="3155" data-belowelement="div-comment-3642" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-3775" class="comment odd alt thread-even depth-1">
+			<article id="div-comment-3775" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/f74037b426fe550eedf5cc86b787b15b?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/f74037b426fe550eedf5cc86b787b15b?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Denis Berger</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3775"><time datetime="2024-05-08T20:51:13+03:00">May 8, 2024 at 8:51 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello Oleg. I copied and pasted the unanswered questions from another commenter.<br />
+Can you please tell me what temperature and flow I would need to set on my heat gun to remove the metal can in front of the GPS chip and what temperature and flow I would need to set, so I can rework the GPS chip also do I need to reattach the metal can afterward or is it not necessary?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index460f.html?replytocom=3775#respond' data-commentid="3775" data-postid="3155" data-belowelement="div-comment-3775" data-respondelement="respond" data-replyto="Reply to Denis Berger" aria-label='Reply to Denis Berger'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-4176" class="comment even thread-odd thread-alt depth-1">
+			<article id="div-comment-4176" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/7320934e4a1a18f2389ab7fd11ab8715?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/7320934e4a1a18f2389ab7fd11ab8715?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-4176"><time datetime="2024-05-21T21:23:08+03:00">May 21, 2024 at 9:23 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello Oleg, I have been thinking about buying these STA8089, as I am having several problems. Not everyone can be resolved with a weld rework. Some solutions were solved by placing a patch antenna, directly in place of the micro antenna, just feeding it 3.3V and adding a small inductor, without using BIAS-T. This STA8089 is very expensive for Brazil. Is there any other model that works and is cheaper? Another question, when the STA8089 is off the board, in your APP I didn&#8217;t see a place that shows whether the chip is communicating or not. I only see it when it tracks satellites.<br />
+Thank you for all the past knowledge!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index61cc.html?replytocom=4176#respond' data-commentid="4176" data-postid="3155" data-belowelement="div-comment-4176" data-respondelement="respond" data-replyto="Reply to Baú" aria-label='Reply to Baú'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply to <a href="#comment-3445">Oleg Kutkov</a> <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='3155' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='3445' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="9b42eecb82" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="78"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="index.html" aria-current="page">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../../2020/06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index9069.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_1827c9da4c86fc3ad9db01f6a6132235.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/?replytocom=3445 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:17:25 GMT -->
+</html>

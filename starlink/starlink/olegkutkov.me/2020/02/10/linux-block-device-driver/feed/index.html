@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>
+	Comments on: Linux block device driver	</title>
+	<atom:link href="https://olegkutkov.me/2020/02/10/linux-block-device-driver/feed/" rel="self" type="application/rss+xml" />
+	<link>https://olegkutkov.me/2020/02/10/linux-block-device-driver/</link>
+	<description>Programming, electronics and diy projects</description>
+	<lastBuildDate>Fri, 13 Oct 2023 13:15:38 +0000</lastBuildDate>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.5.3</generator>
+	<item>
+		<title>
+		By: RS		</title>
+		<link>https://olegkutkov.me/2020/02/10/linux-block-device-driver/#comment-1866</link>
+
+		<dc:creator><![CDATA[RS]]></dc:creator>
+		<pubDate>Fri, 13 Oct 2023 13:15:38 +0000</pubDate>
+		<guid isPermaLink="false">https://olegkutkov.me/?p=1104#comment-1866</guid>
+
+					<description><![CDATA[Great tutorial. Thanks a lot.]]></description>
+			<content:encoded><![CDATA[<p>Great tutorial. Thanks a lot.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Ronny		</title>
+		<link>https://olegkutkov.me/2020/02/10/linux-block-device-driver/#comment-1542</link>
+
+		<dc:creator><![CDATA[Ronny]]></dc:creator>
+		<pubDate>Fri, 28 Apr 2023 15:08:31 +0000</pubDate>
+		<guid isPermaLink="false">https://olegkutkov.me/?p=1104#comment-1542</guid>
+
+					<description><![CDATA[I really liked your tutorial and managed to get everything working fine with kernel 5.4.*.
+However, when compiling with kernel 5.15 there are two ERRORS:
+ERROR: modpost: &quot;alloc_disk&quot; undefined
+ERROR: modpost: &quot;blk_mq_init_sq_queue&quot; undefined
+A quick search on the internet revealed that the API has changed for newer kernels.
+
+I am miles away from doing this rewrite myself.
+Do you have time and fun to update your great tutorial?
+Thanks]]></description>
+			<content:encoded><![CDATA[<p>I really liked your tutorial and managed to get everything working fine with kernel 5.4.*.<br />
+However, when compiling with kernel 5.15 there are two ERRORS:<br />
+ERROR: modpost: &#8220;alloc_disk&#8221; undefined<br />
+ERROR: modpost: &#8220;blk_mq_init_sq_queue&#8221; undefined<br />
+A quick search on the internet revealed that the API has changed for newer kernels.</p>
+<p>I am miles away from doing this rewrite myself.<br />
+Do you have time and fun to update your great tutorial?<br />
+Thanks</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: MG		</title>
+		<link>https://olegkutkov.me/2020/02/10/linux-block-device-driver/#comment-1333</link>
+
+		<dc:creator><![CDATA[MG]]></dc:creator>
+		<pubDate>Tue, 21 Jun 2022 08:03:40 +0000</pubDate>
+		<guid isPermaLink="false">https://olegkutkov.me/?p=1104#comment-1333</guid>
+
+					<description><![CDATA[The myblock_driver_exit function is missing the release of blockdev:
+
+kobject_put(blockdev);
+
+Without this loading the module, then unloading, and loading again fails with
+
+kobject_add_internal failed for blockdev with -EEXIST, don&#039;t try to register things with the same name in the same directory.]]></description>
+			<content:encoded><![CDATA[<p>The myblock_driver_exit function is missing the release of blockdev:</p>
+<p>kobject_put(blockdev);</p>
+<p>Without this loading the module, then unloading, and loading again fails with</p>
+<p>kobject_add_internal failed for blockdev with -EEXIST, don&#8217;t try to register things with the same name in the same directory.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Paginski		</title>
+		<link>https://olegkutkov.me/2020/02/10/linux-block-device-driver/#comment-1294</link>
+
+		<dc:creator><![CDATA[Paginski]]></dc:creator>
+		<pubDate>Fri, 27 May 2022 09:08:50 +0000</pubDate>
+		<guid isPermaLink="false">https://olegkutkov.me/?p=1104#comment-1294</guid>
+
+					<description><![CDATA[Great tutorial, helped me a lot. Any updates about continuation about making partitions?]]></description>
+			<content:encoded><![CDATA[<p>Great tutorial, helped me a lot. Any updates about continuation about making partitions?</p>
+]]></content:encoded>
+		
+			</item>
+	</channel>
+</rss>

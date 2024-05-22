@@ -1,0 +1,513 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2020/06/17/combining-two-hackrf-sdr-to-see-more/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:12:18 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>Combining two HackRF SDR to see more &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Combining two HackRF SDR to see more Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/1252.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../indexb09c.html?p=1252' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embed4c24.json?url=https%3A%2F%2Folegkutkov.me%2F2020%2F06%2F17%2Fcombining-two-hackrf-sdr-to-see-more%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embed9b2e?url=https%3A%2F%2Folegkutkov.me%2F2020%2F06%2F17%2Fcombining-two-hackrf-sdr-to-see-more%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-1252 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-1252" class="post-1252 post type-post status-publish format-standard hentry category-electronics category-radio-antennas tag-antenna tag-hackrf tag-radio tag-rf tag-signal">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/electronics/index.html" rel="category tag">Electronics</a>, <a href="../../../../category/radio-antennas/index.html" rel="category tag">Radio &amp; antennas</a></span><h1 class="entry-title">Combining two HackRF SDR to see more</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">June 17, 2020</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><img decoding="async" class="size-full wp-image-1254 alignleft" src="../../../../wp-content/uploads/2020/06/two_hackrf_thumb.jpg" alt="" width="150" height="121" /><a href="https://greatscottgadgets.com/hackrf/"> HackRF One</a> is a popular SDR transceiver and a really nice piece of hardware. For a reasonable price, you can get fully open hardware to monitor radio signals in a wide range (20MHz &#8211; 6GHz, but really up to 7GHz). Boards support external clocking and can be easily customized. I believe there is only one concern about this board is limited 20MHz bandwidth.</p>
+<p>This is enough for typical tasks, but w need more to monitor something like a WiFI signal. We will see how to combine two HackRF boards into a single receiver to receive up to 40MHz bandwidth.</p>
+<p>&nbsp;</p>
+<p><span id="more-1252"></span></p>
+<p>First of all, it&#8217;s very important to ensure that both HackRF is flashed with the latest <strong>stable</strong> firmware. Make sure that you have <strong>hackrf</strong> <strong>tools</strong> and <strong>libhackrf</strong> installed.</p>
+<p>Download the latest release archive (not Source!) from the <a href="https://github.com/mossmann/hackrf/releases">official repository</a>. At this moment, the latest version is 2018.01.1</p>
+<blockquote><p>I highly recommend using only release files, not pulled from the main source repository. Those files are under development and something might be broken.</p></blockquote>
+<p>Inside the release archive, you should find two binary files:<br />
+CPU firmware: <strong>firmware-bin/hackrf_one_usb.bin</strong><br />
+CPLD firmware: <strong>firmware-bin/hackrf_cpld_default.xsvf</strong></p>
+<p>Then update CPU firmware:</p>
+<pre><code>hackrf_spiflash -w hackrf_one_usb.bin</code></pre>
+<p>And CPLD:</p>
+<pre><code>hackrf_cpldjtag -x hackrf_cpld_default.xsvf</code></pre>
+<p>Restart the board and repeat this procedure to the second HackRF. Now we are good.</p>
+<h3>Hardware mods</h3>
+<p>Now we need to synchronize both boards. HackRF has <strong>CLOCK</strong> input and output, which allows us to use the same clock source for both boards. It&#8217;s really important. Without the proper synchronization, bords will be sampling the data in different moments of time and out phase. Data will be broken, and we will never be able to merge signals from both boards.</p>
+<p><a href="../../../../wp-content/uploads/2020/06/HackRF-One-boards_clock_sync.jpg"><img fetchpriority="high" decoding="async" class="aligncenter wp-image-1260" src="../../../../wp-content/uploads/2020/06/HackRF-One-boards_clock_sync.jpg" alt="" width="570" height="596" srcset="https://olegkutkov.me/wp-content/uploads/2020/06/HackRF-One-boards_clock_sync.jpeg 680w, https://olegkutkov.me/wp-content/uploads/2020/06/HackRF-One-boards_clock_sync-287x300.jpeg 287w" sizes="(max-width: 570px) 100vw, 570px" /></a></p>
+<p>Define one board as Main and connect it <strong>CLKOUT</strong> to the <strong>CLKIN</strong> of the second board using SMA patch cable. HackRF automatically switches to the new clock source, so both boards are now in sync (at clocking level).</p>
+<p>Now we need to add more wires between GPIO lines to correctly setup and sync both NXP CPUs.</p>
+<p>Take a look at <strong>the P20</strong> connector near the CLOCK IO</p>
+<p><a href="../../../../wp-content/uploads/2020/06/HackRF-P20-lines.jpg"><img decoding="async" class="aligncenter size-full wp-image-1265" src="../../../../wp-content/uploads/2020/06/HackRF-P20-lines.jpg" alt="" width="597" height="320" srcset="https://olegkutkov.me/wp-content/uploads/2020/06/HackRF-P20-lines.jpeg 597w, https://olegkutkov.me/wp-content/uploads/2020/06/HackRF-P20-lines-300x161.jpeg 300w" sizes="(max-width: 597px) 100vw, 597px" /></a></p>
+<p>We need to PULL UP the GPIO3_11 and connect this line to the VCC 3.3. On both boards.<br />
+Also, connect GPIO3_10 of the Main board to GPIO3_8 of the second board. And vice versa. GPIO3_8 of the Main board to the GPIO3_10 of the second.</p>
+<p><a href="../../../../wp-content/uploads/2020/06/HackRF-One-sync.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-1268" src="../../../../wp-content/uploads/2020/06/HackRF-One-sync.jpg" alt="" width="477" height="299" srcset="https://olegkutkov.me/wp-content/uploads/2020/06/HackRF-One-sync.jpeg 477w, https://olegkutkov.me/wp-content/uploads/2020/06/HackRF-One-sync-300x188.jpeg 300w" sizes="(max-width: 477px) 100vw, 477px" /></a>I made a simple interconnector cable:</p>
+<p><a href="../../../../wp-content/uploads/2020/06/HackRF-One-sync-cable.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-1269" src="../../../../wp-content/uploads/2020/06/HackRF-One-sync-cable.jpg" alt="" width="570" height="357" srcset="https://olegkutkov.me/wp-content/uploads/2020/06/HackRF-One-sync-cable.jpg 680w, https://olegkutkov.me/wp-content/uploads/2020/06/HackRF-One-sync-cable-300x188.jpg 300w" sizes="(max-width: 570px) 100vw, 570px" /></a></p>
+<p>Also, it&#8217;s a really good idea to connect GND lines between two boards. Don&#8217;t let the &#8220;digital&#8221; current flow over RF lines (CLOCK cable).</p>
+<p>In my case, I used a few metal stands to combine two boards. This gives the structure strength and reliability. Also, there is a low impedance path between boards GND, so I don&#8217;t need extra GND wires.</p>
+<p><a href="../../../../wp-content/uploads/2020/06/HackRF-One-stacked.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-1271" src="../../../../wp-content/uploads/2020/06/HackRF-One-stacked-300x208.jpg" alt="" width="588" height="407" srcset="https://olegkutkov.me/wp-content/uploads/2020/06/HackRF-One-stacked-300x208.jpg 300w, https://olegkutkov.me/wp-content/uploads/2020/06/HackRF-One-stacked-768x532.jpg 768w, https://olegkutkov.me/wp-content/uploads/2020/06/HackRF-One-stacked.jpg 850w" sizes="(max-width: 588px) 100vw, 588px" /></a></p>
+<h3>RF signals combination</h3>
+<p>Now we need to route the same RF signal to both boards. The simplest solution is to use an RF splitter.<br />
+We can&#8217;t just connect two RF inputs because we have to deal with impedance matching.<br />
+HackRF input is 50 ohm. In direct connection, this value will be divided and gives us 25 ohms RF input. It&#8217;s not good for RF.<br />
+There are a few types of passive RF splitter. The simple one is a resistors-based splitter. Cons &#8211; power loss (up to 6dB).<br />
+The basic idea is to get ~50 ohms in any direction when connected to the 50-ohm load.<br />
+Please note that this divider is working properly only when a 50-ohm load is present on BOTH outputs.</p>
+<p><a href="../../../../wp-content/uploads/2020/06/rf_r_splitter.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-1274" src="../../../../wp-content/uploads/2020/06/rf_r_splitter.png" alt="" width="524" height="244" srcset="https://olegkutkov.me/wp-content/uploads/2020/06/rf_r_splitter.png 524w, https://olegkutkov.me/wp-content/uploads/2020/06/rf_r_splitter-300x140.png 300w" sizes="(max-width: 524px) 100vw, 524px" /></a>All resistors have the same value, which can be calculated using this simple formula: <strong>Rx = Z0 / 3</strong><br />
+Where&#8217;s <strong>Z0</strong> is the load impedance, 50 / 3 gives us <strong>a 16.6-ohm</strong> value.<br />
+It&#8217;s hard to find such a nominal so that this number can be rounded to some more real value. In my case, I don&#8217;t have the required resistors, but I found 7.5-ohm resistors and just combined them to get a 15-ohm value.<br />
+It was a little bit tricky to solder 0402 packages between SMA connectors central pins.</p>
+<p><a href="../../../../wp-content/uploads/2020/06/rf_r_splitter_soldered.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-1275" src="../../../../wp-content/uploads/2020/06/rf_r_splitter_soldered.jpg" alt="" width="700" height="504" srcset="https://olegkutkov.me/wp-content/uploads/2020/06/rf_r_splitter_soldered.jpg 800w, https://olegkutkov.me/wp-content/uploads/2020/06/rf_r_splitter_soldered-300x216.jpg 300w, https://olegkutkov.me/wp-content/uploads/2020/06/rf_r_splitter_soldered-768x553.jpg 768w" sizes="(max-width: 700px) 100vw, 700px" /></a>The copper foil covers the whole construction.</p>
+<h3>Precise clocking</h3>
+<p>HackRF One internal clocking is not very stable, so that frequency values can drift depending on temperature.<br />
+A good solution is to use an external 10MHz <strong>TXCO</strong> module connected to the P22 connector of the Main board. You can find modules on eBay or Aliexpress.</p>
+<p><a href="../../../../wp-content/uploads/2020/06/HackRF-P22.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-1277" src="../../../../wp-content/uploads/2020/06/HackRF-P22.jpg" alt="" width="348" height="260" srcset="https://olegkutkov.me/wp-content/uploads/2020/06/HackRF-P22.jpeg 348w, https://olegkutkov.me/wp-content/uploads/2020/06/HackRF-P22-300x224.jpeg 300w" sizes="(max-width: 348px) 100vw, 348px" /></a></p>
+<p>Unfortunately, it&#8217;s impossible to install the <strong>TXCO</strong> module when P22 is connected between boards.<br />
+To solve this issue, I made a simple interconnector board. Actually, only 3 lines are required &#8211; VCC 3.3, CLK IN, and GND<br />
+CLK wire should be as short as possible.</p>
+<p><a href="../../../../wp-content/uploads/2020/06/HackRF-One-TXCO.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-1279" src="../../../../wp-content/uploads/2020/06/HackRF-One-TXCO.jpg" alt="" width="770" height="323" srcset="https://olegkutkov.me/wp-content/uploads/2020/06/HackRF-One-TXCO.jpg 800w, https://olegkutkov.me/wp-content/uploads/2020/06/HackRF-One-TXCO-300x126.jpg 300w, https://olegkutkov.me/wp-content/uploads/2020/06/HackRF-One-TXCO-768x323.jpg 768w" sizes="(max-width: 770px) 100vw, 770px" /></a></p>
+<p>Installed module (I also installed front and back panels from the HackRF metal case):</p>
+<p><a href="../../../../wp-content/uploads/2020/06/HackRF-One-TXCO-installed.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-1280" src="../../../../wp-content/uploads/2020/06/HackRF-One-TXCO-installed.jpg" alt="" width="770" height="578" srcset="https://olegkutkov.me/wp-content/uploads/2020/06/HackRF-One-TXCO-installed.jpg 800w, https://olegkutkov.me/wp-content/uploads/2020/06/HackRF-One-TXCO-installed-300x225.jpg 300w, https://olegkutkov.me/wp-content/uploads/2020/06/HackRF-One-TXCO-installed-768x576.jpg 768w" sizes="(max-width: 770px) 100vw, 770px" /></a></p>
+<h3>Software</h3>
+<p>I used the GNURadio script to receive full bandwidth from the two boards. The basic idea is to tune each board on the offset frequencies.<br />
+F interest &#8211; bandwidth offset and F interest + bandwidth offset.<br />
+Where &#8216;bandwidth offset&#8217; is single board max bandwidth (20 MHz).<br />
+Then both shifted signals should be combined into a single 40MHz band.<br />
+I was inspired by this article: <a href="https://www.rtl-sdr.com/combining-the-bandwidth-of-two-hackrfs/">https://www.rtl-sdr.com/combining-the-bandwidth-of-two-hackrfs/</a><br />
+I made my own grc file for the Satellite reception.<br />
+Here are the first results:</p>
+<p><a href="../../../../wp-content/uploads/2020/06/sat_receive_dvb-s.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-1283" src="../../../../wp-content/uploads/2020/06/sat_receive_dvb-s.png" alt="" width="880" height="346" srcset="https://olegkutkov.me/wp-content/uploads/2020/06/sat_receive_dvb-s.png 950w, https://olegkutkov.me/wp-content/uploads/2020/06/sat_receive_dvb-s-300x118.png 300w, https://olegkutkov.me/wp-content/uploads/2020/06/sat_receive_dvb-s-768x302.png 768w" sizes="(max-width: 880px) 100vw, 880px" /></a></p>
+<p>Here we can see the whole 35MHz spectrum of the DVB-S2 Satellite transponder.<br />
+But there is one problem in the &#8216;connection&#8217; point of both signals. The total drop is almost 10 dB. This makes the signal impossible to decode.<br />
+Now I&#8217;m working on this problem and will share script details and some results (I hope) in the next article.</p>
+<p>Thanks for reading!<br />
+Stay tuned 🙂</p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<span class="tags-links">Tagged <a href="../../../../tag/antenna/index.html" rel="tag">antenna</a>, <a href="../../../../tag/hackrf/index.html" rel="tag">hackrf</a>, <a href="../../../../tag/radio/index.html" rel="tag">radio</a>, <a href="../../../../tag/rf/index.html" rel="tag">rf</a>, <a href="../../../../tag/signal/index.html" rel="tag">signal</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a></h2>
+                                         <span class="posted-date">November 7, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a></h2>
+                                         <span class="posted-date">June 9, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../../02/10/linux-block-device-driver/index.html" rel="prev">Linux block device driver</a></div><div class="nav-next"><a href="../../../09/20/reworking-linear-polarization-satellite-lnb-into-a-circular-polarized/index.html" rel="next">Reworking linear polarization satellite LNB into a circular polarized</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			7 thoughts on &ldquo;<span>Combining two HackRF SDR to see more</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-985" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-985" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/269c9157c2ac2817e410f206a997272a?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/269c9157c2ac2817e410f206a997272a?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Sasha</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-985"><time datetime="2021-02-10T01:56:38+02:00">February 10, 2021 at 1:56 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hey Oleg, this is a great idea.  Given this can be overcome with a SDR that can do a larger spread.  Have you made any more progress on this?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index6772.html?replytocom=985#respond' data-commentid="985" data-postid="1252" data-belowelement="div-comment-985" data-respondelement="respond" data-replyto="Reply to Sasha" aria-label='Reply to Sasha'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-986" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-986" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-986"><time datetime="2021-02-10T02:49:41+02:00">February 10, 2021 at 2:49 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi.<br />
+I&#8217;m stuck on the demodulation of the signals. This solution is great for the band overview and monitoring the presence of some radio signals. But I found that there are non-linearities and gain differences between my HackRF instances. This makes spectrum combining a complicated task.<br />
+Currently, I&#8217;m working on another project but hope to return to this idea soon.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexc0e2.html?replytocom=986#respond' data-commentid="986" data-postid="1252" data-belowelement="div-comment-986" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-1072" class="pingback even thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="https://www.rtl-sdr.com/receiving-starlink-beacons-with-a-hackrf-supercluster/" class="url" rel="ugc external nofollow">Receiving Starlink Beacons with a HackRF Supercluster</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-1361" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-1361" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/6c2d3edcf5779707aedfb36d68d2390e?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/6c2d3edcf5779707aedfb36d68d2390e?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Ghazanfar</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1361"><time datetime="2022-08-20T23:12:59+03:00">August 20, 2022 at 11:12 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks for this awesome hardware solution. You can also check my software solution using GNURadio to all this without GPIO pins. Thanks<br />
+<a href="https://www.rtl-sdr.com/combining-the-bandwidth-of-two-hackrfs/" rel="nofollow ugc">https://www.rtl-sdr.com/combining-the-bandwidth-of-two-hackrfs/</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexe770.html?replytocom=1361#respond' data-commentid="1361" data-postid="1252" data-belowelement="div-comment-1361" data-respondelement="respond" data-replyto="Reply to Ghazanfar" aria-label='Reply to Ghazanfar'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-1363" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-1363" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-1363"><time datetime="2022-08-20T23:15:57+03:00">August 20, 2022 at 11:15 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I also have an update 🙂<br />
+<a href="../../../../2021/11/29/hackrf-supercluster/index.html" rel="ugc">https://olegkutkov.me/2021/11/29/hackrf-supercluster/</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexd351.html?replytocom=1363#respond' data-commentid="1363" data-postid="1252" data-belowelement="div-comment-1363" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-2997" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-2997" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/20bd0c39fb0d796243fcaa73fe43698d?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/20bd0c39fb0d796243fcaa73fe43698d?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">DivineOne</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2997"><time datetime="2024-03-31T19:22:06+03:00">March 31, 2024 at 7:22 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Seems easier and more fruitful to just buy better full-duolex hardware, like a 12bit LimeSDR which has 2 tx and 2 rx. HackRF is more hobby and introductory, half duplex 8bit and only 1 TX and 1 rx.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index3d4d.html?replytocom=2997#respond' data-commentid="2997" data-postid="1252" data-belowelement="div-comment-2997" data-respondelement="respond" data-replyto="Reply to DivineOne" aria-label='Reply to DivineOne'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-4137" class="comment even depth-2">
+			<article id="div-comment-4137" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/1f25a1cf87cb118439820dd2b3650d3d?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/1f25a1cf87cb118439820dd2b3650d3d?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-4137"><time datetime="2024-05-20T02:27:26+03:00">May 20, 2024 at 2:27 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Where&#8217;s the fun in that though!?But then&#8230;. You are right&#8230;. we end up, instead of actually applying the device to do its work&#8230;we have to work on the device ti even make it work. Some do say that the fun us in the journey.. how we got there.</p>
+<p>I like projects like these though, it really shows how smart some are&#8230;. Heck if i could come up with anything like this off the cuff&#8230; i mean .. that&#8217;s why i am here, and not the 1 who wrote the article.</p>
+<p>Now, to explore more posts since I&#8217;d just finished reading this 1 getting here from a google search. Curious of any further developments&#8230;.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexe187.html?replytocom=4137#respond' data-commentid="4137" data-postid="1252" data-belowelement="div-comment-4137" data-respondelement="respond" data-replyto="Reply to Zkitszo" aria-label='Reply to Zkitszo'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='1252' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="1e34736356" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="131"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_1827c9da4c86fc3ad9db01f6a6132235.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2020/06/17/combining-two-hackrf-sdr-to-see-more/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:12:30 GMT -->
+</html>

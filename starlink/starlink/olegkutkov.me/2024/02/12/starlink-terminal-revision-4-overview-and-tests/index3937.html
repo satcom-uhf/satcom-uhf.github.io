@@ -1,0 +1,808 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2024/02/12/starlink-terminal-revision-4-overview-and-tests/?replytocom=4177 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:17:22 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>Starlink terminal revision 4: overview and tests &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large, noindex, follow' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Starlink terminal revision 4: overview and tests Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/3256.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../index3b9b.html?p=3256' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embed2900.json?url=https%3A%2F%2Folegkutkov.me%2F2024%2F02%2F12%2Fstarlink-terminal-revision-4-overview-and-tests%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embedb3c9?url=https%3A%2F%2Folegkutkov.me%2F2024%2F02%2F12%2Fstarlink-terminal-revision-4-overview-and-tests%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index3937.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-3256 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-3256" class="post-3256 post type-post status-publish format-standard hentry category-electronics category-hardware category-networking category-radio-antennas category-reverse-engineering category-software category-starlink tag-rev3 tag-rev4 tag-starlink tag-test">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/electronics/index.html" rel="category tag">Electronics</a>, <a href="../../../../category/hardware/index.html" rel="category tag">hardware</a>, <a href="../../../../category/networking/index.html" rel="category tag">Networking</a>, <a href="../../../../category/radio-antennas/index.html" rel="category tag">Radio &amp; antennas</a>, <a href="../../../../category/reverse-engineering/index.html" rel="category tag">Reverse engineering</a>, <a href="../../../../category/software/index.html" rel="category tag">Software</a>, <a href="../../../../category/starlink/index.html" rel="category tag">starlink</a></span><h1 class="entry-title">Starlink terminal revision 4: overview and tests</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">February 12, 2024</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><img decoding="async" class="alignleft size-full wp-image-3257" src="../../../../wp-content/uploads/2024/02/rev4_test_thumb.jpg" alt="" width="150" height="113" />Revision 4 is the new version of the Starlink user terminal. As of February 2024, the new version is only available in the US.<br />
+I decided to test the new hardware and compare it to the well-known REV3 (a.k.a. Gen2/V2 or &#8220;Standard Actuated&#8221;).</p>
+<p>&nbsp;</p>
+<p><span id="more-3256"></span></p>
+<h3>Revision 4</h3>
+<p>If you don&#8217;t understand why this model is called REV4, I explain it in the unboxing video.<br />
+Here is my unboxing and initial review of the new Starlink user terminal:</p>
+<p><iframe title="Starlink REV4 (V3) unbox and quick review" width="850" height="478" src="https://www.youtube.com/embed/WESdXlQdXsw?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></p>
+<h3><strong>Revision 3 and Revision 4 specifications</strong></h3>
+<p>This is a comparison of basic specifications from the Starlink website.</p>
+<p><a href="../../../../wp-content/uploads/2024/02/rev3_rev4_basic_specs_site.jpg"><img fetchpriority="high" decoding="async" class="aligncenter size-large wp-image-3261" src="../../../../wp-content/uploads/2024/02/rev3_rev4_basic_specs_site-1024x719.jpg" alt="" width="850" height="597" srcset="https://olegkutkov.me/wp-content/uploads/2024/02/rev3_rev4_basic_specs_site-1024x719.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/02/rev3_rev4_basic_specs_site-400x281.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/02/rev3_rev4_basic_specs_site-768x539.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/02/rev3_rev4_basic_specs_site.jpg 1502w" sizes="(max-width: 850px) 100vw, 850px" /></a></p>
+<h3>Breaking into</h3>
+<p>The IP rating is higher because the new housing is not ultrasonically welded anymore. It has a complex construction and is glued with an automotive-class sealant.<br />
+Unfortunately, this housing is quite hard to disassemble without partial destruction.</p>
+<p><a href="../../../../wp-content/uploads/2024/02/rev4_teardown_collage.jpg"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-3263" src="../../../../wp-content/uploads/2024/02/rev4_teardown_collage-1024x770.jpg" alt="" width="850" height="639" srcset="https://olegkutkov.me/wp-content/uploads/2024/02/rev4_teardown_collage-1024x770.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_teardown_collage-400x300.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_teardown_collage-768x577.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_teardown_collage.jpg 1213w" sizes="(max-width: 850px) 100vw, 850px" /></a></p>
+<p>At this moment, I have no idea how to seal it back. I&#8217;ll share more details on the teardown process in future posts.</p>
+<h3>Revision 4 PCB</h3>
+<p>The new Starlink terminal has a resigned PCB with all-new antenna electronics.</p>
+<p>The next-gen Shiraz digital beamformers support more RF channels. There are only six beamformer ICs (rev3 has 16 chips). FEM elements are connected in a daisy chain and combined by groups. I didn&#8217;t do detailed reverse-engineering yet.</p>
+<p><a href="../../../../wp-content/uploads/2024/02/rev4_pcb_overview.jpg"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-3265" src="../../../../wp-content/uploads/2024/02/rev4_pcb_overview-1024x749.jpg" alt="" width="850" height="622" srcset="https://olegkutkov.me/wp-content/uploads/2024/02/rev4_pcb_overview-1024x749.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_pcb_overview-400x292.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_pcb_overview-768x562.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_pcb_overview-1536x1123.jpg 1536w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_pcb_overview.jpg 1853w" sizes="(max-width: 850px) 100vw, 850px" /></a></p>
+<p>SoC, RAM, and eMMC are the same as in REV3.</p>
+<p><a href="../../../../wp-content/uploads/2024/02/rev4_soc_ram_flash.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3266" src="../../../../wp-content/uploads/2024/02/rev4_soc_ram_flash.jpg" alt="" width="800" height="533" srcset="https://olegkutkov.me/wp-content/uploads/2024/02/rev4_soc_ram_flash.jpg 900w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_soc_ram_flash-400x267.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_soc_ram_flash-768x512.jpg 768w" sizes="(max-width: 800px) 100vw, 800px" /></a></p>
+<p>The main difference is the PoE circuit. Now, it&#8217;s on a separate board. This PCB receives 48 PoE and steps it down to 12V and 3.3V. STM32 MCU controls PoE negotiation and board operation.</p>
+<p><a href="../../../../wp-content/uploads/2024/02/rev4_poe_board.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3268" src="../../../../wp-content/uploads/2024/02/rev4_poe_board.jpg" alt="" width="784" height="453" srcset="https://olegkutkov.me/wp-content/uploads/2024/02/rev4_poe_board.jpg 900w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_poe_board-400x231.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_poe_board-768x444.jpg 768w" sizes="(max-width: 784px) 100vw, 784px" /></a></p>
+<p>I will not focus on further reverse engineering in this article. It&#8217;s just an overview.</p>
+<h3>REV4 vs REV3: basic tests</h3>
+<p>Location: Kyiv, Ukraine<br />
+Test date: 23 January 2024<br />
+Time: 4 p.m.<br />
+Starlinks firmware version: a8a61034-4207-4484-b8ea-4c4c01f07cde<br />
+Standard user setup with routers. No bypass mode.<br />
+Conditions: clear sky</p>
+<p>Please watch my initial and basic tests below. I&#8217;m comparing startup time, power consumption, and network speed. Snow melt mode was disabled.</p>
+<p><iframe loading="lazy" title="First tests of the Starlink REV4 (V3/Gen3) in Ukraine" width="850" height="478" src="https://www.youtube.com/embed/hWPMpJrjd1g?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></p>
+<p>During these synthetic tests, the new REV4 performed better. The total power consumption of the REV4 terminal and the new REV3 router was under 100W. This meets the stated specifications. But without the snow melt mode. Please note this.</p>
+
+<table id="tablepress-20" class="tablepress tablepress-id-20">
+<thead>
+<tr class="row-1 odd">
+	<th class="column-1">Parameter</th><th class="column-2">Starlink REV3</th><th class="column-3">Starlink REV4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-2 even">
+	<td class="column-1">Download speed, Mbps</td><td class="column-2">199</td><td class="column-3">307</td>
+</tr>
+<tr class="row-3 odd">
+	<td class="column-1">Upload speed, Mbps</td><td class="column-2">10</td><td class="column-3">15</td>
+</tr>
+<tr class="row-4 even">
+	<td class="column-1">Average ping, ms</td><td class="column-2">93</td><td class="column-3">88</td>
+</tr>
+<tr class="row-5 odd">
+	<td class="column-1">Jitter, ms</td><td class="column-2">111.9</td><td class="column-3">9.2</td>
+</tr>
+<tr class="row-6 even">
+	<td class="column-1">Max power consumption, W</td><td class="column-2">55</td><td class="column-3">100</td>
+</tr>
+</tbody>
+</table>
+<!-- #tablepress-20 from cache -->
+<p>I believe that most of the differences were caused by routers.</p>
+<h3>REV4 vs REV3: advanced tests</h3>
+<p>Location: Kyiv, Ukraine<br />
+Test date: 4 February 2024<br />
+Time: 3 p.m.<br />
+REV3 firmware version: a8a61034-4207-4484-b8ea-4c4c01f07cde.uterm.release<br />
+REV4 firmware version: c4718913-5c91-4cf2-b31a-45c187e4bca2.uterm_manifest.release<br />
+No routers were used.<br />
+Conditions: cloudy sky</p>
+<p>During the second test, I used <a href="https://flent.org/">flent</a> to run <a href="https://www.bufferbloat.net/projects/codel/wiki/RRUL_test_suite/">rrul</a> to <code>netperf-eu.bufferbloat.net</code> and collected information about bandwidth and response fluctuations. Additionally, I ran a <a href="https://speed.cloudflare.com/">Cloudflare speed test</a>. All tests were run separately for both Dishys, except one test where I ran the Cloudflare test simultaneously on both devices.</p>
+<p>The video of the tests is currently editing.</p>
+<p>During the tests, I used two GEN1 PoE bricks and two laptops with direct Ethernet connections.</p>
+<p><a href="../../../../wp-content/uploads/2024/02/rev4_rev3_second_test_layout.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3275" src="../../../../wp-content/uploads/2024/02/rev4_rev3_second_test_layout-1024x544.jpg" alt="" width="664" height="353" srcset="https://olegkutkov.me/wp-content/uploads/2024/02/rev4_rev3_second_test_layout-1024x544.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_rev3_second_test_layout-400x213.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_rev3_second_test_layout-768x408.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_rev3_second_test_layout-1536x817.jpg 1536w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_rev3_second_test_layout.jpg 1614w" sizes="(max-width: 664px) 100vw, 664px" /></a></p>
+<p>Test command line: <code>flent -p all_scaled -l 60 -H netperf-eu.bufferbloat.net -t "rrul_"$DISHY_NAME -o rrul_$DISHY_NAME.png</code></p>
+<p><strong>Results for REV3, single run:</strong></p>
+<p><a href="../../../../wp-content/uploads/2024/02/rrul_-_rrul_rev3.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-3278" src="../../../../wp-content/uploads/2024/02/rrul_-_rrul_rev3-1024x549.png" alt="" width="850" height="456" srcset="https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rrul_rev3-1024x549.png 1024w, https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rrul_rev3-400x215.png 400w, https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rrul_rev3-768x412.png 768w, https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rrul_rev3.png 1281w" sizes="(max-width: 850px) 100vw, 850px" /></a></p>
+<p><a href="../../../../starlink_rev4_second_test/rrul-2024-02-04T145950.580729.rrul_rev3.flent">Download the Flent file.</a></p>
+<p><strong>Results for REV4, single run:</strong></p>
+<p><a href="../../../../wp-content/uploads/2024/02/rrul_-_rrul_rev4.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-3280" src="../../../../wp-content/uploads/2024/02/rrul_-_rrul_rev4-1024x549.png" alt="" width="850" height="456" srcset="https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rrul_rev4-1024x549.png 1024w, https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rrul_rev4-400x215.png 400w, https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rrul_rev4-768x412.png 768w, https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rrul_rev4.png 1281w" sizes="(max-width: 850px) 100vw, 850px" /></a></p>
+<p><a href="../../../../starlink_rev4_second_test/rrul-2024-02-04T151232.341139.rrul_rev4.flent">Download the Flent file.</a></p>
+<p>As you can see, it&#8217;s pretty good! The ping plot fluctuates around 100ms without any crazy jumps.</p>
+<p>Additionally,<strong> REV3 2 TCP Streams upload and download vs. ping.</strong><strong><br />
+</strong></p>
+<p>Test command for upload: <code>flent tcp_2up -p totals -l 60 -H netperf-eu.bufferbloat.net -t "rrul_"$DISHY_NAME -o rrul_$DISHY_NAME.png</code><br />
+Test command for download: <code>flent tcp_2down -p totals -l 60 -H netperf-eu.bufferbloat.net -t "rrul_"$DISHY_NAME -o rrul_$DISHY_NAME.png</code></p>
+<p><a href="../../../../wp-content/uploads/2024/02/rev3_netperf_2_streams_ud.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3283" src="../../../../wp-content/uploads/2024/02/rev3_netperf_2_streams_ud-1024x330.jpg" alt="" width="797" height="257" srcset="https://olegkutkov.me/wp-content/uploads/2024/02/rev3_netperf_2_streams_ud-1024x330.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/02/rev3_netperf_2_streams_ud-400x129.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/02/rev3_netperf_2_streams_ud-768x248.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/02/rev3_netperf_2_streams_ud-1536x495.jpg 1536w, https://olegkutkov.me/wp-content/uploads/2024/02/rev3_netperf_2_streams_ud-2048x660.jpg 2048w" sizes="(max-width: 797px) 100vw, 797px" /></a></p>
+<p><a href="../../../../starlink_rev4_second_test/tcp_2down-2024-02-04T150224.790786.tpc_2_download_rev3.flent">Download the Flent file for 2 streams down.</a><br />
+<a href="../../../../starlink_rev4_second_test/tcp_2up-2024-02-04T150457.081631.tpc_2_upload_rev3.flent">Download the Flent file for 2 streams up.</a></p>
+<p><strong>REV4 2 TCP Streams upload and download vs. ping</strong></p>
+<p><a href="../../../../wp-content/uploads/2024/02/rev4_netperf_2_streams_ud.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3284" src="../../../../wp-content/uploads/2024/02/rev4_netperf_2_streams_ud-1024x330.jpg" alt="" width="797" height="257" srcset="https://olegkutkov.me/wp-content/uploads/2024/02/rev4_netperf_2_streams_ud-1024x330.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_netperf_2_streams_ud-400x129.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_netperf_2_streams_ud-768x248.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_netperf_2_streams_ud-1536x495.jpg 1536w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_netperf_2_streams_ud-2048x660.jpg 2048w" sizes="(max-width: 797px) 100vw, 797px" /></a></p>
+<p><a href="../../../../starlink_rev4_second_test/tcp_2down-2024-02-04T151503.399911.tpc_2_download_rev4.flent">Download the Flent file for 2 streams down.</a><br />
+<a href="../../../../starlink_rev4_second_test/tcp_2up-2024-02-04T151733.796919.tpc_2_upload_rev4.flent">Download the Flent file for 2 streams up.</a></p>
+<p>I noticed a slight packet loss on both devices. That looks okay. For some reason, REV4 had a higher loss rate.</p>
+<p><a href="../../../../wp-content/uploads/2024/02/packet_loss_rev4_vs_rev3.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-3287" src="../../../../wp-content/uploads/2024/02/packet_loss_rev4_vs_rev3.png" alt="" width="580" height="383" srcset="https://olegkutkov.me/wp-content/uploads/2024/02/packet_loss_rev4_vs_rev3.png 791w, https://olegkutkov.me/wp-content/uploads/2024/02/packet_loss_rev4_vs_rev3-400x264.png 400w, https://olegkutkov.me/wp-content/uploads/2024/02/packet_loss_rev4_vs_rev3-768x507.png 768w" sizes="(max-width: 580px) 100vw, 580px" /></a>No more problems were noticed with either device.</p>
+<p><strong>REV4 power consumption</strong></p>
+<p>I ran the new terminal with the Snowmelt mode ON and found this device very power-hungry. The consumption jumped way higher than I expected &#8211; 186W!<br />
+Note this if you consider running this device with an autonomous power supply.</p>
+<p><a href="../../../../wp-content/uploads/2024/02/rev4_power_consumption_snow_melt_mode_on_1.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3289" src="../../../../wp-content/uploads/2024/02/rev4_power_consumption_snow_melt_mode_on_1.jpg" alt="" width="432" height="281" srcset="https://olegkutkov.me/wp-content/uploads/2024/02/rev4_power_consumption_snow_melt_mode_on_1.jpg 750w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_power_consumption_snow_melt_mode_on_1-400x260.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_power_consumption_snow_melt_mode_on_1-345x225.jpg 345w" sizes="(max-width: 432px) 100vw, 432px" /></a></p>
+<h3>Additional tests for REV4</h3>
+<p>In a few days, I decided to run additional tests with the new terminal.<br />
+It was 2 a.m., curfew. I wasn&#8217;t able to visit my previous test site. So, I put the terminal outside my window and tested it with many obstructions.</p>
+<p>It started snowing during testing, so I measured the power consumption again.</p>
+<p>Location: Kyiv, Ukraine<br />
+Test date: 8-9 February 2024<br />
+Time: 2 a.m.<br />
+Firmware version: c4718913-5c91-4cf2-b31a-45c187e4bca2.uterm_manifest.release<br />
+Two modes were tested: the Gen3 router and the Gen3 router in bypass mode.<br />
+Conditions: cloudy sky, <strong>snow</strong></p>
+<p>The initial synthetic speed test showed some fantastic results despite not ideal conditions. This is the speed record so far!</p>
+<p><a href="../../../../wp-content/uploads/2024/02/rev4_fantastic_speed_test.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3291" src="../../../../wp-content/uploads/2024/02/rev4_fantastic_speed_test.jpg" alt="" width="561" height="299" srcset="https://olegkutkov.me/wp-content/uploads/2024/02/rev4_fantastic_speed_test.jpg 750w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_fantastic_speed_test-400x213.jpg 400w" sizes="(max-width: 561px) 100vw, 561px" /></a></p>
+<p>Power consumption during the test remained around <strong>85W</strong>. Activation of the Snowmelt mode caused a crazy jump to <strong>200W</strong>. It wasn&#8217;t a fluctuation, but stable consumption during the test time.</p>
+<p><a href="../../../../wp-content/uploads/2024/02/rev4_crazy_power_consumption.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3292" src="../../../../wp-content/uploads/2024/02/rev4_crazy_power_consumption.jpg" alt="" width="455" height="491" srcset="https://olegkutkov.me/wp-content/uploads/2024/02/rev4_crazy_power_consumption.jpg 550w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_crazy_power_consumption-278x300.jpg 278w" sizes="(max-width: 455px) 100vw, 455px" /></a></p>
+<p>This is even higher than the actual REV4 PSU advertised consumption (197W).</p>
+<p>I ran <code>rrul</code> 5-minute tests in two modes: with the Gen3 router and the Gen3 router in bypass mode. There were interruptions during the tests.</p>
+<p>Test command: <code>flent rrul -p all_scaled --socket-stats -s 0.5 -l 300 -H netperf-eu.bufferbloat.net -t "rrul_"$DISHY_NAME -o rrul_$DISHY_NAME.png</code></p>
+<p><strong>Results for the first 5-minute run with the router in normal mode:</strong></p>
+<p><a href="../../../../wp-content/uploads/2024/02/rrul_-_rrul_rev4_5min_with_obstructions.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-3293" src="../../../../wp-content/uploads/2024/02/rrul_-_rrul_rev4_5min_with_obstructions-1024x549.png" alt="" width="850" height="456" srcset="https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rrul_rev4_5min_with_obstructions-1024x549.png 1024w, https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rrul_rev4_5min_with_obstructions-400x215.png 400w, https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rrul_rev4_5min_with_obstructions-768x412.png 768w, https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rrul_rev4_5min_with_obstructions.png 1281w" sizes="(max-width: 850px) 100vw, 850px" /></a></p>
+<p><a href="../../../../starlink_rev4_second_test/rrul-2024-02-09T015217.788561.rrul_rev4_5min_with_obstructions.flent">Download the flent file.</a></p>
+<p><strong>Results for the first 5-minute run with the router in bypass mode:</strong></p>
+<p><a href="../../../../wp-content/uploads/2024/02/rrul_-_rrul_rev4_5min_w_obstruct_router_bypass.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-3294" src="../../../../wp-content/uploads/2024/02/rrul_-_rrul_rev4_5min_w_obstruct_router_bypass-1024x549.png" alt="" width="850" height="456" srcset="https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rrul_rev4_5min_w_obstruct_router_bypass-1024x549.png 1024w, https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rrul_rev4_5min_w_obstruct_router_bypass-400x215.png 400w, https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rrul_rev4_5min_w_obstruct_router_bypass-768x412.png 768w, https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rrul_rev4_5min_w_obstruct_router_bypass.png 1281w" sizes="(max-width: 850px) 100vw, 850px" /></a></p>
+<p><a href="../../../../starlink_rev4_second_test/rrul-2024-02-09T025405.192603.rrul_rev4_5min_w_obstruct_router_bypass.flent">Download the flent file.</a></p>
+<h5>Update. February 18, 2024</h5>
+<p><a href="../../../../wp-content/uploads/2024/02/rrul_-_rev4_5776ed0f-38b5-47bf-8ff4-d38f7d2c326b_release.png"><img loading="lazy" decoding="async" class="aligncenter  wp-image-3305" src="../../../../wp-content/uploads/2024/02/rrul_-_rev4_5776ed0f-38b5-47bf-8ff4-d38f7d2c326b_release-1024x549.png" alt="" width="762" height="409" srcset="https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rev4_5776ed0f-38b5-47bf-8ff4-d38f7d2c326b_release-1024x549.png 1024w, https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rev4_5776ed0f-38b5-47bf-8ff4-d38f7d2c326b_release-400x215.png 400w, https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rev4_5776ed0f-38b5-47bf-8ff4-d38f7d2c326b_release-768x412.png 768w, https://olegkutkov.me/wp-content/uploads/2024/02/rrul_-_rev4_5776ed0f-38b5-47bf-8ff4-d38f7d2c326b_release.png 1281w" sizes="(max-width: 762px) 100vw, 762px" /></a></p>
+<p>The new firmware 5776ed0f-38b5-47bf-8ff4-d38f7d2c326b.<span class="css-1qaijid r-bcqeeo r-qvutc0 r-poiln3">uterm_manifest.release performs slightly better in terms of latency and stability.</span></p>
+<p><a href="../../../../starlink_rev4_second_test/rrul-2024-02-18T203347.764414.rev4_5776ed0f-38b5-47bf-8ff4-d38f7d2c326b_release.flent.gz">Download the flent file, 300 seconds test.</a></p>
+<p><a href="../../../../starlink_rev4_second_test/rrul-2024-02-18T203033.230468.rev4_5776ed0f-38b5-47bf-8ff4-d38f7d2c326b_release.flent.gz">Download the flent file, 60 seconds test.</a></p>
+<p>I haven&#8217;t reverse-engineered the new router yet. It looks like here we are dealing with the same software switch (Linux bridge) with all known problems.</p>
+<p>On the other side. I noticed that the new antenna better picks up the signal in poor <strong>(snow and physical obstructions</strong>) conditions. This obviously makes it possible to achieve higher modulation rates.<br />
+Please look at the obstruction map during the last test.</p>
+<p><a href="../../../../wp-content/uploads/2024/02/rev4_last_test_obstruction_map.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3295" src="../../../../wp-content/uploads/2024/02/rev4_last_test_obstruction_map-1024x529.jpg" alt="" width="670" height="346" srcset="https://olegkutkov.me/wp-content/uploads/2024/02/rev4_last_test_obstruction_map-1024x529.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_last_test_obstruction_map-400x206.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_last_test_obstruction_map-768x396.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/02/rev4_last_test_obstruction_map.jpg 1170w" sizes="(max-width: 670px) 100vw, 670px" /></a></p>
+<p>I also noticed that the obstacle map was built quite quickly. But perhaps this is simply the result of a software update.</p>
+<p>There will be more materials on the new terminal, so stay tuned.<br />
+Thanks for reading.</p>
+<span class="tags-links">Tagged <a href="../../../../tag/rev3/index.html" rel="tag">rev3</a>, <a href="../../../../tag/rev4/index.html" rel="tag">rev4</a>, <a href="../../../../tag/starlink/index.html" rel="tag">starlink</a>, <a href="../../../../tag/test/index.html" rel="tag">test</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a></h2>
+                                         <span class="posted-date">November 7, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a></h2>
+                                         <span class="posted-date">June 9, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a></h2>
+                                         <span class="posted-date">March 18, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html" rel="prev">Connecting external GPS antenna to the Starlink terminal</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			19 thoughts on &ldquo;<span>Starlink terminal revision 4: overview and tests</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-2040" class="comment even thread-even depth-1">
+			<article id="div-comment-2040" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/4fa7caa836343e62eda1ea9dbb00f375?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/4fa7caa836343e62eda1ea9dbb00f375?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Jack</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2040"><time datetime="2024-02-12T04:16:09+02:00">February 12, 2024 at 4:16 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thank you for doing and sharing your tests.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index5059.html?replytocom=2040#respond' data-commentid="2040" data-postid="3256" data-belowelement="div-comment-2040" data-respondelement="respond" data-replyto="Reply to Jack" aria-label='Reply to Jack'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-2042" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-2042" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/9db961d482e5637691d7bc4d332be360?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/9db961d482e5637691d7bc4d332be360?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Scott</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2042"><time datetime="2024-02-12T10:48:42+02:00">February 12, 2024 at 10:48 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks Oleg, stay safe.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index7c31.html?replytocom=2042#respond' data-commentid="2042" data-postid="3256" data-belowelement="div-comment-2042" data-respondelement="respond" data-replyto="Reply to Scott" aria-label='Reply to Scott'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-2043" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-2043" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/f34bd75aae68dd86a00fdfd993004a94?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/f34bd75aae68dd86a00fdfd993004a94?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">JohnG</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2043"><time datetime="2024-02-12T11:34:21+02:00">February 12, 2024 at 11:34 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>No change in GPS versus the V2?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexc041.html?replytocom=2043#respond' data-commentid="2043" data-postid="3256" data-belowelement="div-comment-2043" data-respondelement="respond" data-replyto="Reply to JohnG" aria-label='Reply to JohnG'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-2046" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-2046" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2046"><time datetime="2024-02-12T20:18:30+02:00">February 12, 2024 at 8:18 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>The same STA8089 GNSS receiver, but the new PCB Patch antenna.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index9c32.html?replytocom=2046#respond' data-commentid="2046" data-postid="3256" data-belowelement="div-comment-2046" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-2045" class="pingback even thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="https://geek.ds3783.com/2024/02/星链博士在乌克兰测试了gen3和gen4的dishy设备。/" class="url" rel="ugc external nofollow">星链博士在乌克兰测试了gen3和gen4的Dishy设备。 - 偏执的码农</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-2054" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-2054" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/f2a09d847c03dcfcf7adb6b9a07fde3b?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/f2a09d847c03dcfcf7adb6b9a07fde3b?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">n01b4m3</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2054"><time datetime="2024-02-13T05:51:01+02:00">February 13, 2024 at 5:51 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>hi oleg.. first of all Uaaaauuuuuuuu i have been reading your posts regarding starlink disassemblies and i am loving it.. would it be possible to share the firmware dumps? or is there any site were wen can download the firmware.bin dumps to analyse with binwalk?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index976f.html?replytocom=2054#respond' data-commentid="2054" data-postid="3256" data-belowelement="div-comment-2054" data-respondelement="respond" data-replyto="Reply to n01b4m3" aria-label='Reply to n01b4m3'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-2060" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-2060" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2060"><time datetime="2024-02-13T21:32:41+02:00">February 13, 2024 at 9:32 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Sorry, I&#8217;m sharing firmware dumps.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index54d3.html?replytocom=2060#respond' data-commentid="2060" data-postid="3256" data-belowelement="div-comment-2060" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-2059" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-2059" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/db3069d40207338d6b815746f7e12142?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/db3069d40207338d6b815746f7e12142?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">c4k1h0rd45</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2059"><time datetime="2024-02-13T20:54:51+02:00">February 13, 2024 at 8:54 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hiya great amazing stuff.. would love to check the firmwars, do you have any tools to get the OTA firmware updates? or are u simply dumping the Flash to read out the firmware?</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexb98a.html?replytocom=2059#respond' data-commentid="2059" data-postid="3256" data-belowelement="div-comment-2059" data-respondelement="respond" data-replyto="Reply to c4k1h0rd45" aria-label='Reply to c4k1h0rd45'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-2098" class="comment even thread-even depth-1">
+			<article id="div-comment-2098" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/e31fe0947c866a7d2b2c8cda616a1217?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/e31fe0947c866a7d2b2c8cda616a1217?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Kevin</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2098"><time datetime="2024-02-24T12:28:56+02:00">February 24, 2024 at 12:28 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>You mention modulation rates, I was under the impression it was fixed at 64QAM.</p>
+<p>Some really interesting findings.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index1ea6.html?replytocom=2098#respond' data-commentid="2098" data-postid="3256" data-belowelement="div-comment-2098" data-respondelement="respond" data-replyto="Reply to Kevin" aria-label='Reply to Kevin'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-2358" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-2358" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/87ff1e15052d5f1b6388c9bc0c1721a1?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/87ff1e15052d5f1b6388c9bc0c1721a1?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Julien</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2358"><time datetime="2024-03-10T00:37:46+02:00">March 10, 2024 at 12:37 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg,<br />
+Thanks for this new article, super interesting!<br />
+Do you know if it&#8217;s possible to use any of the Starlink terminal generations, connect to an onboard controller (soldering cables or via the network outlet) and get technical information about visible starlink satellites?<br />
+For example, where are starlink satellites detected in the sky (via beacons &#8211; not TLEs), what frequencies are used, what is the SNR, etc&#8230;<br />
+Essentially, is it possible to turn the starlink antenna into a sort of spectrum analyzer to identify starlink satellites?<br />
+Thanks!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index814d.html?replytocom=2358#respond' data-commentid="2358" data-postid="3256" data-belowelement="div-comment-2358" data-respondelement="respond" data-replyto="Reply to Julien" aria-label='Reply to Julien'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-2361" class="comment byuser comment-author-oleg_kutkov bypostauthor even depth-2">
+			<article id="div-comment-2361" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2361"><time datetime="2024-03-10T04:00:31+02:00">March 10, 2024 at 4:00 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello,</p>
+<p>Unfortunately, it&#8217;s impossible. All this information is hidden behind SoC fuses and is available only in factory mode or for the software running on the terminal.</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index21af.html?replytocom=2361#respond' data-commentid="2361" data-postid="3256" data-belowelement="div-comment-2361" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-3287" class="comment odd alt thread-even depth-1">
+			<article id="div-comment-3287" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/0c51fdd98266f7753f50c13b489a81dd?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/0c51fdd98266f7753f50c13b489a81dd?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Anne Bridge</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3287"><time datetime="2024-04-10T13:38:16+03:00">April 10, 2024 at 1:38 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hello</p>
+<p>I am in the UK and trying to figure out if I should wait for the Rev 4 to arrive here before buying. Not sure when it will get here. Is it worth the wait? Thank you!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index0a1e.html?replytocom=3287#respond' data-commentid="3287" data-postid="3256" data-belowelement="div-comment-3287" data-respondelement="respond" data-replyto="Reply to Anne Bridge" aria-label='Reply to Anne Bridge'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-3432" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-3432" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/f1fc77c7c8cbe2509dadf3f2c1e41544?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/f1fc77c7c8cbe2509dadf3f2c1e41544?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Ben</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3432"><time datetime="2024-04-18T07:19:07+03:00">April 18, 2024 at 7:19 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg,<br />
+Great work as usual. Given all the hardware changes in the rev4, I was curious to know if the same firmware version could run on both rev4 and older revs or did you have to load different ones? Thanks!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexdefb.html?replytocom=3432#respond' data-commentid="3432" data-postid="3256" data-belowelement="div-comment-3432" data-respondelement="respond" data-replyto="Reply to Ben" aria-label='Reply to Ben'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3439" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2">
+			<article id="div-comment-3439" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3439"><time datetime="2024-04-18T15:07:17+03:00">April 18, 2024 at 3:07 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Ben,</p>
+<p>All Starlink terminal runs the same firmware.<br />
+There are just different configurations and some code switches inside the firmware. Like &#8220;if rev3 &#8211; do this, else if rev4 &#8211; do something else&#8221;</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexfb7c.html?replytocom=3439#respond' data-commentid="3439" data-postid="3256" data-belowelement="div-comment-3439" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-3438" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-3438" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/be875855e2b3e50455e58496eaee34fb?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/be875855e2b3e50455e58496eaee34fb?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Marcel</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3438"><time datetime="2024-04-18T14:59:21+03:00">April 18, 2024 at 2:59 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Oleg,</p>
+<p>I was doing some preliminary research while building my new Expedition Vehicle, and stumbled over your blog &#8211; Good job and thanks for your work!</p>
+<p>Just a simple question: Are there any reasons why the new Rev.4 antenna could not be operated directly with a 48V PoE, hence completely deleting the provided router?</p>
+<p>Thanks and regards,<br />
+Marcel</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index2713.html?replytocom=3438#respond' data-commentid="3438" data-postid="3256" data-belowelement="div-comment-3438" data-respondelement="respond" data-replyto="Reply to Marcel" aria-label='Reply to Marcel'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3440" class="comment byuser comment-author-oleg_kutkov bypostauthor odd alt depth-2 parent">
+			<article id="div-comment-3440" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">Oleg Kutkov</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3440"><time datetime="2024-04-18T15:09:45+03:00">April 18, 2024 at 3:09 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi Marcel,</p>
+<p>In my tests, I used PoE injectors from the REV1 Starlink terminal. So, no routers.<br />
+You can use any high power Starlink-graded PoE injector like this one: <a href="https://www.amazon.com/dp/B0CSBYJLPV?ref=emc_s_m_5_i_atc" rel="nofollow ugc">https://www.amazon.com/dp/B0CSBYJLPV?ref=emc_s_m_5_i_atc</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index743c.html?replytocom=3440#respond' data-commentid="3440" data-postid="3256" data-belowelement="div-comment-3440" data-respondelement="respond" data-replyto="Reply to Oleg Kutkov" aria-label='Reply to Oleg Kutkov'>Reply</a></div>			</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-3444" class="comment even depth-3">
+			<article id="div-comment-3444" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/be875855e2b3e50455e58496eaee34fb?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/be875855e2b3e50455e58496eaee34fb?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Marcel</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-3444"><time datetime="2024-04-18T15:55:48+03:00">April 18, 2024 at 3:55 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Excellent! Thanks much for the quick reply!</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='indexa7a2.html?replytocom=3444#respond' data-commentid="3444" data-postid="3256" data-belowelement="div-comment-3444" data-respondelement="respond" data-replyto="Reply to Marcel" aria-label='Reply to Marcel'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-4177" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-4177" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/06263f7931c98c9a1745352078e4ff84?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/06263f7931c98c9a1745352078e4ff84?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Christian Borrman</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-4177"><time datetime="2024-05-21T21:52:09+03:00">May 21, 2024 at 9:52 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi, </p>
+<p>What PoE did you use and is the ethernet wiring still proprietary ? I have two different  320w Poe for the high performance starlinks with the funky ethernet adapter on 2 vehicles and wanted to test this one is using the PoE rather than plugging the new brick into the inverter </p>
+<p>Stay safe</p>
+<p>Christian</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index3937.html?replytocom=4177#respond' data-commentid="4177" data-postid="3256" data-belowelement="div-comment-4177" data-respondelement="respond" data-replyto="Reply to Christian Borrman" aria-label='Reply to Christian Borrman'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-4178" class="comment even thread-even depth-1">
+			<article id="div-comment-4178" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/06263f7931c98c9a1745352078e4ff84?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/06263f7931c98c9a1745352078e4ff84?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">Christian Borrman</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-4178"><time datetime="2024-05-21T22:00:00+03:00">May 21, 2024 at 10:00 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I am using one of these in one vehicle with high performance flat:</p>
+<p><a href="https://a.co/d/hx31W6i" rel="nofollow ugc">https://a.co/d/hx31W6i</a></p>
+<p>and the other one is using this one (no need to cut cable)</p>
+<p><a href="https://a.co/d/hx31W6i" rel="nofollow ugc">https://a.co/d/hx31W6i</a></p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index9125.html?replytocom=4178#respond' data-commentid="4178" data-postid="3256" data-belowelement="div-comment-4178" data-respondelement="respond" data-replyto="Reply to Christian Borrman" aria-label='Reply to Christian Borrman'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply to <a href="#comment-4177">Christian Borrman</a> <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='3256' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='4177' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="8f128863f9" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="181"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="index.html" aria-current="page">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../../2020/06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index3937.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_1827c9da4c86fc3ad9db01f6a6132235.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2024/02/12/starlink-terminal-revision-4-overview-and-tests/?replytocom=4177 by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:17:22 GMT -->
+</html>

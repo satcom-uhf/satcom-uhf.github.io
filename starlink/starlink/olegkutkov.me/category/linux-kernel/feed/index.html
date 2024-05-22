@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Linux kernel &#8211; Oleg Kutkov personal blog</title>
+	<atom:link href="https://olegkutkov.me/category/linux-kernel/feed/" rel="self" type="application/rss+xml" />
+	<link>https://olegkutkov.me</link>
+	<description>Programming, electronics and diy projects</description>
+	<lastBuildDate>Wed, 07 Dec 2022 16:42:35 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.5.3</generator>
+
+<image>
+	<url>https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png</url>
+	<title>Linux kernel &#8211; Oleg Kutkov personal blog</title>
+	<link>https://olegkutkov.me</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Analysis and reverse-engineering of the original Starlink router</title>
+		<link>https://olegkutkov.me/2021/12/25/analysis-and-reverse-engineering-of-the-original-starlink-router/</link>
+					<comments>https://olegkutkov.me/2021/12/25/analysis-and-reverse-engineering-of-the-original-starlink-router/#comments</comments>
+		
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Sat, 25 Dec 2021 01:05:00 +0000</pubDate>
+				<category><![CDATA[Electronics]]></category>
+		<category><![CDATA[Firmware]]></category>
+		<category><![CDATA[hardware]]></category>
+		<category><![CDATA[Linux kernel]]></category>
+		<category><![CDATA[Networking]]></category>
+		<category><![CDATA[Reverse engineering]]></category>
+		<guid isPermaLink="false">https://olegkutkov.me/?p=2215</guid>
+
+					<description><![CDATA[While waiting for my Dishy, I decided to find and buy the Starlink router separately. Sure, it might be just a WiFi router, but it was very curious what&#8217;s inside. Spoiler: there are some interesting implementation details. Lucky enough, I found the router on eBay. It&#8217;s the first generation of the router. Currently, it&#8217;s impossible to buy (separately) the second&#8230;<p><a href="https://olegkutkov.me/2021/12/25/analysis-and-reverse-engineering-of-the-original-starlink-router/" class="btn-continue">Continue Reading<span class="arrow-continue">&#8594;</span></a></p>]]></description>
+		
+					<wfw:commentRss>https://olegkutkov.me/2021/12/25/analysis-and-reverse-engineering-of-the-original-starlink-router/feed/</wfw:commentRss>
+			<slash:comments>10</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Writing a PCI device driver for Linux</title>
+		<link>https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/</link>
+					<comments>https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/#comments</comments>
+		
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Wed, 06 Jan 2021 23:05:57 +0000</pubDate>
+				<category><![CDATA[Linux kernel]]></category>
+		<category><![CDATA[Linux system development]]></category>
+		<category><![CDATA[Software]]></category>
+		<category><![CDATA[development]]></category>
+		<category><![CDATA[driver]]></category>
+		<category><![CDATA[kernel]]></category>
+		<category><![CDATA[linux]]></category>
+		<category><![CDATA[pci]]></category>
+		<guid isPermaLink="false">https://olegkutkov.me/?p=1575</guid>
+
+					<description><![CDATA[In this article, I want to discuss some basics of the Linux PCI/PCIe drivers development. I think this issue is not properly covered, and some existing information is might be outdated. I will show basic concepts and important structures, and this is might be a good beginner guide for newbie driver developers. The PCI bus is the most popular way&#8230;<p><a href="https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/" class="btn-continue">Continue Reading<span class="arrow-continue">&#8594;</span></a></p>]]></description>
+		
+					<wfw:commentRss>https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/feed/</wfw:commentRss>
+			<slash:comments>11</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Linux block device driver</title>
+		<link>https://olegkutkov.me/2020/02/10/linux-block-device-driver/</link>
+					<comments>https://olegkutkov.me/2020/02/10/linux-block-device-driver/#comments</comments>
+		
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Mon, 10 Feb 2020 00:28:46 +0000</pubDate>
+				<category><![CDATA[Linux kernel]]></category>
+		<category><![CDATA[Software]]></category>
+		<category><![CDATA[block]]></category>
+		<category><![CDATA[block devices]]></category>
+		<category><![CDATA[kernel]]></category>
+		<category><![CDATA[linux]]></category>
+		<guid isPermaLink="false">https://olegkutkov.me/?p=1104</guid>
+
+					<description><![CDATA[My article about character devices is quite popular, so I decided to write something about another big class of devices in Linux &#8211; block devices. This type of device is used to access various storage hardware types &#8211; hard disks, SSD, etc. Here I want to describe blk-mq based devices in modern (&#62;= 5.0) Linux kernels and a previous type&#8230;<p><a href="https://olegkutkov.me/2020/02/10/linux-block-device-driver/" class="btn-continue">Continue Reading<span class="arrow-continue">&#8594;</span></a></p>]]></description>
+		
+					<wfw:commentRss>https://olegkutkov.me/2020/02/10/linux-block-device-driver/feed/</wfw:commentRss>
+			<slash:comments>4</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>C++ in Linux kernel</title>
+		<link>https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/</link>
+					<comments>https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/#comments</comments>
+		
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Sat, 09 Nov 2019 22:52:36 +0000</pubDate>
+				<category><![CDATA[Linux kernel]]></category>
+		<category><![CDATA[Linux system development]]></category>
+		<category><![CDATA[Software]]></category>
+		<category><![CDATA[c]]></category>
+		<category><![CDATA[kernel]]></category>
+		<category><![CDATA[linux]]></category>
+		<category><![CDATA[runtime]]></category>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=1017</guid>
+
+					<description><![CDATA[Linux kernel is written in C (and in Assembly in platform-specific portions) language. C language is the only language allowed to write kernel modules. And there is no problem in most cases. But sometimes, some stranger things may be required. Let&#8217;s see how to use C++ for the Linux kernel modules. Of course, it&#8217;s not a common situation. But imagine&#8230;<p><a href="https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/" class="btn-continue">Continue Reading<span class="arrow-continue">&#8594;</span></a></p>]]></description>
+		
+					<wfw:commentRss>https://olegkutkov.me/2019/11/10/cpp-in-linux-kernel/feed/</wfw:commentRss>
+			<slash:comments>13</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Printing sk_buff data</title>
+		<link>https://olegkutkov.me/2019/10/17/printing-sk_buff-data/</link>
+					<comments>https://olegkutkov.me/2019/10/17/printing-sk_buff-data/#comments</comments>
+		
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Wed, 16 Oct 2019 22:41:31 +0000</pubDate>
+				<category><![CDATA[Linux kernel]]></category>
+		<category><![CDATA[Linux system development]]></category>
+		<category><![CDATA[Networking]]></category>
+		<category><![CDATA[Software]]></category>
+		<category><![CDATA[kernel]]></category>
+		<category><![CDATA[linux]]></category>
+		<category><![CDATA[network]]></category>
+		<category><![CDATA[sk_buff]]></category>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=953</guid>
+
+					<description><![CDATA[Sometimes when working with network packets inside the Linux kernel, it might be very useful to print packet contents to see what is actually going on. Here I&#8217;m describing how to print packet from sk_buff structure and analyze this data with Wireshark. In this short note, I will not describe capturing the packets inside the kernel but only show how&#8230;<p><a href="https://olegkutkov.me/2019/10/17/printing-sk_buff-data/" class="btn-continue">Continue Reading<span class="arrow-continue">&#8594;</span></a></p>]]></description>
+		
+					<wfw:commentRss>https://olegkutkov.me/2019/10/17/printing-sk_buff-data/feed/</wfw:commentRss>
+			<slash:comments>7</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Modifying Linux network routes using netlink</title>
+		<link>https://olegkutkov.me/2019/08/29/modifying-linux-network-routes-using-netlink/</link>
+					<comments>https://olegkutkov.me/2019/08/29/modifying-linux-network-routes-using-netlink/#comments</comments>
+		
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Wed, 28 Aug 2019 23:14:11 +0000</pubDate>
+				<category><![CDATA[Linux kernel]]></category>
+		<category><![CDATA[Linux system development]]></category>
+		<category><![CDATA[Networking]]></category>
+		<category><![CDATA[Software]]></category>
+		<category><![CDATA[linux]]></category>
+		<category><![CDATA[netlink]]></category>
+		<category><![CDATA[network]]></category>
+		<category><![CDATA[routes]]></category>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=919</guid>
+
+					<description><![CDATA[Last time we talked about getting a Linux routing table with a simple Netlink code. Now it&#8217;s time to do more interesting stuff. Let&#8217;s add and delete some routes using the power of the Netlink! At the end of this article, we will create a command-line utility with syntax similar to ip route command, which can add and delete custom&#8230;<p><a href="https://olegkutkov.me/2019/08/29/modifying-linux-network-routes-using-netlink/" class="btn-continue">Continue Reading<span class="arrow-continue">&#8594;</span></a></p>]]></description>
+		
+					<wfw:commentRss>https://olegkutkov.me/2019/08/29/modifying-linux-network-routes-using-netlink/feed/</wfw:commentRss>
+			<slash:comments>2</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Getting Linux routing table using netlink</title>
+		<link>https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/</link>
+					<comments>https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/#comments</comments>
+		
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Sun, 24 Mar 2019 01:42:51 +0000</pubDate>
+				<category><![CDATA[Linux kernel]]></category>
+		<category><![CDATA[Linux system development]]></category>
+		<category><![CDATA[Networking]]></category>
+		<category><![CDATA[Software]]></category>
+		<category><![CDATA[kernel]]></category>
+		<category><![CDATA[linux]]></category>
+		<category><![CDATA[netlink]]></category>
+		<category><![CDATA[netwo]]></category>
+		<category><![CDATA[routing]]></category>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=821</guid>
+
+					<description><![CDATA[In the previous article, we discussed the monitoring of the network interfaces using Netlink. Now it&#8217;s time to do something more complex and interesting. Let&#8217;s discover how to get and print the system routing table like &#8220;ip route&#8221; command. The routing table is a runtime in-memory data structure that stores the routes (and in some cases, metrics associated with those&#8230;<p><a href="https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/" class="btn-continue">Continue Reading<span class="arrow-continue">&#8594;</span></a></p>]]></description>
+		
+					<wfw:commentRss>https://olegkutkov.me/2019/03/24/getting-linux-routing-table-using-netlink/feed/</wfw:commentRss>
+			<slash:comments>10</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Monitoring Linux networking state using netlink</title>
+		<link>https://olegkutkov.me/2018/02/14/monitoring-linux-networking-state-using-netlink/</link>
+					<comments>https://olegkutkov.me/2018/02/14/monitoring-linux-networking-state-using-netlink/#comments</comments>
+		
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Tue, 13 Feb 2018 23:38:20 +0000</pubDate>
+				<category><![CDATA[Linux kernel]]></category>
+		<category><![CDATA[Linux system development]]></category>
+		<category><![CDATA[Networking]]></category>
+		<category><![CDATA[linux]]></category>
+		<category><![CDATA[netlink]]></category>
+		<category><![CDATA[network]]></category>
+		<category><![CDATA[socket]]></category>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=250</guid>
+
+					<description><![CDATA[Once in my work, I needed to monitor all changes in the Linux networking subsystem: adding or deleting IP addresses, routes, etc. Maybe the best way to do this is to use socket-based Netlink technology. Using Netlink, we can &#8220;subscribe&#8221; to some network-related notifications from the kernel. It&#8217;s also possible to send commands to the network stack and change the&#8230;<p><a href="https://olegkutkov.me/2018/02/14/monitoring-linux-networking-state-using-netlink/" class="btn-continue">Continue Reading<span class="arrow-continue">&#8594;</span></a></p>]]></description>
+		
+					<wfw:commentRss>https://olegkutkov.me/2018/02/14/monitoring-linux-networking-state-using-netlink/feed/</wfw:commentRss>
+			<slash:comments>10</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>

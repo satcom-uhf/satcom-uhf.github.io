@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>
+	Comments on: Printing sk_buff data	</title>
+	<atom:link href="https://olegkutkov.me/2019/10/17/printing-sk_buff-data/feed/" rel="self" type="application/rss+xml" />
+	<link>https://olegkutkov.me/2019/10/17/printing-sk_buff-data/</link>
+	<description>Programming, electronics and diy projects</description>
+	<lastBuildDate>Mon, 26 Sep 2022 02:54:20 +0000</lastBuildDate>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.5.3</generator>
+	<item>
+		<title>
+		By: Ethelene Xiong		</title>
+		<link>https://olegkutkov.me/2019/10/17/printing-sk_buff-data/#comment-1372</link>
+
+		<dc:creator><![CDATA[Ethelene Xiong]]></dc:creator>
+		<pubDate>Mon, 26 Sep 2022 02:54:20 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=953#comment-1372</guid>
+
+					<description><![CDATA[why the len is not the &quot;len = skb-&#062;tail - skb-&#062;mac_header;&quot;?]]></description>
+			<content:encoded><![CDATA[<p>why the len is not the &#8220;len = skb-&gt;tail &#8211; skb-&gt;mac_header;&#8221;?</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Netfilter Kernel module doesn&#x27;t get the ftp packets&#x27; data &#8211; MVR		</title>
+		<link>https://olegkutkov.me/2019/10/17/printing-sk_buff-data/#comment-1243</link>
+
+		<dc:creator><![CDATA[Netfilter Kernel module doesn&#x27;t get the ftp packets&#x27; data &#8211; MVR]]></dc:creator>
+		<pubDate>Sun, 27 Mar 2022 06:13:45 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=953#comment-1243</guid>
+
+					<description><![CDATA[[&#8230;] Here is my code. And I wirte a pkt_hex_dump functioin to dump all my packets&#8217;s bytes above the Internet layer(Include Internet layer) accroding to this Printing sk_buff data: [&#8230;]]]></description>
+			<content:encoded><![CDATA[<p>[&#8230;] Here is my code. And I wirte a pkt_hex_dump functioin to dump all my packets&#8217;s bytes above the Internet layer(Include Internet layer) accroding to this Printing sk_buff data: [&#8230;]</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: tomkcook		</title>
+		<link>https://olegkutkov.me/2019/10/17/printing-sk_buff-data/#comment-1027</link>
+
+		<dc:creator><![CDATA[tomkcook]]></dc:creator>
+		<pubDate>Wed, 21 Apr 2021 09:02:33 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=953#comment-1027</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://olegkutkov.me/2019/10/17/printing-sk_buff-data/#comment-1025&quot;&gt;tomkcook&lt;/a&gt;.
+
+Though of course &lt;code&gt;printk(&quot;%06x\t%02x &quot;, ii, data[ii++])&lt;/code&gt; is undefined - you need to move the increment to a separate statement.]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://olegkutkov.me/2019/10/17/printing-sk_buff-data/#comment-1025">tomkcook</a>.</p>
+<p>Though of course <code>printk("%06x\t%02x ", ii, data[ii++])</code> is undefined &#8211; you need to move the increment to a separate statement.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Joseph Cheng		</title>
+		<link>https://olegkutkov.me/2019/10/17/printing-sk_buff-data/#comment-1026</link>
+
+		<dc:creator><![CDATA[Joseph Cheng]]></dc:creator>
+		<pubDate>Wed, 21 Apr 2021 00:29:26 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=953#comment-1026</guid>
+
+					<description><![CDATA[Is it possible to print  unfragmented ping message , &quot; ping -l 8972 -f 192.168.0.108 –t&quot; ,  sent from another computer ?
+
+Thanks.]]></description>
+			<content:encoded><![CDATA[<p>Is it possible to print  unfragmented ping message , &#8221; ping -l 8972 -f 192.168.0.108 –t&#8221; ,  sent from another computer ?</p>
+<p>Thanks.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: tomkcook		</title>
+		<link>https://olegkutkov.me/2019/10/17/printing-sk_buff-data/#comment-1025</link>
+
+		<dc:creator><![CDATA[tomkcook]]></dc:creator>
+		<pubDate>Tue, 20 Apr 2021 20:27:47 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=953#comment-1025</guid>
+
+					<description><![CDATA[Might I humbly suggest the following which is somewhat simpler and has much the same effect:
+
+&lt;code&gt;void dump_skb(struct sk_buff *skb) {
+        size_t len;
+        printk(&quot;Packet hex dump:\n&quot;);
+        uint8_t *data = (uint8_t *) skb_mac_header(skb);
+
+        if (skb_is_nonlinear(skb)) {
+                len = skb-&#062;data_len;
+        } else {
+                len = skb-&#062;len;
+        }
+
+        for (size_t ii = 0; ii &#060; len; ++ii) {
+                printk(&quot;%06x\t%02x &quot;, ii, data[ii++]);
+
+                for (; ii &#060; len &#038;&#038; (ii % 16 != 0); ++ii) {
+                        printk(KERN_CONT &quot;%02x &quot;, (uint32_t)(data[ii]));
+                }
+                printk(KERN_CONT &quot;\n&quot;);
+        }
+}
+&lt;/code&gt;
+
+In particular, using &lt;code&gt;%06d&lt;/code&gt; as a format specifier and then adding 10 to &lt;code&gt;li&lt;/code&gt; every time you print a row of 16 bytes is pretty horrible...]]></description>
+			<content:encoded><![CDATA[<p>Might I humbly suggest the following which is somewhat simpler and has much the same effect:</p>
+<p><code>void dump_skb(struct sk_buff *skb) {<br />
+        size_t len;<br />
+        printk("Packet hex dump:\n");<br />
+        uint8_t *data = (uint8_t *) skb_mac_header(skb);</p>
+<p>        if (skb_is_nonlinear(skb)) {<br />
+                len = skb-&gt;data_len;<br />
+        } else {<br />
+                len = skb-&gt;len;<br />
+        }</p>
+<p>        for (size_t ii = 0; ii &lt; len; ++ii) {<br />
+                printk("%06x\t%02x ", ii, data[ii++]);</p>
+<p>                for (; ii &lt; len &amp;&amp; (ii % 16 != 0); ++ii) {<br />
+                        printk(KERN_CONT "%02x ", (uint32_t)(data[ii]));<br />
+                }<br />
+                printk(KERN_CONT "\n");<br />
+        }<br />
+}<br />
+</code></p>
+<p>In particular, using <code>%06d</code> as a format specifier and then adding 10 to <code>li</code> every time you print a row of 16 bytes is pretty horrible&#8230;</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: gregoireg		</title>
+		<link>https://olegkutkov.me/2019/10/17/printing-sk_buff-data/#comment-928</link>
+
+		<dc:creator><![CDATA[gregoireg]]></dc:creator>
+		<pubDate>Wed, 12 Aug 2020 16:12:40 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=953#comment-928</guid>
+
+					<description><![CDATA[Very very useful page. Thank you for writing this.]]></description>
+			<content:encoded><![CDATA[<p>Very very useful page. Thank you for writing this.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: anuj		</title>
+		<link>https://olegkutkov.me/2019/10/17/printing-sk_buff-data/#comment-768</link>
+
+		<dc:creator><![CDATA[anuj]]></dc:creator>
+		<pubDate>Mon, 15 Jun 2020 11:01:20 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=953#comment-768</guid>
+
+					<description><![CDATA[This was very helpful, thanks :D]]></description>
+			<content:encoded><![CDATA[<p>This was very helpful, thanks 😀</p>
+]]></content:encoded>
+		
+			</item>
+	</channel>
+</rss>

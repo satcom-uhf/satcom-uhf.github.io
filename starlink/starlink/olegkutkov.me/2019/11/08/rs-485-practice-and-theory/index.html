@@ -1,0 +1,407 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2019/11/08/rs-485-practice-and-theory/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:12:49 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>RS-485 practice and theory &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; RS-485 practice and theory Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/987.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../index3afd.html?p=987' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embedcc2b.json?url=https%3A%2F%2Folegkutkov.me%2F2019%2F11%2F08%2Frs-485-practice-and-theory%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embedcdf6?url=https%3A%2F%2Folegkutkov.me%2F2019%2F11%2F08%2Frs-485-practice-and-theory%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-987 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-987" class="post-987 post type-post status-publish format-standard hentry category-electronics category-networking category-software tag-differential tag-ft232 tag-minicom tag-rs485 tag-scope">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/electronics/index.html" rel="category tag">Electronics</a>, <a href="../../../../category/networking/index.html" rel="category tag">Networking</a>, <a href="../../../../category/software/index.html" rel="category tag">Software</a></span><h1 class="entry-title">RS-485 practice and theory</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">November 8, 2019</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><img decoding="async" class="alignleft size-thumbnail wp-image-988" src="../../../../wp-content/uploads/2019/11/rs485_adapters_test_avt-150x150.jpg" alt="" width="150" height="150" /> I just built two RS-485 <a href="../../../../2018/09/18/isolated-usb-to-rs485-adapter-version-2/index.html">adapters</a> (version 2) and decided to write a little note about the RS-485 bus (and differential line) theory, plus perform some testing of the devices. This material mostly interesting for newbies.</p>
+<p>At the end of this article, you can find a funny way to test these devices 🙂</p>
+<p><span id="more-987"></span></p>
+<p>Present adapters are based on the USB to serial converter, which means that for the computer&#8217;s OS, these devices are just a serial interface. Every byte written to the interface is transferred and should be received on the other end of this &#8220;pipe&#8221;.</p>
+<p>Of course, RS-485 is nothing to deal with transmission protocols.<br />
+This standard defines only an electrical differential line with a transmitter, receivers, line termination, etc. What is actually on the line is defined by the top-level application.</p>
+<p>Let&#8217;s do some experiments.<br />
+Connect the adapter to the Linux PC and run <code>dmesg</code> command to find the device&#8217;s file name. If everything is ok, there must be something like <em>/dev/ttyUSBX</em>, where <strong>X</strong> is a number of the device.<br />
+Now writing and reading can be performed on the device.<br />
+Connect the oscilloscope probe to the FT232 pin 1. This is TX. Now everything is ready to send some data and capture some bits. Of course, at this point, it&#8217;s not RS-485 but a simple <a href="https://en.wikipedia.org/wiki/Serial_communication">serial line</a>.</p>
+<p><a href="../../../../wp-content/uploads/2019/11/ft232_tx_probe.png"><img fetchpriority="high" decoding="async" class="aligncenter wp-image-998 size-full" src="../../../../wp-content/uploads/2019/11/ft232_tx_probe.png" alt="" width="622" height="715" srcset="https://olegkutkov.me/wp-content/uploads/2019/11/ft232_tx_probe.png 622w, https://olegkutkov.me/wp-content/uploads/2019/11/ft232_tx_probe-261x300.png 261w" sizes="(max-width: 622px) 100vw, 622px" /></a></p>
+<p>Execute the following command:</p>
+<pre>echo -n "h" &gt; /dev/ttyUSBX</pre>
+<p>Where X is your device number.<br />
+With this command, we just sent to the device one symbol, &#8216;h&#8217;, which is byte 0x68, according to <a href="https://www.asciitable.com/">the ASCII table</a>.<br />
+Argument &#8216;-n&#8217; prevents echo from using &#8216;\n&#8217; (newline) symbol after &#8216;h&#8217;.</p>
+<p>0x68 is <strong>00010110</strong> in binary, so such a pattern should be captured.</p>
+<p><a href="../../../../wp-content/uploads/2019/11/h_sym_with_measures.png"><img decoding="async" class="aligncenter size-full wp-image-995" src="../../../../wp-content/uploads/2019/11/h_sym_with_measures.png" alt="" width="649" height="458" srcset="https://olegkutkov.me/wp-content/uploads/2019/11/h_sym_with_measures.png 649w, https://olegkutkov.me/wp-content/uploads/2019/11/h_sym_with_measures-300x212.png 300w" sizes="(max-width: 649px) 100vw, 649px" /></a></p>
+<p>Here can be seen in data bits. Also, there are some additional bits in the beginning and the end of the sequence.<br />
+These <a href="https://en.wikipedia.org/wiki/Asynchronous_serial_communication"><strong>start</strong></a> and <a href="https://en.wikipedia.org/wiki/Asynchronous_serial_communication"><strong>stop</strong></a> bits that can help to separate the actual data frame. There can be additional bits called &#8216;<a href="https://en.wikipedia.org/wiki/Parity_bit"><strong>parity bits</strong></a>&#8216; and can be used as 2 stop bits.  All this depends on the serial port configuration in the operating system.</p>
+<p>You may mention that values are inverted. An idle line always represents &#8216;bit&#8217; 1. This happens due to the resistor between the data line and the power line inside the FT232. It&#8217;s the default <span class="gt-card-ttl-txt">behavior</span> for such data lines (but can be changed in FT232 EEPROM).</p>
+<p>Also can be measured the length of the one bit &#8211; 104 microseconds and measure total frequency, which is 9.6 kHz (1/104 * 1000).<br />
+Hmm, 9.6 kHz sounds familiar. Of course, it&#8217;s the speed of the line! Baud rate: 9600. This is a way of how an unknown baud rate can be found.</p>
+<p>Let&#8217;s check serial port settings to ensure that correct data was captured. Run the following command:</p>
+<pre>tty -F /dev/ttyUSBX -a</pre>
+<p>(don&#8217;t forget to replace &#8216;X&#8217; with your device number)</p>
+<p>In the output should be the following values:</p>
+<pre>speed 9600 baud
+cs8
+-cstopb
+-parenb
+</pre>
+<p>This means speed 9600, 8 data bits, 1 stop bit, no parity.</p>
+<p>Now we can do some measures on the RS-485 line. It&#8217;s a differential line that uses two wires. Both wires transfer the same signal, but one signal is positive, and the second is negative. Both signals are corresponding to each other.<br />
+The receiver&#8217;s side device measures the voltage difference between the two wires. High enough (±200mV) difference interpreted as a single bit of the data. This allows excluding interference on the line because both wires are affected by interference in the same way. This interference is a not-differential signal, so it just subtracts from itself, giving almost zero value.<br />
+Additional shielding allows using a very long and stable line (but low speed) up to 1.2 kilometers, which is great for industrial applications.<br />
+Please note that it&#8217;s highly recommended to use common-ground wire in a long line, especially between different buildings. This can help to equalize ground voltages between devices and avoid problems that can ruin your day.</p>
+<p><a href="../../../../wp-content/uploads/2019/11/rs-485-line-example.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-1003" src="../../../../wp-content/uploads/2019/11/rs-485-line-example-1024x278.png" alt="" width="708" height="192" srcset="https://olegkutkov.me/wp-content/uploads/2019/11/rs-485-line-example-1024x278.png 1024w, https://olegkutkov.me/wp-content/uploads/2019/11/rs-485-line-example-300x81.png 300w, https://olegkutkov.me/wp-content/uploads/2019/11/rs-485-line-example-768x208.png 768w, https://olegkutkov.me/wp-content/uploads/2019/11/rs-485-line-example.png 1228w" sizes="(max-width: 708px) 100vw, 708px" /></a></p>
+<p>Endpoints of the RS-485 line should be terminated with a resistor, which is equal to the cable&#8217;s resistance. For a typical CAT5 twisted-pair, this is 120 Ω.<br />
+You can also see in my (and other) adapter additional resistors that pull up positive and pull down negative wires of the RS-485 line.<br />
+These resistors form a voltage divider, which can set initial bias voltage on the receiver inputs. This can help to stabilize the line so the receiver can easily detect voltage changes during data transmission.</p>
+<p>The differential nature of the RS-485 means that we can&#8217;t directly connect our oscilloscope probes to the line. Actually, we can, but all measures will be not precise and sometimes incorrect.</p>
+<p>To capture differential line signals should be used differential probes, like this one:</p>
+<p><a href="https://www.eevblog.com/forum/testgear/eevblog-hvp70-differential-probe/"><img loading="lazy" decoding="async" class="wp-image-1006 alignleft" src="../../../../wp-content/uploads/2019/11/diff_probe_eevblog.jpg" alt="" width="400" height="302" srcset="https://olegkutkov.me/wp-content/uploads/2019/11/diff_probe_eevblog.jpg 800w, https://olegkutkov.me/wp-content/uploads/2019/11/diff_probe_eevblog-300x227.jpg 300w, https://olegkutkov.me/wp-content/uploads/2019/11/diff_probe_eevblog-768x580.jpg 768w" sizes="(max-width: 400px) 100vw, 400px" /></a></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>The differential probe can also be used to perform measures on the circuits connected to the generic AC voltage (like switching power supply) without destroying the oscilloscope and probe wires.</p>
+<p>I don&#8217;t have such a probe, so let&#8217;s do it incorrectly 🙂</p>
+<p>Connect the first channel of the oscilloscope to the line A+ (pin next to the common wire) and the second channel to the line B-.<br />
+In this situation, the probes&#8217; ground terminals can be left unconnected, but this increases the noise level. To reduce the noise level, connect these clips to the common ground wire. Please note that this ground connection will not help correctly measure the actual signal because it&#8217;s a differential line and not referenced to the common wire.</p>
+<p>Let&#8217;s repeat sending the &#8216;h&#8217; symbol using echo. We should capture something like this:</p>
+<p><a href="../../../../wp-content/uploads/2019/11/diff_tx_start.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-1008" src="../../../../wp-content/uploads/2019/11/diff_tx_start.png" alt="" width="642" height="451" srcset="https://olegkutkov.me/wp-content/uploads/2019/11/diff_tx_start.png 642w, https://olegkutkov.me/wp-content/uploads/2019/11/diff_tx_start-300x211.png 300w" sizes="(max-width: 642px) 100vw, 642px" /></a></p>
+<p>As expected, there are two signals. One of the signals is inverted. But the overall picture looks familiar to the previous measures on the FT232 TX pin. Here even can be measured baud rate. Of course, both signals are quite noisy.</p>
+<p>Most of the oscilloscopes contain simple Math functions. Using this functionality, the second channel can be subtracted from the first channel.<br />
+The subtraction result must be inverted. After this result should look more correct. The noise level was decreased.</p>
+<p><a href="../../../../wp-content/uploads/2019/11/rs485_signal_math.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-1010" src="../../../../wp-content/uploads/2019/11/rs485_signal_math.png" alt="" width="650" height="475" srcset="https://olegkutkov.me/wp-content/uploads/2019/11/rs485_signal_math.png 650w, https://olegkutkov.me/wp-content/uploads/2019/11/rs485_signal_math-300x219.png 300w" sizes="(max-width: 650px) 100vw, 650px" /></a></p>
+<p>Data can be easily decoded.<br />
+Actually, I&#8217;m not sure about this &#8216;bit&#8217; between idle state and transmission of the start bit. It looks like the transmitter is switching from the high-z state to the tx mode. The area was marked on the picture. If I&#8217;m wrong, please correct me down in the comments.</p>
+<p><a href="../../../../wp-content/uploads/2019/11/rs-485-signal_math_and_decode.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-1011" src="../../../../wp-content/uploads/2019/11/rs-485-signal_math_and_decode.png" alt="" width="650" height="475" srcset="https://olegkutkov.me/wp-content/uploads/2019/11/rs-485-signal_math_and_decode.png 650w, https://olegkutkov.me/wp-content/uploads/2019/11/rs-485-signal_math_and_decode-300x219.png 300w" sizes="(max-width: 650px) 100vw, 650px" /></a></p>
+<p>You can get more information about RS-485 and wiring <a href="https://www.maximintegrated.com/en/design/technical-documents/tutorials/7/763.html">here</a>.</p>
+<p>Now it&#8217;s time to have some fun. How about &#8216;movie&#8217; through the RS-485 line?</p>
+<p>Of course not a real movie but a very cool ASCII-Art version of Star Wars.</p>
+<p>Let&#8217;s test the &#8216;movie&#8217;. Connect to the special server using telnet:</p>
+<pre>telnet towel.blinkenlights.nl</pre>
+<p>If everything is correct, you should see the &#8216;movie&#8217; in ASCII. To exit, type Ctrl-] and then Ctrl-d</p>
+<p>Due to the nature of this &#8216;movie&#8217;, we can transfer this stream using any serial line. In our case, it&#8217;s RS-485.</p>
+<p>Connect two adapters and connect USB to the same (or even different) computers. One terminal will be the server, and the other is the client.</p>
+<p><a href="../../../../wp-content/uploads/2019/11/rs485_adapters_test.jpg"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-1013" src="../../../../wp-content/uploads/2019/11/rs485_adapters_test-1024x768.jpg" alt="" width="708" height="531" srcset="https://olegkutkov.me/wp-content/uploads/2019/11/rs485_adapters_test-1024x768.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2019/11/rs485_adapters_test-300x225.jpg 300w, https://olegkutkov.me/wp-content/uploads/2019/11/rs485_adapters_test-768x576.jpg 768w, https://olegkutkov.me/wp-content/uploads/2019/11/rs485_adapters_test.jpg 2000w" sizes="(max-width: 708px) 100vw, 708px" /></a></p>
+<p>For the client, we need some terminal program that can work with a serial line. The most popular utility for the console mode is minicom. Install minicom if you don&#8217;t have it.</p>
+<p>Now on the server-side, rerun telnet but this time redirect all output to the connected adapter:</p>
+<pre>telnet towel.blinkenlights.nl &gt; /dev/ttyUSBX</pre>
+<p>Replace X with your device number.</p>
+<p>On the client-side, run minicom for the adapter device:</p>
+<pre>minicom -D /dev/ttyUSBX</pre>
+<p>Enjoy the ASCII movie on speed 9600 via RS-485 line 🙂</p>
+<p>How it looks like on video:</p>
+<p><iframe loading="lazy" title="Fun with RS-485 adapters" width="850" height="478" src="https://www.youtube.com/embed/5T_9HntDRwU?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></p>
+<p>Thanks for reading!</p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<span class="tags-links">Tagged <a href="../../../../tag/differential/index.html" rel="tag">differential</a>, <a href="../../../../tag/ft232/index.html" rel="tag">ft232</a>, <a href="../../../../tag/minicom/index.html" rel="tag">minicom</a>, <a href="../../../../tag/rs485/index.html" rel="tag">rs485</a>, <a href="../../../../tag/scope/index.html" rel="tag">scope</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a></h2>
+                                         <span class="posted-date">November 7, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a></h2>
+                                         <span class="posted-date">June 9, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../../10/17/printing-sk_buff-data/index.html" rel="prev">Printing sk_buff data</a></div><div class="nav-next"><a href="../../10/cpp-in-linux-kernel/index.html" rel="next">C++ in Linux kernel</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='987' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="fbbe938d23" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="14"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../../2020/06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_1827c9da4c86fc3ad9db01f6a6132235.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2019/11/08/rs-485-practice-and-theory/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:13:47 GMT -->
+</html>

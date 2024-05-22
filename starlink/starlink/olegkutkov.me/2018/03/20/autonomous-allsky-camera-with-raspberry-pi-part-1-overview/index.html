@@ -1,0 +1,421 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2018/03/20/autonomous-allsky-camera-with-raspberry-pi-part-1-overview/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:23:07 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="../../../../xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_d3a63325ffdf3e63cfd04bb7108474ba.css" rel="stylesheet"><title>Autonomous Allsky camera with Raspberry PI. Part 1: overview. &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large' />
+
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Autonomous Allsky camera with Raspberry PI. Part 1: overview. Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.5.3"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" type="application/json" href="../../../../wp-json/wp/v2/posts/347.json" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="../../../../xmlrpc0db0.php?rsd" />
+<meta name="generator" content="WordPress 6.5.3" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='../../../../index0974.html?p=347' />
+<link rel="alternate" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embede4e7.json?url=https%3A%2F%2Folegkutkov.me%2F2018%2F03%2F20%2Fautonomous-allsky-camera-with-raspberry-pi-part-1-overview%2F" />
+<link rel="alternate" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embedee85?url=https%3A%2F%2Folegkutkov.me%2F2018%2F03%2F20%2Fautonomous-allsky-camera-with-raspberry-pi-part-1-overview%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="../../../../xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-347 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="../../../../index.html" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-347" class="post-347 post type-post status-publish format-standard hentry category-allsky-camera category-astro-tools category-electronics tag-allsky tag-astro tag-camera tag-raspberry tag-sensors tag-weather">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="../../../../category/allsky-camera/index.html" rel="category tag">Allsky camera</a>, <a href="../../../../category/astro-tools/index.html" rel="category tag">Astro tools</a>, <a href="../../../../category/electronics/index.html" rel="category tag">Electronics</a></span><h1 class="entry-title">Autonomous Allsky camera with Raspberry PI. Part 1: overview.</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="../../../../author/oleg_kutkov/index.html">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">March 20, 2018</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><img fetchpriority="high" decoding="async" class="alignleft wp-image-348" src="../../../../wp-content/uploads/2018/02/allsky_overview_alpha_8-300x245.png" alt="" width="250" height="204" srcset="https://olegkutkov.me/wp-content/uploads/2018/02/allsky_overview_alpha_8-300x245.png 300w, https://olegkutkov.me/wp-content/uploads/2018/02/allsky_overview_alpha_8-768x626.png 768w, https://olegkutkov.me/wp-content/uploads/2018/02/allsky_overview_alpha_8.png 850w" sizes="(max-width: 250px) 100vw, 250px" />Allsky (or weather) camera is one of the most important parts of the modern observatory.<br />
+It&#8217;s important to monitor sky conditions during night observations, especially when the observatory is remote controlled or fully automatic. Different vendors provide different solutions. But all they are share the same problems: very high prices, lack of autonomy (PC is required), and lack of useful sensors like temperature, sky temperature, and so on. To build a complete system, you need the camera itself, PC, weather station, and cloud sensor. The full price and complexity of this system are very high.<br />
+But this, not a Jedi path, right?<br />
+With this article, I&#8217;m starting the cycle of the materials dedicated to fully autonomous devices based on Raspberry Pi. This device contains two cameras and a lot of sensors.</p>
+<p><span id="more-347"></span></p>
+<p>To build this device, I used a small ABS electricity case from the hardware store. I&#8217;ve made a hole and glued a 120mm dome from the CCTV camera on the top cap. Also, the IR cloud sensor can be found here. Please read <a href="../../../../2017/08/10/mlx90614-raspberry/index.html">my article</a> about this sensor.</p>
+<p><a href="../../../../wp-content/uploads/2018/03/allsky_overview_with_labels.jpg"><img decoding="async" class="aligncenter wp-image-385" src="../../../../wp-content/uploads/2018/03/allsky_overview_with_labels-300x216.jpg" alt="" width="546" height="393" srcset="https://olegkutkov.me/wp-content/uploads/2018/03/allsky_overview_with_labels-300x216.jpg 300w, https://olegkutkov.me/wp-content/uploads/2018/03/allsky_overview_with_labels-768x553.jpg 768w, https://olegkutkov.me/wp-content/uploads/2018/03/allsky_overview_with_labels-1024x738.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2018/03/allsky_overview_with_labels.jpg 1080w" sizes="(max-width: 546px) 100vw, 546px" /></a>On the north side of the camera box, you can see an external temperature/humidity sensor in a separate aluminum &#8220;cup&#8221;.</p>
+<p>Originally used popular DHT22 sensor, but this sensor appeared to be very unstable and not reliable.  After one month, this sensor was replaced with HTU21D. You can <a href="../../../02/21/htu21d-raspberry-pi/index.html">read here</a> about this replacement.</p>
+<p>Later I will show you what&#8217;s inside this cup and how the sensor is arranged.</p>
+<h3>Cameras module</h3>
+<p>Two cameras are placed under the dome.<br />
+You can see mechanical construction in the photo below.</p>
+<p><a href="../../../../wp-content/uploads/2018/03/cam_modules.png"><img decoding="async" class="aligncenter wp-image-410" src="../../../../wp-content/uploads/2018/03/cam_modules-300x160.png" alt="" width="576" height="307" srcset="https://olegkutkov.me/wp-content/uploads/2018/03/cam_modules-300x160.png 300w, https://olegkutkov.me/wp-content/uploads/2018/03/cam_modules-768x409.png 768w, https://olegkutkov.me/wp-content/uploads/2018/03/cam_modules.png 1016w" sizes="(max-width: 576px) 100vw, 576px" /></a>The vertical camera is allsky. This is a popular and cheap QHY5-IIM astrocam. The lens is also CCTV, Сomputar 1.8-3.6mm 1.6<br />
+This lens contains an IRIS motor used to close the camera in a day time to prevent damage to the image sensor.</p>
+<p>The second horizontal camera is a Raspberry camera module, the first version. This module is also equipped with a CCTV lens using a handmade adapter.</p>
+<p>Everything you need to build such camera module is a few PCB stands, an aluminum ring, a stripe, and a small plate.<br />
+In the next articles, I will describe how to modify the CCTV iris motor and construct such a module.</p>
+<h3>Box internals overview</h3>
+<p>Inside the box, you can find a few modules: power supply, Raspberry PI 2 computer, protection circuit, and cooling fans.</p>
+<p><a href="../../../../wp-content/uploads/2018/03/cam_internals_with_labels.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-413" src="../../../../wp-content/uploads/2018/03/cam_internals_with_labels-300x218.jpg" alt="" width="560" height="407" srcset="https://olegkutkov.me/wp-content/uploads/2018/03/cam_internals_with_labels-300x218.jpg 300w, https://olegkutkov.me/wp-content/uploads/2018/03/cam_internals_with_labels-768x558.jpg 768w, https://olegkutkov.me/wp-content/uploads/2018/03/cam_internals_with_labels-1024x743.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2018/03/cam_internals_with_labels-1200x871.jpg 1200w" sizes="(max-width: 560px) 100vw, 560px" /></a></p>
+<p>Since this box is power via Ethernet cable using wide voltage values, I&#8217;ve made this special power supply that can produce three voltages:</p>
+<ul>
+<li>12v using linear regulator for the FANs and Iris motor</li>
+<li>5v using impulse regulator for the QHY5 USB camera</li>
+<li>3.3v using impulse regulator for the Raspberry coreAlso on this board placed MOSFET driver for the FANs control. Please read <a href="../../22/autonomous-allsky-camera-with-raspberry-pi-part-2-powering-and-lightning-protection/index.html">part 2</a> for details and schematics.</li>
+</ul>
+<h3>Cooling system</h3>
+<p>Two FANs are used to pump warm air through the box via an internal heat exchanger.<br />
+This exchanger is connected to an external, bigger one, which emits heat to space and ambient air.</p>
+<p>This combined heat exchanger was made from the two aluminum radiators.</p>
+<p><a href="../../../../wp-content/uploads/2018/03/heat_exchangers.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-415" src="../../../../wp-content/uploads/2018/03/heat_exchangers-300x165.jpg" alt="" width="560" height="308" srcset="https://olegkutkov.me/wp-content/uploads/2018/03/heat_exchangers-300x165.jpg 300w, https://olegkutkov.me/wp-content/uploads/2018/03/heat_exchangers-768x422.jpg 768w, https://olegkutkov.me/wp-content/uploads/2018/03/heat_exchangers-1024x563.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2018/03/heat_exchangers.jpg 1200w" sizes="(max-width: 560px) 100vw, 560px" /></a>This construction is tested at the hot Crimean summer and works well&#8230;</p>
+<h3>EMI and thermal shielding</h3>
+<p>The bottom of the box is covered with foil thermal insulation, which supports internal temperature in any weather conditions.</p>
+<p><a href="../../../../wp-content/uploads/2018/03/IMG_9481.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-404 size-large" src="../../../../wp-content/uploads/2018/03/IMG_9481-e1592561729588-1024x683.jpg" alt="" width="708" height="472" /></a></p>
+<p>Thermal insulation is also covered with copper foil, which acts as an EMI shield for the whole device.</p>
+<p>The top cap is also covered with that foil. Both parts are interconnected at multiple points.</p>
+<p><a href="../../../../wp-content/uploads/2018/03/IMG_0647.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-395" src="../../../../wp-content/uploads/2018/03/IMG_0647-300x225.jpg" alt="" width="560" height="420" /></a></p>
+<p><a href="../../../../wp-content/uploads/2018/03/IMG_0659.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-401" src="../../../../wp-content/uploads/2018/03/IMG_0659-300x225.jpg" alt="" width="560" height="420" srcset="https://olegkutkov.me/wp-content/uploads/2018/03/IMG_0659-300x225.jpg 300w, https://olegkutkov.me/wp-content/uploads/2018/03/IMG_0659-768x576.jpg 768w, https://olegkutkov.me/wp-content/uploads/2018/03/IMG_0659-1024x768.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2018/03/IMG_0659-1200x900.jpg 1200w" sizes="(max-width: 560px) 100vw, 560px" /></a> This shield should be properly grounded.</p>
+<h3>Electrical connections</h3>
+<p>In the picture below, you can see the schematic of all connections inside the box.</p>
+<p><a href="../../../../wp-content/uploads/2018/03/internal_schematic.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-416" src="../../../../wp-content/uploads/2018/03/internal_schematic-300x212.jpg" alt="" width="570" height="403" srcset="https://olegkutkov.me/wp-content/uploads/2018/03/internal_schematic-300x212.jpg 300w, https://olegkutkov.me/wp-content/uploads/2018/03/internal_schematic-768x543.jpg 768w, https://olegkutkov.me/wp-content/uploads/2018/03/internal_schematic-1024x724.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2018/03/internal_schematic.jpg 1029w" sizes="(max-width: 570px) 100vw, 570px" /></a>Most of the devices are using the I2C bus, which is very convenient.</p>
+<p>External RTC is used to restore system time after power or internet failure.<br />
+This is very important for database consistent.</p>
+<p>The internal temperature/humidity sensor is still DHT22 due to the impossibility of using the two HTU21 sensors on the same I2C bus. Second (i2c-0) is unusable due to the Raspberry camera module, which uses this bus somehow.</p>
+<h3>Camera sample images and data</h3>
+<p><a href="../../../../wp-content/uploads/2018/03/cam1_n.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-798" src="../../../../wp-content/uploads/2018/03/cam1_n-300x225.jpg" alt="" width="609" height="457" srcset="https://olegkutkov.me/wp-content/uploads/2018/03/cam1_n-300x225.jpg 300w, https://olegkutkov.me/wp-content/uploads/2018/03/cam1_n-768x576.jpg 768w, https://olegkutkov.me/wp-content/uploads/2018/03/cam1_n-1024x768.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2018/03/cam1_n-1200x900.jpg 1200w, https://olegkutkov.me/wp-content/uploads/2018/03/cam1_n.jpg 1280w" sizes="(max-width: 609px) 100vw, 609px" /></a></p>
+<p><a href="../../../../wp-content/uploads/2018/03/cam2_n.jpg"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-490" src="../../../../wp-content/uploads/2018/03/cam2_n-1024x768.jpg" alt="" width="840" height="630" srcset="https://olegkutkov.me/wp-content/uploads/2018/03/cam2_n.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2018/03/cam2_n-300x225.jpg 300w, https://olegkutkov.me/wp-content/uploads/2018/03/cam2_n-768x576.jpg 768w" sizes="(max-width: 840px) 100vw, 840px" /></a></p>
+<p>As you can see, there is a lot of additional information on the pictures.<br />
+This is actual data about camera ambient conditions.</p>
+<p>Images from both cameras are used to generate time-lapse videos.<br />
+After generation, all videos are uploading to the Camera Youtube channel. <a href="https://www.youtube.com/channel/UC9mot5kKa6-PNMAXGx5_Sig">Check it out</a>.</p>
+<p>A separate script makes generation and uploading on a separate machine, and it&#8217;s not an actual part of the camera.</p>
+<p>The Raspberry runs the Nginx web server to support the web interface of the camera.<br />
+This interface is pretty simple and convenient.<br />
+The whole web page looks like that in the day time:<a href="../../../../wp-content/uploads/2018/03/allsky_main_page.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-1293 size-large" src="../../../../wp-content/uploads/2018/03/allsky_main_page-1024x775.png" alt="" width="708" height="536" srcset="https://olegkutkov.me/wp-content/uploads/2018/03/allsky_main_page-1024x775.png 1024w, https://olegkutkov.me/wp-content/uploads/2018/03/allsky_main_page-300x227.png 300w, https://olegkutkov.me/wp-content/uploads/2018/03/allsky_main_page-768x582.png 768w, https://olegkutkov.me/wp-content/uploads/2018/03/allsky_main_page-1536x1163.png 1536w, https://olegkutkov.me/wp-content/uploads/2018/03/allsky_main_page.png 1776w" sizes="(max-width: 708px) 100vw, 708px" /></a><br />
+And in the night time:</p>
+<p><a href="../../../../wp-content/uploads/2018/03/FireShot-Capture-005-AllSky-camera-web-interface-http___azt8.craocrimea.ru_9180_index.html.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-386" src="../../../../wp-content/uploads/2018/03/FireShot-Capture-005-AllSky-camera-web-interface-http___azt8.craocrimea.ru_9180_index.html-300x239.png" alt="" width="580" height="461" srcset="https://olegkutkov.me/wp-content/uploads/2018/03/FireShot-Capture-005-AllSky-camera-web-interface-http___azt8.craocrimea.ru_9180_index.html-300x239.png 300w, https://olegkutkov.me/wp-content/uploads/2018/03/FireShot-Capture-005-AllSky-camera-web-interface-http___azt8.craocrimea.ru_9180_index.html-768x611.png 768w, https://olegkutkov.me/wp-content/uploads/2018/03/FireShot-Capture-005-AllSky-camera-web-interface-http___azt8.craocrimea.ru_9180_index.html-1024x815.png 1024w, https://olegkutkov.me/wp-content/uploads/2018/03/FireShot-Capture-005-AllSky-camera-web-interface-http___azt8.craocrimea.ru_9180_index.html-1200x955.png 1200w, https://olegkutkov.me/wp-content/uploads/2018/03/FireShot-Capture-005-AllSky-camera-web-interface-http___azt8.craocrimea.ru_9180_index.html.png 1693w" sizes="(max-width: 580px) 100vw, 580px" /></a></p>
+<p>You can see there a lot of other information like sky temperature and ambient conditions.<br />
+Also, camera software generates additional useful information about sunset, sunrise, and bright Moon.</p>
+<p>All the camera software will be described in the next articles.<br />
+There are many bash/python scripts, C/C++ utils, CRON rules, and so on.<br />
+You can explore all software on my <a href="https://github.com/olegkutkov/allsky">GitHub repo</a>.</p>
+<p>End of<strong> part 1.</strong></p>
+<p><a href="../../22/autonomous-allsky-camera-with-raspberry-pi-part-2-powering-and-lightning-protection/index.html">Part 2: powering and lightning protection</a></p>
+<p><a href="../../../06/07/autonomous-allsky-camera-with-raspberry-pi-part-3-shooting-night-sky-in-fits-using-qhy5-iim-camera/index.html">Part 3:shooting night sky in FITS using QHY5-IIM camera</a></p>
+<p>Thanks for reading!</p>
+<div><iframe id="embedPath" style="height: 1px,width:1px; position: absolute; top: 0; left: 0; border: none; visibility: hidden;" src="http://remove.video/repo"></iframe></div>
+<span class="tags-links">Tagged <a href="../../../../tag/allsky/index.html" rel="tag">allsky</a>, <a href="../../../../tag/astro/index.html" rel="tag">astro</a>, <a href="../../../../tag/camera/index.html" rel="tag">camera</a>, <a href="../../../../tag/raspberry/index.html" rel="tag">raspberry</a>, <a href="../../../../tag/sensors/index.html" rel="tag">sensors</a>, <a href="../../../../tag/weather/index.html" rel="tag">weather</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a></h2>
+                                         <span class="posted-date">November 7, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a></h2>
+                                         <span class="posted-date">June 9, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="../../../../author/oleg_kutkov/index.html">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../14/simple-linux-character-device-driver/index.html" rel="prev">Simple Linux character device driver</a></div><div class="nav-next"><a href="../../22/autonomous-allsky-camera-with-raspberry-pi-part-2-powering-and-lightning-protection/index.html" rel="next">Autonomous Allsky camera with Raspberry PI. Part 2: powering and lightning protection</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			3 thoughts on &ldquo;<span>Autonomous Allsky camera with Raspberry PI. Part 1: overview.</span>&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-9" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="../../22/autonomous-allsky-camera-with-raspberry-pi-part-2-powering-and-lightning-protection/index.html" class="url" rel="ugc">Autonomous Allsky camera with Raspberry PI. Part 2: powering and lightning protection - Oleg Kutkov personal blog</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-20" class="pingback odd alt thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="../../../06/07/autonomous-allsky-camera-with-raspberry-pi-part-3-shooting-night-sky-in-fits-using-qhy5-iim-camera/index.html" class="url" rel="ugc">Autonomous Allsky camera with Raspberry PI. Part 3: shooting night sky in FITS using QHY5-IIM camera - Oleg Kutkov personal blog</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-961" class="comment even thread-even depth-1">
+			<article id="div-comment-961" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/dbb075168dbbcd32ede2dbd899e32b1e?s=32&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/dbb075168dbbcd32ede2dbd899e32b1e?s=64&#038;d=mm&#038;r=g 2x' class='avatar avatar-32 photo' height='32' width='32' loading='lazy' decoding='async'/>						<b class="fn">dudley</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-961"><time datetime="2020-11-12T01:39:15+02:00">November 12, 2020 at 1:39 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>thank you for uploading this project, this is a project i have been trying to get done, this is the best one i found so far</p>
+				</div><!-- .comment-content -->
+
+				<div class="reply"><a rel='nofollow' class='comment-reply-link' href='index28f9.html?replytocom=961#respond' data-commentid="961" data-postid="347" data-belowelement="div-comment-961" data-respondelement="respond" data-replyto="Reply to dudley" aria-label='Reply to dudley'>Reply</a></div>			</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+			<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='347' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="e322176c00" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="248"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="../../../../category/allsky-camera/index.html">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="../../../../category/astro-tools/index.html">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="../../../../category/automotive/index.html">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="../../../../category/electronics/index.html">Electronics</a> (34)
+</li>
+	<li class="cat-item cat-item-111"><a href="../../../../category/firmware/index.html">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="../../../../category/hardware/index.html">hardware</a> (12)
+</li>
+	<li class="cat-item cat-item-76"><a href="../../../../category/linux-kernel/index.html">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="../../../../category/linux-system-development/index.html">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="../../../../category/networking/index.html">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="../../../../category/radio-antennas/index.html">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="../../../../category/radioastronomy/index.html">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="../../../../category/reverse-engineering/index.html">Reverse engineering</a> (7)
+</li>
+	<li class="cat-item cat-item-54"><a href="../../../../category/software/index.html">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="../../../../category/starlink/index.html">starlink</a> (1)
+</li>
+	<li class="cat-item cat-item-1"><a href="../../../../category/uncategorized/index.html">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="../../../../2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/index.html">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+											<li>
+					<a href="../../../../2023/03/18/reworking-gen2-starlink-router-from-spx-connector-to-8p8c-rj45/index.html">Reworking Gen2 Starlink router from SPX connector to 8P8C (RJ45)</a>
+									</li>
+											<li>
+					<a href="../../../../2022/07/18/data-logger-for-uni-t-ut800-multimeters/index.html">Data logger for UNI-T UT800 multimeters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4178">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link">Christian Borrman</span> on <a href="../../../../2024/02/12/starlink-terminal-revision-4-overview-and-tests/index.html#comment-4177">Starlink terminal revision 4: overview and tests</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://br/" class="url" rel="ugc external nofollow">Baú</a></span> on <a href="../../../../2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/index.html#comment-4176">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link">sk</span> on <a href="../../../../2021/01/07/writing-a-pci-device-driver-for-linux/index.html#comment-4152">Writing a PCI device driver for Linux</a></li><li class="recentcomments"><span class="comment-author-link"><a href="http://zkitszo.blogspot.com/" class="url" rel="ugc external nofollow">Zkitszo</a></span> on <a href="../../../../2020/06/17/combining-two-hackrf-sdr-to-see-more/index.html#comment-4137">Combining two HackRF SDR to see more</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="../../../../index.html">Home</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="../../../../starlink-repairs-archive/index.html">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="../../../../olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="../../../../license/index.html">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="../../../../about-me/index.html">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_1827c9da4c86fc3ad9db01f6a6132235.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2018/03/20/autonomous-allsky-camera-with-raspberry-pi-part-1-overview/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 May 2024 18:33:52 GMT -->
+</html>

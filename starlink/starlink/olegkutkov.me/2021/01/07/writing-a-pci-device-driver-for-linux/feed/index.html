@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>
+	Comments on: Writing a PCI device driver for Linux	</title>
+	<atom:link href="https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/feed/" rel="self" type="application/rss+xml" />
+	<link>https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/</link>
+	<description>Programming, electronics and diy projects</description>
+	<lastBuildDate>Mon, 20 May 2024 13:27:15 +0000</lastBuildDate>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.5.3</generator>
+	<item>
+		<title>
+		By: sk		</title>
+		<link>https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/#comment-4152</link>
+
+		<dc:creator><![CDATA[sk]]></dc:creator>
+		<pubDate>Mon, 20 May 2024 13:27:15 +0000</pubDate>
+		<guid isPermaLink="false">https://olegkutkov.me/?p=1575#comment-4152</guid>
+
+					<description><![CDATA[Can you please give some insight for pcie hot plug details and it&#039;s working.]]></description>
+			<content:encoded><![CDATA[<p>Can you please give some insight for pcie hot plug details and it&#8217;s working.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Paul		</title>
+		<link>https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/#comment-1675</link>
+
+		<dc:creator><![CDATA[Paul]]></dc:creator>
+		<pubDate>Fri, 26 May 2023 07:12:47 +0000</pubDate>
+		<guid isPermaLink="false">https://olegkutkov.me/?p=1575#comment-1675</guid>
+
+					<description><![CDATA[Hi Oleg,
+Thank you for an excellent resource, it has been very helpful to me and encouraged me to experiment.
+One thing I found, in the character driver the last parameter for unregister_chrdev_region(MKDEV(dev_major, 0), MINORMASK) should perhaps be MAXDEV?
+Best regards
+Paul]]></description>
+			<content:encoded><![CDATA[<p>Hi Oleg,<br />
+Thank you for an excellent resource, it has been very helpful to me and encouraged me to experiment.<br />
+One thing I found, in the character driver the last parameter for unregister_chrdev_region(MKDEV(dev_major, 0), MINORMASK) should perhaps be MAXDEV?<br />
+Best regards<br />
+Paul</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Gnanaguru Ganesan		</title>
+		<link>https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/#comment-1067</link>
+
+		<dc:creator><![CDATA[Gnanaguru Ganesan]]></dc:creator>
+		<pubDate>Mon, 04 Oct 2021 05:43:48 +0000</pubDate>
+		<guid isPermaLink="false">https://olegkutkov.me/?p=1575#comment-1067</guid>
+
+					<description><![CDATA[Hi,
+
+I&#039;ve gone through it and I&#039;m planning to learn PCIe Card Reader. There I&#039;ve understood that /drivers/misc/cardreader/rtsx_pci.ko (while rtsx_pci.ko = rtsx_pcr.o rts5209.o rts5229.o rtl8411.o rts5227.o rts5249.o rts5260.o rts5261.o rts5228.o) is the PCIe Card Reader Hardware that is available in Laptop and /drivers/mmc/host/rtsx_pci_sdmmc.ko is the MMC card interface via PCIe Card Reader.
+
+In that rtsx_pci.ko has used module_pci_driver, while rtsx_pci_sdmmc.ko uses module_platform_driver. Why is that so? What does it mean by Platform device driver? Why haven&#039;t they used pci_register_driver directly?
+
+Kindly to clarify the doubt sir. I was unable to find answers anywhere.]]></description>
+			<content:encoded><![CDATA[<p>Hi,</p>
+<p>I&#8217;ve gone through it and I&#8217;m planning to learn PCIe Card Reader. There I&#8217;ve understood that /drivers/misc/cardreader/rtsx_pci.ko (while rtsx_pci.ko = rtsx_pcr.o rts5209.o rts5229.o rtl8411.o rts5227.o rts5249.o rts5260.o rts5261.o rts5228.o) is the PCIe Card Reader Hardware that is available in Laptop and /drivers/mmc/host/rtsx_pci_sdmmc.ko is the MMC card interface via PCIe Card Reader.</p>
+<p>In that rtsx_pci.ko has used module_pci_driver, while rtsx_pci_sdmmc.ko uses module_platform_driver. Why is that so? What does it mean by Platform device driver? Why haven&#8217;t they used pci_register_driver directly?</p>
+<p>Kindly to clarify the doubt sir. I was unable to find answers anywhere.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Bernardo		</title>
+		<link>https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/#comment-1064</link>
+
+		<dc:creator><![CDATA[Bernardo]]></dc:creator>
+		<pubDate>Sun, 05 Sep 2021 23:07:09 +0000</pubDate>
+		<guid isPermaLink="false">https://olegkutkov.me/?p=1575#comment-1064</guid>
+
+					<description><![CDATA[Your blog is a great resource.
+
+I&#039;m porting a pcie device driver and it used to call of_node_full_name() in the probe function. I need to read the device tree but every attempt to read has failed.
+
+Something like this:
+
+static int probe(struct pci_dev *pdev, const struct pci_device_id *id)
+{
+  pr_info(&quot;Found PCI device: %s\n&quot;, of_node_full_name(pdev-&#062;dev.of_node));
+}
+
+Could you include some example how to?
+
+Thank you.]]></description>
+			<content:encoded><![CDATA[<p>Your blog is a great resource.</p>
+<p>I&#8217;m porting a pcie device driver and it used to call of_node_full_name() in the probe function. I need to read the device tree but every attempt to read has failed.</p>
+<p>Something like this:</p>
+<p>static int probe(struct pci_dev *pdev, const struct pci_device_id *id)<br />
+{<br />
+  pr_info(&#8220;Found PCI device: %s\n&#8221;, of_node_full_name(pdev-&gt;dev.of_node));<br />
+}</p>
+<p>Could you include some example how to?</p>
+<p>Thank you.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Oleg Kutkov		</title>
+		<link>https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/#comment-1040</link>
+
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Tue, 11 May 2021 21:24:18 +0000</pubDate>
+		<guid isPermaLink="false">https://olegkutkov.me/?p=1575#comment-1040</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/#comment-1039&quot;&gt;Alfred Wilkinson&lt;/a&gt;.
+
+You&#039;re welcome :)]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/#comment-1039">Alfred Wilkinson</a>.</p>
+<p>You&#8217;re welcome 🙂</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Alfred Wilkinson		</title>
+		<link>https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/#comment-1039</link>
+
+		<dc:creator><![CDATA[Alfred Wilkinson]]></dc:creator>
+		<pubDate>Tue, 11 May 2021 13:44:01 +0000</pubDate>
+		<guid isPermaLink="false">https://olegkutkov.me/?p=1575#comment-1039</guid>
+
+					<description><![CDATA[Super helpful THANKS!!!!
+
+When I used this as a template I found that the MSI free routine at unload would seg fault.
+
+I debugged this down to two things... you should use pci_irq_vector() to get the actual assigned IRQ vector to assign to the handler.
+
+retval = pci_alloc_irq_vectors(dev, 1, 1, PCI_IRQ_MSI);
+irq = pci_irq_vector(dev, 0);
+retval = request_irq(irq, irq_fnc, 0, &quot;name&quot;, dev);
+
+and number two you need to free the IRQ before deallocating from the PCI layer.
+release_device()
+...
+irq = pci_irq_vector(dev,0);
+free_irq(irq, pdev);
+pci_free_irq_vectors(pdev);
+
+Again thanks for documenting this SUPER helpful.]]></description>
+			<content:encoded><![CDATA[<p>Super helpful THANKS!!!!</p>
+<p>When I used this as a template I found that the MSI free routine at unload would seg fault.</p>
+<p>I debugged this down to two things&#8230; you should use pci_irq_vector() to get the actual assigned IRQ vector to assign to the handler.</p>
+<p>retval = pci_alloc_irq_vectors(dev, 1, 1, PCI_IRQ_MSI);<br />
+irq = pci_irq_vector(dev, 0);<br />
+retval = request_irq(irq, irq_fnc, 0, &#8220;name&#8221;, dev);</p>
+<p>and number two you need to free the IRQ before deallocating from the PCI layer.<br />
+release_device()<br />
+&#8230;<br />
+irq = pci_irq_vector(dev,0);<br />
+free_irq(irq, pdev);<br />
+pci_free_irq_vectors(pdev);</p>
+<p>Again thanks for documenting this SUPER helpful.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Oleg Kutkov		</title>
+		<link>https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/#comment-1037</link>
+
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Thu, 06 May 2021 11:49:54 +0000</pubDate>
+		<guid isPermaLink="false">https://olegkutkov.me/?p=1575#comment-1037</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/#comment-1035&quot;&gt;Hamed&lt;/a&gt;.
+
+This function is called on character device read.
+For example &lt;code&gt;cat /dev/mydriver&lt;/code&gt; will open your character device and call &#039;read&#039; function. In the case of my driver, &lt;code&gt;lirdev_read&lt;/code&gt; is called.]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/#comment-1035">Hamed</a>.</p>
+<p>This function is called on character device read.<br />
+For example <code>cat /dev/mydriver</code> will open your character device and call &#8216;read&#8217; function. In the case of my driver, <code>lirdev_read</code> is called.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: m.fkh		</title>
+		<link>https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/#comment-1036</link>
+
+		<dc:creator><![CDATA[m.fkh]]></dc:creator>
+		<pubDate>Thu, 06 May 2021 11:12:03 +0000</pubDate>
+		<guid isPermaLink="false">https://olegkutkov.me/?p=1575#comment-1036</guid>
+
+					<description><![CDATA[Hi,
+I want to get the best performance of pcie device.
+Can you guide me?
+
+Thanks]]></description>
+			<content:encoded><![CDATA[<p>Hi,<br />
+I want to get the best performance of pcie device.<br />
+Can you guide me?</p>
+<p>Thanks</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Hamed		</title>
+		<link>https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/#comment-1035</link>
+
+		<dc:creator><![CDATA[Hamed]]></dc:creator>
+		<pubDate>Thu, 06 May 2021 10:47:58 +0000</pubDate>
+		<guid isPermaLink="false">https://olegkutkov.me/?p=1575#comment-1035</guid>
+
+					<description><![CDATA[Hi, 
+Thanks for the reply .
+How can I call the lirdev_read function at the user level in lir941_linux_driver?]]></description>
+			<content:encoded><![CDATA[<p>Hi,<br />
+Thanks for the reply .<br />
+How can I call the lirdev_read function at the user level in lir941_linux_driver?</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Oleg Kutkov		</title>
+		<link>https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/#comment-1029</link>
+
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Thu, 29 Apr 2021 20:15:19 +0000</pubDate>
+		<guid isPermaLink="false">https://olegkutkov.me/?p=1575#comment-1029</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/#comment-1028&quot;&gt;Hamed&lt;/a&gt;.
+
+Sure. It&#039;s Linux device drivers 3rd edition book,
+Linux kernel PCI documentation: https://www.kernel.org/doc/html/latest/PCI/pci.html
+And existing PCI device drivers, just as an example.]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://olegkutkov.me/2021/01/07/writing-a-pci-device-driver-for-linux/#comment-1028">Hamed</a>.</p>
+<p>Sure. It&#8217;s Linux device drivers 3rd edition book,<br />
+Linux kernel PCI documentation: <a href="https://www.kernel.org/doc/html/latest/PCI/pci.html" rel="nofollow ugc">https://www.kernel.org/doc/html/latest/PCI/pci.html</a><br />
+And existing PCI device drivers, just as an example.</p>
+]]></content:encoded>
+		
+			</item>
+	</channel>
+</rss>

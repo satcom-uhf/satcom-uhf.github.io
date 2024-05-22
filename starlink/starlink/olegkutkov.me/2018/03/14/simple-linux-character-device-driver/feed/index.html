@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	>
+<channel>
+	<title>
+	Comments on: Simple Linux character device driver	</title>
+	<atom:link href="https://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/feed/" rel="self" type="application/rss+xml" />
+	<link>https://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/</link>
+	<description>Programming, electronics and diy projects</description>
+	<lastBuildDate>Thu, 04 May 2023 03:29:45 +0000</lastBuildDate>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.5.3</generator>
+	<item>
+		<title>
+		By: Arun		</title>
+		<link>https://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/#comment-1562</link>
+
+		<dc:creator><![CDATA[Arun]]></dc:creator>
+		<pubDate>Thu, 04 May 2023 03:29:45 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=359#comment-1562</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/#comment-1092&quot;&gt;Fabian&lt;/a&gt;.
+
+true, I also faced same issue with linux 6.1.2]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/#comment-1092">Fabian</a>.</p>
+<p>true, I also faced same issue with linux 6.1.2</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Tom		</title>
+		<link>https://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/#comment-1402</link>
+
+		<dc:creator><![CDATA[Tom]]></dc:creator>
+		<pubDate>Thu, 15 Dec 2022 05:42:03 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=359#comment-1402</guid>
+
+					<description><![CDATA[Hi Oleg!
+
+This is the best tutorial I have come across, thanks a ton!
+
+I really liked rest of the articles as well. You have a knack for simplifying the complexity, keep up the good work.
+
+I come from the bare metal side, taking first steps in embedded linux. Your example code works well on x86. I was trying to attempt it on a A7 cpu, changed the ARCH to arm-linux-gnueabihf in the makefile but it still complains.
+
+Would be great if you could give some pointer on how and what to change for ARM based devices. Maybe add to the above article or write a new one whenever you can.
+
+Thanks again]]></description>
+			<content:encoded><![CDATA[<p>Hi Oleg!</p>
+<p>This is the best tutorial I have come across, thanks a ton!</p>
+<p>I really liked rest of the articles as well. You have a knack for simplifying the complexity, keep up the good work.</p>
+<p>I come from the bare metal side, taking first steps in embedded linux. Your example code works well on x86. I was trying to attempt it on a A7 cpu, changed the ARCH to arm-linux-gnueabihf in the makefile but it still complains.</p>
+<p>Would be great if you could give some pointer on how and what to change for ARM based devices. Maybe add to the above article or write a new one whenever you can.</p>
+<p>Thanks again</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Oleg Kutkov		</title>
+		<link>https://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/#comment-1387</link>
+
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Mon, 14 Nov 2022 21:21:48 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=359#comment-1387</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/#comment-1383&quot;&gt;Enrico Maria De Angelis&lt;/a&gt;.
+
+In most cases, yes. But this is just a tutorial about how to write chardev driver, not a production code. In the real world, apps buffer and buffer size might be dynamically declared somewhere else in a larger driver structure.]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/#comment-1383">Enrico Maria De Angelis</a>.</p>
+<p>In most cases, yes. But this is just a tutorial about how to write chardev driver, not a production code. In the real world, apps buffer and buffer size might be dynamically declared somewhere else in a larger driver structure.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Why piping cat into head -c 5 for a chardev results in many more calls to the driver&#039;s read than just calling head -c 5 on the chardev? - JTuto Mercure		</title>
+		<link>https://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/#comment-1386</link>
+
+		<dc:creator><![CDATA[Why piping cat into head -c 5 for a chardev results in many more calls to the driver&#039;s read than just calling head -c 5 on the chardev? - JTuto Mercure]]></dc:creator>
+		<pubDate>Sun, 13 Nov 2022 17:10:34 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=359#comment-1386</guid>
+
+					<description><![CDATA[[&#8230;] inspiration from this blog post, I&#8217;m playing around with linux device drivers (which I&#8217;m studying from [&#8230;]]]></description>
+			<content:encoded><![CDATA[<p>[&#8230;] inspiration from this blog post, I&#8217;m playing around with linux device drivers (which I&#8217;m studying from [&#8230;]</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Enrico Maria De Angelis		</title>
+		<link>https://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/#comment-1385</link>
+
+		<dc:creator><![CDATA[Enrico Maria De Angelis]]></dc:creator>
+		<pubDate>Sun, 13 Nov 2022 16:32:03 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=359#comment-1385</guid>
+
+					<description><![CDATA[Also, the variable &lt;code&gt;ncopied&lt;/code&gt; seems to suggest &quot;number of bytes copied&quot;, whereas it is the number of bytes &lt;em&gt;not&lt;/em&gt; copied yet, so a better name would be &lt;code&gt;notCopied&lt;/code&gt;?]]></description>
+			<content:encoded><![CDATA[<p>Also, the variable <code>ncopied</code> seems to suggest &#8220;number of bytes copied&#8221;, whereas it is the number of bytes <em>not</em> copied yet, so a better name would be <code>notCopied</code>?</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Enrico Maria De Angelis		</title>
+		<link>https://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/#comment-1384</link>
+
+		<dc:creator><![CDATA[Enrico Maria De Angelis]]></dc:creator>
+		<pubDate>Sun, 13 Nov 2022 16:07:55 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=359#comment-1384</guid>
+
+					<description><![CDATA[By const I guess I mean a macro (sorry, coming from the C++ side of things, not much used to C-style arrays).]]></description>
+			<content:encoded><![CDATA[<p>By const I guess I mean a macro (sorry, coming from the C++ side of things, not much used to C-style arrays).</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Enrico Maria De Angelis		</title>
+		<link>https://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/#comment-1383</link>
+
+		<dc:creator><![CDATA[Enrico Maria De Angelis]]></dc:creator>
+		<pubDate>Sun, 13 Nov 2022 16:04:42 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=359#comment-1383</guid>
+
+					<description><![CDATA[When declaring databuf, maxdatalen is always 30. Would it make sense to define it as const, for the purpose of declaring databuf without relying on the VLA extension, and then declare another variable to be inizialized to maxdatalen and be used in its place afterwards?]]></description>
+			<content:encoded><![CDATA[<p>When declaring databuf, maxdatalen is always 30. Would it make sense to define it as const, for the purpose of declaring databuf without relying on the VLA extension, and then declare another variable to be inizialized to maxdatalen and be used in its place afterwards?</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: What is the modern way of creating devices files in /dev/? - TechTalk7		</title>
+		<link>https://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/#comment-1382</link>
+
+		<dc:creator><![CDATA[What is the modern way of creating devices files in /dev/? - TechTalk7]]></dc:creator>
+		<pubDate>Sat, 12 Nov 2022 23:22:05 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=359#comment-1382</guid>
+
+					<description><![CDATA[[&#8230;] and device_create C functions, rather than mknod shell function, to create device files. Here&#8216;s another one, blog post written in early [&#8230;]]]></description>
+			<content:encoded><![CDATA[<p>[&#8230;] and device_create C functions, rather than mknod shell function, to create device files. Here&#8216;s another one, blog post written in early [&#8230;]</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Brian Carcich		</title>
+		<link>https://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/#comment-1351</link>
+
+		<dc:creator><![CDATA[Brian Carcich]]></dc:creator>
+		<pubDate>Fri, 15 Jul 2022 19:27:09 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=359#comment-1351</guid>
+
+					<description><![CDATA[@Oleg Kutkov:  Thank you for this!  It was slow going to get my slow brain to the knee of the device driver learning curve, and your example has helped a lot.
+
+The off-by-one error is still there, but since the buffer length is 30, in practice it will not matter because that buffer will actually include the next two bytes (i.e. to 32).  Not that I am excusing the error, just sayin&#039;]]></description>
+			<content:encoded><![CDATA[<p>@Oleg Kutkov:  Thank you for this!  It was slow going to get my slow brain to the knee of the device driver learning curve, and your example has helped a lot.</p>
+<p>The off-by-one error is still there, but since the buffer length is 30, in practice it will not matter because that buffer will actually include the next two bytes (i.e. to 32).  Not that I am excusing the error, just sayin&#8217;</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Oleg Kutkov		</title>
+		<link>https://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/#comment-1093</link>
+
+		<dc:creator><![CDATA[Oleg Kutkov]]></dc:creator>
+		<pubDate>Fri, 26 Nov 2021 20:08:09 +0000</pubDate>
+		<guid isPermaLink="false">http://olegkutkov.me/?p=359#comment-1093</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/#comment-1092&quot;&gt;Fabian&lt;/a&gt;.
+
+Hello.
+Thank you for the information. Something may be changed in the Linux kernel. I&#039;ll check.]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://olegkutkov.me/2018/03/14/simple-linux-character-device-driver/#comment-1092">Fabian</a>.</p>
+<p>Hello.<br />
+Thank you for the information. Something may be changed in the Linux kernel. I&#8217;ll check.</p>
+]]></content:encoded>
+		
+			</item>
+	</channel>
+</rss>
