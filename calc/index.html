@@ -1,0 +1,117 @@
+<html>
+  <body>
+    <div>
+      <p>Количество смен</p>
+      <input type="number" id="shiftCount" value="0" />
+      <p>Количество ночных смен</p>
+      <input type="number" id="nightShiftCount" value="0" />
+      <p>
+        Бригадир
+        <input id="boss" type="checkbox" />
+      </p>
+      <p>
+        Профсоюз
+        <input id="member" type="checkbox" />
+      </p>
+      <p>
+        Премия
+        <input id="addBonus" type="checkbox" />
+      </p>
+
+      <p>
+        Итого:
+        <span id="totalResult"></span>
+      </p>
+      <p>
+        Налог:
+        <span id="tax"></span>
+      </p>
+      <p>
+        На руки:
+        <span id="money"></span>
+      </p>
+      <button id="calculate">Пересчитать</button>
+    </div>
+    <button id="toggleParams">Параметры</button>
+    <div id="constants" style="display: none;">
+      <p>
+        Норма времени
+      </p>
+      <input type="number" id="timeLimit" value="151" />
+
+      <p>
+        Ставка
+      </p>
+      <input type="number" id="rate" value="183" />
+
+      <p>
+        Переработка
+      </p>
+      <input type="number" id="overTime" value="366" />
+
+      <p>Часов в смене</p>
+      <input type="number" id="hoursPerShift" value="12" />
+
+      <p>Премия</p>
+      <input type="number" id="bonus" value="36000" />
+
+      <p>Налог</p>
+      <input type="number" id="taxPercent" value="13" />
+    </div>
+    <script>
+      'use strict'
+
+      document.addEventListener('DOMContentLoaded', function (event) {
+        var el = function el(id) {
+          return document.getElementById(id)
+        }
+        el('toggleParams').addEventListener('click', function () {
+          var x = el('constants')
+          if (x.style.display === 'none') {
+            x.style.display = 'block'
+          } else {
+            x.style.display = 'none'
+          }
+        })
+        el('calculate').addEventListener('click', function () {
+          debugger
+          var B2 = el('timeLimit').value * 1
+          var B3 = el('rate').value * 1
+          var B4 = el('overTime').value * 1
+          var B5 = el('hoursPerShift').value * 1
+          var B6 = el('bonus').value * 1
+          var B7 = el('taxPercent').value * 1
+          var A10 = el('shiftCount').value
+          var B10 = el('nightShiftCount').value
+          var C10 = el('boss').checked
+          var D10 = el('member').checked
+          var E10 = el('addBonus').checked
+          var F10 = A10 * B5
+          var G10 = B2 > F10 ? 0 : F10 - B2
+          var H10 = B10 * 4
+          var I10 = Math.min(F10, B2) * B3
+          var J10 = H10 * B3
+          var K10 = G10 * B4
+          var L10 = I10 + J10 + K10 + (E10 ? B6 : 0)
+          var taxPercent = D10 ? B7 * 1 + 1 : B7
+          var M10 = (L10 / 100) * taxPercent
+          var N10 = L10 - M10 + (C10 ? 20000 : 0)
+          el('totalResult').innerText = L10
+          el('tax').innerText = M10
+          el('money').innerText = N10
+          console.log({
+            F10: F10,
+            G10: G10,
+            H10: H10,
+            I10: I10,
+            J10: J10,
+            K10: K10,
+            L10: L10,
+            M10: M10,
+            taxPercent: taxPercent,
+          })
+        })
+      })
+    </script>
+  </body>
+</html>
