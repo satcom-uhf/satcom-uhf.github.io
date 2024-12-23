@@ -1,0 +1,49 @@
+<link href='wf.css' rel='stylesheet' type='text/css'>
+
+<form method="post" id="loginForm" action="wfclient.html">
+<div class="box">
+<h1>WalkieFleet</h1>
+
+<input type="text" name="login" id="login" onFocus="field_focus(this, 'Login');" onblur="field_blur(this, 'Login');" class="field" />
+<input type="password" name="password" id="password" value="" onFocus="field_focus(this, 'Password');" onblur="field_blur(this, 'Password');" class="field" />
+<input type="text" name="serveraddress" id="serveraddress" onFocus="field_focus(this, 'Server Address');" onblur="field_blur(this, 'Server Address');" class="field" />
+<a href="#" onClick="submitLogin();"><div class="btn">Sign In</div></a>
+</div> <!-- End Box -->
+  
+</form>
+  
+<script>
+function submitLogin()
+{
+	sessionStorage.setItem("login", document.getElementById("login").value);
+	sessionStorage.setItem("password", document.getElementById("password").value);
+	sessionStorage.setItem("serveraddress", document.getElementById("serveraddress").value);
+	document.getElementById('loginForm').submit()
+}
+
+function field_focus(field, email)
+{
+   if(field.value == email)
+   {
+      field.value = '';
+   }
+}
+
+function field_blur(field, email)
+{
+   if(field.value == '')
+   {
+      field.value = email;
+   }
+}
+
+//Fade in dashboard box
+$(document).ready(function(){
+    $('.box').hide().fadeIn(1000);
+    });
+
+//Stop click event
+$('a').click(function(event){
+    event.preventDefault(); 
+	});
+</script>

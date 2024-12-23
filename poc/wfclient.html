@@ -1,0 +1,542 @@
+<html>
+   <head>
+   <link href="wf.css" rel="stylesheet" type="text/css">
+      <script type="text/javascript" src="./alawmulaw.js"></script>
+	  <script type = "text/javascript">
+        var ActiveCallId = "";
+        var SelectedObjectId = "";
+        var selectedObjectName = "";
+        var SelectedUserId = "";
+        var IsTx = false, IsRx = false;
+        var SelectedObjectType = "";
+        var ws;
+
+        var sampleRate;
+        var audioContext;
+        var soundRecorder;
+        var microphone_stream = null;
+        var audio_processor_node = null;
+        var soundBuffer;
+
+        var udpPacketBuffer;
+        var currentFrame;
+        var currentBufferIndex = 0;
+        var bufferSamplesCount = 0;
+        var sequenceNumber = 0;
+        var ssrc = 0;
+
+        function WebSocketRun()
+        {
+            if ("WebSocket" in window) {
+               ws = new WebSocket("ws://" + sessionStorage.getItem("serveraddress"));
+			   	
+               ws.onopen = function() {
+               };
+				
+               ws.onmessage = function (evt) { 
+				  var messages = JSON.parse(evt.data);
+                  for(mi = 0; mi < messages.length; mi++)
+				  {
+					var msg = messages[mi];
+					switch(msg.MessageID)
+					{
+						case "SERVER_CONFIG":
+							sessionStorage.setItem("VoipPort", msg.VoipPort);
+							sessionStorage.setItem("AudioSampleRate", msg.AudioSampleRate);
+							sessionStorage.setItem("AudioBitRate", msg.AudioBitRate);
+							sessionStorage.setItem("AudioFrameSize", msg.AudioFrameSize);
+							
+							bufferSamplesCount = sessionStorage.getItem("AudioSampleRate") / 1000 * sessionStorage.getItem("AudioFrameSize");
+							udpPacketBuffer = new ArrayBuffer(12 + bufferSamplesCount); // aLaw, muLaw
+
+							currentFrame = new Int16Array(bufferSamplesCount);
+						    currentBufferIndex = 0;
+
+							//VoipEndpoint = new IPEndPoint(ServerIPAddr, VoIPPort);
+						    //rtpPacket = new RtpPacket { Version = 2, SSRC = ssrc, PayloadType = 106, SequenceNumber = 0, Timestamp = 0 };
+						    ssrc = new Uint32Array(1);
+							window.crypto.getRandomValues(ssrc);
+						    var devconf = [{ MessageID: "DEVICE_CONFIG",  Ssrc: ssrc[0], AppName: "ApiClientWEB", VersionName: "5.5", VersionCode: 1, AudioCodec: 1, VoiceOverTcp : true, Password: sessionStorage.getItem("password"), 
+							DeviceData: { SessionID: getBase64ID(), ID: getDeviceID(), DeviceDescription: "MANUFACTURER=WLLC;MODEL=APIClientWEB;SERIAL=123456789;OSVERSION=5.0", 
+										Login: sessionStorage.getItem("login"), AvatarHash: "", StatusID: "AAAAAAAAAAAAAAAAAAAAAA==" }
+							}];
+							ws.send(JSON.stringify(devconf));
+							break;
+						case "CONFIG_SERVER_RESPONSE_NACK":
+							alert(msg.Reason);
+						break;
+                    	case "CONFIG_SERVER_RESPONSE_ACK":
+							var login = [{ MessageID: "LOGIN"}];
+							ws.send(JSON.stringify(login));
+						break;
+						case "LOGIN_RESPONSE":
+							if(msg.Response == 0)
+							{
+								sessionStorage.setItem("UserID", msg.UserID);
+								document.getElementById("ClientHeader").innerHTML = "Welcome, " + sessionStorage.getItem("login") + "!";
+
+							    initAudio();
+							}
+							break;
+						case "DATAEX":
+							switch(msg.DataType)
+							{
+								case 12: //Groups
+								ProcessDataexGroups(msg.DataObjects, msg.Operation);
+								break;
+								case 10: //Devices
+								ProcessDataexDevices(msg.DataObjects, msg.Operation);
+								break;
+							}
+							break;
+                        case "PTT_CONTROL":
+                            ProcessPTTControl(msg);
+                            break;
+					    case "VOICE_PACKET":
+					        process_voice_packet(msg);
+                            break;
+
+					}
+				  }
+               };
+			   
+			   function ProcessPTTControl(msg)
+			   {
+                    var control = msg.Control;
+                    var sourceId = msg.SourceID;
+                    var sourceName = msg.SourceName;
+                    var targetId = msg.TargetID;
+                    var targetName = msg.TargetName;
+                    var callId = msg.CallID;
+
+                    switch (control)
+                    {
+                        case 0: //VOICE_PRIVATE_BEGIN
+                            var pttConfirm = [{MessageID: "PTT_RESPONSE", Destination: sourceId, Response: 0, Type: 0}];
+                            ws.send(JSON.stringify(pttConfirm));
+							break;
+                        case 10: //VOICE_GROUP_ENTER
+                            ActiveCallId = callId;
+                            SelectedObjectType = "group";
+                            setSelectedObjectName(targetName);
+                            SelectedObjectId = targetId;
+                            break;
+                        case 9: //VOICE_PRIVATE_ENTER
+                            ActiveCallId = callId;
+                            SelectedObjectType = "private";
+                            if (sourceId == getDeviceID())
+                            {
+                                setSelectedObjectName(targetName);
+                                SelectedObjectId = targetId;
+                            }
+                            else
+                            {
+                                setSelectedObjectName(sourceName);
+                                SelectedObjectId = sourceId;
+                            }
+                            break;
+                        case 1: //VOICE_PRIVATE_PRESSED
+                        case 5: //VOICE_GROUP_PRESSED
+                            if (ActiveCallId == callId)
+                            {
+                                IsTx = (sourceId == getDeviceID());
+                                IsRx = !IsTx;
+                                if (IsTx) //TX
+                                {
+                                    document.getElementById("pttBtn").style = "background: red;";
+                                    //MicRecorder.Start("Default Input Device", SampleRate, 16, 1, 8, SampleRate * 2 * FrameSize / 1000);
+                                }
+                                else
+                                {
+                                    document.getElementById("pttBtn").style = "background: green;";
+//                                    StartAnnonceTimer();
+//                                    VoiceSocket.BeginReceive(receivedData, 0, receivedData.Length, SocketFlags.None, OnDataReceived, null);
+                                }
+                            }
+                            break;
+                        case 2: //VOICE_PRIVATE_RELEASED
+                        case 6: //VOICE_GROUP_RELEASED
+                            //StopAnnonceTimer();
+                            if (ActiveCallId == callId)
+                            {
+                                document.getElementById("pttBtn").style = "background: lightblue;";
+                                //if(IsTx) MicRecorder.Stop();
+                                IsTx = false;
+                                IsRx = false;
+                            }
+                            break;
+                        case 3: //VOICE_PRIVATE_END
+                        case 7: //VOICE_GROUP_END
+                            if (ActiveCallId == callId)
+                            {
+                                document.getElementById("pttBtn").style = "background: lightgray;";
+                                ActiveCallId = "";
+                                SelectedObjectId = "";
+                                setSelectedObjectName("");
+                                SelectedObjectType = "";
+
+								var grplist = document.getElementById("GroupList");
+                                var devlist = document.getElementById("UserList");
+                                if (grplist.selectedIndex >= 0)
+                                {
+                                    SelectedObjectId = grplist.options[grplist.selectedIndex].value;
+                                    setSelectedObjectName(grplist.options[grplist.selectedIndex].innerHTML);
+                                    SelectedUserId = "";
+                                    SelectedObjectType = "group";
+                                }
+                                else if (devlist.selectedIndex >= 0)
+                                {
+                                    SelectedObjectId = devlist.options[devlist.selectedIndex].value;
+                                    setSelectedObjectName(devlist.options[devlist.selectedIndex].innerHTML);
+                                    SelectedUserId = devlist.options[devlist.selectedIndex].tag;
+                                    SelectedObjectType = "private";
+                                }
+                            }
+                            break;
+                    }
+			   }
+			   
+			   function ProcessDataexGroups(grps, dataOp)
+			   {
+					var list = document.getElementById("GroupList");
+					
+					if(dataOp == 0) //Initialize
+						list.innerHTML = "";
+						
+					for(i = 0; i < grps.length; i++)
+					{
+						switch(dataOp)
+						{
+							case 0: //Initialize
+							case 1: //Add
+								var opt = document.createElement('option');
+								opt.value = grps[i].ID;
+								opt.innerHTML = grps[i].Name;
+								list.appendChild(opt);
+								break;
+							case 3: //Change
+								for(k = 0; j < list.options.length; k++)
+								{
+									if(list.options[k].value == grps[i].ID)
+										list.options[k].innerHTML = grps[i].Name;
+								}
+								break;
+							case 2: //Remove
+								for(j = 0; j < list.options.length; j++)
+								{
+									if(list.options[j].value == grp[i].ID)
+										list.remove(j);
+								}
+							break;
+						}
+					}
+			   }
+			   function ProcessDataexDevices(devs, dataOp)
+			   {
+					var list = document.getElementById("UserList");
+					
+					if(dataOp == 0) //Initialize
+						list.innerHTML = "";
+						
+					for(i = 0; i < devs.length; i++)
+					{
+						switch(dataOp)
+						{
+							case 0: //Initialize
+							case 1: //Add
+								if(getDeviceID() != devs[i].ID)
+								{
+									var opt = document.createElement('option');
+									opt.value = devs[i].ID;
+									opt.innerHTML = devs[i].UserName;
+									opt.tag = devs[i].UserID;
+									list.appendChild(opt);
+								}
+								break;
+							case 3: //Change
+								for(k = 0; j < list.options.length; k++)
+								{
+									if(list.options[k].value == devs[i].ID)
+										list.options[k].innerHTML = devs[i].UserName;
+								}
+								break;
+							case 2: //Remove
+								for(j = 0; j < list.options.length; j++)
+								{
+									if(list.options[j].value == devs[i].ID)
+										list.remove(j);
+								}
+							break;
+						}
+					}
+			   }
+
+			   function process_voice_packet(msg) {
+
+			       var udp = base64ToUint8Array(msg.Data);
+			       var alaw = new Uint8Array(udp.buffer, 12);
+			       var pcm = alawmulaw.alaw.decode(alaw);
+
+			       var audioFrame = new Float32Array(bufferSamplesCount);
+			       for(i = 0; i < bufferSamplesCount; i++)
+			           audioFrame[i] = 1.0 * pcm[i] / 32767;
+
+			       soundBuffer.addChunk(audioFrame);
+			   };
+
+
+			   
+               ws.onerror = function(evt) { 
+                  alert("Socket error: " + JSON.stringify(evt, null, 4)); 
+               };
+
+               ws.onclose = function(evt) { 
+				  alert("Socket closed. Code: "+evt.code);	
+               };
+	        } else {
+              
+               // The browser doesn't support WebSocket
+               alert("WebSocket NOT supported by your Browser!");
+            }
+         }
+		 function getBase64ID()
+		 {
+			var array = new Uint8Array(16);
+			window.crypto.getRandomValues(array);
+            var b64 = '';
+			for (var i = 0; i < array.length; i++) {
+				b64 += String.fromCharCode( array[i] );
+			}
+			return window.btoa( b64 );		 
+		 }
+		 
+		 function getDeviceID()
+		 {
+			var deviceid = localStorage.getItem("DeviceID");
+			if(deviceid == null)
+			{
+				deviceid = getBase64ID();
+				localStorage.setItem("DeviceID", deviceid);
+			}
+			return deviceid;
+		 }
+		 
+		 function startPTT()
+		 {
+            if (SelectedObjectId == "") return;
+            var pttrequest = [{MessageID: "PTT_REQUEST", Destination: SelectedObjectId, Type: (SelectedObjectType == "group" ? 2 : 0)}];
+            ws.send(JSON.stringify(pttrequest));
+            startRecording();
+		 }
+		 
+		 function stopPTT()
+		 {
+            if (SelectedObjectId == "") return;
+            var pttrequest = [{MessageID: "PTT_REQUEST", Destination: SelectedObjectId, Type: (SelectedObjectType == "group" ? 3 : 1)}];
+            ws.send(JSON.stringify(pttrequest));
+		    stopRecording();
+		 }
+
+		 function setSelectedObjectName(objname)
+		 {
+			selectedObjectName = objname;
+			document.getElementById("SelectedObject").innerHTML = objname;
+		 }
+		 
+		 function groupSelected(list)
+		 {
+			document.getElementById("UserList").selectedIndex = -1;
+            if (ActiveCallId == "")
+            {
+                SelectedObjectId = list.options[list.selectedIndex].value;
+                setSelectedObjectName(list.options[list.selectedIndex].innerHTML);
+                SelectedObjectType = "group";
+                SelectedUserId = "";
+            }
+		 }
+		 function userSelected(list)
+		 {
+			document.getElementById("GroupList").selectedIndex = -1;
+            if (ActiveCallId == "")
+            {
+                SelectedObjectId = list.options[list.selectedIndex].value;
+                setSelectedObjectName(list.options[list.selectedIndex].innerHTML);
+                SelectedObjectType = "private";
+                SelectedUserId = list.options[list.selectedIndex].tag;
+            }
+		 }
+
+		 function base64ToUint8Array(base64string) {
+		     var arrayBuffer = Uint8Array.from(atob(base64string), function(c) { return c.charCodeAt(0); });
+		     return arrayBuffer;
+		 }
+
+         function uint8ArrayToBase64(arrayBuffer) {
+            var base64 = btoa(arrayBuffer.reduce((data, byte) => data + String.fromCharCode(byte), ''));
+            return base64;
+         }
+
+        sleep = time => new Promise(resolve => setTimeout(resolve, time));
+
+        function process_microphone_frame() {
+
+            var udpPacket = new Uint8Array(udpPacketBuffer);
+            // header
+            udpPacket[0] = 2 << 6; // udp version = 2
+            udpPacket[1] = 106; // voice call
+            sequenceNumber++;
+            udpPacket[2] = (sequenceNumber >> 8) & 0xff;
+            udpPacket[3] = sequenceNumber & 0xff;
+
+            udpPacket[8] = ((ssrc >> 0x18) & 0xff);
+            udpPacket[9] = ((ssrc >> 0x10) & 0xff);
+            udpPacket[10] = ((ssrc >> 8) & 0xff);
+            udpPacket[11] = (ssrc & 0xff);
+
+
+            var alaw = alawmulaw.alaw.encode(currentFrame);
+            udpPacket.set(alaw, 12);
+
+            var str = uint8ArrayToBase64(udpPacket);
+            var login = [{ MessageID: "VOICE_PACKET", Data: str }];
+            ws.send(JSON.stringify(login));
+        }
+
+        initAudio = () => {
+
+            sampleRate = sessionStorage.getItem("AudioSampleRate");
+
+            audioContext = new AudioContext({ sampleRate: sampleRate });
+
+            if (!navigator.getUserMedia)
+                navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+
+            if (navigator.getUserMedia){
+                navigator.getUserMedia({audio:true}, 
+                    function(stream) {
+                        microphone_stream = audioContext.createMediaStreamSource(stream);
+                        var chunkSize = 2048;
+                        audio_processor_node = audioContext.createScriptProcessor(chunkSize, 1, 1);
+                        audio_processor_node.onaudioprocess = function(data) {
+                            var leftChannel = data.inputBuffer.getChannelData(0);
+                            var index = 0;
+                            while (index < chunkSize) {
+                                while (currentBufferIndex < bufferSamplesCount && index < chunkSize) {
+                                    currentFrame[currentBufferIndex] = leftChannel[index] * 32767;
+                                    index++;
+                                    currentBufferIndex++;
+                                }
+
+                                if (currentBufferIndex == bufferSamplesCount) {
+                                    currentBufferIndex = 0;
+                                    process_microphone_frame();
+                                }
+                            }
+                        }
+                    },
+                    function(e) {
+                        alert('Error capturing audio.');
+                    }
+                );
+
+            } else { alert('getUserMedia not supported in this browser.'); }
+
+            soundBuffer = new SoundBuffer(audioContext, sampleRate, 10, 3, true);
+        }
+
+        startRecording = () => {
+            audioContext.resume();
+            microphone_stream.connect(audio_processor_node);
+            audio_processor_node.connect(audioContext.destination);
+        }
+
+        stopRecording = () => {
+            microphone_stream.disconnect(audio_processor_node);
+            audio_processor_node.disconnect(audioContext.destination);
+        }
+
+        class SoundBuffer {
+            constructor(ctx, sampleRate, framesCount, prefetchCount, debug) {
+                this.ctx = ctx;
+                this.sampleRate = sampleRate;
+                this.framesCount = framesCount;
+                this.prefetchCount = prefetchCount;
+                this.debug = debug;
+                this.chunks = [];
+                this.isPlaying = false;
+                this.startTime = 0;
+                this.lastChunkOffset = 0;
+            }
+                createChunk(chunk) {
+                    var audioBuffer = this.ctx.createBuffer(1, chunk.length, this.sampleRate);
+                    audioBuffer.getChannelData(0).set(chunk);
+                    var source = this.ctx.createBufferSource();
+                    source.buffer = audioBuffer;
+                    source.connect(this.ctx.destination);
+                    source.onended = (e) => {
+                        this.chunks.splice(this.chunks.indexOf(source), 1);
+                        if (this.chunks.length == 0) {
+                            this.isPlaying = false;
+                            this.startTime = 0;
+                            this.lastChunkOffset = 0;
+                        }
+                    };
+                    return source;
+                }
+                log(data) {
+                    if (this.debug) {
+                        console.log(new Date().toUTCString() + " : " + data);
+                    }
+                }
+                addChunk(data) {
+                    if (this.isPlaying && (this.chunks.length > this.framesCount)) {
+                        this.log("chunk discarded");
+                        return; // throw away
+                    }
+                    else if (this.isPlaying && (this.chunks.length <= this.framesCount)) { // schedule & add right now
+                        this.log("chunk accepted");
+                        let chunk = this.createChunk(data);
+                        chunk.start(this.startTime + this.lastChunkOffset);
+                        this.lastChunkOffset += chunk.buffer.duration;
+                        this.chunks.push(chunk);
+                    }
+                    else if ((this.chunks.length < this.prefetchCount) && !this.isPlaying) { // add & don't schedule
+                        this.log("chunk queued");
+                        let chunk = this.createChunk(data);
+                        this.chunks.push(chunk);
+                    }
+                    else { // add & schedule entire buffer
+                        this.log("queued chunks scheduled");
+                        this.isPlaying = true;
+                        let chunk = this.createChunk(data);
+                        this.chunks.push(chunk);
+                        this.startTime = this.ctx.currentTime;
+                        this.lastChunkOffset = 0;
+                        for (let i = 0; i < this.chunks.length; i++) {
+                            let chunk = this.chunks[i];
+                            chunk.start(this.startTime + this.lastChunkOffset);
+                            this.lastChunkOffset += chunk.buffer.duration;
+                        }
+                    }
+                }
+        }
+
+
+
+      </script>
+   </head>
+   
+   <body onload="javascript:WebSocketRun();">
+    <h2 id="ClientHeader">
+        Connecting...
+    </h2>
+	<div class="section">GROUPS</div>
+	<select id="GroupList" size="7" style="width: 250px" onchange="groupSelected(this)">
+	</select>      
+	<div class="section">USERS</div>
+	<select id="UserList" size="10" style="width: 250px" onchange="userSelected(this)">
+	</select>      
+	<div id="SelectedObject" class="selobj"></div>
+	<button id="pttBtn" class="pttbtn" style="background: lightgray;" onmousedown="startPTT()" onmouseup="stopPTT()">PTT</button>
+    </body>
+</html>
