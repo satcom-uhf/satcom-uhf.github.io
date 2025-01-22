@@ -1,0 +1,510 @@
+<!DOCTYPE html> <html lang="en-US">
+<!-- Mirrored from olegkutkov.me/2024/12/31/starlink-rev-3-v2-power-architecture/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jan 2025 01:56:36 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="https://olegkutkov.me/xmlrpc.php">
+    
+<link media="all" href="../../../../wp-content/cache/autoptimize/css/autoptimize_72549a6c6419313243542cf0fbec626b.css" rel="stylesheet"><title>Starlink rev 3 (V2) power architecture &#8211; Oleg Kutkov personal blog</title>
+<meta name='robots' content='max-image-preview:large' />
+	
+	
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Feed" href="https://olegkutkov.me/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Comments Feed" href="https://olegkutkov.me/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Oleg Kutkov personal blog &raquo; Starlink rev 3 (V2) power architecture Comments Feed" href="feed/index.html" />
+<script type="text/javascript">
+/* <![CDATA[ */
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/olegkutkov.me\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.7.1"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+<link rel='stylesheet' id='blog-way-fonts-css' href='../../../../wp-content/cache/autoptimize/css/autoptimize_single_94734ec7b04ae676db1e4cafbe009ca298dd.css?ver=1647447083' type='text/css' media='all' />
+
+
+<script type="text/javascript" src="../../../../wp-includes/js/jquery/jquery.minf43b.js?ver=3.7.1" id="jquery-core-js"></script>
+
+<link rel="https://api.w.org/" href="https://olegkutkov.me/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://olegkutkov.me/wp-json/wp/v2/posts/3325" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://olegkutkov.me/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.7.1" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='https://olegkutkov.me/?p=3325' />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://olegkutkov.me/wp-json/oembed/1.0/embed?url=https%3A%2F%2Folegkutkov.me%2F2024%2F12%2F31%2Fstarlink-rev-3-v2-power-architecture%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://olegkutkov.me/wp-json/oembed/1.0/embed?url=https%3A%2F%2Folegkutkov.me%2F2024%2F12%2F31%2Fstarlink-rev-3-v2-power-architecture%2F&amp;format=xml" />
+		<meta name="author" content="oleg_kutkov">
+		<meta name="classification" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="copyright" content="Copyright Oleg Kutkov personal blog - All rights Reserved.">
+		<meta name="designer" content="Oleg Kutkov">
+		<meta name="distribution" content="Global">
+		<meta name="language" content="en-US">
+		<meta name="publisher" content="Oleg Kutkov personal blog">
+		<meta name="rating" content="General">
+		<meta name="resource-type" content="Document">
+		<meta name="revisit-after" content="3">
+		<meta name="subject" content="Embedded, Linux system development, Electronics, Radio &amp; antennas">
+		<meta name="template" content="Twenty Sixteen">
+		<meta name="google-site-verification" content="8DtB-RdO3yEMbX6FI90X5epj-tTr5nOhooTmZxVmAcM" />
+<meta name="msvalidate.01" content="0C098D163A08B0D9E8B291C619A521FE" />
+<script type="text/javascript"> //<![CDATA[
+  var tlJsHost = ((window.location.protocol == "index.html") ? "https://secure.trust-provider.com/" : "http://www.trustlogo.com/");
+  document.write(unescape("%3Cscript src='" + tlJsHost + "trustlogo/javascript/trustlogo.js' type='text/javascript'%3E%3C/script%3E"));
+//]]></script>
+<script language="JavaScript" type="text/javascript">
+  TrustLogo("../../../../../www.positivessl.com/images/seals/positivessl_trust_seal_md_167x42.png", "POSDV", "none");
+</script>
+<link rel="pingback" href="https://olegkutkov.me/xmlrpc.php">               
+    
+
+<link rel="preload" as="style" href="../../../../wp-content/plugins/code-prettify/prettify/prettify.css" /><link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-32x32.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-180x180.png" />
+<meta name="msapplication-TileImage" content="https://olegkutkov.me/wp-content/uploads/2018/02/cropped-Screenshot-02152018-121038-PM-2-270x270.png" />
+		
+		</head>
+
+<body class="post-template-default single single-post postid-3325 single-format-standard sticky-top">
+	<div id="page" class="site">
+		<header id="masthead" class="site-header navbar-fixed-top" role="banner"><div class="container"><div class="row">    	<div class="col-sm-12">
+            <nav id="site-navigation" class="main-navigation" role="navigation">
+                <div class="menu-about-me-container"><ul id="primary-menu" class="menu"><li id="menu-item-218" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="https://olegkutkov.me/">Home</a></li>
+<li id="menu-item-3550" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3550"><a href="https://olegkutkov.me/forum/index.php">Forum</a></li>
+<li id="menu-item-2937" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="https://olegkutkov.me/starlink-repairs-archive/">Starlink repairs archive</a></li>
+<li id="menu-item-2978" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="https://olegkutkov.me/olegkutkov_public_key.txt">Public PGP</a></li>
+<li id="menu-item-3140" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="https://olegkutkov.me/license/">License</a></li>
+<li id="menu-item-219" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="https://olegkutkov.me/about-me/">About me</a></li>
+</ul></div>            </nav>
+        </div>
+        </div><!-- .row --></div><!-- .container --></header><!-- #masthead -->        <div class="main-banner banner-disabled overlay-enabled" >
+            <div class="container">
+                <div class="row">
+                    <div class="site-branding">
+                        
+                            <h2 class="site-title"><a href="https://olegkutkov.me/" rel="home">Oleg Kutkov personal blog</a></h2>
+                           
+                            
+                                <h3 class="site-description">Programming, electronics and diy projects</h3>
+
+                                                    </div><!-- .site-branding -->
+                </div>
+            </div>
+        </div><!-- .main-banner -->
+        <div id="content" class="site-content"><div class="container"><div class="row"><div class="col-md-8 col-sm-12 layout-right-sidebar main-content-area"><div id="primary" class="content-area"><main id="main" class="site-main" role="main">
+	
+<article id="post-3325" class="post-3325 post type-post status-publish format-standard hentry category-electronics category-hardware category-reverse-engineering category-starlink tag-electronics tag-pcb tag-rev3 tag-reverse tag-starlink">
+
+	<div class="detail-wrap">
+		<header class="entry-header">
+			<span class="cat-links"><a href="https://olegkutkov.me/category/electronics/" rel="category tag">Electronics</a>, <a href="https://olegkutkov.me/category/hardware/" rel="category tag">hardware</a>, <a href="https://olegkutkov.me/category/reverse-engineering/" rel="category tag">Reverse engineering</a>, <a href="https://olegkutkov.me/category/starlink/" rel="category tag">starlink</a></span><h1 class="entry-title">Starlink rev 3 (V2) power architecture</h1>
+				<div class="author-date">
+											<span class="author vcard"><a class="url fn n" href="https://olegkutkov.me/author/oleg_kutkov/">Oleg Kutkov</a></span>
+					
+											<span class="separator"> / </span>
+					
+											<span class="posted-on">December 31, 2024</span>
+									</div><!-- .author-date -->
+			
+		</header><!-- .entry-header -->
+
+		
+		<div class="entry-content">
+			<p><img decoding="async" class="alignleft size-full wp-image-3326" src="../../../../wp-content/uploads/2024/07/rev3_power_architect_thumb.jpg" alt="" width="150" height="137" />This article will explore how the Starlink REV3 (a.k.a. G3/V3) power architecture is implemented.<br />
+We will learn how the Starlink &#8220;PoE&#8221; is implemented and how the Starlink board powers up.<br />
+This information might be helpful for those doing Starlink repairs.</p>
+<p>The primary focus will be on the rev3 boards, which are the most common worldwide (as of summer 2024).<br />
+Please let me know if you want a similar article for other revisions of the terminal.</p>
+<p>Warning: A lot of pictures are below.</p>
+<p><span id="more-3325"></span></p>
+<h3>Starlink PoE implementation</h3>
+<p>All Starlink terminals (except MINI) are powered via the Ethernet data cable, which implements the proprietary Power Over Ethernet standard.<br />
+Voltages range in the cable from 48-56V, and the power is 45-320W, depending on the terminal model.</p>
+<p>Please note that the Starlink PoE is incompatible with any <a href="https://en.wikipedia.org/wiki/Power_over_Ethernet">PoE standard</a>, such as PoE+ or PoE++. The power line pinout is different.<br />
+Besides, there are no PoE standards for such high-power devices.</p>
+<p><a href="../../../../wp-content/uploads/2024/09/starlink_poe_comparison.jpg"><img fetchpriority="high" decoding="async" class="aligncenter size-large wp-image-3378" src="../../../../wp-content/uploads/2024/09/starlink_poe_comparison-1024x517.jpg" alt="" width="850" height="429" srcset="https://olegkutkov.me/wp-content/uploads/2024/09/starlink_poe_comparison-1024x517.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/09/starlink_poe_comparison-400x202.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/09/starlink_poe_comparison-768x388.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/09/starlink_poe_comparison-1536x776.jpg 1536w, https://olegkutkov.me/wp-content/uploads/2024/09/starlink_poe_comparison.jpg 1818w" sizes="(max-width: 850px) 100vw, 850px" /></a></p>
+<p><span style="color: #ad0000;">Connecting any standard and dumb PoE injector might damage your Starlink or PoE injector. Always use PoE injectors designed for Starlink, such as Yaosheng or DishyPowa.</span></p>
+<p>Most PoE standards typically implement some detection and classification of the connected devices. The Power Sourcing Equipment (PSE) controller sends a sensing voltage and detects the connected Powered Device (PD) response. This helps to negotiate safe voltage and power when it&#8217;s needed. You can read more about PoE detection/classification <a href="https://www.monolithicpower.com/learning/resources/power-over-ethernet-poe-power-supply-process-across-ieee-802-3af-at-bt-protocol">here</a>.</p>
+<p>Starlink is no exception but implements its own PoE signature and detection. A custom controller and detection circuits are in charge.</p>
+<p><a href="../../../../wp-content/uploads/2024/09/starlink_poe_architecture_diagram_wm.jpg"><img decoding="async" class="aligncenter size-large wp-image-3387" src="../../../../wp-content/uploads/2024/09/starlink_poe_architecture_diagram_wm-1024x724.jpg" alt="" width="850" height="601" srcset="https://olegkutkov.me/wp-content/uploads/2024/09/starlink_poe_architecture_diagram_wm-1024x724.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/09/starlink_poe_architecture_diagram_wm-400x283.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/09/starlink_poe_architecture_diagram_wm-768x543.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/09/starlink_poe_architecture_diagram_wm.jpg 1123w" sizes="(max-width: 850px) 100vw, 850px" /></a>Here is the PoE circuit in the Gen 2 Starlink router.</p>
+<p><a href="../../../../wp-content/uploads/2024/09/starlink_router_g2_poe_simple_with_labels.jpg"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-3389" src="../../../../wp-content/uploads/2024/09/starlink_router_g2_poe_simple_with_labels-1024x571.jpg" alt="" width="850" height="474" srcset="https://olegkutkov.me/wp-content/uploads/2024/09/starlink_router_g2_poe_simple_with_labels-1024x571.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/09/starlink_router_g2_poe_simple_with_labels-400x223.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/09/starlink_router_g2_poe_simple_with_labels-768x428.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/09/starlink_router_g2_poe_simple_with_labels.jpg 1060w" sizes="auto, (max-width: 850px) 100vw, 850px" /></a></p>
+<h4>Starlink PoE controller</h4>
+<p>This is quite an unusual chip.<br />
+The controller IC is <a href="https://www.renesas.com/us/en/products/programmable-mixed-signal-asic-ip-products/greenpak-programmable-mixed-signal-products/other-greenpaks/slg46620-greenpak-programmable-mixed-signal-matrix">SLG46620</a> &#8211; &#8220;GreenPAK&#8221; Programmable Mixed-signal Matrix from Renesas. This is a small CPLD-like chip, a one-time programmed microcontroller. SpaceX created and preprogrammed the design once, and now Renesas is producing these ICs. This is why you can&#8217;t google and replace this chip with something else.<br />
+Burned-in logic is quite simple: apply test voltage, measure consumption, enable main power MOSFET, measure consumption, and cut the voltage in case of trouble. Repeat.</p>
+<p>This IC is used in the REV1/REV2 <a href="https://tuckstruck.net/truck-and-kit/geekery/modifying-the-starlink-power-supply-to-run-on-ac-and-dc/">PoE brick</a> (both for the router and the Dishy), HP, and the GEN2 router. They replaced it in the GEN3 router with an <a href="https://olegkutkov.me/2024/08/04/powering-starlink-rev4-v3-from-the-12v-without-poe-injector-router/">STM32 MCU</a>.</p>
+<p>The sense voltage is <strong>2.7V</strong> for the <strong>GEN2</strong> router and <strong>4.4V</strong> for the <strong>REV1/REV2 PoE brick</strong>.</p>
+<p>The trigger load on the line is <strong>&lt;= 3.2K</strong>. When such resistance is measured between the Ethernet power pairs, the controller activates the power MOSFET. The REV1/REV2 PoE brick also checks for shorts between orange-to-green and blue-to-brown pairs, meaning all four lines are connected.</p>
+<p><a href="../../../../wp-content/uploads/2024/09/starlink_poe_line_sense.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3396" src="../../../../wp-content/uploads/2024/09/starlink_poe_line_sense.jpg" alt="" width="614" height="242" srcset="https://olegkutkov.me/wp-content/uploads/2024/09/starlink_poe_line_sense.jpg 822w, https://olegkutkov.me/wp-content/uploads/2024/09/starlink_poe_line_sense-400x158.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/09/starlink_poe_line_sense-768x303.jpg 768w" sizes="auto, (max-width: 614px) 100vw, 614px" /></a><br />
+The PoE controller activates the main power for <strong>876</strong> ms and measures current consumption. If the consumption is not sufficient (the line load is no longer 3.2k), the controller cuts the power and sleeps for <strong>450</strong> ms. Then, the cycle is repeated.</p>
+<p><a href="../../../../wp-content/uploads/2024/09/starlink_poe_controller_activation_cycles.jpg"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-3394" src="../../../../wp-content/uploads/2024/09/starlink_poe_controller_activation_cycles-1024x211.jpg" alt="" width="850" height="175" srcset="https://olegkutkov.me/wp-content/uploads/2024/09/starlink_poe_controller_activation_cycles-1024x211.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/09/starlink_poe_controller_activation_cycles-400x82.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/09/starlink_poe_controller_activation_cycles-768x158.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/09/starlink_poe_controller_activation_cycles.jpg 1157w" sizes="auto, (max-width: 850px) 100vw, 850px" /></a></p>
+<p>Please note there is no handshake and complex verification from the terminal side. It will start when the appropriate voltage is applied to the line.</p>
+<h4>So, why non-standard PoE?</h4>
+<p>When the first Starlink terminal came out (in 2020), Dishy&#8217;s total power consumption was 180W.<br />
+The REV3&#8217;s power consumption was significantly reduced to 40W (non-heating mode). However, the current REV4 is also <a href="https://olegkutkov.me/2024/02/12/starlink-terminal-revision-4-overview-and-tests/">power-hungry</a>.<br />
+HP Dishy can jump up to 300W, which is enormous.<br />
+<strong>There is no PoE standard for such high power.</strong> The best <strong>PoE++</strong> can provide up to <strong>90W</strong>.<br />
+SpaceX had to develop its own &#8220;standard&#8221; with all safety features.<br />
+REV1 and HP Dishes also use custom thicker Ethernet cables to provide enough power over the long cable.<br />
+Besides, Starlink does not use &#8220;PoE&#8221; or &#8220;Power Over Ethernet&#8221; phrases in its documents, labels, and even code.</p>
+<h3>Starlink REV3 architecture</h3>
+<p>Below, you can see the power architecture diagram for the REV3 terminal. Other revisions are somehow similar, but we are focusing on the REV3.</p>
+<p><a href="../../../../wp-content/uploads/2024/10/starlink_rev3_power_architecture.jpg"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-3435" src="../../../../wp-content/uploads/2024/10/starlink_rev3_power_architecture-1024x724.jpg" alt="" width="850" height="601" srcset="https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_power_architecture-1024x724.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_power_architecture-400x283.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_power_architecture-768x543.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_power_architecture.jpg 1123w" sizes="auto, (max-width: 850px) 100vw, 850px" /></a></p>
+<h4>Brief description</h4>
+<p>Input PoE voltage is dropped down to 12V and then distributed across various voltage regulators.<br />
+These voltage regulators provide different voltages for the SoC, antenna array, GNSS, and other consumers. This is generally true for every Starlink revision.</p>
+<p>The Input PoE current is controlled by the shunt and operational amplifier connected between the PoE return line (DC—) and the board&#8217;s GND.</p>
+<p>The PoE detection circuit generates an initial power consumption signature, which the power supply uses to activate the main power.</p>
+<p>The primary voltage regulator is <a href="https://www.st.com/en/power-management/l3751.html">L3751</a>, which has a wide input range. This regulator drops the input PoE voltage to <strong>12V</strong>, the primary internal voltage. Alternatively, they use <a href="https://www.ti.com/product/LM5146">LM5146</a>, which is practically the same IC with the same pinout.<br />
+The <a href="https://www.analog.com/media/en/technical-documentation/data-sheets/max16056-max16059.pdf">MAX16056</a> power supervisor controls the primary regulator operation. The supervisor circuit implements input voltage monitoring and generates some delay for the <strong>L3751</strong> enable pin. <strong>L3751</strong>, in turn, generates a Power Good signal, which is used for the SoC voltage regulator activation.</p>
+<p>Starlink SoC with peripherals requires different voltages to operate. The <a href="https://www.monolithicpower.com/en/mp8771.html">MP8771</a> regulator generates <strong>1V</strong> for the <strong>CPU cores</strong>.<br />
+Power Good output of the <strong>MP8771</strong> activates Enable input of the <a href="https://www.monolithicpower.com/en/mp8892.html">MP8892</a>. The <strong>MP8892</strong> is much more complex and generates four voltages:<br />
+&#8211; <strong>1.8V</strong> for the SoC IO module and GNSS receiver.<br />
+&#8211; <strong>3.3V</strong> for the system clock generator (CADY) and GNSS receiver.<br />
+&#8211; <strong>1.1V</strong> and <strong>1.3V</strong> are also for the SoC, RAM, and GNSS receiver.</p>
+<p>This 4-rail voltage regulator is connected to the SoC via the <strong>I2C</strong> bus and provides monitoring and regulation (<a href="https://en.wikipedia.org/wiki/Adaptive_voltage_scaling">AVS</a>).</p>
+<p>The <a href="https://www.monolithicpower.com/en/mp20073.html">MP20073</a> is a highly specialized regulator required by the DDR RAM.</p>
+<p>The CADY clock generator section requires a 3.3V and ENABLE signal from the SoC&#8217;s GPIO. This section has three linear voltage regulators, which will be described below.</p>
+<p>Five <a href="https://www.monolithicpower.com/en/mp8795.html">MP8795</a> voltage regulators provide power for the whole antenna array. All 16 Digital Beam Former (DBF) ICs with their Front End Modules (FEM) are getting power from these voltage regulators.<br />
+Two MP8795 generate 1V for the DBF digital section (DSP cores)—eight DBF ICs per regulator. Three MP8795 generate 1.8V for the DBF IO and FEM ICs. One regulator powers 10 DBF ICs with corresponding FEMs. The second regulator powers ten more. The third regulator powers the other four ICs.</p>
+<p>Components placements on the PCB:</p>
+<p><a href="../../../../wp-content/uploads/2024/09/starrlink_rev3_pcb_bottom_desciption.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3415" src="../../../../wp-content/uploads/2024/09/starrlink_rev3_pcb_bottom_desciption-1024x452.jpg" alt="" width="1052" height="464" srcset="https://olegkutkov.me/wp-content/uploads/2024/09/starrlink_rev3_pcb_bottom_desciption-1024x452.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/09/starrlink_rev3_pcb_bottom_desciption-400x177.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/09/starrlink_rev3_pcb_bottom_desciption-768x339.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/09/starrlink_rev3_pcb_bottom_desciption-1536x678.jpg 1536w, https://olegkutkov.me/wp-content/uploads/2024/09/starrlink_rev3_pcb_bottom_desciption-2048x905.jpg 2048w" sizes="auto, (max-width: 1052px) 100vw, 1052px" />Click on the image to see the full-resolution version</a></p>
+<p><a href="../../../../wp-content/uploads/2024/09/starrlink_rev3_pcb_left_and_cady_with_labels.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3417" src="../../../../wp-content/uploads/2024/09/starrlink_rev3_pcb_left_and_cady_with_labels-1024x567.jpg" alt="" width="729" height="404" srcset="https://olegkutkov.me/wp-content/uploads/2024/09/starrlink_rev3_pcb_left_and_cady_with_labels-1024x567.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/09/starrlink_rev3_pcb_left_and_cady_with_labels-400x222.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/09/starrlink_rev3_pcb_left_and_cady_with_labels-768x426.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/09/starrlink_rev3_pcb_left_and_cady_with_labels-1536x851.jpg 1536w, https://olegkutkov.me/wp-content/uploads/2024/09/starrlink_rev3_pcb_left_and_cady_with_labels.jpg 1873w" sizes="auto, (max-width: 729px) 100vw, 729px" />Click on the image to see the full-resolution version</a></p>
+<h3>Modules description</h3>
+<p>Now that we&#8217;ve got the big picture let&#8217;s dive into the details of each module.</p>
+<h4>Input connector, Ethernet transformer, and PoE input</h4>
+<p>The input connector type is <a href="https://www.digikey.com/en/products/detail/jst-sales-america-inc/BM10B-ZPDSS-TF-LF-SN/2472573">BM10B-ZPDSS-TF(LF)(SN)</a>. The cable side is <a href="https://www.digikey.com/en/products/detail/jst-sales-america-inc/ZPDR-10V-S/2472561">ZDPR-10V-S.</a></p>
+<p>Below, you can see the connector pinout (PCB side) and how the lines are routed to the PoE transformer. This info can be helpful if the connector is torn off the board.</p>
+<p><a href="../../../../wp-content/uploads/2024/09/starrlink_rev3_input_connector_and_magnetics_pinout.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3424" src="../../../../wp-content/uploads/2024/09/starrlink_rev3_input_connector_and_magnetics_pinout-1024x487.jpg" alt="" width="736" height="350" srcset="https://olegkutkov.me/wp-content/uploads/2024/09/starrlink_rev3_input_connector_and_magnetics_pinout-1024x487.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/09/starrlink_rev3_input_connector_and_magnetics_pinout-400x190.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/09/starrlink_rev3_input_connector_and_magnetics_pinout-768x365.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/09/starrlink_rev3_input_connector_and_magnetics_pinout-1536x730.jpg 1536w, https://olegkutkov.me/wp-content/uploads/2024/09/starrlink_rev3_input_connector_and_magnetics_pinout.jpg 1708w" sizes="auto, (max-width: 736px) 100vw, 736px" /></a></p>
+<p>The PoE transformer is 802.3bt-rated 7490220126 from Wurth Elektronik, but it&#8217;s hard to find. Possible replacements are <a href="https://www.we-online.com/components/products/datasheet/7490220123.pdf">749022013</a> or <a href="https://www.coilcraft.com/getmedia/c9de8674-1e99-412c-90bd-529527be7bd0/wa8704.pdf">WA8704-ALD</a>.</p>
+<p>Complete schematic of the input section:</p>
+<p><a href="../../../../wp-content/uploads/2024/10/starlink_rev3_power_input.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-3455" src="../../../../wp-content/uploads/2024/10/starlink_rev3_power_input-1024x805.png" alt="" width="850" height="668" srcset="https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_power_input-1024x805.png 1024w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_power_input-382x300.png 382w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_power_input-768x604.png 768w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_power_input.png 1342w" sizes="auto, (max-width: 850px) 100vw, 850px" /></a></p>
+<p>The input section is a typical Ethernet/PoE circuit with the PoE transformer, <a href="https://resources.altium.com/p/bob-smith-termination-it-correct-ethernet">Bob Smith termination</a>, and protection elements.<br />
+The drain wire from the data cable is connected to the Dishy GND via a paralleled capacitor, resistor, and TVS diode.<br />
+The capacitor creates a low-impedance path for high-frequency noise. The 500k resistor helps drain any extra DC, effectively limiting the current in a normal situation. TVS diode <a href="https://www.diodes.com/assets/Datasheets/SMAJ5.0CA-SMAJ200CA.pdf">SMAJ10</a> helps in extreme conditions, quickly draining any high-voltage spikes.</p>
+<p>Ethernet lines are protected with two <a href="https://www.we-online.com/components/products/datasheet/824015043.pdf">WE824015043</a> TVS arrays. There is no separate Ethernet PHY. Data lines are connected directly to the SoC.</p>
+<p>The power lines are taken from the corresponding Ethernet pairs as described above.<br />
+There is also a slight tap in the form of a voltage divider, which monitors the input voltage.</p>
+<p>The negative (return) line is connected to the GND via the 0.05R shunt. The <a href="https://www.ti.com/lit/ds/symlink/lm7322.pdf">LM7321MF</a> amplifier measures the current across the shunt. This amplifier has a single power and &#8220;virtual&#8221; ground separated from the primary GND with the shunt. Additional components are required to create a frequency response and provide filtering before feeding the output voltage to an ADC input.</p>
+<h4>PoE detection</h4>
+<p>The PoE detection circuit is quite simple. It&#8217;s connected directly to the input 48V rail (PoE transformer) and generates the required signature for the power supply unit.</p>
+<p><a href="../../../../wp-content/uploads/2024/10/starlink_rev3_poe_detection_schematic.jpg"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-3428" src="../../../../wp-content/uploads/2024/10/starlink_rev3_poe_detection_schematic-1024x677.jpg" alt="" width="850" height="562" srcset="https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_poe_detection_schematic-1024x677.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_poe_detection_schematic-400x264.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_poe_detection_schematic-768x508.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_poe_detection_schematic-1536x1016.jpg 1536w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_poe_detection_schematic.jpg 1629w" sizes="auto, (max-width: 850px) 100vw, 850px" /></a></p>
+<p>When the router&#8217;s sense voltage (<strong>2.7V</strong>) is applied to the PoE input, <strong>T2</strong> immediately opens with the help of two <strong>100k</strong> resistors connected to the base. <strong>T1</strong> is closed, and the <strong>T2</strong> base is not being shunted. The opened transistor loads the line with the <strong>1K</strong> resistor. This value, plus some resistance from the cable, creates enough load to trigger the PoE controller in the Starlink router or Starlink power brick.<br />
+The voltage starts to rise, and when it reaches approximately 8.5V, the current starts flowing via the <a href="https://www.diodes.com/assets/Datasheets/DDZ5V1B-DDZ43.pdf"><strong>DDZ8V2C</strong></a> zener diode and eventually opens <strong>T1</strong>. This transistor shunts the <strong>T2</strong> and disconnects the <strong>1K</strong> load from the line. This happens quickly enough (less than 400 microseconds) to save the <strong>1K</strong> resistor from overheating.<br />
+The power line remains active for <strong>876</strong> ms. This is enough time for the primary voltage regulator to kick in and consume power instead of the <strong>1K</strong> resistor.</p>
+<p><a href="../../../../wp-content/uploads/2024/10/starlink_rev3_poe_detection_logic_flow.jpg"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-3441" src="../../../../wp-content/uploads/2024/10/starlink_rev3_poe_detection_logic_flow-1024x937.jpg" alt="" width="850" height="778" srcset="https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_poe_detection_logic_flow-1024x937.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_poe_detection_logic_flow-328x300.jpg 328w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_poe_detection_logic_flow-768x702.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_poe_detection_logic_flow.jpg 1498w" sizes="auto, (max-width: 850px) 100vw, 850px" /></a></p>
+<p>T1 remains open so that parasitic current consumption will be less than 0.00096A. This can be neglected.</p>
+<h4>MAX16056 supervisor</h4>
+<p>The primary purpose of the <a href="https://www.analog.com/media/en/technical-documentation/data-sheets/max16056-max16059.pdf">MAX16056</a> is the soft start of the L3751 when the power is stabilized.</p>
+<p><a href="../../../../wp-content/uploads/2024/10/starlink_max16056_powermon_schem.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3444" src="../../../../wp-content/uploads/2024/10/starlink_max16056_powermon_schem-1024x405.jpg" alt="" width="961" height="380" srcset="https://olegkutkov.me/wp-content/uploads/2024/10/starlink_max16056_powermon_schem-1024x405.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_max16056_powermon_schem-400x158.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_max16056_powermon_schem-768x304.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_max16056_powermon_schem.jpg 1475w" sizes="auto, (max-width: 961px) 100vw, 961px" /></a></p>
+<p>The supervisor IC is powered directly from the input PoE line via current-limiting resistors and 5V <a href="https://www.ti.com/lit/ds/symlink/tl4050c.pdf">TL4050</a> shunt voltage reference.<br />
+With a series of resistors and capacitors, the <strong>MAX16056</strong> is configured for a <strong>229</strong> ms RESET line delay.<br />
+The RESET line is pulled down on start, disabling the <strong>LM3751</strong> voltage regulator, and released when the timer elapses (229 ms).</p>
+<p><a href="../../../../wp-content/uploads/2024/10/starlink_rev3_max16056_flow.jpg"><img loading="lazy" decoding="async" class="size-large wp-image-3447 aligncenter" src="../../../../wp-content/uploads/2024/10/starlink_rev3_max16056_flow-1024x659.jpg" alt="" width="850" height="547" srcset="https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_max16056_flow-1024x659.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_max16056_flow-400x258.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_max16056_flow-768x495.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_max16056_flow-1536x989.jpg 1536w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_max16056_flow.jpg 1800w" sizes="auto, (max-width: 850px) 100vw, 850px" /></a></p>
+<p>This creates a descent start delay for the primary voltage regulator but still fits into the power activation cycle (876 ms).</p>
+<h4>L3751 primary voltage regulator</h4>
+<p><a href="../../../../wp-content/uploads/2024/10/starlink_rev3_L3751.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-3459" src="../../../../wp-content/uploads/2024/10/starlink_rev3_L3751-1024x616.png" alt="" width="850" height="511" srcset="https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_L3751-1024x616.png 1024w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_L3751-400x241.png 400w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_L3751-768x462.png 768w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_L3751.png 1297w" sizes="auto, (max-width: 850px) 100vw, 850px" /></a></p>
+<p>48V from the input section connected to the array of capacitors and additional <a href="https://www.littelfuse.com/~/media/electronics/datasheets/tvs_diodes/littelfuse_tvs_diode_p6smb_datasheet.pdf.pdf">TVS diode</a>. This array helps compensate for losses in long cables during peak power consumption.</p>
+<p>LM3751 is powered (VIN) via a small current limiting resistor from the input line. Two resistors on EN input form a voltage divider. This helps to activate the voltage regulator only when the input voltage is higher than a specific low limit. The minimum required voltage on the EN input is <strong>&gt;1.2V</strong>. In this case, LM3751 will run with an input voltage higher than <strong>38V</strong>. You can replace this voltage divider and make it run from lower voltages.<br />
+As described above, the EN input is also connected to the MAX16056 supervisor.</p>
+<p>The PGOD pin directly drives the MP8771 EN input. When everything is good, this line should have <strong>4.7V</strong>.</p>
+<p>Two power MOSFETs are <a href="https://www.onsemi.com/download/data-sheet/pdf/fdms86182-d.pdf">FDMS86182</a>. The switching frequency is <strong>250 KHz</strong>. The output voltage should be between 11.8 and 12V.</p>
+<p>You can check how everything is placed on the PCB and interconnected in the messy picture below:</p>
+<p><a href="../../../../wp-content/uploads/2024/10/starlink_rev3_lm3751_pcb_desc.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-3465" src="../../../../wp-content/uploads/2024/10/starlink_rev3_lm3751_pcb_desc.jpg" alt="" width="808" height="601" srcset="https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_lm3751_pcb_desc.jpg 808w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_lm3751_pcb_desc-400x298.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_lm3751_pcb_desc-768x571.jpg 768w" sizes="auto, (max-width: 808px) 100vw, 808px" /></a></p>
+<p>Here are the measurements of MOSFET gates for reference.<br />
+All measures are referenced to the GND. The Q1 high-side looks unusual with a higher Vpp because it&#8217;s not directly referenced to GND and is powered via the D2-C14 bootstrap circuit.</p>
+<p><a href="../../../../wp-content/uploads/2024/10/starlink_rev3_l3751_mosfets.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-3469" src="../../../../wp-content/uploads/2024/10/starlink_rev3_l3751_mosfets.jpg" alt="" width="668" height="363" srcset="https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_l3751_mosfets.jpg 668w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_l3751_mosfets-400x217.jpg 400w" sizes="auto, (max-width: 668px) 100vw, 668px" /></a></p>
+<h4>MP8771 core voltage regulator</h4>
+<p>The following primary voltage regulator to start after the L3751 is <a href="https://www.monolithicpower.com/en/mp8771.html">MP8771</a>. This regulator provides a single 0.9-1V voltage for the SoC CPU cores.</p>
+<p><a href="../../../../wp-content/uploads/2024/10/starlink_rev3_mp8771.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-3472" src="../../../../wp-content/uploads/2024/10/starlink_rev3_mp8771-1024x335.png" alt="" width="890" height="291" srcset="https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_mp8771-1024x335.png 1024w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_mp8771-400x131.png 400w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_mp8771-768x251.png 768w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev3_mp8771.png 1274w" sizes="auto, (max-width: 890px) 100vw, 890px" /></a></p>
+<p>PCB layout and essential signals:</p>
+<p><a href="../../../../wp-content/uploads/2024/10/Starlink_rev3_MP8771_pcb_layout.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-3477" src="../../../../wp-content/uploads/2024/10/Starlink_rev3_MP8771_pcb_layout.jpg" alt="" width="764" height="320" srcset="https://olegkutkov.me/wp-content/uploads/2024/10/Starlink_rev3_MP8771_pcb_layout.jpg 764w, https://olegkutkov.me/wp-content/uploads/2024/10/Starlink_rev3_MP8771_pcb_layout-400x168.jpg 400w" sizes="auto, (max-width: 764px) 100vw, 764px" /></a></p>
+<h4>MP8892 4-rail voltage regulator</h4>
+<p>MP8771 from the previous step activates MP8892 when everything is good. The MP8892 provides four voltages for the Clock module, GNSS, DDR RAM, and SoC IO module.<br />
+Unfortunately, there is no datasheet available for this chip. An additional reverse engineering is required.<br />
+The MP8892 is a complete power management IC (<strong>PMIC</strong>) integrating four high-efficiency, step-down DC/DC converters and a control interface (I<sup>2</sup>C). The voltage regulator provides up to 4.5A (single line) of current. The switching frequency is 1MHz, so the output inductors are pretty small.<br />
+The output voltages can be adjusted through the I<sup>2</sup>C bus or preset by the three-time, multiple-time programmable (MTP) memory e-fuse. In the case of Starlink, preprogrammed voltages are 3.3, 1.8, 1.3, and 1.1 V. The regulator always starts with these voltages.</p>
+<p>MP8892 pinout:</p>
+<p><a href="../../../../wp-content/uploads/2024/10/mp8892_pinout.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-3480" src="../../../../wp-content/uploads/2024/10/mp8892_pinout.png" alt="" width="731" height="921" srcset="https://olegkutkov.me/wp-content/uploads/2024/10/mp8892_pinout.png 731w, https://olegkutkov.me/wp-content/uploads/2024/10/mp8892_pinout-238x300.png 238w" sizes="auto, (max-width: 731px) 100vw, 731px" /></a></p>
+<p>Schematic is very simple:</p>
+<p><a href="../../../../wp-content/uploads/2024/10/starlink_rev_mp8892.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-3485" src="../../../../wp-content/uploads/2024/10/starlink_rev_mp8892-1024x463.png" alt="" width="850" height="384" srcset="https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev_mp8892-1024x463.png 1024w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev_mp8892-400x181.png 400w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev_mp8892-768x347.png 768w, https://olegkutkov.me/wp-content/uploads/2024/10/starlink_rev_mp8892.png 1083w" sizes="auto, (max-width: 850px) 100vw, 850px" /></a></p>
+<p>PCB layout:</p>
+<p><a href="../../../../wp-content/uploads/2024/11/starlink_rev3_mp8892_pcb_layout.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-3488" src="../../../../wp-content/uploads/2024/11/starlink_rev3_mp8892_pcb_layout.jpg" alt="" width="850" height="620" srcset="https://olegkutkov.me/wp-content/uploads/2024/11/starlink_rev3_mp8892_pcb_layout.jpg 850w, https://olegkutkov.me/wp-content/uploads/2024/11/starlink_rev3_mp8892_pcb_layout-400x292.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/11/starlink_rev3_mp8892_pcb_layout-768x560.jpg 768w" sizes="auto, (max-width: 850px) 100vw, 850px" /></a></p>
+<p>MP8892 is connected to the SoC I2C-3 bus for configuration and monitoring. The device address is 0x6F. The registers map is unknown since there is no public datasheet. Starlink firmware executing i2cdetect command on boot: <strong>i2cdetect -y -r 3 0x6f 0x6f</strong></p>
+<p>This is how it explained in the firmware code:</p>
+<pre>On some UTs, the PMIC only responds after querying it via i2cdetect with read byte commands for probing. It is unknown why. 
+Nothing in the datasheet suggests this is needed.</pre>
+<p><a href="../../../../wp-content/uploads/2024/11/starlink_rev3_mp8892_i2c_initial_detect.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-3491" src="../../../../wp-content/uploads/2024/11/starlink_rev3_mp8892_i2c_initial_detect.jpg" alt="" width="629" height="329" srcset="https://olegkutkov.me/wp-content/uploads/2024/11/starlink_rev3_mp8892_i2c_initial_detect.jpg 629w, https://olegkutkov.me/wp-content/uploads/2024/11/starlink_rev3_mp8892_i2c_initial_detect-400x209.jpg 400w" sizes="auto, (max-width: 629px) 100vw, 629px" /></a></p>
+<p>Next, the code writes a specific value (0x3E) to register 0x02. It might be some voltage profile selection.</p>
+<p><a href="../../../../wp-content/uploads/2024/11/starlink_rev3_mp8892_i2c_writing_to_0x02.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-3492" src="../../../../wp-content/uploads/2024/11/starlink_rev3_mp8892_i2c_writing_to_0x02.jpg" alt="" width="629" height="329" srcset="https://olegkutkov.me/wp-content/uploads/2024/11/starlink_rev3_mp8892_i2c_writing_to_0x02.jpg 629w, https://olegkutkov.me/wp-content/uploads/2024/11/starlink_rev3_mp8892_i2c_writing_to_0x02-400x209.jpg 400w" sizes="auto, (max-width: 629px) 100vw, 629px" /></a></p>
+<p>Most likely, there will be some additional writing and adjustments during runtime.</p>
+<h4>MP8795 and antenna array</h4>
+<p>Five <a href="https://www.monolithicpower.com/en/documentview/productdocument/index/version/2/document_type/Datasheet/lang/en/sku/MP8795GLE/document_id/9122/">MP8795</a> provides power for the antenna array. Three 1.8V voltages are provided for the RF front chips and DBF RF IO, and two 1V voltages are provided for DBF DSP cores. All voltage regulators are activated from the software (SoC GPIO) when the terminal is booted.</p>
+<p><a href="../../../../wp-content/uploads/2024/11/starlink_rev3_mp8795_5_regs.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-3503" src="../../../../wp-content/uploads/2024/11/starlink_rev3_mp8795_5_regs.jpg" alt="" width="648" height="447" srcset="https://olegkutkov.me/wp-content/uploads/2024/11/starlink_rev3_mp8795_5_regs.jpg 648w, https://olegkutkov.me/wp-content/uploads/2024/11/starlink_rev3_mp8795_5_regs-400x276.jpg 400w" sizes="auto, (max-width: 648px) 100vw, 648px" /></a>Here is how the power from these voltage regulators is distributed:</p>
+<p><a href="../../../../wp-content/uploads/2024/11/starlink_rev3_beamformers_power_layout.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-3509" src="../../../../wp-content/uploads/2024/11/starlink_rev3_beamformers_power_layout-1024x724.png" alt="" width="850" height="601" srcset="https://olegkutkov.me/wp-content/uploads/2024/11/starlink_rev3_beamformers_power_layout-1024x724.png 1024w, https://olegkutkov.me/wp-content/uploads/2024/11/starlink_rev3_beamformers_power_layout-400x283.png 400w, https://olegkutkov.me/wp-content/uploads/2024/11/starlink_rev3_beamformers_power_layout-768x543.png 768w, https://olegkutkov.me/wp-content/uploads/2024/11/starlink_rev3_beamformers_power_layout.png 1123w" sizes="auto, (max-width: 850px) 100vw, 850px" /></a></p>
+<p>The 1.8V rails are for the DBF chips&#8217; analog part (RF IO) and front-end elements (PA + LNA), and the 1V rails are for the DBF digital cores (DSP).</p>
+<p>MP8795 <strong>V1</strong> provides 1.8V for the <strong>DBF0</strong>, <strong>DBF15</strong>, <strong>DBF14</strong>, and <strong>DBF13</strong> chips and all surrounding small FEM chips.<br />
+<strong>V2</strong> provides 1V for the <strong>DBF15</strong>, <strong>DBF0</strong>, <strong>DBF1</strong>, <strong>DBF2</strong>, <strong>DBF3</strong>, <strong>DBF14</strong>, <strong>DBF13</strong>, and <strong>DBF4</strong>.<br />
+<strong>V3</strong> provides 1.8V for the <strong>DBF1</strong>, <strong>DBF2</strong>, <strong>DBF3</strong>, <strong>DBF4</strong>, <strong>DBF5</strong>, <strong>DBF7</strong>, and all surrounding FEM chips.<br />
+<strong>V4</strong> provides 1.8V for the <strong>DBF5</strong>, <strong>DBF7</strong>, <strong>DBF6</strong>, <strong>DBF9</strong>, <strong>DBF10</strong>, <strong>DBF8</strong>, <strong>DBF11</strong>, <strong>DBF12</strong> and corresponding FEM chips.<br />
+<strong>V5</strong> provides 1V for the last eight beamformers&#8217; DSP cores: <strong>DBF6</strong>, <strong>DBF9</strong>, <strong>DBF10</strong>, <strong>DBF8</strong>, <strong>DBF11</strong> and <strong>DBF12</strong>.</p>
+<p>All five MP8795 regulators are implemented similarly, except for the feedback circuit. Two resistors define the output voltage.<br />
+In the 1.8V configuration, the R3 value is 4k, and the R4 value is 2k. In the 1V configuration, the R3 value is 2k, and the R4 value is 2.4k.</p>
+<p><a href="../../../../wp-content/uploads/2024/12/starlink_rev3_mp8795.png"><img loading="lazy" decoding="async" class="aligncenter wp-image-3515" src="../../../../wp-content/uploads/2024/12/starlink_rev3_mp8795-1024x345.png" alt="" width="954" height="321" srcset="https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_mp8795-1024x345.png 1024w, https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_mp8795-400x135.png 400w, https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_mp8795-768x259.png 768w, https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_mp8795.png 1441w" sizes="auto, (max-width: 954px) 100vw, 954px" /></a></p>
+<p>Additionally, the 1V variant has two capacitors for the soft start option, which is also implemented for the 1.8V regulator on some Starlink boards. There is no rev/pcba difference between these two versions (w/ 1.8V and w/o soft start).</p>
+<p>Below is the PCB layout of one of the MP8795 regulators (left 1.8V). All components were marked according to the schematic.</p>
+<p><a href="../../../../wp-content/uploads/2024/12/starlink_rev3_mp8795_pcb_layout_1v8.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-3517" src="../../../../wp-content/uploads/2024/12/starlink_rev3_mp8795_pcb_layout_1v8.jpg" alt="" width="754" height="538" srcset="https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_mp8795_pcb_layout_1v8.jpg 754w, https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_mp8795_pcb_layout_1v8-400x285.jpg 400w" sizes="auto, (max-width: 754px) 100vw, 754px" /></a></p>
+<h5><strong>Digital Beamformers and FrontEnd Elements</strong></h5>
+<p>Beamformers and RF architecture are outside the scope of this article, but we will examine the general architecture, power bus, and crucial signal distribution.</p>
+<p>Beamformer IC (codename &#8211; <strong>Shiraz</strong>) requires 1V for the DSP core and 1.8V for the RF IO.<br />
+The 1V line is split into three lines to provide power for different submodules of the Shiraz chip. Two 1V lines have additional filtering and bypass capacitors.<br />
+Each beamformer has 16 RFIO channels and 32 associated FrontEnd Modules (FEM, codename &#8211; <strong>Pulsar</strong>). Each FEM contains <a href="https://en.wikipedia.org/wiki/Low-noise_amplifier">LNA</a> and <a href="https://www.analog.com/en/resources/glossary/power-amplifier.html">PA</a>, plus an additional analog phase <a href="https://en.wikipedia.org/wiki/Phase_shift_module">shifter</a>. Thus, two patch antennas (for TX and RX) are connected to the single FEM. All FEMs are powered by the 1.8V bus. There are separate power inputs for the LNA and PA sections.<br />
+Additionally, there is a serial two-wires control bus (<a href="https://www.mipi.org/specifications/rf-front-end">RFFE</a>) between the beamformer and associated FEMs. RFFE clock line is terminated with a 33 ohm resistor.</p>
+<p><a href="../../../../wp-content/uploads/2024/12/starlink_rev3_beamformers_and_fems_simple.png"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-3525" src="../../../../wp-content/uploads/2024/12/starlink_rev3_beamformers_and_fems_simple-1024x738.png" alt="" width="850" height="613" srcset="https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_beamformers_and_fems_simple-1024x738.png 1024w, https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_beamformers_and_fems_simple-400x288.png 400w, https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_beamformers_and_fems_simple-768x554.png 768w, https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_beamformers_and_fems_simple.png 1058w" sizes="auto, (max-width: 850px) 100vw, 850px" /></a></p>
+<p>DBF, FEM, and power lines PCB layout:</p>
+<p><a href="../../../../wp-content/uploads/2024/12/starlink_rev3_beamformers_and_fems_pcb_layout.jpg"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-3527" src="../../../../wp-content/uploads/2024/12/starlink_rev3_beamformers_and_fems_pcb_layout-1024x641.jpg" alt="" width="850" height="532" srcset="https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_beamformers_and_fems_pcb_layout-1024x641.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_beamformers_and_fems_pcb_layout-400x250.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_beamformers_and_fems_pcb_layout-768x481.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_beamformers_and_fems_pcb_layout.jpg 1238w" sizes="auto, (max-width: 850px) 100vw, 850px" /></a></p>
+<h4>CADY clock generation and distribution</h4>
+<p>The CADY section is simple and contains a 60 MHz crystal generator, buffers, and differential amplifier.<br />
+The 60 MHz clock drives DBF chips (single-ended line) and the SoC (differential line). This module starts on power-on and provides the crucial clock for the SoC.<br />
+Additionally, the firmware activates some of the CADY components on boot.</p>
+<p><a href="../../../../wp-content/uploads/2024/12/starlink_rev3_cady_pcb_layout_c.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-3535" src="../../../../wp-content/uploads/2024/12/starlink_rev3_cady_pcb_layout_c.jpg" alt="" width="950" height="491" srcset="https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_cady_pcb_layout_c.jpg 950w, https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_cady_pcb_layout_c-400x207.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_cady_pcb_layout_c-768x397.jpg 768w" sizes="auto, (max-width: 950px) 100vw, 950px" /></a></p>
+<h4>SoC</h4>
+<p>The Starlink SoC&#8217;s codename is Catson (REV1-REV4). This article does not provide a detailed description of this chip. We will focus on essential power lines.</p>
+<p><a href="../../../../wp-content/uploads/2024/12/starlink_rev3_catson_pcb_layout_c.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-3537" src="../../../../wp-content/uploads/2024/12/starlink_rev3_catson_pcb_layout_c.jpg" alt="" width="719" height="600" srcset="https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_catson_pcb_layout_c.jpg 719w, https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_catson_pcb_layout_c-360x300.jpg 360w" sizes="auto, (max-width: 719px) 100vw, 719px" /></a></p>
+<p>The power supply system is relatively standard, with many bypass capacitors. The capacity of most of the smaller capacitors is 100 nanofarads.<br />
+60 MHz voltage level is 0.4V (to GND).</p>
+<h4>Starlink motors and motors driver</h4>
+<p>Starlink drive motors are creatively repurposed motors from car <a href="https://www.motioncontrols.com/products/power-fold-21xrs">folding mirror drives</a>. They are regular brushed DC motors, 12V, with a typical consumption of about 0.4A.</p>
+<p><a href="../../../../wp-content/uploads/2024/12/starlink_dc_motors_overview_brief.jpg"><img loading="lazy" decoding="async" class="aligncenter wp-image-3538" src="../../../../wp-content/uploads/2024/12/starlink_dc_motors_overview_brief-1024x421.jpg" alt="" width="813" height="334" srcset="https://olegkutkov.me/wp-content/uploads/2024/12/starlink_dc_motors_overview_brief-1024x421.jpg 1024w, https://olegkutkov.me/wp-content/uploads/2024/12/starlink_dc_motors_overview_brief-400x165.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/12/starlink_dc_motors_overview_brief-768x316.jpg 768w, https://olegkutkov.me/wp-content/uploads/2024/12/starlink_dc_motors_overview_brief-1536x632.jpg 1536w, https://olegkutkov.me/wp-content/uploads/2024/12/starlink_dc_motors_overview_brief.jpg 1587w" sizes="auto, (max-width: 813px) 100vw, 813px" /></a></p>
+<p>A dual-channel DC motor driver, <a href="https://www.st.com/en/motor-drivers/stspin840.html">STSPIN840</a>, controls these motors. The motor driver is controlled with PWM signals from the SoC and software. It provides feedback about motor consumption so the software will know when motors are stuck or reach extreme positions.</p>
+<p><a href="../../../../wp-content/uploads/2024/12/starlink_rev3_dc_motor_driver_and_connector_pcb.jpg"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-3539" src="../../../../wp-content/uploads/2024/12/starlink_rev3_dc_motor_driver_and_connector_pcb.jpg" alt="" width="968" height="461" srcset="https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_dc_motor_driver_and_connector_pcb.jpg 968w, https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_dc_motor_driver_and_connector_pcb-400x190.jpg 400w, https://olegkutkov.me/wp-content/uploads/2024/12/starlink_rev3_dc_motor_driver_and_connector_pcb-768x366.jpg 768w" sizes="auto, (max-width: 968px) 100vw, 968px" /></a></p>
+<p>PCB socket is <a href="https://www.digikey.com/en/products/detail/jst-sales-america-inc/BM05B-ZESS-TBT-LF-SN/1886989">BM05B-ZESS-TBT(LF)(SN)</a>. The cable connector is <a href="https://www.digikey.com/en/products/detail/jst-sales-america-inc/ZER-05V-S/1887020">ZER-05V-S</a>.</p>
+<h4>Common Problems and Solutions</h4>
+<p><strong>Problem</strong>: Starlink is not Starting, and there is no voltage on the PoE input connector.<br />
+<strong>Solution</strong>: Check the router/PoE injector. Check the state of the Starlink cable and proprietary connectors.</p>
+<p><strong>Problem</strong>: There is a constant low voltage on the PoE input.<br />
+<strong>Solution</strong>: Check the main voltage fuse inside the router or PoE injector. Check the state of the PoE detection circuit. Damaged resistors might prevent T2 from opening and loading the line.</p>
+<p><strong>Problem</strong>: PoE input voltage is jumping between low and high levels.<br />
+<strong>Solution</strong>: The Starlink is most likely not consuming power. Check that the 12V is not shorted. Check that MP3751 is starting and that the voltage on pin 1 (ENABLE) is present.</p>
+<p><strong>Problem</strong>: PoE input voltage jumps between low and high levels, and the primary inductor makes a clicking noise.<br />
+<strong>Solution:</strong> The 12V bus is shorted. Check all the voltage regulators. Remove the MP3751 inductor and apply voltage to the 12V using an external power supply. Set the power supply to 3V and maximum current. Next, find the overheating section.</p>
+<p><strong>Problem</strong>: Starlink is starting. The Starlink App always shows a &#8220;booting&#8221; state.<br />
+<strong>Solution</strong>: Install the Star Debug app from a marketplace and check the Dish tab and Ready States section. Most likely, some of the MP8795 is not working. Check all 1 and 1.8 voltages.</p>
+<p><strong>Problem</strong>: Starlink is starting, and Star Debug shows only RF failure. All 1 and 1.8 voltages are present.<br />
+<strong>Solution</strong>: Some of the Pulsar FEMs are not starting and most likely shorting the RFFE bus. Check resistance on the RFFE clock and DATA lines on each DBF section. Use a high-resolution multimeter to find the chip shorting the bus. Replace the faulted chip.</p>
+<p><strong>Problem</strong>: Starlink is starting. The Starlink App always shows a &#8220;booting&#8221; state; all modules are green.<br />
+<strong>Solution</strong>: Check the GPS state. Starlink will be stuck in the &#8220;booting&#8221; mode if there is no valid GPS signal. If necessary, replace or rework the STA8089 GNNS chip.</p>
+<p>Thank you for reading. I hope this material will help you repair the REV3 Starlink terminal.</p>
+<span class="tags-links">Tagged <a href="https://olegkutkov.me/tag/electronics/" rel="tag">Electronics</a>, <a href="https://olegkutkov.me/tag/pcb/" rel="tag">pcb</a>, <a href="https://olegkutkov.me/tag/rev3/" rel="tag">rev3</a>, <a href="https://olegkutkov.me/tag/reverse/" rel="tag">reverse</a>, <a href="https://olegkutkov.me/tag/starlink/" rel="tag">starlink</a></span>		</div><!-- .entry-content -->
+	</div>
+
+</article><!-- #post-## -->
+
+                    <div class="related-posts">
+
+                        
+                            <h3 class="related-posts-title">Related Posts</h3>
+
+                                                    
+                        <div class="inner-wrapper">
+                              
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="https://olegkutkov.me/2024/08/04/powering-starlink-rev4-v3-from-the-12v-without-poe-injector-router/"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="https://olegkutkov.me/2024/08/04/powering-starlink-rev4-v3-from-the-12v-without-poe-injector-router/">Powering Starlink REV4 (V3) from the 12V without PoE injector/router</a></h2>
+                                         <span class="posted-date">August 4, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="https://olegkutkov.me/2024/02/12/starlink-terminal-revision-4-overview-and-tests/"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="https://olegkutkov.me/2024/02/12/starlink-terminal-revision-4-overview-and-tests/">Starlink terminal revision 4: overview and tests</a></h2>
+                                         <span class="posted-date">February 12, 2024</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                  
+
+                                <div class="news-item three-column-item">
+                                    <div class="news-thumb">
+                                        <a href="https://olegkutkov.me/2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/"></a>   
+                                    </div><!-- .news-thumb --> 
+
+                                   <div class="news-text-wrap">
+                                        <h2><a href="https://olegkutkov.me/2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/">Connecting external GPS antenna to the Starlink terminal</a></h2>
+                                         <span class="posted-date">November 7, 2023</span>
+                                   </div><!-- .news-text-wrap -->
+                                </div><!-- .news-item -->
+
+                                                        </div>
+
+                    </div>
+                     
+                    
+            <div class="author-info-wrap">
+
+                <div class="author-thumb">
+                    <img alt='' src='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=100&amp;d=mm&amp;r=g' srcset='https://secure.gravatar.com/avatar/71a690f51f8d15d23a235b9bd07140c4?s=200&#038;d=mm&#038;r=g 2x' class='avatar avatar-100 photo' height='100' width='100' loading='lazy' decoding='async'/>                </div>
+
+                <div class="author-content-wrap">
+                    
+                    <div class="author-header">
+                        <h3 class="author-name">About Oleg Kutkov</h3>
+                    </div><!-- .author-header -->
+
+                    <div class="author-content">
+                        <div class="author-desc"></div>
+                        <a class="authors-more-posts" href="https://olegkutkov.me/author/oleg_kutkov/">View all posts by Oleg Kutkov &rarr;</a>
+                    </div><!-- .author-content -->
+                    
+                </div>
+                
+            </div>
+                     
+            
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://olegkutkov.me/2024/08/04/powering-starlink-rev4-v3-from-the-12v-without-poe-injector-router/" rel="prev">Powering Starlink REV4 (V3) from the 12V without PoE injector/router</a></div></div>
+	</nav>
+<div id="comments" class="comments-area">
+
+		<div id="respond" class="comment-respond">
+		<h3 id="reply-title" class="comment-reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="index.html#respond" style="display:none;">Cancel reply</a></small></h3><form action="https://olegkutkov.me/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate><p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message">Required fields are marked <span class="required">*</span></span></p><p class="comment-form-comment"><label for="comment">Comment <span class="required">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required></textarea></p><p class="comment-form-author"><label for="author">Name <span class="required">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" autocomplete="name" required /></p>
+<p class="comment-form-email"><label for="email">Email <span class="required">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" autocomplete="email" required /></p>
+<p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200" autocomplete="url" /></p>
+<p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment" /> <input type='hidden' name='comment_post_ID' value='3325' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p><p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="9cca6acf2c" /></p><p style="display: none !important;" class="akismet-fields-container" data-prefix="ak_"><label>&#916;<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="115"/><script>document.getElementById( "ak_js_1" ).setAttribute( "value", ( new Date() ).getTime() );</script></p></form>	</div><!-- #respond -->
+	<p class="akismet_comment_form_privacy_notice">This site uses Akismet to reduce spam. <a href="https://akismet.com/privacy/" target="_blank" rel="nofollow noopener">Learn how your comment data is processed</a>.</p>
+</div><!-- #comments -->
+
+</main><!-- #main --></div><!-- #primary --></div><!-- .col-md-8 --><div class="col-md-4 col-sm-12 main-sidebar">
+	<aside id="secondary" class="widget-area" role="complementary">
+		<section id="categories-2" class="widget widget_categories"><h3 class="widget-title">Categories</h3>
+			<ul>
+					<li class="cat-item cat-item-4"><a href="https://olegkutkov.me/category/allsky-camera/">Allsky camera</a> (5)
+</li>
+	<li class="cat-item cat-item-11"><a href="https://olegkutkov.me/category/astro-tools/">Astro tools</a> (9)
+</li>
+	<li class="cat-item cat-item-121"><a href="https://olegkutkov.me/category/automotive/">Automotive</a> (2)
+</li>
+	<li class="cat-item cat-item-30"><a href="https://olegkutkov.me/category/electronics/">Electronics</a> (36)
+</li>
+	<li class="cat-item cat-item-111"><a href="https://olegkutkov.me/category/firmware/">Firmware</a> (3)
+</li>
+	<li class="cat-item cat-item-122"><a href="https://olegkutkov.me/category/hardware/">hardware</a> (14)
+</li>
+	<li class="cat-item cat-item-76"><a href="https://olegkutkov.me/category/linux-kernel/">Linux kernel</a> (8)
+</li>
+	<li class="cat-item cat-item-25"><a href="https://olegkutkov.me/category/linux-system-development/">Linux system development</a> (11)
+</li>
+	<li class="cat-item cat-item-78"><a href="https://olegkutkov.me/category/networking/">Networking</a> (12)
+</li>
+	<li class="cat-item cat-item-15"><a href="https://olegkutkov.me/category/radio-antennas/">Radio &amp; antennas</a> (16)
+</li>
+	<li class="cat-item cat-item-69"><a href="https://olegkutkov.me/category/radioastronomy/">Radioastronomy</a> (5)
+</li>
+	<li class="cat-item cat-item-110"><a href="https://olegkutkov.me/category/reverse-engineering/">Reverse engineering</a> (9)
+</li>
+	<li class="cat-item cat-item-54"><a href="https://olegkutkov.me/category/software/">Software</a> (18)
+</li>
+	<li class="cat-item cat-item-146"><a href="https://olegkutkov.me/category/starlink/">starlink</a> (3)
+</li>
+	<li class="cat-item cat-item-1"><a href="https://olegkutkov.me/category/uncategorized/">Uncategorized</a> (1)
+</li>
+			</ul>
+
+			</section>
+		<section id="recent-posts-2" class="widget widget_recent_entries">
+		<h3 class="widget-title">Recent Posts</h3>
+		<ul>
+											<li>
+					<a href="index.html" aria-current="page">Starlink rev 3 (V2) power architecture</a>
+									</li>
+											<li>
+					<a href="https://olegkutkov.me/2024/08/04/powering-starlink-rev4-v3-from-the-12v-without-poe-injector-router/">Powering Starlink REV4 (V3) from the 12V without PoE injector/router</a>
+									</li>
+											<li>
+					<a href="https://olegkutkov.me/2024/02/12/starlink-terminal-revision-4-overview-and-tests/">Starlink terminal revision 4: overview and tests</a>
+									</li>
+											<li>
+					<a href="https://olegkutkov.me/2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/">Connecting external GPS antenna to the Starlink terminal</a>
+									</li>
+											<li>
+					<a href="https://olegkutkov.me/2023/06/09/how-to-power-starlink-terminal-from-12v-without-poe-injector-and-dc-dc-converters/">How to power Starlink terminal from 12V without PoE injector and DC/DC converters</a>
+									</li>
+					</ul>
+
+		</section><section id="recent-comments-2" class="widget widget_recent_comments"><h3 class="widget-title">Recent Comments</h3><ul id="recentcomments"><li class="recentcomments"><span class="comment-author-link"><a href="https://olegkutkov.me/" class="url" rel="ugc">Oleg Kutkov</a></span> on <a href="https://olegkutkov.me/2022/03/07/reverse-engineering-of-the-starlink-ethernet-adapter/#comment-8170">Reverse engineering of the Starlink Ethernet adapter</a></li><li class="recentcomments"><span class="comment-author-link">Gordon Current</span> on <a href="https://olegkutkov.me/2022/03/07/reverse-engineering-of-the-starlink-ethernet-adapter/#comment-8169">Reverse engineering of the Starlink Ethernet adapter</a></li><li class="recentcomments"><span class="comment-author-link">Star Jedi</span> on <a href="https://olegkutkov.me/2023/11/07/connecting-external-gps-antenna-to-the-starlink-terminal/#comment-8168">Connecting external GPS antenna to the Starlink terminal</a></li><li class="recentcomments"><span class="comment-author-link"><a href="https://olegkutkov.me/" class="url" rel="ugc">Oleg Kutkov</a></span> on <a href="https://olegkutkov.me/2022/03/07/reverse-engineering-of-the-starlink-ethernet-adapter/#comment-8151">Reverse engineering of the Starlink Ethernet adapter</a></li><li class="recentcomments"><span class="comment-author-link">Gordon Current</span> on <a href="https://olegkutkov.me/2022/03/07/reverse-engineering-of-the-starlink-ethernet-adapter/#comment-8148">Reverse engineering of the Starlink Ethernet adapter</a></li></ul></section><section id="nav_menu-6" class="widget widget_nav_menu"><h3 class="widget-title">Oleg Kutkov personal blog</h3><div class="menu-about-me-container"><ul id="menu-about-me" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home menu-item-218"><a href="https://olegkutkov.me/">Home</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3550"><a href="https://olegkutkov.me/forum/index.php">Forum</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-2937"><a href="https://olegkutkov.me/starlink-repairs-archive/">Starlink repairs archive</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-2978"><a href="https://olegkutkov.me/olegkutkov_public_key.txt">Public PGP</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-3140"><a href="https://olegkutkov.me/license/">License</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-219"><a href="https://olegkutkov.me/about-me/">About me</a></li>
+</ul></div></section><section id="search-4" class="widget widget_search"><h3 class="widget-title">Site search</h3><form role="search" method="get" class="search-form" action="https://olegkutkov.me/">
+				<label>
+					<span class="screen-reader-text">Search for:</span>
+					<input type="search" class="search-field" placeholder="Search &hellip;" value="" name="s" />
+				</label>
+				<input type="submit" class="search-submit" value="Search" />
+			</form></section><section id="block-2" class="widget widget_block"><h4>Support author</h4>
+<br>
+You can send donations on <a href="https://www.paypal.com/myaccount/transfer/homepage">PayPal</a> using my email contact@olegkutkov.me
+<br><br>
+Thank you for your support!</section><section id="block-4" class="widget widget_block"><a rel="license" href="http://creativecommons.org/licenses/by/4.0/"><img decoding="async" alt="Creative Commons License" style="border-width:0" src="../../../../../licensebuttons.net/l/by/4.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a></section>	</aside><!-- #secondary -->
+</div></div><!-- .row --></div><!-- .container --></div><!-- #content -->
+	<footer id="colophon" class="site-footer" role="contentinfo">
+		<div class="site-info"><div class="container"><div class="row"> 
+        <div class="col-md-6 col-sm-6">
+            
+                <div class="copyright-text">
+
+                    Oleg Kutkov
+                </div>
+
+                 
+        </div>
+         
+        <div class="col-md-6 col-sm-6">     
+            <div class="credit-text">             
+                Blog Way by <a href="https://www.prodesigns.com/" rel="designer" target="_blank">ProDesigns</a>            </div>
+        </div>
+        </div><!-- .row --></div><!-- .container --></div><!-- .site-info -->	</footer><!-- #colophon -->
+
+</div><!-- #page -->
+
+<!--
+The IP2Location Country Blocker is using IP2Location LITE geolocation database. Please visit https://lite.ip2location.com for more information.
+-->
+<a href="#page" class="scrollup" id="btn-scrollup"><i class="fa fa-angle-up"></i></a><script type="text/javascript" id="code-prettify-js-before">
+/* <![CDATA[ */
+var codePrettifyLoaderBaseUrl = "index.html\/\/olegkutkov.me\/wp-content\/plugins\/code-prettify\/prettify";
+/* ]]> */
+</script>
+
+
+
+
+
+
+
+
+<script defer src="../../../../wp-content/cache/autoptimize/js/autoptimize_1959aecdfec7e755999e2121a6f1fbb0.js"></script></body>
+
+<!-- Mirrored from olegkutkov.me/2024/12/31/starlink-rev-3-v2-power-architecture/ by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 22 Jan 2025 01:56:52 GMT -->
+</html>
